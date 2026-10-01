@@ -1,0 +1,29 @@
+/* ==========================================================================
+   Armsys UI — Public data pages (leaderboards, rankings, directories, catalogs)
+   Builds on the shared table, toolbar, entity and rank components.
+   ========================================================================== */
+.aui-podium { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 12px; }
+.aui-podium-item {
+  --aui-tone: var(--aui-border-strong);
+  position: relative; display: flex; flex-direction: column; gap: 16px; min-width: 0; padding: 20px; overflow: hidden; color: inherit;
+  background: var(--aui-surface-1); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-lg); transition: border-color var(--aui-dur-fast);
+}
+.aui-podium-item::before { content: ""; position: absolute; inset: 0 0 auto; height: 2px; background: linear-gradient(90deg, var(--aui-tone), transparent 80%); }
+a.aui-podium-item:hover { border-color: var(--aui-border-strong); }
+.aui-podium-item.is-1 { --aui-tone: #f3c64b; }
+.aui-podium-item.is-2 { --aui-tone: #cfd6e2; }
+.aui-podium-item.is-3 { --aui-tone: #e39a64; }
+.aui-podium-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.aui-podium-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding-top: 14px; border-top: 1px solid var(--aui-border-soft); }
+.aui-podium-stats .aui-stat-value { font-size: 1.25rem; }
+.aui-data-header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; }
+.aui-data-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
+.aui-data-meta > span { display: inline-flex; align-items: center; gap: 6px; }
+.aui-data-section + .aui-data-section { margin-top: 40px; }
+.aui-locked-overlay { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.aui-locked-overlay .aui-icon-box { margin-bottom: 2px; }
+.aui-catalog-card { display: flex; flex-direction: column; gap: 12px; min-width: 0; padding: 18px; color: inherit; background: var(--aui-surface-1); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-md); transition: border-color var(--aui-dur-fast); }
+a.aui-catalog-card:hover { border-color: var(--aui-border-strong); }
+@media (max-width: 900px) {
+  .aui-podium { --cols: 1; }
+}

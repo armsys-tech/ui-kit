@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Armsys UI — Prose
+   Styles plain semantic HTML (CMS output, Markdown, WordPress content).
+   Loaded before components so component classes inside prose win.
+   ========================================================================== */
+.aui-prose { font-size: var(--aui-fs-lg); line-height: 1.75; color: var(--aui-text-secondary); overflow-wrap: break-word; }
+.aui-prose--sm { font-size: var(--aui-fs-md); line-height: 1.7; }
+.aui-prose > :where(:first-child) { margin-top: 0; }
+.aui-prose > :where(:last-child) { margin-bottom: 0; }
+.aui-prose :where(h1, h2, h3, h4, h5, h6) { position: relative; color: var(--aui-text); font-weight: var(--aui-fw-semibold); scroll-margin-top: calc(var(--aui-header-h) + 24px); text-wrap: balance; }
+.aui-prose :where(h1) { font-size: 1.875rem; letter-spacing: -.028em; line-height: 1.2; margin: 0 0 .7em; }
+.aui-prose :where(h2) { font-size: 1.375rem; letter-spacing: -.022em; line-height: 1.3; margin: 2.3em 0 .7em; }
+.aui-prose :where(h3) { font-size: 1.125rem; letter-spacing: -.015em; line-height: 1.4; margin: 1.9em 0 .55em; }
+.aui-prose :where(h4) { font-size: 1rem; margin: 1.7em 0 .5em; }
+.aui-prose :where(h5) { font-size: .9375rem; margin: 1.5em 0 .4em; }
+.aui-prose :where(h6) { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--aui-text-muted); margin: 1.5em 0 .4em; }
+.aui-prose :where(p) { margin: 0 0 1.15em; }
+.aui-prose :where(a) { color: var(--aui-link); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--aui-link) 38%, transparent); text-underline-offset: 3px; text-decoration-thickness: 1px; transition: text-decoration-color var(--aui-dur-fast); }
+.aui-prose :where(a:hover) { text-decoration-color: currentColor; }
+.aui-prose :where(strong, b) { color: var(--aui-text); font-weight: var(--aui-fw-semibold); }
+.aui-prose :where(em, i) { font-style: italic; }
+.aui-prose :where(small) { font-size: .85em; color: var(--aui-text-muted); }
+.aui-prose :where(ul, ol) { margin: 0 0 1.15em; padding-left: 1.4em; }
+.aui-prose :where(li) { margin: .4em 0; padding-left: .2em; }
+.aui-prose :where(li::marker) { color: var(--aui-text-subtle); }
+.aui-prose :where(ol > li::marker) { font-variant-numeric: tabular-nums; font-size: .92em; }
+.aui-prose :where(li > ul, li > ol) { margin: .4em 0 .2em; }
+.aui-prose :where(blockquote) { margin: 1.6em 0; padding: .15em 0 .15em 1.1em; border-left: 2px solid var(--aui-border-strong); color: var(--aui-text-muted); }
+.aui-prose :where(blockquote p:last-child) { margin-bottom: 0; }
+.aui-prose :where(hr) { margin: 2.6em 0; border: 0; border-top: 1px solid var(--aui-border-soft); }
+.aui-prose :where(img, video) { border-radius: var(--aui-radius-md); border: 1px solid var(--aui-border-soft); }
+.aui-prose :where(figure) { margin: 1.8em 0; }
+.aui-prose :where(figcaption) { margin-top: .7em; font-size: var(--aui-fs-sm); color: var(--aui-text-subtle); text-align: center; }
+.aui-prose :where(:not(pre) > code) {
+  font-size: .85em; padding: .14em .4em; border-radius: var(--aui-radius-xs);
+  background: var(--aui-surface-2); border: 1px solid var(--aui-border-soft); color: var(--aui-text); white-space: break-spaces;
+}
+.aui-prose :where(pre) {
+  margin: 1.6em 0; padding: 14px 16px; overflow-x: auto; border-radius: var(--aui-radius-md);
+  background: var(--aui-code-bg); border: 1px solid var(--aui-border); color: var(--aui-code-text);
+  font-size: .8125rem; line-height: 1.7; tab-size: 2;
+}
+.aui-prose :where(pre code) { background: none; border: 0; padding: 0; font-size: inherit; color: inherit; white-space: pre; }
+.aui-prose :where(table) {
+  width: 100%; margin: 1.6em 0; border-collapse: separate; border-spacing: 0; font-size: var(--aui-fs-md); line-height: 1.55;
+  border: 1px solid var(--aui-border); border-radius: var(--aui-radius-md); overflow: hidden;
+}
+.aui-prose :where(th) { text-align: left; font-weight: var(--aui-fw-semibold); font-size: var(--aui-fs-sm); color: var(--aui-text); background: var(--aui-surface-1); padding: 10px 14px; border-bottom: 1px solid var(--aui-border); }
+.aui-prose :where(td) { padding: 10px 14px; border-bottom: 1px solid var(--aui-border-soft); vertical-align: top; }
+.aui-prose :where(tbody tr:last-child td) { border-bottom: 0; }
+.aui-prose :where(dl) { margin: 0 0 1.15em; }
+.aui-prose :where(dt) { color: var(--aui-text); font-weight: var(--aui-fw-semibold); margin-top: .8em; }
+.aui-prose :where(dd) { margin: .2em 0 0 1em; }
+.aui-prose :where(mark) { background: color-mix(in srgb, var(--aui-yellow) 22%, transparent); color: var(--aui-text); padding: 0 .2em; border-radius: 3px; }
+.aui-prose > :where(.aui-code, .aui-callout, .aui-table-wrap, .aui-endpoint, .aui-params, .aui-tabs-block, .aui-demo, .aui-cli, .aui-steps) { margin-block: 1.6em; }
+
+/* Heading anchors: <h2 id="x"><a class="aui-anchor" href="#x">#</a>Title</h2> */
+.aui-anchor {
+  position: absolute; left: -1.05em; top: 0; width: 1em; color: var(--aui-text-subtle) !important;
+  text-decoration: none !important; font-weight: var(--aui-fw-regular); opacity: 0; transition: opacity var(--aui-dur-fast);
+}
+:is(h1, h2, h3, h4, h5, h6):hover > .aui-anchor, .aui-anchor:focus-visible { opacity: 1; }
+
+/* Numbered steps: <ol class="aui-steps"><li><h3>…</h3><p>…</p></li></ol> */
+.aui-steps { list-style: none; counter-reset: aui-step; padding: 0 !important; margin-left: 0; }
+.aui-steps > li { position: relative; counter-increment: aui-step; padding: 0 0 1.4em 2.6em !important; margin: 0 !important; }
+.aui-steps > li::before {
+  content: counter(aui-step); position: absolute; left: 0; top: .1em; width: 1.7em; height: 1.7em; display: grid; place-items: center;
+  font-size: .78em; font-weight: var(--aui-fw-semibold); color: var(--aui-text); background: var(--aui-surface-2); border: 1px solid var(--aui-border-strong); border-radius: 50%;
+}
+.aui-steps > li::after { content: ""; position: absolute; left: calc(.85em - .5px); top: 2.1em; bottom: .4em; width: 1px; background: var(--aui-border); }
+.aui-steps > li:last-child::after { display: none; }
+.aui-steps > li > :where(h3, h4) { margin-top: 0 !important; }
+
+@media (max-width: 640px) {
+  .aui-prose :where(table) { display: block; overflow-x: auto; white-space: nowrap; }
+  .aui-anchor { display: none; }
+}

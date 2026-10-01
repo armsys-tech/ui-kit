@@ -1,0 +1,31 @@
+# Armsys UI
+
+> Framework-independent design system and UI library by Armsys Technology.
+
+Armsys UI is a dark-first, scoped (`.aui`) HTML/CSS/vanilla-JavaScript design system for dashboards, admin tools, monitoring, corporate/product websites, documentation, pricing and public data pages.
+
+## AI entry points
+
+- [AI usage rules](AI_GUIDE.md)
+- [Machine-readable manifest](ai/index.json)
+- [Components](ai/components.json)
+- [Patterns](ai/patterns.json)
+- [Design tokens](ai/tokens.json)
+- [Integration snippets](ai/integrations.json)
+
+## Primary implementation references
+
+- [Component showcase](index.html)
+- [Dashboard](examples/dashboard.html)
+- [Monitoring](examples/monitoring.html)
+- [Corporate/product website](examples/website.html)
+- [Documentation/API reference](examples/documentation.html)
+- [Pricing](examples/pricing.html)
+- [Public data/ranking](examples/leaderboard.html)
+
+## Distribution
+
+- CSS: `dist/armsys-ui.css`
+- JavaScript: `dist/armsys-ui.js`
+- Package: `@armsys-tech/ui`
+- Version: `1.0.0`

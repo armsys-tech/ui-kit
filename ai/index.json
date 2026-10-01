@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "name": "Armsys UI",
+  "package": "@armsys-tech/ui",
+  "version": "1.0.0",
+  "company": "Armsys Technology",
+  "description": "Framework-independent dark-first design system for application and public web interfaces.",
+  "scopeClass": "aui",
+  "classPrefix": "aui-",
+  "tokenPrefix": "--aui-",
+  "runtimeDependencies": [],
+  "distribution": {
+    "css": "dist/armsys-ui.css",
+    "javascript": "dist/armsys-ui.js",
+    "jsdelivrCss": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/dist/armsys-ui.css",
+    "jsdelivrJavascript": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/dist/armsys-ui.js"
+  },
+  "catalogs": {
+    "components": "ai/components.json",
+    "patterns": "ai/patterns.json",
+    "tokens": "ai/tokens.json",
+    "integrations": "ai/integrations.json"
+  },
+  "instructions": "AI_GUIDE.md",
+  "showcase": "index.html",
+  "rules": [
+    "Read only the relevant catalog entries and examples for the current task.",
+    "Reuse existing aui-* classes before adding application-specific visual CSS.",
+    "Use --aui-* tokens instead of arbitrary visual values where possible.",
+    "Keep the .aui scope.",
+    "Do not introduce another UI framework unless explicitly requested."
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "patterns": {
+    "dashboard": {
+      "example": "examples/dashboard.html",
+      "surface": "application",
+      "useFor": [
+        "dashboard",
+        "admin panel",
+        "operations overview"
+      ],
+      "primaryLayouts": [
+        "aui-app",
+        "aui-sidebar",
+        "aui-app-main",
+        "aui-topbar"
+      ]
+    },
+    "monitoring": {
+      "example": "examples/monitoring.html",
+      "surface": "application",
+      "useFor": [
+        "service monitor",
+        "event stream",
+        "system health",
+        "operations"
+      ],
+      "primaryComponents": [
+        "aui-stat",
+        "aui-status",
+        "aui-log",
+        "aui-toolbar",
+        "aui-card"
+      ]
+    },
+    "login": {
+      "example": "examples/login.html",
+      "surface": "application",
+      "useFor": [
+        "login",
+        "authentication"
+      ],
+      "primaryLayouts": [
+        "aui-auth",
+        "aui-auth-card"
+      ]
+    },
+    "settings": {
+      "example": "examples/settings.html",
+      "surface": "application",
+      "useFor": [
+        "settings",
+        "configuration",
+        "preferences"
+      ],
+      "primaryLayouts": [
+        "aui-settings",
+        "aui-settings-nav",
+        "aui-settings-content"
+      ]
+    },
+    "dataTable": {
+      "example": "examples/data-table.html",
+      "surface": "application",
+      "useFor": [
+        "data management",
+        "search and filtering",
+        "row actions"
+      ],
+      "primaryComponents": [
+        "aui-toolbar",
+        "aui-input",
+        "aui-select",
+        "aui-table",
+        "aui-pagination"
+      ]
+    },
+    "embeddedPanel": {
+      "example": "examples/embedded-panel.html",
+      "surface": "embedded",
+      "useFor": [
+        "small embedded panel",
+        "host application integration"
+      ],
+      "primaryRule": "Wrap only the embedded region with class=\"aui\"."
+    },
+    "corporateWebsite": {
+      "example": "examples/website.html",
+      "surface": "public-web",
+      "useFor": [
+        "corporate site",
+        "product site",
+        "landing page"
+      ],
+      "primaryLayouts": [
+        "aui-site",
+        "aui-site-header",
+        "aui-hero",
+        "aui-section",
+        "aui-site-footer"
+      ]
+    },
+    "pricing": {
+      "example": "examples/pricing.html",
+      "surface": "public-web",
+      "useFor": [
+        "pricing",
+        "plan comparison",
+        "commercial product page"
+      ],
+      "primaryComponents": [
+        "aui-pricing-grid",
+        "aui-pricing-card",
+        "aui-table--comparison",
+        "aui-faq"
+      ]
+    },
+    "documentation": {
+      "example": "examples/documentation.html",
+      "surface": "public-web",
+      "useFor": [
+        "technical documentation",
+        "API reference",
+        "developer portal",
+        "knowledge base"
+      ],
+      "primaryLayouts": [
+        "aui-docs",
+        "aui-docs-sidebar",
+        "aui-docs-article",
+        "aui-docs-toc"
+      ],
+      "primaryComponents": [
+        "aui-endpoint",
+        "aui-code",
+        "aui-table--params",
+        "aui-callout"
+      ]
+    },
+    "publicData": {
+      "example": "examples/leaderboard.html",
+      "surface": "public-web",
+      "useFor": [
+        "leaderboard",
+        "ranking",
+        "directory",
+        "public catalog",
+        "public statistics"
+      ],
+      "primaryComponents": [
+        "aui-data-header",
+        "aui-toolbar",
+        "aui-table--ranking",
+        "aui-pagination",
+        "aui-faq"
+      ]
+    }
+  }
+}

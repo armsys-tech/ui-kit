@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Events — Armsys Console</title>
+<meta name="description" content="Armsys UI — framework-independent design system by Armsys Technology.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="../dist/armsys-ui.css">
+<script src="../dist/armsys-ui.js" defer></script>
+</head>
+<body class="aui">
+<div class="aui-app">
+<aside class="aui-sidebar" id="app-sidebar" aria-label="Application">
+  <div class="aui-sidebar-header"><a class="aui-brand" href="dashboard.html"><span class="aui-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aui-i-logo"/></svg></span><span class="aui-brand-text">Armsys Console<small>Production</small></span></a></div>
+  <div class="aui-sidebar-body"><nav class="aui-nav" aria-label="Primary">
+    <div class="aui-nav-title">Workspace</div>
+    <a class="aui-nav-item" href="dashboard.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-grid"/></svg><span class="aui-nav-label">Overview</span></a>
+    <a class="aui-nav-item" href="monitoring.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-activity"/></svg><span class="aui-nav-label">Monitoring</span><span class="aui-badge aui-badge--success"><span class="aui-dot aui-dot--success is-live"></span>Live</span></a>
+    <a class="aui-nav-item" href="data-table.html" aria-current="page"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-database"/></svg><span class="aui-nav-label">Events</span><span class="aui-nav-count">12.4k</span></a>
+    <a class="aui-nav-item" href="dashboard.html#streams"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-radio"/></svg><span class="aui-nav-label">Streams</span><span class="aui-nav-count">8</span></a>
+    <div class="aui-nav-title">Configure</div>
+    <a class="aui-nav-item" href="settings.html#keys"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-key"/></svg><span class="aui-nav-label">API keys</span></a>
+    <a class="aui-nav-item" href="settings.html#webhooks"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-webhook"/></svg><span class="aui-nav-label">Webhooks</span></a>
+    <a class="aui-nav-item" href="settings.html#team"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-users"/></svg><span class="aui-nav-label">Team</span></a>
+    <a class="aui-nav-item" href="settings.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-settings"/></svg><span class="aui-nav-label">Settings</span></a>
+    <div class="aui-nav-title">Resources</div>
+    <a class="aui-nav-item" href="documentation.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-book"/></svg><span class="aui-nav-label">Documentation</span></a>
+    <a class="aui-nav-item" href="embedded-panel.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-sidebar"/></svg><span class="aui-nav-label">Embedded panel</span></a>
+  </nav></div>
+  <div class="aui-sidebar-footer">
+    <div class="aui-dropdown aui-w-full" data-aui-dropdown>
+      <button type="button" class="aui-sidebar-user" data-aui-dropdown-trigger><span class="aui-avatar aui-avatar--sm aui-avatar--accent">AT</span><span class="aui-sidebar-user-text aui-entity-body"><span class="aui-entity-name aui-text-sm">Ayla Tan</span><span class="aui-entity-sub">ayla@armsys.tech</span></span><svg class="aui-icon aui-icon--sm aui-text-subtle" aria-hidden="true"><use href="#aui-i-chevrons-up-down"/></svg></button>
+      <div class="aui-menu aui-menu--up" role="menu">
+        <a class="aui-menu-item" role="menuitem" href="settings.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-user"/></svg>Profile</a>
+        <a class="aui-menu-item" role="menuitem" href="settings.html#keys"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-key"/></svg>API keys</a>
+        <div class="aui-menu-sep"></div>
+        <a class="aui-menu-item" role="menuitem" href="login.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-logout"/></svg>Sign out</a>
+      </div>
+    </div>
+  </div>
+</aside>
+  <div class="aui-app-main">
+    <header class="aui-topbar">
+      <button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm aui-sidebar-toggle" data-aui-nav-toggle="#app-sidebar" aria-label="Open navigation"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-menu"/></svg></button>
+      <nav class="aui-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="#">Northwind</a></li><li><a href="#">production</a></li><li><span aria-current="page">Events</span></li></ol></nav>
+    </header>
+    <main class="aui-app-content">
+      <div class="aui-page-header">
+        <div><h1 class="aui-page-title">Events</h1><p class="aui-page-desc">Search and inspect events delivered across all streams in the last 30 days.</p></div>
+        <div class="aui-page-actions">
+          <button type="button" class="aui-btn aui-btn--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-download"/></svg>Export</button>
+          <button type="button" class="aui-btn aui-btn--sm aui-btn--primary"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-play"/></svg>Replay selection</button>
+        </div>
+      </div>
+
+      <div class="aui-tabs aui-mb-4" role="tablist">
+        <a class="aui-tab" href="#" aria-current="page">All events <span class="aui-badge">12,481</span></a>
+        <a class="aui-tab" href="#">Failed <span class="aui-badge aui-badge--danger">23</span></a>
+        <a class="aui-tab" href="#">Retrying <span class="aui-badge aui-badge--warning">7</span></a>
+        <a class="aui-tab" href="#">Replayed</a>
+      </div>
+
+      <section class="aui-card">
+        <div class="aui-toolbar">
+          <label class="aui-input-wrap aui-input-wrap--grow"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-search"/></svg><input class="aui-input aui-input--sm" type="search" placeholder="Search by ID, type or key" aria-label="Search events"></label>
+          <select class="aui-select aui-input--sm" aria-label="Stream"><option>All streams</option><option>orders.created</option><option>payments.settled</option><option>inventory.updated</option></select>
+          <select class="aui-select aui-input--sm" aria-label="Status"><option>Any status</option><option>Delivered</option><option>Failed</option><option>Retrying</option></select>
+          <span class="aui-daterange aui-daterange--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-calendar"/></svg>Last 24 hours</span>
+          <span class="aui-spacer"></span>
+          <span class="aui-toolbar-label">2 selected</span>
+          <div class="aui-btn-group">
+            <button type="button" class="aui-btn aui-btn--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-refresh"/></svg>Retry</button>
+            <button type="button" class="aui-btn aui-btn--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-download"/></svg></button>
+            <button type="button" class="aui-btn aui-btn--sm" aria-label="Delete"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-trash"/></svg></button>
+          </div>
+        </div>
+        <div class="aui-table-wrap">
+          <table class="aui-table aui-table--dense">
+            <thead>
+              <tr>
+                <th class="aui-check-cell"><label class="aui-check"><input type="checkbox" aria-label="Select all"></label></th>
+                <th>Event ID</th><th>Type</th><th>Stream</th><th>Status</th><th class="aui-num">Attempts</th><th class="aui-num">Latency</th><th aria-sort="descending"><button type="button" class="aui-sort">Received <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-chevron-down"/></svg></button></th><th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="is-selected"><td class="aui-check-cell"><label class="aui-check"><input type="checkbox" checked aria-label="Select row"></label></td><td class="aui-mono aui-table-strong">evt_01J9Z6Q4N7</td><td>order.created</td><td class="aui-mono">orders</td><td><span class="aui-badge aui-badge--success">Delivered</span></td><td class="aui-num">1</td><td class="aui-num">38 ms</td><td class="aui-tabular">14:02:14</td>
+                <td class="aui-table-actions"><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" data-aui-modal-open="#event-drawer" aria-label="Inspect"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-eye"/></svg></button>
+                  <div class="aui-dropdown" data-aui-dropdown><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" data-aui-dropdown-trigger aria-label="Row actions"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-more"/></svg></button>
+                    <div class="aui-menu aui-menu--end" role="menu"><button type="button" class="aui-menu-item" role="menuitem"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-play"/></svg>Replay</button><button type="button" class="aui-menu-item" role="menuitem"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg>Copy ID</button><div class="aui-menu-sep"></div><button type="button" class="aui-menu-item aui-menu-item--danger" role="menuitem"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-trash"/></svg>Purge</button></div>
+                  </div></td></tr>
+              <tr class="is-selected"><td class="aui-check-cell"><label class="aui-check"><input type="checkbox" checked aria-label="Select row"></label></td><td class="aui-mono aui-table-strong">evt_01J9Z6Q3ZK</td><td>payment.failed</td><td class="aui-mono">payments</td><td><span class="aui-badge aui-badge--danger">Failed</span></td><td class="aui-num">8</td><td class="aui-num">—</td><td class="aui-tabular">14:01:58</td><td class="aui-table-actions"><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" data-aui-modal-open="#event-drawer" aria-label="Inspect"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-eye"/></svg></button><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" aria-label="Row actions"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-more"/></svg></button></td></tr>
+              <tr><td class="aui-check-cell"><label class="aui-check"><input type="checkbox" aria-label="Select row"></label></td><td class="aui-mono aui-table-strong">evt_01J9Z6Q3Y1</td><td>inventory.updated</td><td class="aui-mono">inventory</td><td><span class="aui-badge aui-badge--warning">Retrying</span></td><td class="aui-num">3</td><td class="aui-num aui-text-warning">1.8 s</td><td class="aui-tabular">14:01:52</td><td class="aui-table-actions"><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" data-aui-modal-open="#event-drawer" aria-label="Inspect"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-eye"/></svg></button><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" aria-label="Row actions"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-more"/></svg></button></td></tr>
+              <tr><td class="aui-check-cell"><label class="aui-check"><input type="checkbox" aria-label="Select row"></label></td><td class="aui-mono aui-table-strong">evt_01J9Z6Q3VE</td><td>order.paid</td><td class="aui-mono">orders</td><td><span class="aui-badge aui-badge--success">Delivered</span></td><td class="aui-num">1</td><td class="aui-num">41 ms</td><td class="aui-tabular">14:01:47</td><td class="aui-table-actions"><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" data-aui-modal-open="#event-drawer" aria-label="Inspect"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-eye"/></svg></button><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" aria-label="Row actions"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-more"/></svg></button></td></tr>
+              <tr><td class="aui-check-cell"><label class="aui-check"><input type="checkbox" aria-label="Select row"></label></td><td class="aui-mono aui-table-strong">evt_01J9Z6Q3RA</td><td>session.started</td><td class="aui-mono">sessions</td><td><span class="aui-badge aui-badge--success">Delivered</span></td><td class="aui-num">1</td><td class="aui-num">19 ms</td><td class="aui-tabular">14:01:40</td><td class="aui-table-actions"><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" data-aui-modal-open="#event-drawer" aria-label="Inspect"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-eye"/></svg></button><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" aria-label="Row actions"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-more"/></svg></button></td></tr>
+              <tr><td class="aui-check-cell"><label class="aui-check"><input type="checkbox" aria-label="Select row"></label></td><td class="aui-mono aui-table-strong">evt_01J9Z6Q3P8</td><td>order.created</td><td class="aui-mono">orders</td><td><span class="aui-badge aui-badge--info">Replayed</span></td><td class="aui-num">2</td><td class="aui-num">55 ms</td><td class="aui-tabular">14:01:33</td><td class="aui-table-actions"><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" data-aui-modal-open="#event-drawer" aria-label="Inspect"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-eye"/></svg></button><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" aria-label="Row actions"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-more"/></svg></button></td></tr>
+              <tr><td class="aui-check-cell"><label class="aui-check"><input type="checkbox" aria-label="Select row"></label></td><td class="aui-mono aui-table-strong">evt_01J9Z6Q3MM</td><td>invoice.issued</td><td class="aui-mono">billing</td><td><span class="aui-badge aui-badge--success">Delivered</span></td><td class="aui-num">1</td><td class="aui-num">63 ms</td><td class="aui-tabular">14:01:21</td><td class="aui-table-actions"><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" data-aui-modal-open="#event-drawer" aria-label="Inspect"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-eye"/></svg></button><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" aria-label="Row actions"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-more"/></svg></button></td></tr>
+              <tr class="is-muted"><td class="aui-check-cell"><label class="aui-check"><input type="checkbox" disabled aria-label="Select row"></label></td><td class="aui-mono">evt_01J9Z6Q3JD</td><td>audit.logged</td><td class="aui-mono">legacy</td><td><span class="aui-badge">Dropped</span></td><td class="aui-num">0</td><td class="aui-num">—</td><td class="aui-tabular">14:01:09</td><td class="aui-table-actions"><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" aria-label="Row actions"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-more"/></svg></button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="aui-table-footer">
+          <div class="aui-row"><span>Rows per page</span><select class="aui-select aui-input--sm aui-w-auto" aria-label="Rows per page"><option>25</option><option>50</option><option>100</option></select></div>
+          <span class="aui-pagination-info">1–25 of 12,481</span>
+          <nav class="aui-pagination" aria-label="Pagination">
+            <button type="button" class="aui-page" disabled aria-label="Previous page"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-chevron-left"/></svg></button>
+            <a class="aui-page" href="#" aria-current="page">1</a><a class="aui-page" href="#">2</a><a class="aui-page" href="#">3</a><span class="aui-page-gap">…</span><a class="aui-page" href="#">500</a>
+            <a class="aui-page" href="#" aria-label="Next page"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-chevron-right"/></svg></a>
+          </nav>
+        </div>
+      </section>
+
+      <section class="aui-card aui-mt-4">
+        <div class="aui-empty">
+          <span class="aui-icon-box aui-icon-box--lg"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-search"/></svg></span>
+          <div class="aui-empty-title">No events match these filters</div>
+          <p class="aui-empty-text">Try widening the time range or removing the status filter. Events are retained for 30 days on this plan.</p>
+          <div class="aui-empty-actions"><button type="button" class="aui-btn aui-btn--sm">Clear filters</button><a class="aui-btn aui-btn--sm aui-btn--ghost" href="documentation.html">Retention docs</a></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<dialog class="aui-drawer aui-drawer--lg" id="event-drawer" aria-labelledby="ed-title">
+  <div class="aui-modal-header">
+    <div><div class="aui-row"><h2 class="aui-modal-title aui-mono" id="ed-title">evt_01J9Z6Q4N7</h2><span class="aui-badge aui-badge--success">Delivered</span></div><p class="aui-modal-desc">order.created · orders · partition 3 · offset 884213</p></div>
+    <button type="button" class="aui-modal-close" data-aui-modal-close aria-label="Close"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-x"/></svg></button>
+  </div>
+  <div class="aui-modal-body aui-stack aui-gap-6">
+    <dl class="aui-dl">
+      <dt>Received</dt><dd>2026-09-30 14:02:14.882 UTC</dd>
+      <dt>Key</dt><dd class="aui-mono">cus_42</dd>
+      <dt>Subscribers</dt><dd>312 delivered · 0 pending</dd>
+      <dt>Region</dt><dd>eu-central</dd>
+    </dl>
+    <div class="aui-code">
+      <div class="aui-code-header"><span class="aui-code-title"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-file"/></svg>payload.json</span><div class="aui-code-actions"><button type="button" class="aui-copy" data-aui-copy aria-label="Copy code"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg>Copy</span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg>Copied</span></button></div></div>
+<pre class="aui-pre"><span class="aui-code-punctuation">{</span>
+  <span class="aui-code-property">"order_id"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"ord_9921"</span><span class="aui-code-punctuation">,</span>
+  <span class="aui-code-property">"customer"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span>
+  <span class="aui-code-property">"total"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">129.9</span><span class="aui-code-punctuation">,</span>
+  <span class="aui-code-property">"currency"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"EUR"</span><span class="aui-code-punctuation">,</span>
+  <span class="aui-code-property">"gift"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-boolean">false</span>
+<span class="aui-code-punctuation">}</span></pre>
+    </div>
+    <div>
+      <h3 class="aui-h4 aui-mb-4">Delivery attempts</h3>
+      <ul class="aui-timeline">
+        <li><span class="aui-timeline-marker aui-dot--success"></span><div class="aui-timeline-title">Delivered to 312 subscribers</div><div class="aui-timeline-time">14:02:14.920 · 38 ms</div></li>
+        <li><span class="aui-timeline-marker aui-dot--accent"></span><div class="aui-timeline-title">Accepted by gateway</div><div class="aui-timeline-time">14:02:14.882</div></li>
+      </ul>
+    </div>
+  </div>
+  <div class="aui-modal-footer"><button type="button" class="aui-btn" data-aui-modal-close>Close</button><button type="button" class="aui-btn aui-btn--primary" data-aui-modal-close data-aui-toast="Replay queued" data-aui-toast-variant="success"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-play"/></svg>Replay event</button></div>
+</dialog>
+</body>
+</html>

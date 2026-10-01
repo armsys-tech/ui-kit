@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Armsys Technology — Infrastructure for real-time products</title>
+<meta name="description" content="Armsys UI — framework-independent design system by Armsys Technology.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="../dist/armsys-ui.css">
+<script src="../dist/armsys-ui.js" defer></script>
+</head>
+<body class="aui aui-site">
+<header class="aui-site-header">
+  <div class="aui-container aui-site-header-inner">
+    <a class="aui-site-brand" href="website.html"><span class="aui-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aui-i-logo"/></svg></span>Armsys</a>
+    <nav class="aui-site-nav" aria-label="Main">
+      <div class="aui-site-nav-item">
+        <button type="button" class="aui-site-nav-link is-active" aria-expanded="false">Products <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-chevron-down"/></svg></button>
+        <div class="aui-mega" style="--cols:2">
+          <div class="aui-mega-grid">
+            <div class="aui-mega-group">
+              <div class="aui-mega-title">Platform</div>
+              <a class="aui-mega-item" href="website.html#products"><span class="aui-icon-box aui-icon-box--accent"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-radio"/></svg></span><span><span class="aui-mega-item-title">Armsys Stream</span><span class="aui-mega-item-desc">Real-time event ingestion and fan-out</span></span></a>
+              <a class="aui-mega-item" href="website.html#products"><span class="aui-icon-box aui-icon-box--purple"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-workflow"/></svg></span><span><span class="aui-mega-item-title">Armsys Gateway</span><span class="aui-mega-item-desc">API gateway, keys and rate limits</span></span></a>
+              <a class="aui-mega-item" href="website.html#products"><span class="aui-icon-box aui-icon-box--success"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-activity"/></svg></span><span><span class="aui-mega-item-title">Armsys Observe</span><span class="aui-mega-item-desc">Metrics, logs and alerting</span></span></a>
+            </div>
+            <div class="aui-mega-group">
+              <div class="aui-mega-title">Infrastructure</div>
+              <a class="aui-mega-item" href="website.html#products"><span class="aui-icon-box aui-icon-box--orange"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-shield"/></svg></span><span><span class="aui-mega-item-title">Armsys Identity</span><span class="aui-mega-item-desc">Authentication and access control</span></span></a>
+              <a class="aui-mega-item" href="website.html#products"><span class="aui-icon-box aui-icon-box--info"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-globe"/></svg></span><span><span class="aui-mega-item-title">Armsys Edge</span><span class="aui-mega-item-desc">Private networking and edge delivery</span></span></a>
+              <a class="aui-mega-item" href="leaderboard.html"><span class="aui-icon-box"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-chart"/></svg></span><span><span class="aui-mega-item-title">Public Insights</span><span class="aui-mega-item-desc">Open rankings and datasets</span></span></a>
+            </div>
+          </div>
+          <div class="aui-mega-footer"><span>New: regional data residency in 6 locations</span><a class="aui-link-arrow" href="website.html">Overview <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a></div>
+        </div>
+      </div>
+      <div class="aui-site-nav-item">
+        <button type="button" class="aui-site-nav-link" aria-expanded="false">Solutions <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-chevron-down"/></svg></button>
+        <div class="aui-mega" style="--cols:1">
+          <div class="aui-mega-grid"><div class="aui-mega-group">
+            <a class="aui-mega-item" href="website.html#solutions"><span><span class="aui-mega-item-title">Real-time platforms</span><span class="aui-mega-item-desc">Live data products with sub-second delivery</span></span></a>
+            <a class="aui-mega-item" href="website.html#solutions"><span><span class="aui-mega-item-title">Internal tools</span><span class="aui-mega-item-desc">Admin panels and operations consoles</span></span></a>
+            <a class="aui-mega-item" href="website.html#solutions"><span><span class="aui-mega-item-title">Enterprise IT</span><span class="aui-mega-item-desc">Identity, networking and compliance</span></span></a>
+          </div></div>
+        </div>
+      </div>
+      <div class="aui-site-nav-item">
+        <button type="button" class="aui-site-nav-link" aria-expanded="false">Developers <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-chevron-down"/></svg></button>
+        <div class="aui-mega" style="--cols:1">
+          <div class="aui-mega-grid"><div class="aui-mega-group">
+            <a class="aui-mega-item" href="documentation.html"><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-book"/></svg></span><span><span class="aui-mega-item-title">Documentation</span><span class="aui-mega-item-desc">Guides, concepts and tutorials</span></span></a>
+            <a class="aui-mega-item" href="documentation.html#endpoint"><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-code"/></svg></span><span><span class="aui-mega-item-title">API reference</span><span class="aui-mega-item-desc">REST and WebSocket endpoints</span></span></a>
+            <a class="aui-mega-item" href="dashboard.html"><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-grid"/></svg></span><span><span class="aui-mega-item-title">Console</span><span class="aui-mega-item-desc">Manage projects and keys</span></span></a>
+          </div></div>
+        </div>
+      </div>
+      <a class="aui-site-nav-link" href="pricing.html">Pricing</a>
+      <a class="aui-site-nav-link" href="leaderboard.html">Insights</a>
+    </nav>
+    <div class="aui-site-actions">
+      <button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm aui-hide-mobile" data-aui-theme-toggle aria-label="Toggle theme"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-moon"/></svg></button>
+      <a class="aui-btn aui-btn--ghost aui-btn--sm aui-hide-mobile" href="login.html">Sign in</a>
+      <a class="aui-btn aui-btn--primary aui-btn--sm" href="login.html">Get started</a>
+      <button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm aui-nav-toggle" data-aui-nav-toggle aria-label="Open menu" aria-expanded="false"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+<main>
+
+  <!-- Hero: developer/product split -->
+  <section class="aui-hero aui-hero--split aui-hero--grid">
+    <div class="aui-container">
+      <div class="aui-hero-grid">
+        <div class="aui-hero-inner">
+          <a class="aui-eyebrow aui-eyebrow--pill" href="documentation.html"><span class="aui-badge aui-badge--accent">New</span>Stream v3 with regional residency <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a>
+          <h1 class="aui-hero-title">Infrastructure for products that <em>never stop moving.</em></h1>
+          <p class="aui-hero-description">Armsys Technology builds the event, API and observability layer behind real-time platforms — so your team ships features instead of plumbing.</p>
+          <div class="aui-hero-actions">
+            <a class="aui-btn aui-btn--primary aui-btn--lg" href="login.html">Start building <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a>
+            <a class="aui-btn aui-btn--outline aui-btn--lg" href="documentation.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-book"/></svg>Read the docs</a>
+          </div>
+          <div class="aui-hero-meta">
+            <span><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg>Free developer tier</span>
+            <span><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg>SOC 2 aligned controls</span>
+            <span><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg>EU &amp; US regions</span>
+          </div>
+        </div>
+        <div class="aui-hero-visual">
+          <div class="aui-code" data-aui-tabs data-aui-tabs-sync="lang">
+            <div class="aui-code-header">
+              <div class="aui-code-tabs" role="tablist">
+                <button type="button" class="aui-code-tab" data-aui-tab="js">Node.js</button>
+                <button type="button" class="aui-code-tab" data-aui-tab="py">Python</button>
+                <button type="button" class="aui-code-tab" data-aui-tab="curl">cURL</button>
+              </div>
+              <div class="aui-code-actions"><button type="button" class="aui-copy" data-aui-copy aria-label="Copy code"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg>Copy</span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg>Copied</span></button></div>
+            </div>
+<pre class="aui-pre" data-aui-panel="js"><span class="aui-code-keyword">import</span> <span class="aui-code-punctuation">{</span> <span class="aui-code-variable">Armsys</span> <span class="aui-code-punctuation">}</span> <span class="aui-code-keyword">from</span> <span class="aui-code-string">"@armsys/sdk"</span><span class="aui-code-punctuation">;</span>
+
+<span class="aui-code-keyword">const</span> <span class="aui-code-variable">client</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">new</span> <span class="aui-code-function">Armsys</span><span class="aui-code-punctuation">({</span> <span class="aui-code-property">apiKey</span><span class="aui-code-punctuation">:</span> <span class="aui-code-variable">process</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">env</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">ARMSYS_KEY</span> <span class="aui-code-punctuation">});</span>
+
+<span class="aui-code-comment">// Subscribe to a live stream of events</span>
+<span class="aui-code-keyword">const</span> <span class="aui-code-variable">stream</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">await</span> <span class="aui-code-variable">client</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">streams</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">connect</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"orders.created"</span><span class="aui-code-punctuation">);</span>
+
+<span class="aui-code-variable">stream</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">on</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"event"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-punctuation">(</span><span class="aui-code-variable">evt</span><span class="aui-code-punctuation">)</span> <span class="aui-code-operator">=&gt;</span> <span class="aui-code-punctuation">{</span>
+  <span class="aui-code-variable">console</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">log</span><span class="aui-code-punctuation">(</span><span class="aui-code-variable">evt</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">id</span><span class="aui-code-punctuation">,</span> <span class="aui-code-variable">evt</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">payload</span><span class="aui-code-punctuation">);</span>
+<span class="aui-code-punctuation">});</span></pre>
+<pre class="aui-pre" data-aui-panel="py" hidden><span class="aui-code-keyword">from</span> <span class="aui-code-variable">armsys</span> <span class="aui-code-keyword">import</span> <span class="aui-code-type">Armsys</span>
+<span class="aui-code-keyword">import</span> <span class="aui-code-variable">os</span>
+
+<span class="aui-code-variable">client</span> <span class="aui-code-operator">=</span> <span class="aui-code-function">Armsys</span><span class="aui-code-punctuation">(</span><span class="aui-code-property">api_key</span><span class="aui-code-operator">=</span><span class="aui-code-variable">os</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">environ</span><span class="aui-code-punctuation">[</span><span class="aui-code-string">"ARMSYS_KEY"</span><span class="aui-code-punctuation">])</span>
+
+<span class="aui-code-comment"># Subscribe to a live stream of events</span>
+<span class="aui-code-keyword">async</span> <span class="aui-code-keyword">for</span> <span class="aui-code-variable">evt</span> <span class="aui-code-keyword">in</span> <span class="aui-code-variable">client</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">streams</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">connect</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"orders.created"</span><span class="aui-code-punctuation">):</span>
+    <span class="aui-code-function">print</span><span class="aui-code-punctuation">(</span><span class="aui-code-variable">evt</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">id</span><span class="aui-code-punctuation">,</span> <span class="aui-code-variable">evt</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">payload</span><span class="aui-code-punctuation">)</span></pre>
+<pre class="aui-pre" data-aui-panel="curl" hidden><span class="aui-code-function">curl</span> <span class="aui-code-string">https://api.armsys.tech/v1/streams/orders.created/events</span> \
+  <span class="aui-code-property">-H</span> <span class="aui-code-string">"Authorization: Bearer $ARMSYS_KEY"</span> \
+  <span class="aui-code-property">-H</span> <span class="aui-code-string">"Accept: text/event-stream"</span></pre>
+            <div class="aui-code-footer"><span class="aui-dot aui-dot--success is-live"></span>Connected · eu-central · 18 ms</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust strip -->
+  <section class="aui-section aui-section--tight aui-section--bordered">
+    <div class="aui-container">
+      <p class="aui-logo-strip-title">Running production workloads for teams across media, commerce and operations</p>
+      <div class="aui-logo-strip">
+        <span class="aui-logo-item"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-layers"/></svg>Northwind</span>
+        <span class="aui-logo-item"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-box"/></svg>Kestrel</span>
+        <span class="aui-logo-item"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-zap"/></svg>Voltline</span>
+        <span class="aui-logo-item"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-globe"/></svg>Meridian</span>
+        <span class="aui-logo-item"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-cloud"/></svg>Altocloud</span>
+        <span class="aui-logo-item"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-cpu"/></svg>Corelabs</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="aui-section aui-section--bordered" id="products">
+    <div class="aui-container">
+      <div class="aui-section-header aui-section-header--split">
+        <div>
+          <span class="aui-eyebrow aui-eyebrow--caps">Products</span>
+          <h2 class="aui-section-title">One platform, five focused building blocks</h2>
+          <p class="aui-section-desc">Adopt a single product or the whole stack. Every service shares the same identity, billing and observability.</p>
+        </div>
+        <a class="aui-btn aui-btn--outline" href="pricing.html">Compare plans <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a>
+      </div>
+      <div class="aui-card-grid">
+        <a class="aui-product-card" href="documentation.html">
+          <div class="aui-product-card-head"><span class="aui-icon-box aui-icon-box--accent"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-radio"/></svg></span><div><div class="aui-product-name">Armsys Stream</div><div class="aui-product-kind">Event streaming</div></div></div>
+          <p class="aui-product-desc">Ingest, buffer and fan out millions of events per second over WebSocket, SSE and webhooks.</p>
+          <ul class="aui-checklist"><li>Ordered, replayable topics</li><li>At-least-once delivery</li><li>Per-tenant isolation</li></ul>
+          <div class="aui-product-card-foot"><span class="aui-badge aui-badge--success">GA</span><span class="aui-link-arrow">Learn more <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></span></div>
+        </a>
+        <a class="aui-product-card" href="documentation.html">
+          <div class="aui-product-card-head"><span class="aui-icon-box aui-icon-box--purple"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-workflow"/></svg></span><div><div class="aui-product-name">Armsys Gateway</div><div class="aui-product-kind">API management</div></div></div>
+          <p class="aui-product-desc">Expose services through a single edge with API keys, quotas, caching and request signing.</p>
+          <ul class="aui-checklist"><li>Key &amp; scope management</li><li>Adaptive rate limiting</li><li>OpenAPI import</li></ul>
+          <div class="aui-product-card-foot"><span class="aui-badge aui-badge--success">GA</span><span class="aui-link-arrow">Learn more <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></span></div>
+        </a>
+        <a class="aui-product-card" href="monitoring.html">
+          <div class="aui-product-card-head"><span class="aui-icon-box aui-icon-box--success"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-activity"/></svg></span><div><div class="aui-product-name">Armsys Observe</div><div class="aui-product-kind">Monitoring</div></div></div>
+          <p class="aui-product-desc">Metrics, structured logs and alerting designed for operators who live in their consoles.</p>
+          <ul class="aui-checklist"><li>Live event tail</li><li>SLO &amp; error budgets</li><li>Alert routing</li></ul>
+          <div class="aui-product-card-foot"><span class="aui-badge aui-badge--info">Beta</span><span class="aui-link-arrow">Learn more <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature grid -->
+  <section class="aui-section aui-section--alt aui-section--bordered" id="solutions">
+    <div class="aui-container">
+      <div class="aui-section-header aui-section-header--center">
+        <span class="aui-eyebrow aui-eyebrow--caps">Technology</span>
+        <h2 class="aui-section-title">Engineered for the boring parts to stay boring</h2>
+        <p class="aui-section-desc">Reliability, security and performance are defaults — not upsells.</p>
+      </div>
+      <div class="aui-feature-grid">
+        <div class="aui-feature"><span class="aui-icon-box"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-zap"/></svg></span><h3 class="aui-feature-title">Sub-50 ms delivery</h3><p class="aui-feature-text">Regional brokers and persistent connections keep median end-to-end latency low worldwide.</p></div>
+        <div class="aui-feature"><span class="aui-icon-box"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-shield"/></svg></span><h3 class="aui-feature-title">Secure by default</h3><p class="aui-feature-text">Scoped keys, signed webhooks, audit logs and encryption in transit and at rest.</p></div>
+        <div class="aui-feature"><span class="aui-icon-box"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-globe"/></svg></span><h3 class="aui-feature-title">Regional residency</h3><p class="aui-feature-text">Pin data to the EU, US or APAC with a single project setting.</p></div>
+        <div class="aui-feature"><span class="aui-icon-box"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-layers"/></svg></span><h3 class="aui-feature-title">Composable services</h3><p class="aui-feature-text">Use one product or all of them; they share identity, billing and telemetry.</p></div>
+        <div class="aui-feature"><span class="aui-icon-box"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-refresh"/></svg></span><h3 class="aui-feature-title">Replay &amp; recovery</h3><p class="aui-feature-text">Rewind any stream to a point in time and rebuild downstream state safely.</p></div>
+        <div class="aui-feature"><span class="aui-icon-box"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-terminal"/></svg></span><h3 class="aui-feature-title">Developer first</h3><p class="aui-feature-text">Typed SDKs, a predictable REST API and docs that respect your time.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metrics -->
+  <section class="aui-section aui-section--tight aui-section--bordered">
+    <div class="aui-container">
+      <div class="aui-stats aui-stats--public">
+        <div class="aui-stat"><span class="aui-stat-label">Events delivered daily</span><span class="aui-stat-value">4.2B</span></div>
+        <div class="aui-stat"><span class="aui-stat-label">Median latency</span><span class="aui-stat-value">38<small>ms</small></span></div>
+        <div class="aui-stat"><span class="aui-stat-label">Monthly uptime</span><span class="aui-stat-value">99.99<small>%</small></span></div>
+        <div class="aui-stat"><span class="aui-stat-label">Regions</span><span class="aui-stat-value">12</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Developer split -->
+  <section class="aui-section aui-section--bordered" id="developers">
+    <div class="aui-container">
+      <div class="aui-split">
+        <div class="aui-split-body">
+          <span class="aui-eyebrow aui-eyebrow--caps">Developers</span>
+          <h2 class="aui-section-title">From API key to production in an afternoon</h2>
+          <p class="aui-section-desc">Install an SDK, create a key and connect. The same primitives scale from a weekend prototype to a regulated enterprise rollout.</p>
+          <ul class="aui-checklist">
+            <li>Official SDKs for TypeScript, Python, Go, PHP, Java and C#</li>
+            <li>OpenAPI 3.1 specification and Postman collection</li>
+            <li>Sandbox projects with synthetic event generators</li>
+          </ul>
+          <div class="aui-hero-actions">
+            <a class="aui-btn aui-btn--primary" href="documentation.html">Quickstart</a>
+            <a class="aui-btn aui-btn--ghost" href="documentation.html#endpoint">API reference <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a>
+          </div>
+        </div>
+        <div class="aui-stack aui-gap-3">
+          <div class="aui-cli"><code class="aui-cli-cmd">npm install @armsys/sdk</code><button type="button" class="aui-copy" data-aui-copy aria-label="Copy"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg></span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg></span></button></div>
+          <div class="aui-tile-grid" style="--min:180px">
+            <a class="aui-tile" href="documentation.html"><span class="aui-lang-mark">TS</span><span class="aui-tile-body"><span class="aui-tile-title">TypeScript</span><span class="aui-tile-meta">@armsys/sdk</span></span><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a>
+            <a class="aui-tile" href="documentation.html"><span class="aui-lang-mark">PY</span><span class="aui-tile-body"><span class="aui-tile-title">Python</span><span class="aui-tile-meta">armsys</span></span><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a>
+            <a class="aui-tile" href="documentation.html"><span class="aui-lang-mark">GO</span><span class="aui-tile-body"><span class="aui-tile-title">Go</span><span class="aui-tile-meta">armsys-go</span></span><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a>
+            <a class="aui-tile" href="documentation.html"><span class="aui-lang-mark">C#</span><span class="aui-tile-body"><span class="aui-tile-title">.NET</span><span class="aui-tile-meta">Armsys.Sdk</span></span><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a>
+            <a class="aui-tile" href="documentation.html"><span class="aui-lang-mark">PHP</span><span class="aui-tile-body"><span class="aui-tile-title">PHP</span><span class="aui-tile-meta">armsys/sdk</span></span><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a>
+            <a class="aui-tile" href="documentation.html"><span class="aui-lang-mark">JV</span><span class="aui-tile-body"><span class="aui-tile-title">Java</span><span class="aui-tile-meta">tech.armsys</span></span><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product UI preview -->
+  <section class="aui-section aui-section--alt aui-section--bordered">
+    <div class="aui-container">
+      <div class="aui-split aui-split--reverse">
+        <div class="aui-split-body">
+          <span class="aui-eyebrow aui-eyebrow--caps">Operations</span>
+          <h2 class="aui-section-title">A console your on-call engineers will actually like</h2>
+          <p class="aui-section-desc">Live service health, event tails and alert history in one calm, dense interface — the same design language as everything else we ship.</p>
+          <div class="aui-hero-actions"><a class="aui-btn aui-btn--outline" href="monitoring.html">Open live demo <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-up-right"/></svg></a></div>
+        </div>
+        <div class="aui-window">
+          <div class="aui-window-bar"><span class="aui-window-dots"><i></i><i></i><i></i></span>console.armsys.tech / monitoring</div>
+          <div class="aui-window-body aui-stack aui-gap-3">
+            <div class="aui-grid aui-grid--3 aui-gap-2">
+              <div class="aui-card aui-metric"><div class="aui-stat aui-stat--sm"><span class="aui-stat-label">Throughput</span><span class="aui-stat-value">48.2k/s</span></div></div>
+              <div class="aui-card aui-metric"><div class="aui-stat aui-stat--sm"><span class="aui-stat-label">p95 latency</span><span class="aui-stat-value">71 ms</span></div></div>
+              <div class="aui-card aui-metric"><div class="aui-stat aui-stat--sm"><span class="aui-stat-label">Error rate</span><span class="aui-stat-value">0.02%</span></div></div>
+            </div>
+            <div class="aui-card"><div class="aui-log aui-log--plain">
+              <div class="aui-log-row"><span class="aui-log-time">14:02:11.204</span><span class="aui-log-level is-ok">OK</span><span class="aui-log-src">stream.eu-1</span><span class="aui-log-msg">orders.created delivered to 312 subscribers</span></div>
+              <div class="aui-log-row"><span class="aui-log-time">14:02:11.388</span><span class="aui-log-level is-info">INFO</span><span class="aui-log-src">gateway</span><span class="aui-log-msg">key ak_live_8f2 rotated by ayla@armsys.tech</span></div>
+              <div class="aui-log-row"><span class="aui-log-time">14:02:12.019</span><span class="aui-log-level is-warn">WARN</span><span class="aui-log-src">edge.fra</span><span class="aui-log-msg">upstream latency above 120 ms (3/5)</span></div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources -->
+  <section class="aui-section aui-section--bordered">
+    <div class="aui-container">
+      <div class="aui-section-header aui-section-header--split">
+        <div><span class="aui-eyebrow aui-eyebrow--caps">Resources</span><h2 class="aui-section-title">Learn how teams build on Armsys</h2></div>
+        <a class="aui-link-arrow" href="documentation.html">All resources <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a>
+      </div>
+      <div class="aui-card-grid aui-card-grid--4">
+        <a class="aui-resource-card" href="documentation.html"><span class="aui-resource-kind">Guide</span><span class="aui-resource-title">Designing idempotent consumers</span><span class="aui-resource-text">Patterns for exactly-once effects on top of at-least-once delivery.</span><span class="aui-link-arrow">Read <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></span></a>
+        <a class="aui-resource-card" href="documentation.html"><span class="aui-resource-kind">Reference</span><span class="aui-resource-title">Stream API v3</span><span class="aui-resource-text">Endpoints, payloads and error codes for the streaming API.</span><span class="aui-link-arrow">Open <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></span></a>
+        <a class="aui-resource-card" href="monitoring.html"><span class="aui-resource-kind">Status</span><span class="aui-resource-title">Platform status</span><span class="aui-resource-text">Live availability, incidents and scheduled maintenance.</span><span class="aui-link-arrow">View <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></span></a>
+        <a class="aui-resource-card" href="leaderboard.html"><span class="aui-resource-kind">Dataset</span><span class="aui-resource-title">Public Insights</span><span class="aui-resource-text">Open rankings and statistics refreshed every hour.</span><span class="aui-link-arrow">Explore <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="aui-section aui-section--flush-top">
+    <div class="aui-container">
+      <div class="aui-cta">
+        <div class="aui-cta-body">
+          <h2 class="aui-cta-title">Ready to move your real-time stack to Armsys?</h2>
+          <p class="aui-cta-text">Start on the free tier or talk to our solutions team about migration, residency and support.</p>
+        </div>
+        <div class="aui-cta-actions">
+          <a class="aui-btn aui-btn--primary aui-btn--lg" href="login.html">Create account</a>
+          <a class="aui-btn aui-btn--outline aui-btn--lg" href="#"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-mail"/></svg>Contact sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<footer class="aui-site-footer">
+  <div class="aui-container">
+    <div class="aui-footer-grid">
+      <div class="aui-footer-brand">
+        <a class="aui-site-brand" href="website.html"><span class="aui-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aui-i-logo"/></svg></span>Armsys Technology</a>
+        <p>Infrastructure software for real-time products, internal platforms and the teams that operate them.</p>
+        <div class="aui-row"><span class="aui-status"><span class="aui-dot aui-dot--success"></span>All systems operational</span></div>
+      </div>
+      <div class="aui-footer-col"><h4>Products</h4><ul>
+        <li><a href="website.html#products">Stream</a></li><li><a href="website.html#products">Gateway</a></li><li><a href="website.html#products">Observe</a></li><li><a href="website.html#products">Identity</a></li><li><a href="website.html#products">Edge</a></li></ul></div>
+      <div class="aui-footer-col"><h4>Developers</h4><ul>
+        <li><a href="documentation.html">Documentation</a></li><li><a href="documentation.html#endpoint">API reference</a></li><li><a href="documentation.html#sdks">SDKs</a></li><li><a href="monitoring.html">Status</a></li></ul></div>
+      <div class="aui-footer-col"><h4>Resources</h4><ul>
+        <li><a href="pricing.html">Pricing</a></li><li><a href="leaderboard.html">Insights</a></li><li><a href="pricing.html#faq">FAQ</a></li><li><a href="#">Changelog</a></li></ul></div>
+      <div class="aui-footer-col"><h4>Company</h4><ul>
+        <li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Contact</a></li></ul></div>
+    </div>
+    <div class="aui-footer-bottom">
+      <span>© 2026 Armsys Technology. All rights reserved.</span>
+      <nav class="aui-footer-legal" aria-label="Legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a><a href="#">Imprint</a></nav>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in — Armsys</title>
+<meta name="description" content="Armsys UI — framework-independent design system by Armsys Technology.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="../dist/armsys-ui.css">
+<script src="../dist/armsys-ui.js" defer></script>
+</head>
+<body class="aui">
+<main class="aui-auth">
+  <div class="aui-auth-card">
+    <div class="aui-auth-brand"><a class="aui-brand" href="website.html"><span class="aui-logo aui-logo--lg"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aui-i-logo"/></svg></span></a></div>
+    <h1 class="aui-auth-title">Sign in to Armsys</h1>
+    <p class="aui-auth-desc">Welcome back. Use your work account to continue.</p>
+
+    <div class="aui-auth-panel">
+      <form class="aui-form" action="dashboard.html">
+        <div class="aui-grid aui-grid--2 aui-gap-2">
+          <button type="button" class="aui-btn"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-key"/></svg>SSO</button>
+          <button type="button" class="aui-btn"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-mail"/></svg>Magic link</button>
+        </div>
+        <div class="aui-divider-text">or continue with email</div>
+        <div class="aui-field">
+          <label class="aui-label" for="email">Email</label>
+          <label class="aui-input-wrap"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-mail"/></svg><input class="aui-input" id="email" type="email" placeholder="you@company.com" autocomplete="email" required></label>
+        </div>
+        <div class="aui-field">
+          <div class="aui-label-row"><label class="aui-label" for="password">Password</label><a class="aui-link aui-text-xs" href="#">Forgot password?</a></div>
+          <label class="aui-input-wrap"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-lock"/></svg><input class="aui-input" id="password" type="password" placeholder="••••••••" autocomplete="current-password" required></label>
+        </div>
+        <label class="aui-check"><input type="checkbox" checked><span>Keep me signed in for 30 days</span></label>
+        <button type="submit" class="aui-btn aui-btn--primary aui-btn--lg aui-btn--block">Sign in</button>
+      </form>
+    </div>
+
+    <p class="aui-auth-foot">No account yet? <a class="aui-link" href="pricing.html">Start for free</a></p>
+    <p class="aui-caption aui-center aui-mt-2"><a class="aui-link--quiet aui-link" href="#">Privacy</a> · <a class="aui-link--quiet aui-link" href="#">Terms</a> · <span class="aui-status aui-text-xs"><span class="aui-dot aui-dot--success"></span>All systems operational</span></p>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,418 @@
+{
+  "schemaVersion": 1,
+  "prefix": "aui-",
+  "components": {
+    "button": {
+      "base": "aui-btn",
+      "variants": [
+        "aui-btn--primary",
+        "aui-btn--secondary",
+        "aui-btn--outline",
+        "aui-btn--ghost",
+        "aui-btn--accent",
+        "aui-btn--success",
+        "aui-btn--danger",
+        "aui-btn--danger-soft",
+        "aui-btn--sm",
+        "aui-btn--lg",
+        "aui-btn--icon",
+        "aui-btn--block"
+      ],
+      "source": "src/components/actions.css",
+      "javascript": false
+    },
+    "buttonGroup": {
+      "base": "aui-btn-group",
+      "source": "src/components/actions.css",
+      "javascript": false
+    },
+    "input": {
+      "base": "aui-input",
+      "related": [
+        "aui-input-wrap",
+        "aui-input-group",
+        "aui-input-addon",
+        "aui-input-end",
+        "aui-label",
+        "aui-help",
+        "aui-field-error"
+      ],
+      "variants": [
+        "aui-input--sm",
+        "aui-input--lg",
+        "aui-input--mono"
+      ],
+      "source": "src/components/forms.css",
+      "javascript": false
+    },
+    "select": {
+      "base": "aui-select",
+      "source": "src/components/forms.css",
+      "javascript": false
+    },
+    "textarea": {
+      "base": "aui-textarea",
+      "variants": [
+        "aui-textarea--code"
+      ],
+      "source": "src/components/forms.css",
+      "javascript": false
+    },
+    "checkboxAndRadio": {
+      "base": "aui-check",
+      "related": [
+        "aui-check-desc"
+      ],
+      "source": "src/components/forms.css",
+      "javascript": false
+    },
+    "switch": {
+      "base": "aui-switch",
+      "variants": [
+        "aui-switch--sm"
+      ],
+      "source": "src/components/forms.css",
+      "javascript": false
+    },
+    "card": {
+      "base": "aui-card",
+      "related": [
+        "aui-card-header",
+        "aui-card-title",
+        "aui-card-desc",
+        "aui-card-body",
+        "aui-card-footer",
+        "aui-card-actions"
+      ],
+      "variants": [
+        "aui-card--flat",
+        "aui-card--interactive",
+        "aui-card--pad",
+        "aui-card--clip"
+      ],
+      "source": "src/components/data.css",
+      "javascript": false
+    },
+    "badge": {
+      "base": "aui-badge",
+      "variants": [
+        "aui-badge--solid",
+        "aui-badge--outline",
+        "aui-badge--pill",
+        "aui-badge--mono",
+        "aui-badge--success",
+        "aui-badge--info",
+        "aui-badge--warning",
+        "aui-badge--danger",
+        "aui-badge--accent",
+        "aui-badge--purple",
+        "aui-badge--pink",
+        "aui-badge--orange",
+        "aui-badge--yellow"
+      ],
+      "source": "src/components/data.css",
+      "javascript": false
+    },
+    "stat": {
+      "base": "aui-stat",
+      "related": [
+        "aui-stat-label",
+        "aui-stat-value",
+        "aui-stat-meta",
+        "aui-stat-icon"
+      ],
+      "variants": [
+        "aui-stat--sm",
+        "aui-stat--lg"
+      ],
+      "source": "src/components/data.css",
+      "javascript": false
+    },
+    "progress": {
+      "base": "aui-progress",
+      "related": [
+        "aui-progress-label"
+      ],
+      "variants": [
+        "aui-progress--sm",
+        "aui-progress--lg",
+        "aui-progress--success",
+        "aui-progress--warning",
+        "aui-progress--danger"
+      ],
+      "source": "src/components/data.css",
+      "javascript": false
+    },
+    "table": {
+      "base": "aui-table",
+      "wrapper": "aui-table-wrap",
+      "variants": [
+        "aui-table--dense",
+        "aui-table--public",
+        "aui-table--ranking",
+        "aui-table--comparison",
+        "aui-table--params",
+        "aui-table--static"
+      ],
+      "source": "src/components/tables.css",
+      "javascript": false
+    },
+    "tabs": {
+      "base": "aui-tabs",
+      "related": [
+        "aui-tab",
+        "aui-tab-panel",
+        "aui-tabs-block"
+      ],
+      "variants": [
+        "aui-tabs--sm"
+      ],
+      "source": "src/components/navigation.css",
+      "javascript": true,
+      "dataAttributes": [
+        "data-aui-tabs",
+        "data-aui-tab",
+        "data-aui-panel",
+        "data-aui-tabs-sync"
+      ]
+    },
+    "pagination": {
+      "base": "aui-pagination",
+      "related": [
+        "aui-pagination-info"
+      ],
+      "source": "src/components/navigation.css",
+      "javascript": false
+    },
+    "dropdown": {
+      "base": "aui-dropdown",
+      "related": [
+        "aui-menu",
+        "aui-menu-item",
+        "aui-menu-sep",
+        "aui-menu-label"
+      ],
+      "source": "src/components/navigation.css",
+      "javascript": true,
+      "dataAttributes": [
+        "data-aui-dropdown",
+        "data-aui-dropdown-trigger"
+      ]
+    },
+    "alert": {
+      "base": "aui-alert",
+      "related": [
+        "aui-alert-body",
+        "aui-alert-title",
+        "aui-alert-text",
+        "aui-alert-actions",
+        "aui-alert-close"
+      ],
+      "source": "src/components/feedback.css",
+      "javascript": true,
+      "dataAttributes": [
+        "data-aui-dismiss"
+      ]
+    },
+    "notice": {
+      "base": "aui-notice",
+      "source": "src/components/feedback.css",
+      "javascript": false
+    },
+    "toast": {
+      "base": "aui-toast",
+      "related": [
+        "aui-toast-region",
+        "aui-toast-title",
+        "aui-toast-text",
+        "aui-toast-close"
+      ],
+      "source": "src/components/feedback.css",
+      "javascript": true,
+      "dataAttributes": [
+        "data-aui-toast"
+      ]
+    },
+    "modal": {
+      "base": "aui-modal",
+      "related": [
+        "aui-modal-header",
+        "aui-modal-title",
+        "aui-modal-desc",
+        "aui-modal-body",
+        "aui-modal-footer",
+        "aui-modal-close"
+      ],
+      "variants": [
+        "aui-modal--sm",
+        "aui-modal--lg"
+      ],
+      "source": "src/components/overlays.css",
+      "javascript": true,
+      "dataAttributes": [
+        "data-aui-modal",
+        "data-aui-modal-open",
+        "data-aui-modal-close"
+      ]
+    },
+    "drawer": {
+      "base": "aui-drawer",
+      "variants": [
+        "aui-drawer--left",
+        "aui-drawer--lg"
+      ],
+      "source": "src/components/overlays.css",
+      "javascript": true,
+      "dataAttributes": [
+        "data-aui-modal",
+        "data-aui-modal-open",
+        "data-aui-modal-close"
+      ]
+    },
+    "code": {
+      "base": "aui-code",
+      "related": [
+        "aui-code-header",
+        "aui-code-title",
+        "aui-code-lang",
+        "aui-code-actions",
+        "aui-code-body",
+        "aui-code-tabs",
+        "aui-code-tab",
+        "aui-code-output"
+      ],
+      "variants": [
+        "aui-code--terminal",
+        "aui-code--scroll"
+      ],
+      "source": "src/components/code.css",
+      "javascript": true,
+      "dataAttributes": [
+        "data-aui-copy"
+      ]
+    },
+    "apiEndpoint": {
+      "base": "aui-endpoint",
+      "related": [
+        "aui-endpoint-head",
+        "aui-endpoint-title",
+        "aui-endpoint-summary",
+        "aui-endpoint-path",
+        "aui-endpoint-host",
+        "aui-method"
+      ],
+      "source": "src/components/code.css",
+      "javascript": false
+    },
+    "faq": {
+      "base": "aui-faq",
+      "related": [
+        "aui-faq-layout",
+        "aui-faq-body"
+      ],
+      "variants": [
+        "aui-faq--cards",
+        "aui-faq--sm"
+      ],
+      "source": "src/layouts/site.css",
+      "javascript": false
+    },
+    "siteHeader": {
+      "base": "aui-site-header",
+      "related": [
+        "aui-site-header-inner",
+        "aui-site-brand",
+        "aui-site-nav",
+        "aui-site-nav-item",
+        "aui-site-nav-link",
+        "aui-site-actions",
+        "aui-nav-toggle"
+      ],
+      "source": "src/layouts/site.css",
+      "javascript": true,
+      "dataAttributes": [
+        "data-aui-nav-toggle"
+      ]
+    },
+    "sidebar": {
+      "base": "aui-sidebar",
+      "related": [
+        "aui-sidebar-header",
+        "aui-sidebar-body",
+        "aui-sidebar-footer",
+        "aui-sidebar-toggle",
+        "aui-nav",
+        "aui-nav-item"
+      ],
+      "source": "src/layouts/app.css",
+      "javascript": true
+    },
+    "hero": {
+      "base": "aui-hero",
+      "related": [
+        "aui-hero-inner",
+        "aui-hero-title",
+        "aui-hero-description",
+        "aui-hero-actions",
+        "aui-hero-visual"
+      ],
+      "variants": [
+        "aui-hero--center",
+        "aui-hero--compact",
+        "aui-hero--grid",
+        "aui-hero--short",
+        "aui-hero--split"
+      ],
+      "source": "src/layouts/site.css",
+      "javascript": false
+    },
+    "featureGrid": {
+      "base": "aui-feature-grid",
+      "related": [
+        "aui-feature",
+        "aui-feature-card",
+        "aui-feature-title",
+        "aui-feature-text"
+      ],
+      "variants": [
+        "aui-feature-grid--2",
+        "aui-feature-grid--4"
+      ],
+      "source": "src/layouts/site.css",
+      "javascript": false
+    },
+    "pricingCard": {
+      "base": "aui-pricing-card",
+      "related": [
+        "aui-pricing-grid",
+        "aui-plan-name",
+        "aui-plan-desc",
+        "aui-plan-badge",
+        "aui-plan-features",
+        "aui-price"
+      ],
+      "source": "src/layouts/pricing.css",
+      "javascript": false
+    },
+    "docsLayout": {
+      "base": "aui-docs",
+      "related": [
+        "aui-docs-sidebar",
+        "aui-docs-nav",
+        "aui-docs-main",
+        "aui-docs-article",
+        "aui-docs-toc",
+        "aui-docs-pager"
+      ],
+      "variants": [
+        "aui-docs--no-toc",
+        "aui-docs--wide"
+      ],
+      "source": "src/layouts/docs.css",
+      "javascript": true,
+      "dataAttributes": [
+        "data-aui-toc"
+      ]
+    }
+  }
+}

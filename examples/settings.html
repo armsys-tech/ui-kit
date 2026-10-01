@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings — Armsys Console</title>
+<meta name="description" content="Armsys UI — framework-independent design system by Armsys Technology.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="../dist/armsys-ui.css">
+<script src="../dist/armsys-ui.js" defer></script>
+</head>
+<body class="aui">
+<div class="aui-app">
+<aside class="aui-sidebar" id="app-sidebar" aria-label="Application">
+  <div class="aui-sidebar-header"><a class="aui-brand" href="dashboard.html"><span class="aui-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aui-i-logo"/></svg></span><span class="aui-brand-text">Armsys Console<small>Production</small></span></a></div>
+  <div class="aui-sidebar-body"><nav class="aui-nav" aria-label="Primary">
+    <div class="aui-nav-title">Workspace</div>
+    <a class="aui-nav-item" href="dashboard.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-grid"/></svg><span class="aui-nav-label">Overview</span></a>
+    <a class="aui-nav-item" href="monitoring.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-activity"/></svg><span class="aui-nav-label">Monitoring</span><span class="aui-badge aui-badge--success"><span class="aui-dot aui-dot--success is-live"></span>Live</span></a>
+    <a class="aui-nav-item" href="data-table.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-database"/></svg><span class="aui-nav-label">Events</span><span class="aui-nav-count">12.4k</span></a>
+    <a class="aui-nav-item" href="dashboard.html#streams"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-radio"/></svg><span class="aui-nav-label">Streams</span><span class="aui-nav-count">8</span></a>
+    <div class="aui-nav-title">Configure</div>
+    <a class="aui-nav-item" href="settings.html#keys"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-key"/></svg><span class="aui-nav-label">API keys</span></a>
+    <a class="aui-nav-item" href="settings.html#webhooks"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-webhook"/></svg><span class="aui-nav-label">Webhooks</span></a>
+    <a class="aui-nav-item" href="settings.html#team"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-users"/></svg><span class="aui-nav-label">Team</span></a>
+    <a class="aui-nav-item" href="settings.html" aria-current="page"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-settings"/></svg><span class="aui-nav-label">Settings</span></a>
+    <div class="aui-nav-title">Resources</div>
+    <a class="aui-nav-item" href="documentation.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-book"/></svg><span class="aui-nav-label">Documentation</span></a>
+    <a class="aui-nav-item" href="embedded-panel.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-sidebar"/></svg><span class="aui-nav-label">Embedded panel</span></a>
+  </nav></div>
+  <div class="aui-sidebar-footer">
+    <div class="aui-dropdown aui-w-full" data-aui-dropdown>
+      <button type="button" class="aui-sidebar-user" data-aui-dropdown-trigger><span class="aui-avatar aui-avatar--sm aui-avatar--accent">AT</span><span class="aui-sidebar-user-text aui-entity-body"><span class="aui-entity-name aui-text-sm">Ayla Tan</span><span class="aui-entity-sub">ayla@armsys.tech</span></span><svg class="aui-icon aui-icon--sm aui-text-subtle" aria-hidden="true"><use href="#aui-i-chevrons-up-down"/></svg></button>
+      <div class="aui-menu aui-menu--up" role="menu">
+        <a class="aui-menu-item" role="menuitem" href="settings.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-user"/></svg>Profile</a>
+        <a class="aui-menu-item" role="menuitem" href="settings.html#keys"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-key"/></svg>API keys</a>
+        <div class="aui-menu-sep"></div>
+        <a class="aui-menu-item" role="menuitem" href="login.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-logout"/></svg>Sign out</a>
+      </div>
+    </div>
+  </div>
+</aside>
+  <div class="aui-app-main">
+    <header class="aui-topbar">
+      <button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm aui-sidebar-toggle" data-aui-nav-toggle="#app-sidebar" aria-label="Open navigation"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-menu"/></svg></button>
+      <nav class="aui-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="#">Northwind</a></li><li><span aria-current="page">Settings</span></li></ol></nav>
+    </header>
+
+    <main class="aui-app-content">
+      <div class="aui-page-header aui-page-header--bordered">
+        <div><h1 class="aui-page-title">Project settings</h1><p class="aui-page-desc">Manage how the Northwind project behaves across all environments.</p></div>
+      </div>
+
+      <div class="aui-settings">
+        <aside class="aui-settings-nav">
+          <nav class="aui-nav" aria-label="Settings">
+            <div class="aui-nav-title">Project</div>
+            <a class="aui-nav-item" href="#general" aria-current="page"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-settings"/></svg><span class="aui-nav-label">General</span></a>
+            <a class="aui-nav-item" href="#keys"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-key"/></svg><span class="aui-nav-label">API keys</span><span class="aui-nav-count">4</span></a>
+            <a class="aui-nav-item" href="#webhooks"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-webhook"/></svg><span class="aui-nav-label">Webhooks</span></a>
+            <a class="aui-nav-item" href="#notifications"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-bell"/></svg><span class="aui-nav-label">Notifications</span></a>
+            <div class="aui-nav-title">Organisation</div>
+            <a class="aui-nav-item" href="#team"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-users"/></svg><span class="aui-nav-label">Team</span></a>
+            <a class="aui-nav-item" href="#"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-shield"/></svg><span class="aui-nav-label">Security</span></a>
+            <a class="aui-nav-item" href="#"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-file"/></svg><span class="aui-nav-label">Billing</span></a>
+          </nav>
+        </aside>
+
+        <div class="aui-settings-content">
+          <section class="aui-form-section" id="general">
+            <div><h2 class="aui-form-section-title">General</h2><p class="aui-form-section-desc">Basic information shown across the console and in API responses.</p></div>
+            <div class="aui-form">
+              <div class="aui-form-grid">
+                <div class="aui-field"><label class="aui-label aui-required" for="s-name">Project name</label><input class="aui-input" id="s-name" value="Northwind"></div>
+                <div class="aui-field"><label class="aui-label" for="s-id">Project ID</label><div class="aui-input-wrap"><input class="aui-input aui-input--mono" id="s-id" value="prj_01J9Z6Q4N7KX" readonly><span class="aui-input-end"><button type="button" class="aui-copy" data-aui-copy="prj_01J9Z6Q4N7KX" aria-label="Copy project ID"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg></span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg></span></button></span></div></div>
+              </div>
+              <div class="aui-field"><label class="aui-label" for="s-slug">Public URL</label><div class="aui-input-group"><span class="aui-input-addon aui-input-addon--mono">https://</span><input class="aui-input" id="s-slug" value="northwind"><span class="aui-input-addon aui-input-addon--mono">.armsys.app</span></div><span class="aui-help">Used for hosted status pages and public dashboards.</span></div>
+              <div class="aui-form-grid">
+                <div class="aui-field"><label class="aui-label" for="s-region">Default region</label><select class="aui-select" id="s-region"><option>eu-central (Frankfurt)</option><option>us-east (Virginia)</option><option>ap-southeast (Singapore)</option></select></div>
+                <div class="aui-field"><label class="aui-label" for="s-tz">Time zone</label><select class="aui-select" id="s-tz"><option>Europe/Istanbul (UTC+3)</option><option>UTC</option><option>America/New_York</option></select></div>
+              </div>
+              <div class="aui-field"><label class="aui-label" for="s-desc">Description <span class="aui-optional">Optional</span></label><textarea class="aui-textarea" id="s-desc" placeholder="What does this project do?">Order, payment and inventory events for the Northwind storefront.</textarea></div>
+              <div class="aui-field"><label class="aui-label aui-required" for="s-email">Billing email</label><input class="aui-input is-invalid" id="s-email" type="email" value="billing@northwind" aria-invalid="true" aria-describedby="s-email-err"><span class="aui-help is-error" id="s-email-err">Enter a valid email address.</span></div>
+            </div>
+          </section>
+
+          <section class="aui-form-section" id="keys">
+            <div><h2 class="aui-form-section-title">API keys</h2><p class="aui-form-section-desc">Keys authenticate server-to-server requests. Rotate them regularly.</p></div>
+            <div class="aui-stack aui-gap-3">
+              <div class="aui-card">
+                <ul class="aui-list">
+                  <li><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-key"/></svg></span><div class="aui-list-body"><div class="aui-list-title">Production backend</div><div class="aui-list-meta aui-mono">ak_live_8f2…c91 · streams:write, streams:read</div></div><span class="aui-list-end"><span class="aui-badge aui-badge--success">Active</span><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" aria-label="Key actions"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-more"/></svg></button></span></li>
+                  <li><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-key"/></svg></span><div class="aui-list-body"><div class="aui-list-title">Analytics reader</div><div class="aui-list-meta aui-mono">ak_live_31d…07a · streams:read</div></div><span class="aui-list-end"><span class="aui-badge aui-badge--success">Active</span><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" aria-label="Key actions"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-more"/></svg></button></span></li>
+                  <li><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-key"/></svg></span><div class="aui-list-body"><div class="aui-list-title">CI publisher</div><div class="aui-list-meta aui-mono">ak_test_77b…e20 · expires in 6 days</div></div><span class="aui-list-end"><span class="aui-badge aui-badge--warning">Expiring</span><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" aria-label="Key actions"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-more"/></svg></button></span></li>
+                </ul>
+              </div>
+              <div><button type="button" class="aui-btn aui-btn--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-plus"/></svg>Create key</button></div>
+            </div>
+          </section>
+
+          <section class="aui-form-section" id="webhooks">
+            <div><h2 class="aui-form-section-title">Delivery</h2><p class="aui-form-section-desc">Defaults applied to new streams and webhook endpoints.</p></div>
+            <div class="aui-form">
+              <fieldset class="aui-fieldset"><legend>Delivery guarantee</legend>
+                <label class="aui-check"><input type="radio" name="g" checked><span>At-least-once<span class="aui-check-desc">Recommended. Consumers must be idempotent.</span></span></label>
+                <label class="aui-check"><input type="radio" name="g"><span>At-most-once<span class="aui-check-desc">Lowest latency; events may be dropped on failure.</span></span></label>
+                <label class="aui-check"><input type="radio" name="g" disabled><span>Exactly-once<span class="aui-check-desc">Available on the Scale plan.</span></span></label>
+              </fieldset>
+              <div class="aui-form-grid">
+                <div class="aui-field"><label class="aui-label" for="s-retry">Max retries</label><input class="aui-input" id="s-retry" type="number" value="8" min="0"></div>
+                <div class="aui-field"><label class="aui-label" for="s-timeout">Timeout</label><div class="aui-input-group"><input class="aui-input" id="s-timeout" type="number" value="5000"><span class="aui-input-addon">ms</span></div></div>
+              </div>
+              <label class="aui-check"><input type="checkbox" checked><span>Sign webhook payloads with HMAC-SHA256</span></label>
+              <label class="aui-check"><input type="checkbox"><span>Include full payload in failure notifications</span></label>
+            </div>
+          </section>
+
+          <section class="aui-form-section" id="notifications">
+            <div><h2 class="aui-form-section-title">Notifications</h2><p class="aui-form-section-desc">Choose what the team is alerted about.</p></div>
+            <div>
+              <div class="aui-option-row"><div><div class="aui-option-row-title">Incident alerts</div><div class="aui-option-row-desc">Service degradation and outages in this project.</div></div><label class="aui-switch"><input type="checkbox" role="switch" checked aria-label="Incident alerts"></label></div>
+              <div class="aui-option-row"><div><div class="aui-option-row-title">Quota warnings</div><div class="aui-option-row-desc">At 80% and 100% of included events.</div></div><label class="aui-switch"><input type="checkbox" role="switch" checked aria-label="Quota warnings"></label></div>
+              <div class="aui-option-row"><div><div class="aui-option-row-title">Weekly summary</div><div class="aui-option-row-desc">Traffic and reliability report every Monday.</div></div><label class="aui-switch"><input type="checkbox" role="switch" aria-label="Weekly summary"></label></div>
+              <div class="aui-option-row"><div><div class="aui-option-row-title">Product updates</div><div class="aui-option-row-desc">Managed by your organisation admin.</div></div><label class="aui-switch"><input type="checkbox" role="switch" disabled aria-label="Product updates"></label></div>
+            </div>
+          </section>
+
+          <section class="aui-form-section" id="team">
+            <div><h2 class="aui-form-section-title">Danger zone</h2><p class="aui-form-section-desc">Irreversible and destructive actions.</p></div>
+            <div class="aui-danger-zone">
+              <div class="aui-option-row"><div><div class="aui-option-row-title">Transfer project</div><div class="aui-option-row-desc">Move this project to another organisation.</div></div><button type="button" class="aui-btn aui-btn--sm">Transfer</button></div>
+              <div class="aui-option-row"><div><div class="aui-option-row-title">Pause all streams</div><div class="aui-option-row-desc">Stops delivery; publishers receive 503 responses.</div></div><button type="button" class="aui-btn aui-btn--sm aui-btn--danger-soft">Pause</button></div>
+              <div class="aui-option-row"><div><div class="aui-option-row-title">Delete project</div><div class="aui-option-row-desc">Permanently delete Northwind and all of its data.</div></div><button type="button" class="aui-btn aui-btn--sm aui-btn--danger" data-aui-modal-open="#confirm-delete">Delete project</button></div>
+            </div>
+          </section>
+
+          <div class="aui-save-bar">
+            <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-info"/></svg><span>You have unsaved changes</span>
+            <div class="aui-row"><button type="button" class="aui-btn aui-btn--sm aui-btn--ghost">Discard</button><button type="button" class="aui-btn aui-btn--sm aui-btn--primary" data-aui-toast="Settings saved" data-aui-toast-variant="success">Save changes</button></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<dialog class="aui-modal aui-modal--sm" id="confirm-delete" aria-labelledby="cd-title">
+  <div class="aui-modal-header">
+    <span class="aui-icon-box aui-icon-box--danger"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-trash"/></svg></span>
+    <div><h2 class="aui-modal-title" id="cd-title">Delete project?</h2><p class="aui-modal-desc">This permanently deletes <strong>Northwind</strong>, 14 streams and 30 days of retained events. This cannot be undone.</p></div>
+  </div>
+  <div class="aui-modal-body aui-field"><label class="aui-label" for="cd-confirm">Type <span class="aui-code-inline">northwind</span> to confirm</label><input class="aui-input aui-input--mono" id="cd-confirm" autocomplete="off" autofocus></div>
+  <div class="aui-modal-footer"><button type="button" class="aui-btn" data-aui-modal-close>Cancel</button><button type="button" class="aui-btn aui-btn--danger" data-aui-modal-close data-aui-toast="Project scheduled for deletion" data-aui-toast-variant="danger">Delete project</button></div>
+</dialog>
+</body>
+</html>

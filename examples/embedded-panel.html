@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embedded panel — Armsys UI</title>
+<link rel="stylesheet" href="../dist/armsys-ui.css">
+<script src="../dist/armsys-ui.js" defer></script>
+<style>
+  /* ------------------------------------------------------------------
+     This block simulates an unrelated HOST application (a legacy CMS /
+     intranet page). It is NOT part of Armsys UI. Armsys UI is scoped to
+     .aui containers below and does not restyle anything out here.
+     ------------------------------------------------------------------ */
+  body { margin: 0; font: 15px/1.5 Georgia, "Times New Roman", serif; background: #eceae4; color: #2b2a27; }
+  .host-header { background: #2f4a3a; color: #fff; padding: 14px 28px; display: flex; align-items: center; gap: 24px; }
+  .host-header a { color: #d9eadf; }
+  .host-main { max-width: 1180px; margin: 0 auto; padding: 28px; display: grid; grid-template-columns: 1fr 380px; gap: 28px; }
+  .host-article { background: #fff; padding: 28px 32px; border: 1px solid #d6d2c8; }
+  .host-article h1 { font-size: 28px; margin-top: 0; }
+  .host-article button, .host-sidebar button { font-family: inherit; }
+  .host-sidebar { display: flex; flex-direction: column; gap: 20px; }
+  .host-note { font-size: 13px; color: #6d6a60; border-left: 3px solid #b5ae9b; padding-left: 10px; }
+  table.host { border-collapse: collapse; width: 100%; } table.host td, table.host th { border: 1px solid #ccc; padding: 6px 8px; text-align: left; }
+  @media (max-width: 960px) { .host-main { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="host-header"><strong>Intranet</strong><a href="#">Home</a><a href="#">Reports</a><a href="#">People</a></header>
+
+<div class="host-main">
+  <article class="host-article">
+    <h1>Quarterly operations report</h1>
+    <p>This page belongs to a host application with its own serif typography, colours and default form controls. The panels on the right and the widget below are Armsys UI islands mounted with <code>&lt;div class="aui"&gt;</code>.</p>
+    <p><button>Native host button</button> <input placeholder="Native host input"> <a href="#">host link</a></p>
+    <table class="host"><tr><th>Region</th><th>Uptime</th></tr><tr><td>Europe</td><td>99.98%</td></tr><tr><td>Americas</td><td>99.95%</td></tr></table>
+    <p class="host-note">Host elements above keep their original styling — Armsys UI does not reset global elements.</p>
+
+    <!-- Armsys UI island inside host content -->
+    <div class="aui aui--transparent" style="margin-top:24px">
+      <div class="aui-mini aui--dense">
+        <div class="aui-mini-header"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-terminal"/></svg>Deploy command<div class="aui-row"><span class="aui-badge aui-badge--info">CLI</span></div></div>
+        <div class="aui-mini-body aui-stack aui-gap-3">
+          <div class="aui-cli"><code class="aui-cli-cmd">armsys deploy --env production --region eu</code><button type="button" class="aui-copy" data-aui-copy aria-label="Copy"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg></span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg></span></button></div>
+          <div class="aui-notice aui-notice--warning"><strong>Heads-up:</strong> production deploys require two approvals.</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <aside class="host-sidebar">
+    <!-- Embedded status widget (dark, dense) -->
+    <div class="aui aui--dense aui--transparent">
+      <div class="aui-mini">
+        <div class="aui-mini-header"><span class="aui-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aui-i-logo"/></svg></span>Service health
+          <div class="aui-row"><span class="aui-conn"><span class="aui-dot aui-dot--success is-live"></span>Live</span>
+            <div class="aui-dropdown" data-aui-dropdown><button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" data-aui-dropdown-trigger aria-label="Widget menu"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-more"/></svg></button>
+              <div class="aui-menu aui-menu--end" role="menu"><button type="button" class="aui-menu-item" role="menuitem" data-aui-toast="Refreshed" data-aui-toast-variant="success"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-refresh"/></svg>Refresh</button><a class="aui-menu-item" role="menuitem" href="monitoring.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-up-right"/></svg>Open console</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="aui-mini-body aui-stack aui-gap-3">
+          <div class="aui-grid aui-grid--2 aui-gap-2">
+            <div class="aui-card aui-metric"><div class="aui-stat aui-stat--sm"><span class="aui-stat-label">Throughput</span><span class="aui-stat-value">48.2k/s</span></div></div>
+            <div class="aui-card aui-metric"><div class="aui-stat aui-stat--sm"><span class="aui-stat-label">Errors</span><span class="aui-stat-value">0.02%</span></div></div>
+          </div>
+          <div class="aui-card">
+            <ul class="aui-list aui-list--compact">
+              <li><span class="aui-dot aui-dot--success"></span><div class="aui-list-body"><div class="aui-list-title">stream.eu-1</div></div><span class="aui-list-end">18 ms</span></li>
+              <li><span class="aui-dot aui-dot--warning"></span><div class="aui-list-body"><div class="aui-list-title">edge.fra</div></div><span class="aui-list-end aui-text-warning">142 ms</span></li>
+              <li><span class="aui-dot aui-dot--danger"></span><div class="aui-list-body"><div class="aui-list-title">replay-store.us</div></div><span class="aui-list-end"><span class="aui-badge aui-badge--danger">Outage</span></span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="aui-mini-footer"><svg class="aui-icon aui-icon--sm" aria-hidden="true"><use href="#aui-i-clock"/></svg>Updated 12 s ago<span class="aui-spacer"></span><a class="aui-link-arrow" href="monitoring.html">Details <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a></div>
+      </div>
+    </div>
+
+    <!-- Embedded form widget, light theme -->
+    <div class="aui aui--dense" data-aui-theme="light" style="border-radius:8px">
+      <div class="aui-mini">
+        <div class="aui-mini-header"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-mail"/></svg>Request access<div class="aui-row"><span class="aui-badge">Light theme</span></div></div>
+        <form class="aui-mini-body aui-form" onsubmit="event.preventDefault(); ArmsysUI.toast({ title: 'Request sent', message: 'An admin will review it shortly.', variant: 'success' });">
+          <div class="aui-field"><label class="aui-label aui-required" for="ra-email">Work email</label><input class="aui-input" id="ra-email" type="email" placeholder="you@company.com" required></div>
+          <div class="aui-field"><label class="aui-label" for="ra-team">Team</label><select class="aui-select" id="ra-team"><option>Platform</option><option>Data</option><option>Support</option></select></div>
+          <label class="aui-check"><input type="checkbox" checked><span>Read-only access</span></label>
+          <div class="aui-form-actions"><button type="reset" class="aui-btn aui-btn--ghost aui-btn--sm">Reset</button><button type="submit" class="aui-btn aui-btn--primary aui-btn--sm">Send request</button></div>
+        </form>
+      </div>
+    </div>
+
+    <p class="host-note">Each island is a plain <code>&lt;div class="aui"&gt;</code>. Add <code>aui--dense</code> for compact density, <code>aui--transparent</code> to inherit the host background and <code>data-aui-theme="light"</code> for the light palette.</p>
+  </aside>
+</div>
+</body>
+</html>

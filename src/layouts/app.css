@@ -1,0 +1,118 @@
+/* ==========================================================================
+   Armsys UI — Application layouts
+   Sidebar shell, compact sidebar, topbar shell, settings, split pane,
+   full-width tool, authentication, embedded mini panel.
+   ========================================================================== */
+.aui-app { display: grid; grid-template-columns: var(--aui-sidebar-w) minmax(0, 1fr); min-height: 100vh; }
+.aui-sidebar { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; min-width: 0; background: var(--aui-bg); border-right: 1px solid var(--aui-border-soft); z-index: var(--aui-z-drawer); }
+.aui-sidebar-header { display: flex; align-items: center; gap: 10px; height: var(--aui-topbar-h); padding: 0 16px; border-bottom: 1px solid var(--aui-border-soft); flex: none; }
+.aui-sidebar-body { flex: 1; min-height: 0; overflow-y: auto; padding: 8px 10px 16px; scrollbar-width: thin; }
+.aui-sidebar-footer { flex: none; padding: 10px; border-top: 1px solid var(--aui-border-soft); }
+.aui-sidebar-card { padding: 12px; border: 1px solid var(--aui-border); border-radius: var(--aui-radius-md); background: var(--aui-surface-1); font-size: var(--aui-fs-xs); color: var(--aui-text-muted); }
+.aui-sidebar-user { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px; border-radius: var(--aui-radius-sm); background: none; border: 0; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.aui-sidebar-user:hover { background: var(--aui-hover); }
+
+.aui-app-main { min-width: 0; display: flex; flex-direction: column; }
+.aui-topbar {
+  position: sticky; top: 0; z-index: var(--aui-z-sticky); display: flex; align-items: center; gap: 12px; height: var(--aui-topbar-h); padding: 0 24px; flex: none;
+  background: color-mix(in srgb, var(--aui-bg) 90%, transparent); border-bottom: 1px solid var(--aui-border-soft); backdrop-filter: saturate(1.3) blur(10px); -webkit-backdrop-filter: saturate(1.3) blur(10px);
+}
+.aui-topbar-title { font-size: var(--aui-fs-md); font-weight: var(--aui-fw-semibold); color: var(--aui-text); }
+.aui-topbar .aui-breadcrumb { font-size: var(--aui-fs-sm); }
+.aui-topbar-actions { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+.aui-topbar-search { flex: 0 1 340px; }
+.aui-app-content { flex: 1; width: 100%; padding: 28px 32px 56px; }
+.aui-app-content--narrow { max-width: 1080px; }
+.aui-app-content--full { padding: 0; display: flex; flex-direction: column; }
+
+/* Top navigation (no sidebar) */
+.aui-topnav { display: flex; align-items: center; gap: 2px; margin-left: 12px; }
+.aui-topnav > a { display: inline-flex; align-items: center; height: 32px; padding: 0 10px; font-size: var(--aui-fs-sm); color: var(--aui-text-muted); border-radius: var(--aui-radius-sm); transition: color var(--aui-dur-fast), background-color var(--aui-dur-fast); }
+.aui-topnav > a:hover { color: var(--aui-text); background: var(--aui-hover); }
+.aui-topnav > a.is-active, .aui-topnav > a[aria-current="page"] { color: var(--aui-text); background: var(--aui-active); }
+
+/* Compact sidebar (icon rail) */
+.aui-app--compact { --aui-sidebar-w: 60px; }
+.aui-app--compact .aui-sidebar-header { justify-content: center; padding: 0; }
+.aui-app--compact :is(.aui-nav-label, .aui-nav-title, .aui-brand-text, .aui-nav-count, .aui-nav-item .aui-badge, .aui-sidebar-card, .aui-sidebar-user-text) { display: none; }
+.aui-app--compact .aui-nav-item { justify-content: center; padding: 0; height: 38px; }
+.aui-app--compact .aui-nav-item.is-active::before { left: -10px; }
+.aui-app--compact .aui-nav-title + .aui-nav-item, .aui-app--compact .aui-nav-sep { margin-top: 10px; }
+.aui-app--compact .aui-sidebar-user { justify-content: center; }
+
+/* Dashboard helpers */
+.aui-section-title-sm { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 28px 0 12px; font-size: var(--aui-fs-md); font-weight: var(--aui-fw-semibold); color: var(--aui-text); }
+.aui-section-title-sm:first-child { margin-top: 0; }
+
+/* Settings layout */
+.aui-settings { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 48px; align-items: start; }
+.aui-settings-nav { position: sticky; top: calc(var(--aui-topbar-h) + 24px); }
+.aui-settings-nav .aui-nav-item.is-active::before, .aui-settings-nav .aui-nav-item[aria-current="page"]::before { left: 0; }
+.aui-settings-content { min-width: 0; max-width: 880px; }
+.aui-form-section { display: grid; grid-template-columns: minmax(180px, 280px) minmax(0, 1fr); gap: 20px 48px; padding: 28px 0; border-top: 1px solid var(--aui-border-soft); }
+.aui-form-section:first-child { border-top: 0; padding-top: 0; }
+.aui-form-section-title { font-size: var(--aui-fs-md); font-weight: var(--aui-fw-semibold); color: var(--aui-text); }
+.aui-form-section-desc { margin-top: 4px; font-size: var(--aui-fs-sm); line-height: 1.55; color: var(--aui-text-muted); }
+.aui-save-bar { position: sticky; bottom: 16px; z-index: var(--aui-z-sticky); display: flex; align-items: center; gap: 12px; margin-top: 24px; padding: 10px 10px 10px 16px; font-size: var(--aui-fs-sm); color: var(--aui-text-muted); background: var(--aui-surface-elevated); border: 1px solid var(--aui-border-strong); border-radius: var(--aui-radius-md); box-shadow: var(--aui-shadow-md); }
+.aui-save-bar > .aui-row { margin-left: auto; }
+.aui-danger-zone { border: 1px solid color-mix(in srgb, var(--aui-danger) 32%, var(--aui-border)); border-radius: var(--aui-radius-md); overflow: hidden; }
+.aui-danger-zone > .aui-option-row { padding: 16px 18px; }
+.aui-danger-zone > .aui-option-row:first-child { padding-top: 16px; }
+
+/* Split pane */
+.aui-split-pane { display: grid; grid-template-columns: minmax(260px, 340px) minmax(0, 1fr); min-height: 480px; background: var(--aui-surface-1); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-md); overflow: hidden; }
+.aui-split-pane > * { min-width: 0; min-height: 0; }
+.aui-split-pane > * + * { border-left: 1px solid var(--aui-border); }
+.aui-pane { display: flex; flex-direction: column; min-height: 0; }
+.aui-pane-header { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 8px 14px; border-bottom: 1px solid var(--aui-border-soft); }
+.aui-pane-body { flex: 1; min-height: 0; overflow: auto; }
+
+/* Full-width tool */
+.aui-tool { display: flex; flex-direction: column; height: 100vh; min-height: 0; }
+.aui-tool-bar { display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 12px; flex: none; border-bottom: 1px solid var(--aui-border-soft); background: var(--aui-bg); }
+.aui-tool-body { flex: 1; min-height: 0; display: flex; }
+.aui-tool-body > * { min-width: 0; min-height: 0; }
+.aui-statusbar { display: flex; align-items: center; gap: 16px; height: 28px; padding: 0 12px; flex: none; font-size: var(--aui-fs-2xs); color: var(--aui-text-subtle); border-top: 1px solid var(--aui-border-soft); background: var(--aui-bg-alt); font-variant-numeric: tabular-nums; }
+.aui-statusbar > * { display: inline-flex; align-items: center; gap: 6px; }
+
+/* Authentication */
+.aui-auth { position: relative; min-height: 100vh; display: grid; place-items: center; padding: 48px 16px; overflow: hidden; }
+.aui-auth::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(var(--aui-grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--aui-grid-line) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, #000 20%, transparent 75%); mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, #000 20%, transparent 75%); }
+.aui-auth > * { position: relative; }
+.aui-auth-card { width: min(400px, 100%); }
+.aui-auth-brand { display: flex; justify-content: center; margin-bottom: 28px; }
+.aui-auth-title { font-size: 1.375rem; font-weight: var(--aui-fw-semibold); letter-spacing: -.022em; text-align: center; color: var(--aui-text); }
+.aui-auth-desc { margin-top: 6px; text-align: center; font-size: var(--aui-fs-sm); color: var(--aui-text-muted); }
+.aui-auth-panel { margin-top: 28px; padding: 24px; background: var(--aui-surface-1); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-lg); }
+.aui-auth-foot { margin-top: 22px; text-align: center; font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
+.aui-divider-text { display: flex; align-items: center; gap: 12px; font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
+.aui-divider-text::before, .aui-divider-text::after { content: ""; flex: 1; height: 1px; background: var(--aui-border-soft); }
+
+/* Embedded mini panel */
+.aui-mini { min-width: 0; background: var(--aui-bg); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-md); overflow: hidden; }
+.aui-mini-header { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 8px 0 12px; font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-semibold); color: var(--aui-text); border-bottom: 1px solid var(--aui-border-soft); background: var(--aui-bg-alt); }
+.aui-mini-header > .aui-row:last-child { margin-left: auto; }
+.aui-mini-body { padding: 12px; }
+.aui-mini-footer { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-top: 1px solid var(--aui-border-soft); font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
+
+/* Responsive application shell */
+.aui-sidebar-toggle { display: none !important; }
+@media (max-width: 960px) {
+  .aui-app, .aui-app--compact { grid-template-columns: minmax(0, 1fr); }
+  .aui-app > .aui-sidebar { position: fixed; left: 0; top: 0; width: min(280px, 86vw); transform: translateX(-100%); transition: transform var(--aui-dur-slow) var(--aui-ease); box-shadow: var(--aui-shadow-overlay); }
+  .aui-app > .aui-sidebar.is-open { transform: none; }
+  .aui-app--compact .aui-sidebar :is(.aui-nav-label, .aui-nav-title, .aui-brand-text, .aui-nav-count) { display: revert; }
+  .aui-app--compact .aui-nav-item { justify-content: flex-start; padding: 6px 10px; }
+  .aui-sidebar-toggle { display: inline-flex !important; }
+  .aui-topbar { padding: 0 16px; }
+  .aui-topbar-search { display: none; }
+  .aui-app-content { padding: 20px 16px 48px; }
+  .aui-settings { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .aui-settings-nav { position: static; }
+  .aui-settings-nav .aui-nav { flex-direction: row; overflow-x: auto; gap: 4px; }
+  .aui-settings-nav .aui-nav-item { width: auto; flex: none; }
+  .aui-settings-nav .aui-nav-title { display: none; }
+  .aui-form-section { grid-template-columns: minmax(0, 1fr); }
+  .aui-split-pane { grid-template-columns: minmax(0, 1fr); }
+  .aui-split-pane > * + * { border-left: 0; border-top: 1px solid var(--aui-border); }
+}

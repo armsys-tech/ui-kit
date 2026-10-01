@@ -1,0 +1,205 @@
+/* ==========================================================================
+   Armsys UI — Design tokens
+   All tokens live on the .aui scope so the kit never leaks into a host page.
+   Use <body class="aui"> for full pages or <div class="aui"> for embedding.
+   ========================================================================== */
+.aui {
+  color-scheme: dark;
+
+  /* Background & surfaces */
+  --aui-bg: #09090b;
+  --aui-bg-alt: #0c0c0f;
+  --aui-surface-1: #111114;
+  --aui-surface-2: #17171b;
+  --aui-surface-3: #1e1e23;
+  --aui-surface-elevated: #141417;
+  --aui-overlay: rgb(4 4 6 / .72);
+  --aui-hover: rgb(255 255 255 / .045);
+  --aui-active: rgb(255 255 255 / .075);
+  --aui-input-bg: #0c0c0f;
+
+  /* Borders */
+  --aui-border: #26262b;
+  --aui-border-soft: #1b1b1f;
+  --aui-border-strong: #34343b;
+  --aui-border-interactive: #4b4b55;
+
+  /* Text */
+  --aui-text: #f4f4f5;
+  --aui-text-secondary: #d4d4d8;
+  --aui-text-muted: #a1a1aa;
+  --aui-text-subtle: #71717a;
+  --aui-text-disabled: #52525b;
+  --aui-link: #8fb0ff;
+
+  /* Primary action (inverted, high contrast) */
+  --aui-primary: #f4f4f5;
+  --aui-primary-hover: #ffffff;
+  --aui-on-primary: #09090b;
+
+  /* Brand & semantic colors */
+  --aui-accent: #4d7cfe;
+  --aui-accent-hover: #6a91ff;
+  --aui-on-accent: #ffffff;
+  --aui-success: #3ecf8e;
+  --aui-info: #5aa9ff;
+  --aui-warning: #f5b83d;
+  --aui-danger: #f2555a;
+  --aui-purple: #a78bfa;
+  --aui-pink: #f472b6;
+  --aui-orange: #fb8c3c;
+  --aui-yellow: #facc15;
+
+  /* Code */
+  --aui-code-bg: #0b0b0e;
+  --aui-code-header: #111114;
+  --aui-code-text: #e4e4e7;
+  --aui-code-keyword: #ff7aa2;
+  --aui-code-string: #9fe0a8;
+  --aui-code-number: #ffb37a;
+  --aui-code-comment: #62626d;
+  --aui-code-function: #8fb0ff;
+  --aui-code-property: #c3a6ff;
+  --aui-code-operator: #8b8b96;
+  --aui-code-punctuation: #a1a1aa;
+  --aui-code-type: #7fdbca;
+
+  /* Typography */
+  --aui-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --aui-font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --aui-fs-2xs: .6875rem;   /* 11 */
+  --aui-fs-xs: .75rem;      /* 12 */
+  --aui-fs-sm: .8125rem;    /* 13 */
+  --aui-fs-md: .875rem;     /* 14 — application body */
+  --aui-fs-lg: .9375rem;    /* 15 — public body */
+  --aui-fs-xl: 1.0625rem;   /* 17 — lead */
+  --aui-fs-h4: 1rem;
+  --aui-fs-h3: 1.1875rem;
+  --aui-fs-h2: 1.5rem;
+  --aui-fs-h1: 2rem;
+  --aui-fs-display: clamp(2.125rem, 4.4vw, 3.25rem);
+  --aui-lh-tight: 1.2;
+  --aui-lh: 1.55;
+  --aui-lh-relaxed: 1.7;
+  --aui-fw-regular: 400;
+  --aui-fw-medium: 500;
+  --aui-fw-semibold: 600;
+  --aui-fw-bold: 650;
+
+  /* Spacing scale (4px base) */
+  --aui-space-1: 4px;
+  --aui-space-2: 8px;
+  --aui-space-3: 12px;
+  --aui-space-4: 16px;
+  --aui-space-5: 20px;
+  --aui-space-6: 24px;
+  --aui-space-8: 32px;
+  --aui-space-10: 40px;
+  --aui-space-12: 48px;
+  --aui-space-16: 64px;
+  --aui-space-20: 80px;
+  --aui-space-24: 96px;
+
+  /* Radius */
+  --aui-radius-xs: 4px;
+  --aui-radius-sm: 6px;
+  --aui-radius-md: 8px;
+  --aui-radius-lg: 12px;
+  --aui-radius-full: 999px;
+
+  /* Controls */
+  --aui-control-h: 36px;
+  --aui-control-h-sm: 30px;
+  --aui-control-h-lg: 42px;
+
+  /* Layout */
+  --aui-container: 1200px;
+  --aui-container-wide: 1440px;
+  --aui-container-narrow: 760px;
+  --aui-container-docs: 1520px;
+  --aui-prose-width: 740px;
+  --aui-gutter: 24px;
+  --aui-header-h: 60px;
+  --aui-topbar-h: 56px;
+  --aui-sidebar-w: 248px;
+
+  /* Effects */
+  --aui-shadow-sm: 0 1px 2px rgb(0 0 0 / .3);
+  --aui-shadow-md: 0 8px 24px rgb(0 0 0 / .28);
+  --aui-shadow-overlay: 0 16px 48px rgb(0 0 0 / .5), 0 0 0 1px rgb(0 0 0 / .2);
+  --aui-focus: #7a9dff;
+  --aui-ring: 0 0 0 3px rgb(77 124 254 / .22);
+  --aui-grid-line: rgb(255 255 255 / .035);
+  --aui-dur-fast: 120ms;
+  --aui-dur: 180ms;
+  --aui-dur-slow: 260ms;
+  --aui-ease: cubic-bezier(.2, .7, .2, 1);
+
+  /* Z layers */
+  --aui-z-sticky: 30;
+  --aui-z-dropdown: 40;
+  --aui-z-drawer: 60;
+  --aui-z-modal: 70;
+  --aui-z-toast: 80;
+  --aui-z-tooltip: 90;
+}
+
+/* Density modifier for embedded tools and dense operational screens */
+.aui--dense {
+  --aui-control-h: 30px;
+  --aui-control-h-sm: 26px;
+  --aui-control-h-lg: 36px;
+  --aui-fs-md: .8125rem;
+}
+
+/* Optional light theme — dark remains the primary Armsys surface */
+.aui[data-aui-theme="light"] {
+  color-scheme: light;
+  --aui-bg: #ffffff;
+  --aui-bg-alt: #fafafa;
+  --aui-surface-1: #ffffff;
+  --aui-surface-2: #f4f4f5;
+  --aui-surface-3: #ececef;
+  --aui-surface-elevated: #ffffff;
+  --aui-overlay: rgb(9 9 11 / .4);
+  --aui-hover: rgb(9 9 11 / .04);
+  --aui-active: rgb(9 9 11 / .065);
+  --aui-input-bg: #ffffff;
+  --aui-border: #e4e4e7;
+  --aui-border-soft: #efeff1;
+  --aui-border-strong: #d4d4d8;
+  --aui-border-interactive: #a1a1aa;
+  --aui-text: #09090b;
+  --aui-text-secondary: #27272a;
+  --aui-text-muted: #52525b;
+  --aui-text-subtle: #71717a;
+  --aui-text-disabled: #a1a1aa;
+  --aui-link: #2f5fe0;
+  --aui-primary: #09090b;
+  --aui-primary-hover: #27272a;
+  --aui-on-primary: #ffffff;
+  --aui-accent: #3b6af0;
+  --aui-accent-hover: #2f5fe0;
+  --aui-success: #16a36a;
+  --aui-info: #2f7fe0;
+  --aui-warning: #c98a0b;
+  --aui-danger: #dc3a40;
+  --aui-shadow-md: 0 8px 24px rgb(9 9 11 / .08);
+  --aui-shadow-overlay: 0 16px 48px rgb(9 9 11 / .14), 0 0 0 1px rgb(9 9 11 / .04);
+  --aui-grid-line: rgb(9 9 11 / .045);
+}
+/* Code surfaces stay dark in the light theme */
+.aui[data-aui-theme="light"] :is(.aui-code, .aui-cli, .aui-log, .aui-endpoint) {
+  --aui-text: #f4f4f5;
+  --aui-text-secondary: #d4d4d8;
+  --aui-text-muted: #a1a1aa;
+  --aui-text-subtle: #71717a;
+  --aui-border: #26262b;
+  --aui-border-soft: #1b1b1f;
+  --aui-border-strong: #34343b;
+  --aui-surface-1: #111114;
+  --aui-surface-2: #17171b;
+  --aui-hover: rgb(255 255 255 / .05);
+  --aui-primary: #f4f4f5;
+  color: var(--aui-text-secondary);
+}

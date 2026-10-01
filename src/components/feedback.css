@@ -1,0 +1,68 @@
+/* ==========================================================================
+   Armsys UI — Feedback: alerts, notices, callouts, toasts, spinners
+   ========================================================================== */
+.aui-alert {
+  --aui-tone: var(--aui-text-muted);
+  display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px;
+  font-size: var(--aui-fs-sm); line-height: 1.55; color: var(--aui-text-secondary);
+  background: color-mix(in srgb, var(--aui-tone) 7%, var(--aui-surface-1));
+  border: 1px solid color-mix(in srgb, var(--aui-tone) 28%, var(--aui-border)); border-radius: var(--aui-radius-md);
+}
+.aui-alert > .aui-icon { margin-top: 2px; color: var(--aui-tone); }
+.aui-alert-body { flex: 1; min-width: 0; }
+.aui-alert-title { font-weight: var(--aui-fw-semibold); color: var(--aui-text); }
+.aui-alert-title + * { margin-top: 2px; }
+.aui-alert-text { color: var(--aui-text-muted); }
+.aui-alert-actions { display: flex; gap: 8px; margin-top: 10px; }
+.aui-alert-close, .aui-toast-close {
+  flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; margin: -2px -4px 0 auto; padding: 0;
+  color: var(--aui-text-subtle); background: none; border: 0; border-radius: var(--aui-radius-xs); cursor: pointer;
+}
+.aui-alert-close:hover, .aui-toast-close:hover { color: var(--aui-text); background: var(--aui-hover); }
+.aui-alert--banner { border-radius: 0; border-width: 0 0 1px; justify-content: center; align-items: center; padding: 10px 16px; }
+
+.aui-notice {
+  --aui-tone: var(--aui-border-interactive);
+  padding: 10px 14px; font-size: var(--aui-fs-sm); color: var(--aui-text-secondary);
+  background: var(--aui-surface-1); border-left: 2px solid var(--aui-tone); border-radius: 0 var(--aui-radius-sm) var(--aui-radius-sm) 0;
+}
+.aui-notice strong { color: var(--aui-text); }
+
+/* Callouts — documentation & prose */
+.aui-callout {
+  --aui-tone: var(--aui-info);
+  display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px;
+  font-size: var(--aui-fs-md); line-height: 1.65; color: var(--aui-text-secondary);
+  background: color-mix(in srgb, var(--aui-tone) 6%, var(--aui-surface-1));
+  border: 1px solid color-mix(in srgb, var(--aui-tone) 24%, var(--aui-border)); border-radius: var(--aui-radius-md);
+}
+.aui-callout > .aui-icon { margin-top: 3px; color: var(--aui-tone); }
+.aui-callout-body { flex: 1; min-width: 0; }
+.aui-callout-body > :last-child { margin-bottom: 0; }
+.aui-callout-body p { margin: 0 0 .5em; }
+.aui-callout-title { font-weight: var(--aui-fw-semibold); color: var(--aui-text); margin-bottom: 2px; }
+.aui-callout--note { --aui-tone: var(--aui-text-muted); }
+.aui-callout--tip { --aui-tone: var(--aui-success); }
+
+/* Toasts */
+.aui-toast-region { position: fixed; right: 16px; bottom: 16px; z-index: var(--aui-z-toast); display: flex; flex-direction: column; gap: 8px; width: min(380px, calc(100vw - 32px)); pointer-events: none; }
+.aui-toast-region--top { top: 16px; bottom: auto; }
+.aui-toast {
+  --aui-tone: var(--aui-text-muted);
+  pointer-events: auto; display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px;
+  font-size: var(--aui-fs-sm); color: var(--aui-text-secondary);
+  background: var(--aui-surface-elevated); border: 1px solid var(--aui-border-strong); border-radius: var(--aui-radius-md); box-shadow: var(--aui-shadow-overlay);
+  animation: aui-rise var(--aui-dur) var(--aui-ease);
+}
+.aui-toast > .aui-icon { margin-top: 2px; color: var(--aui-tone); }
+.aui-toast-body { flex: 1; min-width: 0; }
+.aui-toast-title { font-weight: var(--aui-fw-semibold); color: var(--aui-text); }
+.aui-toast-text { color: var(--aui-text-muted); margin-top: 1px; }
+.aui-toast.is-leaving { opacity: 0; transform: translateY(4px); transition: opacity var(--aui-dur-fast), transform var(--aui-dur-fast); }
+
+/* Spinner & loading */
+.aui-spinner { display: inline-block; flex: none; width: 16px; height: 16px; border: 2px solid var(--aui-border-strong); border-top-color: var(--aui-text); border-radius: 50%; animation: aui-spin .7s linear infinite; vertical-align: middle; }
+.aui-spinner--sm { width: 12px; height: 12px; border-width: 1.5px; }
+.aui-spinner--lg { width: 24px; height: 24px; }
+.aui-loading { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 32px; font-size: var(--aui-fs-sm); color: var(--aui-text-muted); }
+.aui-loading-overlay { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; background: color-mix(in srgb, var(--aui-bg) 65%, transparent); border-radius: inherit; }

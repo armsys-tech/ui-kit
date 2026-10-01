@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Armsys UI — Overlays: modal, drawer, tooltip
+   Modals & drawers use native <dialog> (focus handling + Escape for free).
+   ========================================================================== */
+.aui-modal {
+  width: min(520px, calc(100vw - 32px)); max-width: none; max-height: calc(100vh - 48px); margin: auto; padding: 0;
+  color: var(--aui-text); font-size: var(--aui-fs-md);
+  background: var(--aui-surface-elevated); border: 1px solid var(--aui-border-strong); border-radius: var(--aui-radius-lg); box-shadow: var(--aui-shadow-overlay);
+  overflow: hidden;
+}
+.aui-modal[open], .aui-modal.is-static { display: flex; flex-direction: column; }
+.aui-modal[open] { animation: aui-rise var(--aui-dur) var(--aui-ease); }
+.aui-modal.is-static { position: relative; margin: 0; max-width: 100%; box-shadow: var(--aui-shadow-md); }
+.aui-modal::backdrop, .aui-drawer::backdrop { background: rgb(4 4 6 / .66); animation: aui-fade-in var(--aui-dur) ease-out; }
+.aui-modal--sm { width: min(400px, calc(100vw - 32px)); }
+.aui-modal--lg { width: min(760px, calc(100vw - 32px)); }
+.aui-modal-header { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px 0; }
+.aui-modal-title { font-size: var(--aui-fs-lg); font-weight: var(--aui-fw-semibold); letter-spacing: -.012em; color: var(--aui-text); }
+.aui-modal-desc { margin-top: 4px; font-size: var(--aui-fs-sm); line-height: 1.55; color: var(--aui-text-muted); }
+.aui-modal-close {
+  flex: none; display: inline-grid; place-items: center; width: 28px; height: 28px; margin: -4px -6px 0 auto; padding: 0;
+  color: var(--aui-text-subtle); background: none; border: 0; border-radius: var(--aui-radius-sm); cursor: pointer;
+}
+.aui-modal-close:hover { color: var(--aui-text); background: var(--aui-hover); }
+.aui-modal-body { flex: 1 1 auto; min-height: 0; padding: 18px 20px; overflow-y: auto; color: var(--aui-text-secondary); }
+.aui-modal-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; padding: 14px 20px; background: var(--aui-bg-alt); border-top: 1px solid var(--aui-border-soft); }
+.aui-modal-footer > .aui-spacer { flex: 1; }
+
+/* Drawer */
+.aui-drawer {
+  position: fixed; inset: 0 0 0 auto; width: min(440px, 100vw); height: 100%; max-width: none; max-height: none; margin: 0 0 0 auto; padding: 0;
+  color: var(--aui-text); background: var(--aui-surface-elevated); border: 0; border-left: 1px solid var(--aui-border-strong); box-shadow: var(--aui-shadow-overlay);
+}
+.aui-drawer[open] { display: flex; flex-direction: column; animation: aui-slide-in var(--aui-dur-slow) var(--aui-ease); }
+.aui-drawer--left { inset: 0 auto 0 0; margin: 0 auto 0 0; border-left: 0; border-right: 1px solid var(--aui-border-strong); }
+.aui-drawer--left[open] { animation-name: aui-slide-in-left; }
+.aui-drawer--lg { width: min(640px, 100vw); }
+.aui-drawer .aui-modal-header { padding: 16px 20px; border-bottom: 1px solid var(--aui-border-soft); align-items: center; }
+.aui-drawer .aui-modal-close { margin: 0 -6px 0 auto; }
+
+/* Tooltip (CSS only): <button data-aui-tooltip="Copy">…</button> */
+.aui [data-aui-tooltip] { position: relative; }
+.aui [data-aui-tooltip]::after {
+  content: attr(data-aui-tooltip); position: absolute; left: 50%; bottom: calc(100% + 8px); z-index: var(--aui-z-tooltip);
+  padding: 5px 8px; font-family: var(--aui-font); font-size: var(--aui-fs-2xs); font-weight: var(--aui-fw-medium); line-height: 1.3; letter-spacing: 0; white-space: nowrap; text-transform: none;
+  color: var(--aui-bg); background: var(--aui-text); border-radius: var(--aui-radius-xs); box-shadow: var(--aui-shadow-md);
+  opacity: 0; pointer-events: none; transform: translate(-50%, 3px); transition: opacity var(--aui-dur-fast), transform var(--aui-dur-fast);
+}
+.aui [data-aui-tooltip-pos="bottom"]::after { bottom: auto; top: calc(100% + 8px); transform: translate(-50%, -3px); }
+.aui [data-aui-tooltip]:hover::after, .aui [data-aui-tooltip]:focus-visible::after { opacity: 1; transform: translate(-50%, 0); transition-delay: .25s; }

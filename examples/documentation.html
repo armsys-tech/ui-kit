@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Publish events — Armsys Docs</title>
+<meta name="description" content="Armsys UI — framework-independent design system by Armsys Technology.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="../dist/armsys-ui.css">
+<script src="../dist/armsys-ui.js" defer></script>
+</head>
+<body class="aui aui-site">
+<header class="aui-site-header">
+  <div class="aui-container aui-site-header-inner">
+    <a class="aui-site-brand" href="website.html"><span class="aui-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aui-i-logo"/></svg></span>Armsys</a>
+    <nav class="aui-site-nav" aria-label="Main">
+      <div class="aui-site-nav-item">
+        <button type="button" class="aui-site-nav-link" aria-expanded="false">Products <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-chevron-down"/></svg></button>
+        <div class="aui-mega" style="--cols:2">
+          <div class="aui-mega-grid">
+            <div class="aui-mega-group">
+              <div class="aui-mega-title">Platform</div>
+              <a class="aui-mega-item" href="website.html#products"><span class="aui-icon-box aui-icon-box--accent"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-radio"/></svg></span><span><span class="aui-mega-item-title">Armsys Stream</span><span class="aui-mega-item-desc">Real-time event ingestion and fan-out</span></span></a>
+              <a class="aui-mega-item" href="website.html#products"><span class="aui-icon-box aui-icon-box--purple"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-workflow"/></svg></span><span><span class="aui-mega-item-title">Armsys Gateway</span><span class="aui-mega-item-desc">API gateway, keys and rate limits</span></span></a>
+              <a class="aui-mega-item" href="website.html#products"><span class="aui-icon-box aui-icon-box--success"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-activity"/></svg></span><span><span class="aui-mega-item-title">Armsys Observe</span><span class="aui-mega-item-desc">Metrics, logs and alerting</span></span></a>
+            </div>
+            <div class="aui-mega-group">
+              <div class="aui-mega-title">Infrastructure</div>
+              <a class="aui-mega-item" href="website.html#products"><span class="aui-icon-box aui-icon-box--orange"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-shield"/></svg></span><span><span class="aui-mega-item-title">Armsys Identity</span><span class="aui-mega-item-desc">Authentication and access control</span></span></a>
+              <a class="aui-mega-item" href="website.html#products"><span class="aui-icon-box aui-icon-box--info"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-globe"/></svg></span><span><span class="aui-mega-item-title">Armsys Edge</span><span class="aui-mega-item-desc">Private networking and edge delivery</span></span></a>
+              <a class="aui-mega-item" href="leaderboard.html"><span class="aui-icon-box"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-chart"/></svg></span><span><span class="aui-mega-item-title">Public Insights</span><span class="aui-mega-item-desc">Open rankings and datasets</span></span></a>
+            </div>
+          </div>
+          <div class="aui-mega-footer"><span>New: regional data residency in 6 locations</span><a class="aui-link-arrow" href="website.html">Overview <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></a></div>
+        </div>
+      </div>
+      <div class="aui-site-nav-item">
+        <button type="button" class="aui-site-nav-link" aria-expanded="false">Solutions <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-chevron-down"/></svg></button>
+        <div class="aui-mega" style="--cols:1">
+          <div class="aui-mega-grid"><div class="aui-mega-group">
+            <a class="aui-mega-item" href="website.html#solutions"><span><span class="aui-mega-item-title">Real-time platforms</span><span class="aui-mega-item-desc">Live data products with sub-second delivery</span></span></a>
+            <a class="aui-mega-item" href="website.html#solutions"><span><span class="aui-mega-item-title">Internal tools</span><span class="aui-mega-item-desc">Admin panels and operations consoles</span></span></a>
+            <a class="aui-mega-item" href="website.html#solutions"><span><span class="aui-mega-item-title">Enterprise IT</span><span class="aui-mega-item-desc">Identity, networking and compliance</span></span></a>
+          </div></div>
+        </div>
+      </div>
+      <div class="aui-site-nav-item">
+        <button type="button" class="aui-site-nav-link is-active" aria-expanded="false">Developers <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-chevron-down"/></svg></button>
+        <div class="aui-mega" style="--cols:1">
+          <div class="aui-mega-grid"><div class="aui-mega-group">
+            <a class="aui-mega-item" href="documentation.html"><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-book"/></svg></span><span><span class="aui-mega-item-title">Documentation</span><span class="aui-mega-item-desc">Guides, concepts and tutorials</span></span></a>
+            <a class="aui-mega-item" href="documentation.html#endpoint"><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-code"/></svg></span><span><span class="aui-mega-item-title">API reference</span><span class="aui-mega-item-desc">REST and WebSocket endpoints</span></span></a>
+            <a class="aui-mega-item" href="dashboard.html"><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-grid"/></svg></span><span><span class="aui-mega-item-title">Console</span><span class="aui-mega-item-desc">Manage projects and keys</span></span></a>
+          </div></div>
+        </div>
+      </div>
+      <a class="aui-site-nav-link" href="pricing.html">Pricing</a>
+      <a class="aui-site-nav-link" href="leaderboard.html">Insights</a>
+    </nav>
+    <div class="aui-site-actions">
+      <button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm aui-hide-mobile" data-aui-theme-toggle aria-label="Toggle theme"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-moon"/></svg></button>
+      <a class="aui-btn aui-btn--ghost aui-btn--sm aui-hide-mobile" href="login.html">Sign in</a>
+      <a class="aui-btn aui-btn--primary aui-btn--sm" href="login.html">Get started</a>
+      <button type="button" class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm aui-nav-toggle" data-aui-nav-toggle aria-label="Open menu" aria-expanded="false"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="aui-docs-mobilebar">
+  <button type="button" class="aui-btn aui-btn--ghost aui-btn--sm" data-aui-nav-toggle="#docs-nav" aria-expanded="false"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-sidebar"/></svg>Menu</button>
+  <span class="aui-truncate">Stream API / Publish events</span>
+</div>
+
+<div class="aui-docs">
+  <aside class="aui-docs-sidebar" id="docs-nav" aria-label="Documentation">
+    <button type="button" class="aui-search-trigger"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-search"/></svg><span>Search docs</span><kbd class="aui-kbd">⌘</kbd><kbd class="aui-kbd">K</kbd></button>
+    <nav class="aui-docs-nav">
+      <div class="aui-docs-group">
+        <div class="aui-docs-group-title"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-book"/></svg>Getting started</div>
+        <ul>
+          <li><a class="aui-docs-link" href="#">Introduction</a></li>
+          <li><a class="aui-docs-link" href="#">Quickstart</a></li>
+          <li><a class="aui-docs-link" href="#authentication">Authentication</a></li>
+          <li><a class="aui-docs-link" href="#">Regions &amp; residency</a></li>
+        </ul>
+      </div>
+      <div class="aui-docs-group">
+        <div class="aui-docs-group-title"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-layers"/></svg>Concepts</div>
+        <ul>
+          <li><a class="aui-docs-link" href="#">Streams &amp; topics</a></li>
+          <li><a class="aui-docs-link" href="#">Delivery guarantees</a></li>
+          <li><a class="aui-docs-link" href="#">Replay &amp; retention</a></li>
+        </ul>
+      </div>
+      <details class="aui-docs-group" open>
+        <summary class="aui-docs-group-title"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-code"/></svg>Stream API</summary>
+        <ul>
+          <li><a class="aui-docs-link" href="#">List streams <span class="aui-method aui-method--get">GET</span></a></li>
+          <li><a class="aui-docs-link" href="#endpoint" aria-current="page">Publish events <span class="aui-method aui-method--post">POST</span></a>
+            <ul class="aui-docs-sub">
+              <li><a class="aui-docs-link" href="#parameters">Parameters</a></li>
+              <li><a class="aui-docs-link" href="#responses">Responses</a></li>
+            </ul>
+          </li>
+          <li><a class="aui-docs-link" href="#">Update stream <span class="aui-method aui-method--patch">PATCH</span></a></li>
+          <li><a class="aui-docs-link" href="#">Replace schema <span class="aui-method aui-method--put">PUT</span></a></li>
+          <li><a class="aui-docs-link" href="#">Delete stream <span class="aui-method aui-method--delete">DEL</span></a></li>
+          <li><a class="aui-docs-link" href="#subscribe">Subscribe <span class="aui-method aui-method--wss">WSS</span></a></li>
+        </ul>
+      </details>
+      <details class="aui-docs-group">
+        <summary class="aui-docs-group-title"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-workflow"/></svg>Gateway API</summary>
+        <ul>
+          <li><a class="aui-docs-link" href="#">API keys</a></li>
+          <li><a class="aui-docs-link" href="#">Quotas</a></li>
+        </ul>
+      </details>
+      <div class="aui-docs-group" id="sdks">
+        <div class="aui-docs-group-title"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-box"/></svg>SDKs</div>
+        <ul>
+          <li><a class="aui-docs-link" href="#">TypeScript</a></li>
+          <li><a class="aui-docs-link" href="#">Python</a></li>
+          <li><a class="aui-docs-link" href="#">Go</a></li>
+          <li><a class="aui-docs-link" href="#">.NET <span class="aui-badge aui-badge--info">Beta</span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="aui-docs-main">
+    <article class="aui-docs-article">
+      <header class="aui-docs-header">
+        <nav class="aui-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="#">Docs</a></li><li><a href="#">Stream API</a></li><li><span aria-current="page">Publish events</span></li></ol></nav>
+        <h1 class="aui-docs-title">Publish events</h1>
+        <p class="aui-docs-lead">Append one or more events to a stream. Events are durably stored, ordered per partition key and delivered to every active subscriber.</p>
+        <div class="aui-docs-meta">
+          <span class="aui-badge aui-badge--success">Stable</span>
+          <span><svg class="aui-icon aui-icon--sm" aria-hidden="true"><use href="#aui-i-clock"/></svg>Updated 24 Sep 2026</span>
+          <span><svg class="aui-icon aui-icon--sm" aria-hidden="true"><use href="#aui-i-book"/></svg>6 min read</span>
+        </div>
+      </header>
+
+      <div class="aui-prose">
+        <h2 id="overview"><a class="aui-anchor" href="#overview">#</a>Overview</h2>
+        <p>The publish endpoint accepts a batch of up to <strong>500 events</strong> per request. Each event carries a <code>type</code>, an optional <code>key</code> used for ordering, and an arbitrary JSON <code>payload</code>. Requests are idempotent when an <code>Idempotency-Key</code> header is provided.</p>
+        <ul>
+          <li>Events with the same <code>key</code> are delivered in the order they were accepted.</li>
+          <li>Payloads up to 256&nbsp;KB are accepted; larger payloads should reference object storage.
+            <ul><li>Compression is applied automatically above 4&nbsp;KB.</li></ul>
+          </li>
+          <li>Accepted events are visible to subscribers in a median of 38&nbsp;ms.</li>
+        </ul>
+
+        <div class="aui-callout aui-callout--tip"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-lightbulb"/></svg><div class="aui-callout-body"><div class="aui-callout-title">Batch for throughput</div><p>Sending 50–200 events per request typically maximises throughput while keeping tail latency low.</p></div></div>
+
+        <h2 id="authentication"><a class="aui-anchor" href="#authentication">#</a>Authentication</h2>
+        <p>Authenticate with a project API key in the <code>Authorization</code> header. Keys are scoped; publishing requires the <code>streams:write</code> scope.</p>
+
+        <div class="aui-code" data-aui-tabs data-aui-tabs-sync="lang">
+          <div class="aui-code-header">
+            <div class="aui-code-tabs" role="tablist">
+              <button type="button" class="aui-code-tab" data-aui-tab="curl">cURL</button>
+              <button type="button" class="aui-code-tab" data-aui-tab="js">JavaScript</button>
+              <button type="button" class="aui-code-tab" data-aui-tab="ts">TypeScript</button>
+              <button type="button" class="aui-code-tab" data-aui-tab="py">Python</button>
+              <button type="button" class="aui-code-tab" data-aui-tab="go">Go</button>
+              <button type="button" class="aui-code-tab" data-aui-tab="php">PHP</button>
+              <button type="button" class="aui-code-tab" data-aui-tab="java">Java</button>
+              <button type="button" class="aui-code-tab" data-aui-tab="cs">C#</button>
+            </div>
+            <div class="aui-code-actions"><button type="button" class="aui-copy" data-aui-copy aria-label="Copy code"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg>Copy</span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg>Copied</span></button></div>
+          </div>
+<pre class="aui-pre" data-aui-panel="curl"><span class="aui-code-function">curl</span> <span class="aui-code-property">-X</span> POST <span class="aui-code-string">https://api.armsys.tech/v1/streams/orders/events</span> \
+  <span class="aui-code-property">-H</span> <span class="aui-code-string">"Authorization: Bearer $ARMSYS_KEY"</span> \
+  <span class="aui-code-property">-H</span> <span class="aui-code-string">"Content-Type: application/json"</span> \
+  <span class="aui-code-property">-d</span> <span class="aui-code-string">'{"events":[{"type":"order.created","key":"cus_42","payload":{"total":129.9}}]}'</span></pre>
+<pre class="aui-pre" data-aui-panel="js" hidden><span class="aui-code-keyword">const</span> <span class="aui-code-variable">res</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">await</span> <span class="aui-code-function">fetch</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"https://api.armsys.tech/v1/streams/orders/events"</span><span class="aui-code-punctuation">, {</span>
+  <span class="aui-code-property">method</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"POST"</span><span class="aui-code-punctuation">,</span>
+  <span class="aui-code-property">headers</span><span class="aui-code-punctuation">: {</span> <span class="aui-code-property">Authorization</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">`Bearer ${process.env.ARMSYS_KEY}`</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">"Content-Type"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"application/json"</span> <span class="aui-code-punctuation">},</span>
+  <span class="aui-code-property">body</span><span class="aui-code-punctuation">:</span> <span class="aui-code-variable">JSON</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">stringify</span><span class="aui-code-punctuation">({</span> <span class="aui-code-property">events</span><span class="aui-code-punctuation">: [{</span> <span class="aui-code-property">type</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"order.created"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">key</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">payload</span><span class="aui-code-punctuation">: {</span> <span class="aui-code-property">total</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">129.9</span> <span class="aui-code-punctuation">} }] }),</span>
+<span class="aui-code-punctuation">});</span></pre>
+<pre class="aui-pre" data-aui-panel="ts" hidden><span class="aui-code-keyword">import</span> <span class="aui-code-punctuation">{</span> <span class="aui-code-type">Armsys</span><span class="aui-code-punctuation">,</span> <span class="aui-code-keyword">type</span> <span class="aui-code-type">PublishResult</span> <span class="aui-code-punctuation">}</span> <span class="aui-code-keyword">from</span> <span class="aui-code-string">"@armsys/sdk"</span><span class="aui-code-punctuation">;</span>
+
+<span class="aui-code-keyword">const</span> <span class="aui-code-variable">armsys</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">new</span> <span class="aui-code-function">Armsys</span><span class="aui-code-punctuation">({</span> <span class="aui-code-property">apiKey</span><span class="aui-code-punctuation">:</span> <span class="aui-code-variable">process</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">env</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">ARMSYS_KEY</span><span class="aui-code-operator">!</span> <span class="aui-code-punctuation">});</span>
+<span class="aui-code-keyword">const</span> <span class="aui-code-variable">result</span><span class="aui-code-punctuation">:</span> <span class="aui-code-type">PublishResult</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">await</span> <span class="aui-code-variable">armsys</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">streams</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">publish</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"orders"</span><span class="aui-code-punctuation">, [</span>
+  <span class="aui-code-punctuation">{</span> <span class="aui-code-property">type</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"order.created"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">key</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">payload</span><span class="aui-code-punctuation">: {</span> <span class="aui-code-property">total</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">129.9</span> <span class="aui-code-punctuation">} },</span>
+<span class="aui-code-punctuation">]);</span></pre>
+<pre class="aui-pre" data-aui-panel="py" hidden><span class="aui-code-keyword">from</span> <span class="aui-code-variable">armsys</span> <span class="aui-code-keyword">import</span> <span class="aui-code-type">Armsys</span>
+
+<span class="aui-code-variable">armsys</span> <span class="aui-code-operator">=</span> <span class="aui-code-function">Armsys</span><span class="aui-code-punctuation">()</span>  <span class="aui-code-comment"># reads ARMSYS_KEY from the environment</span>
+<span class="aui-code-variable">result</span> <span class="aui-code-operator">=</span> <span class="aui-code-variable">armsys</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">streams</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">publish</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"orders"</span><span class="aui-code-punctuation">, [</span>
+    <span class="aui-code-punctuation">{</span><span class="aui-code-string">"type"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"order.created"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">"key"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">"payload"</span><span class="aui-code-punctuation">: {</span><span class="aui-code-string">"total"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">129.9</span><span class="aui-code-punctuation">}},</span>
+<span class="aui-code-punctuation">])</span></pre>
+<pre class="aui-pre" data-aui-panel="go" hidden><span class="aui-code-variable">client</span> <span class="aui-code-operator">:=</span> <span class="aui-code-variable">armsys</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">NewClient</span><span class="aui-code-punctuation">(</span><span class="aui-code-variable">os</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">Getenv</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"ARMSYS_KEY"</span><span class="aui-code-punctuation">))</span>
+
+<span class="aui-code-variable">res</span><span class="aui-code-punctuation">,</span> <span class="aui-code-variable">err</span> <span class="aui-code-operator">:=</span> <span class="aui-code-variable">client</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">Streams</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">Publish</span><span class="aui-code-punctuation">(</span><span class="aui-code-variable">ctx</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">"orders"</span><span class="aui-code-punctuation">, []</span><span class="aui-code-type">armsys.Event</span><span class="aui-code-punctuation">{</span>
+	<span class="aui-code-punctuation">{</span><span class="aui-code-property">Type</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"order.created"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">Key</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">Payload</span><span class="aui-code-punctuation">:</span> <span class="aui-code-type">map</span><span class="aui-code-punctuation">[</span><span class="aui-code-type">string</span><span class="aui-code-punctuation">]</span><span class="aui-code-type">any</span><span class="aui-code-punctuation">{</span><span class="aui-code-string">"total"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">129.9</span><span class="aui-code-punctuation">}},</span>
+<span class="aui-code-punctuation">})</span>
+<span class="aui-code-keyword">if</span> <span class="aui-code-variable">err</span> <span class="aui-code-operator">!=</span> <span class="aui-code-boolean">nil</span> <span class="aui-code-punctuation">{</span> <span class="aui-code-function">log</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">Fatal</span><span class="aui-code-punctuation">(</span><span class="aui-code-variable">err</span><span class="aui-code-punctuation">)</span> <span class="aui-code-punctuation">}</span></pre>
+<pre class="aui-pre" data-aui-panel="php" hidden><span class="aui-code-variable">$armsys</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">new</span> <span class="aui-code-type">\Armsys\Client</span><span class="aui-code-punctuation">(</span><span class="aui-code-function">getenv</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">'ARMSYS_KEY'</span><span class="aui-code-punctuation">));</span>
+
+<span class="aui-code-variable">$result</span> <span class="aui-code-operator">=</span> <span class="aui-code-variable">$armsys</span><span class="aui-code-operator">-&gt;</span><span class="aui-code-property">streams</span><span class="aui-code-operator">-&gt;</span><span class="aui-code-function">publish</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">'orders'</span><span class="aui-code-punctuation">, [</span>
+    <span class="aui-code-punctuation">[</span><span class="aui-code-string">'type'</span> <span class="aui-code-operator">=&gt;</span> <span class="aui-code-string">'order.created'</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">'key'</span> <span class="aui-code-operator">=&gt;</span> <span class="aui-code-string">'cus_42'</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">'payload'</span> <span class="aui-code-operator">=&gt;</span> <span class="aui-code-punctuation">[</span><span class="aui-code-string">'total'</span> <span class="aui-code-operator">=&gt;</span> <span class="aui-code-number">129.9</span><span class="aui-code-punctuation">]],</span>
+<span class="aui-code-punctuation">]);</span></pre>
+<pre class="aui-pre" data-aui-panel="java" hidden><span class="aui-code-type">Armsys</span> <span class="aui-code-variable">armsys</span> <span class="aui-code-operator">=</span> <span class="aui-code-type">Armsys</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">fromEnv</span><span class="aui-code-punctuation">();</span>
+
+<span class="aui-code-type">PublishResult</span> <span class="aui-code-variable">result</span> <span class="aui-code-operator">=</span> <span class="aui-code-variable">armsys</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">streams</span><span class="aui-code-punctuation">().</span><span class="aui-code-function">publish</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"orders"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-type">List</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">of</span><span class="aui-code-punctuation">(</span>
+    <span class="aui-code-type">Event</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">of</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"order.created"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-type">Map</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">of</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"total"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-number">129.9</span><span class="aui-code-punctuation">))</span>
+<span class="aui-code-punctuation">));</span></pre>
+<pre class="aui-pre" data-aui-panel="cs" hidden><span class="aui-code-keyword">var</span> <span class="aui-code-variable">armsys</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">new</span> <span class="aui-code-type">ArmsysClient</span><span class="aui-code-punctuation">(</span><span class="aui-code-type">Environment</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">GetEnvironmentVariable</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"ARMSYS_KEY"</span><span class="aui-code-punctuation">));</span>
+
+<span class="aui-code-keyword">var</span> <span class="aui-code-variable">result</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">await</span> <span class="aui-code-variable">armsys</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">Streams</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">PublishAsync</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"orders"</span><span class="aui-code-punctuation">, new[]</span>
+<span class="aui-code-punctuation">{</span>
+    <span class="aui-code-keyword">new</span> <span class="aui-code-type">Event</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"order.created"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">key</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">payload</span><span class="aui-code-punctuation">:</span> <span class="aui-code-keyword">new</span> <span class="aui-code-punctuation">{</span> <span class="aui-code-property">total</span> <span class="aui-code-operator">=</span> <span class="aui-code-number">129.9m</span> <span class="aui-code-punctuation">})</span>
+<span class="aui-code-punctuation">});</span></pre>
+        </div>
+
+        <div class="aui-callout aui-callout--warning"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-alert"/></svg><div class="aui-callout-body"><div class="aui-callout-title">Keep keys server-side</div><p>Never ship a key with <code>streams:write</code> to browsers or mobile apps. Use short-lived publish tokens instead.</p></div></div>
+
+        <h2 id="endpoint"><a class="aui-anchor" href="#endpoint">#</a>Endpoint</h2>
+      </div>
+
+      <div class="aui-stack aui-gap-4 aui-mt-4">
+        <div class="aui-endpoint">
+          <span class="aui-method aui-method--post">POST</span>
+          <code class="aui-endpoint-path"><span class="aui-endpoint-host">https://api.armsys.tech</span>/v1/streams/<span class="aui-path-param">{stream_id}</span>/events</code>
+          <button type="button" class="aui-copy" data-aui-copy aria-label="Copy"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg></span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg></span></button>
+          <button type="button" class="aui-btn aui-btn--sm aui-btn--primary"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-play"/></svg>Try it</button>
+        </div>
+      </div>
+
+      <div class="aui-prose aui-mt-8">
+        <h3 id="parameters"><a class="aui-anchor" href="#parameters">#</a>Path parameters</h3>
+      </div>
+      <div class="aui-params aui-mt-2">
+        <div class="aui-param">
+          <div class="aui-param-head"><span class="aui-param-name">stream_id</span><span class="aui-param-type">string</span><span class="aui-param-req">Required</span></div>
+          <p class="aui-param-desc">Identifier or slug of the target stream, for example <code>orders</code> or <code>str_8KqP2</code>.</p>
+        </div>
+      </div>
+
+      <div class="aui-prose aui-mt-8"><h3 id="headers"><a class="aui-anchor" href="#headers">#</a>Headers</h3></div>
+      <div class="aui-table-wrap aui-mt-2">
+        <table class="aui-table aui-table--params aui-table--static">
+          <thead><tr><th>Header</th><th>Type</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Authorization</td><td>string</td><td>Bearer token with the <code>streams:write</code> scope. <span class="aui-param-req">Required</span></td></tr>
+            <tr><td>Idempotency-Key</td><td>string</td><td>Unique key (max 64 chars). Retries with the same key return the original result for 24 hours.</td></tr>
+            <tr><td>X-Armsys-Region</td><td>enum</td><td>Override the project region: <code>eu</code>, <code>us</code> or <code>apac</code>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="aui-prose aui-mt-8"><h3 id="body"><a class="aui-anchor" href="#body">#</a>Request body</h3></div>
+      <div class="aui-params aui-mt-2">
+        <div class="aui-param">
+          <div class="aui-param-head"><span class="aui-param-name">events</span><span class="aui-param-type">array&lt;Event&gt;</span><span class="aui-param-req">Required</span></div>
+          <p class="aui-param-desc">Between 1 and 500 events to append atomically.</p>
+          <details class="aui-param-toggle" open>
+            <summary>Event attributes</summary>
+            <div class="aui-param-children">
+              <div class="aui-param">
+                <div class="aui-param-head"><span class="aui-param-name">type</span><span class="aui-param-type">string</span><span class="aui-param-req">Required</span></div>
+                <p class="aui-param-desc">Dot-separated event name such as <code>order.created</code>.</p>
+              </div>
+              <div class="aui-param">
+                <div class="aui-param-head"><span class="aui-param-name">key</span><span class="aui-param-type">string</span><span class="aui-param-opt">Optional</span></div>
+                <p class="aui-param-desc">Partition key. Events sharing a key are strictly ordered.</p>
+              </div>
+              <div class="aui-param">
+                <div class="aui-param-head"><span class="aui-param-name">payload</span><span class="aui-param-type">object</span><span class="aui-param-req">Required</span></div>
+                <p class="aui-param-desc">Arbitrary JSON, up to 256 KB after encoding.</p>
+              </div>
+            </div>
+          </details>
+        </div>
+        <div class="aui-param">
+          <div class="aui-param-head"><span class="aui-param-name">delivery</span><span class="aui-param-type">enum</span><span class="aui-param-opt">Optional</span><span class="aui-param-default">Default <code>"standard"</code></span></div>
+          <p class="aui-param-desc">Delivery class for this batch.</p>
+          <div class="aui-param-values"><span class="aui-badge aui-badge--mono">standard</span><span class="aui-badge aui-badge--mono">priority</span><span class="aui-badge aui-badge--mono">bulk</span></div>
+        </div>
+      </div>
+
+      <div class="aui-prose aui-mt-8"><h3 id="responses"><a class="aui-anchor" href="#responses">#</a>Responses</h3></div>
+      <div class="aui-responses aui-mt-2">
+        <div class="aui-response"><span class="aui-status-code is-2xx">202</span><span>Events accepted and queued for delivery.</span></div>
+        <div class="aui-response"><span class="aui-status-code is-4xx">400</span><span>Malformed body or more than 500 events.</span></div>
+        <div class="aui-response"><span class="aui-status-code is-4xx">401</span><span>Missing or invalid API key.</span></div>
+        <div class="aui-response"><span class="aui-status-code is-4xx">429</span><span>Rate limit exceeded. Retry after the <code class="aui-code-inline">Retry-After</code> header.</span></div>
+        <div class="aui-response"><span class="aui-status-code is-5xx">503</span><span>Region temporarily unavailable; safe to retry with the same idempotency key.</span></div>
+      </div>
+
+      <div class="aui-code aui-mt-6" data-aui-tabs>
+        <div class="aui-code-header">
+          <div class="aui-code-tabs" role="tablist">
+            <button type="button" class="aui-code-tab" data-aui-tab="r202">202 Accepted</button>
+            <button type="button" class="aui-code-tab" data-aui-tab="r429">429 Too Many Requests</button>
+          </div>
+          <div class="aui-code-actions"><span class="aui-code-lang">JSON</span><button type="button" class="aui-copy" data-aui-copy aria-label="Copy code"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg>Copy</span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg>Copied</span></button></div>
+        </div>
+<pre class="aui-pre" data-aui-panel="r202"><span class="aui-code-punctuation">{</span>
+  <span class="aui-code-property">"accepted"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">1</span><span class="aui-code-punctuation">,</span>
+  <span class="aui-code-property">"stream"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"orders"</span><span class="aui-code-punctuation">,</span>
+  <span class="aui-code-property">"events"</span><span class="aui-code-punctuation">: [</span>
+    <span class="aui-code-punctuation">{</span> <span class="aui-code-property">"id"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"evt_01J9Z6Q4N7"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">"offset"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">884213</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">"partition"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">3</span> <span class="aui-code-punctuation">}</span>
+  <span class="aui-code-punctuation">],</span>
+  <span class="aui-code-property">"duplicate"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-boolean">false</span><span class="aui-code-punctuation">,</span>
+  <span class="aui-code-property">"region"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"eu-central"</span>
+<span class="aui-code-punctuation">}</span></pre>
+<pre class="aui-pre" data-aui-panel="r429" hidden><span class="aui-code-punctuation">{</span>
+  <span class="aui-code-property">"error"</span><span class="aui-code-punctuation">: {</span>
+    <span class="aui-code-property">"code"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"rate_limited"</span><span class="aui-code-punctuation">,</span>
+    <span class="aui-code-property">"message"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"Publish quota of 5000 events/s exceeded"</span><span class="aui-code-punctuation">,</span>
+    <span class="aui-code-property">"retry_after"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">2</span>
+  <span class="aui-code-punctuation">}</span>
+<span class="aui-code-punctuation">}</span></pre>
+      </div>
+
+      <div class="aui-prose aui-mt-8">
+        <h2 id="subscribe"><a class="aui-anchor" href="#subscribe">#</a>Subscribe over WebSocket</h2>
+        <p>Consumers receive published events in real time by opening a WebSocket connection. Each message is a JSON envelope; acknowledge offsets to resume after reconnects.</p>
+      </div>
+      <div class="aui-endpoint aui-mt-4">
+        <span class="aui-method aui-method--wss">WSS</span>
+        <code class="aui-endpoint-path"><span class="aui-endpoint-host">wss://rt.armsys.tech</span>/v1/streams/<span class="aui-path-param">{stream_id}</span>/subscribe</code>
+        <button type="button" class="aui-copy" data-aui-copy aria-label="Copy"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg></span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg></span></button>
+      </div>
+
+      <div class="aui-prose aui-mt-6">
+        <ol class="aui-steps">
+          <li><h4>Open the connection</h4><p>Pass the API key as a <code>token</code> query parameter or in the first frame.</p></li>
+          <li><h4>Receive events</h4><p>Messages arrive as <code>{"type":"event","offset":…}</code>; heartbeats every 15 seconds.</p></li>
+          <li><h4>Acknowledge</h4><p>Send <code>{"ack": offset}</code> periodically to persist your position.</p></li>
+        </ol>
+
+        <div class="aui-code aui-code--terminal">
+          <div class="aui-code-header"><span class="aui-code-title"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-terminal"/></svg>Terminal</span><div class="aui-code-actions"><button type="button" class="aui-copy" data-aui-copy aria-label="Copy code"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg>Copy</span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg>Copied</span></button></div></div>
+<pre class="aui-pre"><span class="aui-code-prompt">$</span>armsys streams tail orders --region eu
+<span class="aui-code-output">Connected to wss://rt.armsys.tech (eu-central) in 41 ms
+14:02:11  order.created   cus_42   {"total":129.9}
+14:02:12  order.paid      cus_42   {"method":"card"}</span></pre>
+        </div>
+
+        <h2 id="errors"><a class="aui-anchor" href="#errors">#</a>Error handling</h2>
+        <p>All errors share the same shape. Retry <strong>429</strong> and <strong>5xx</strong> responses with exponential backoff; do not retry other <strong>4xx</strong> responses without changing the request.</p>
+        <table>
+          <thead><tr><th>Code</th><th>Meaning</th><th>Retry</th></tr></thead>
+          <tbody>
+            <tr><td><code>invalid_request</code></td><td>Body failed validation</td><td>No</td></tr>
+            <tr><td><code>unauthorized</code></td><td>Key missing, revoked or lacks scope</td><td>No</td></tr>
+            <tr><td><code>rate_limited</code></td><td>Quota exceeded for the current window</td><td>Yes</td></tr>
+            <tr><td><code>unavailable</code></td><td>Transient regional failure</td><td>Yes</td></tr>
+          </tbody>
+        </table>
+        <blockquote><p>Tip: the SDKs implement retries, backoff and idempotency keys for you.</p></blockquote>
+        <div class="aui-callout aui-callout--note"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-info"/></svg><div class="aui-callout-body"><p>Looking for bulk imports? See <a href="#">Backfill jobs</a> for loading historical data without affecting live subscribers.</p></div></div>
+      </div>
+
+      <nav class="aui-docs-pager" aria-label="Pagination">
+        <a class="aui-pager-link" href="#"><span class="aui-pager-label"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-left"/></svg>Previous</span><span class="aui-pager-title">List streams</span></a>
+        <a class="aui-pager-link aui-pager-link--next" href="#"><span class="aui-pager-label">Next<svg class="aui-icon" aria-hidden="true"><use href="#aui-i-arrow-right"/></svg></span><span class="aui-pager-title">Update stream</span></a>
+      </nav>
+      <div class="aui-docs-foot">
+        <span>Was this page helpful? <button type="button" class="aui-btn aui-btn--ghost aui-btn--sm" data-aui-toast="Thanks for the feedback" data-aui-toast-variant="success">Yes</button><button type="button" class="aui-btn aui-btn--ghost aui-btn--sm" data-aui-toast="Thanks — we'll improve this page">No</button></span>
+        <a href="#"><svg class="aui-icon aui-icon--sm" aria-hidden="true"><use href="#aui-i-edit"/></svg>Edit this page</a>
+      </div>
+    </article>
+  </main>
+
+  <aside class="aui-docs-toc" aria-label="On this page">
+    <div class="aui-toc-title"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-menu"/></svg>On this page</div>
+    <nav class="aui-toc" data-aui-toc>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#authentication">Authentication</a></li>
+        <li><a href="#endpoint">Endpoint</a></li>
+        <li class="aui-toc-sub"><a href="#parameters">Path parameters</a></li>
+        <li class="aui-toc-sub"><a href="#headers">Headers</a></li>
+        <li class="aui-toc-sub"><a href="#body">Request body</a></li>
+        <li class="aui-toc-sub"><a href="#responses">Responses</a></li>
+        <li><a href="#subscribe">Subscribe over WebSocket</a></li>
+        <li><a href="#errors">Error handling</a></li>
+      </ul>
+    </nav>
+    <div class="aui-toc-footer">
+      <a href="#"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-edit"/></svg>Edit on GitHub</a>
+      <a href="#"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-help"/></svg>Ask a question</a>
+      <a href="#top"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-chevron-up"/></svg>Back to top</a>
+    </div>
+  </aside>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "name": "armsys-ui",
+  "description": "Framework-independent design system and UI library by Armsys Technology.",
+  "keywords": [
+    "ui",
+    "design-system",
+    "css",
+    "dashboard",
+    "admin",
+    "documentation"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/armsys-tech/ui-kit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/armsys-tech/ui-kit.git"
+  },
+  "authors": [
+    {
+      "name": "Armsys Technology"
+    }
+  ],
+  "autoupdate": {
+    "source": "npm",
+    "target": "@armsys-tech/ui",
+    "fileMap": [
+      {
+        "basePath": "dist",
+        "files": [
+          "*.js",
+          "*.css"
+        ]
+      }
+    ]
+  },
+  "filename": "armsys-ui.js"
+}

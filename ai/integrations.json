@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "package": "@armsys-tech/ui",
+  "version": "1.0.0",
+  "cdn": {
+    "css": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/dist/armsys-ui.css",
+    "javascript": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/dist/armsys-ui.js",
+    "html": "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/dist/armsys-ui.css\">\n<script src=\"https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/dist/armsys-ui.js\" defer></script>"
+  },
+  "local": {
+    "html": "<link rel=\"stylesheet\" href=\"/assets/armsys-ui/armsys-ui.css\">\n<script src=\"/assets/armsys-ui/armsys-ui.js\" defer></script>"
+  },
+  "npm": {
+    "install": "npm install @armsys-tech/ui",
+    "javascriptImport": "import \"@armsys-tech/ui/dist/armsys-ui.js\";",
+    "cssImport": "import \"@armsys-tech/ui/dist/armsys-ui.css\";"
+  },
+  "frameworkNotes": {
+    "plainHtml": "Use the CDN or local files and add class=\"aui\" to body or an embedded wrapper.",
+    "php": "Include the CSS/JS from the shared PHP layout/template; Armsys UI requires no PHP package.",
+    "laravel": "Include CDN/local assets in the Blade layout, or import the npm package from the project's frontend entry file.",
+    "dotnet": "Place the assets under wwwroot or use the versioned CDN URLs from the Razor layout.",
+    "go": "Serve the assets as static files or use the versioned CDN URLs from html/template layouts.",
+    "vueNuxt": "Import the CSS globally and load the JS once on the client when data-attribute interactions are needed.",
+    "wordpress": "Enqueue armsys-ui.css and armsys-ui.js from a custom theme/plugin and use normal semantic PHP template markup."
+  }
+}
