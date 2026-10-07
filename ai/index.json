@@ -1,33 +1,60 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "name": "Armsys UI",
   "package": "@armsys-tech/ui",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "company": "Armsys Technology",
-  "description": "Framework-independent dark-first design system for application and public web interfaces.",
+  "description": "Framework-independent, dark-first design system for websites, documentation, admin panels, monitoring, embedded widgets and Electron apps.",
   "scopeClass": "aui",
   "classPrefix": "aui-",
   "tokenPrefix": "--aui-",
+  "dataAttributePrefix": "data-aui-",
   "runtimeDependencies": [],
+  "optionalRuntime": [
+    "highlight.js 11.11.1 (lazy-loaded from cdnjs for code blocks)"
+  ],
   "distribution": {
     "css": "dist/armsys-ui.css",
+    "cssMin": "dist/armsys-ui.min.css",
     "javascript": "dist/armsys-ui.js",
-    "jsdelivrCss": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/dist/armsys-ui.css",
-    "jsdelivrJavascript": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/dist/armsys-ui.js"
+    "javascriptMin": "dist/armsys-ui.min.js",
+    "esm": "dist/armsys-ui.mjs",
+    "types": "dist/armsys-ui.d.ts",
+    "jsdelivrCss": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.css",
+    "jsdelivrJavascript": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.js"
   },
+  "singleFileContext": "llms-full.txt",
   "catalogs": {
     "components": "ai/components.json",
     "patterns": "ai/patterns.json",
+    "javascript": "ai/javascript.json",
     "tokens": "ai/tokens.json",
+    "icons": "ai/icons.json",
     "integrations": "ai/integrations.json"
+  },
+  "recipes": {
+    "adminPanel": "ai/recipes/admin-panel.md",
+    "auth": "ai/recipes/auth.md",
+    "docsSite": "ai/recipes/docs-site.md",
+    "marketingSite": "ai/recipes/marketing-site.md",
+    "electronApp": "ai/recipes/electron-app.md"
+  },
+  "integrationGuides": {
+    "vue": "integrations/vue.md",
+    "electron": "integrations/electron.md",
+    "dotnet": "integrations/dotnet.md",
+    "laravel": "integrations/laravel.md"
   },
   "instructions": "AI_GUIDE.md",
   "showcase": "index.html",
+  "migration": "MIGRATION.md",
   "rules": [
-    "Read only the relevant catalog entries and examples for the current task.",
-    "Reuse existing aui-* classes before adding application-specific visual CSS.",
-    "Use --aui-* tokens instead of arbitrary visual values where possible.",
+    "Read llms-full.txt or the relevant recipe + catalogue entries before generating markup.",
+    "Use only aui-* classes that exist in ai/components.json; never invent classes.",
+    "Use --aui-* tokens for any custom CSS; no hard-coded colours or spacing.",
     "Keep the .aui scope.",
+    "Public pages share one frame: .aui-site-header + .aui-container + .aui-site-footer.",
+    "Declare behaviour with data-aui-* attributes and the ArmsysUI API.",
     "Do not introduce another UI framework unless explicitly requested."
   ]
 }

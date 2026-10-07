@@ -1,417 +1,2094 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "version": "2.0.0",
   "prefix": "aui-",
+  "toneModifiers": "Any component that lists 'tone' accepts a modifier ending in a tone name: --accent --success --info --warning --danger --purple --pink --orange --yellow --teal --neutral (also the generic classes aui-tone--accent, aui-tone--success …).",
+  "stateClasses": [
+    "is-active",
+    "is-open",
+    "is-loading",
+    "is-invalid",
+    "is-valid",
+    "is-selected",
+    "is-disabled",
+    "is-live"
+  ],
   "components": {
     "button": {
+      "category": "actions",
+      "file": "src/components/button.css",
       "base": "aui-btn",
-      "variants": [
-        "aui-btn--primary",
-        "aui-btn--secondary",
-        "aui-btn--outline",
-        "aui-btn--ghost",
-        "aui-btn--accent",
-        "aui-btn--success",
-        "aui-btn--danger",
-        "aui-btn--danger-soft",
-        "aui-btn--sm",
-        "aui-btn--lg",
-        "aui-btn--icon",
-        "aui-btn--block"
+      "modifiers": {
+        "variant": [
+          "aui-btn--primary",
+          "aui-btn--accent",
+          "aui-btn--secondary",
+          "aui-btn--outline",
+          "aui-btn--ghost",
+          "aui-btn--soft",
+          "aui-btn--link",
+          "aui-btn--social"
+        ],
+        "tone": [
+          "aui-btn--success",
+          "aui-btn--danger",
+          "aui-btn--warning",
+          "aui-btn--info",
+          "aui-btn--purple",
+          "aui-btn--pink",
+          "aui-btn--orange",
+          "aui-btn--teal"
+        ],
+        "size": [
+          "aui-btn--xs",
+          "aui-btn--sm",
+          "(md default)",
+          "aui-btn--lg",
+          "aui-btn--xl"
+        ],
+        "shape": [
+          "aui-btn--icon",
+          "aui-btn--pill",
+          "aui-btn--block",
+          "aui-btn--start"
+        ],
+        "state": [
+          "is-loading",
+          "is-active",
+          "is-success",
+          "[aria-pressed=\"true\"]",
+          ":disabled",
+          "[aria-disabled=\"true\"]"
+        ]
+      },
+      "elements": [
+        "aui-btn-label",
+        "aui-btn-count",
+        "aui-btn-dot",
+        "aui-btn-end",
+        "aui-btn-brand"
       ],
-      "source": "src/components/actions.css",
-      "javascript": false
+      "dataAttributes": [
+        "data-aui-confirm=\"Title\" (+ data-aui-confirm-message, -text, -variant)",
+        "data-aui-toast=\"Title\"",
+        "data-aui-modal-open=\"#id\"",
+        "data-aui-tooltip=\"Label\""
+      ],
+      "markup": [
+        "<button class=\"aui-btn aui-btn--primary\">Save</button>",
+        "<button class=\"aui-btn\"><svg class=\"aui-icon\"><use href=\"#aui-i-plus\"/></svg>New</button>",
+        "<button class=\"aui-btn aui-btn--soft aui-btn--danger\">Remove</button>",
+        "<button class=\"aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm\" aria-label=\"Settings\"><svg class=\"aui-icon\"><use href=\"#aui-i-settings\"/></svg></button>",
+        "<button class=\"aui-btn aui-btn--primary is-loading\">Saving…</button>"
+      ],
+      "rules": [
+        "Exactly one aui-btn--primary per view; secondary actions use the default variant or --outline/--ghost.",
+        "Tone + style: combine a tone with --soft/--outline/--ghost (aui-btn--soft aui-btn--danger). A tone alone is a solid button.",
+        "Icon-only buttons need aria-label."
+      ]
     },
     "buttonGroup": {
+      "category": "actions",
+      "file": "src/components/button.css",
       "base": "aui-btn-group",
-      "source": "src/components/actions.css",
-      "javascript": false
+      "modifiers": {
+        "layout": [
+          "aui-btn-group--vertical",
+          "aui-btn-group--block"
+        ],
+        "behaviour": [
+          "[data-aui-toggle] single-select toggle group"
+        ]
+      },
+      "related": [
+        "aui-btn-split",
+        "aui-btn-toolbar"
+      ],
+      "markup": [
+        "<div class=\"aui-btn-group\" data-aui-toggle><button class=\"aui-btn aui-btn--icon is-active\" aria-pressed=\"true\" aria-label=\"List\">…</button><button class=\"aui-btn aui-btn--icon\" aria-pressed=\"false\" aria-label=\"Grid\">…</button></div>",
+        "<div class=\"aui-btn-split\"><button class=\"aui-btn aui-btn--primary\">Deploy</button><div class=\"aui-dropdown\" data-aui-dropdown><button class=\"aui-btn aui-btn--primary aui-btn--icon\" data-aui-dropdown-trigger aria-label=\"More\"><svg class=\"aui-icon\"><use href=\"#aui-i-chevron-down\"/></svg></button><div class=\"aui-menu aui-menu--end\">…</div></div></div>"
+      ]
+    },
+    "fab": {
+      "category": "actions",
+      "file": "src/components/button.css",
+      "base": "aui-fab",
+      "markup": [
+        "<button class=\"aui-btn aui-btn--primary aui-btn--icon aui-fab\" aria-label=\"Create\"><svg class=\"aui-icon\"><use href=\"#aui-i-plus\"/></svg></button>"
+      ]
+    },
+    "close": {
+      "category": "actions",
+      "file": "src/components/button.css",
+      "base": "aui-close",
+      "modifiers": {
+        "size": [
+          "aui-close--sm"
+        ]
+      },
+      "markup": [
+        "<button class=\"aui-close\" data-aui-modal-close aria-label=\"Close\"></button>"
+      ],
+      "rules": [
+        "Renders its own × when empty; may contain an aui-icon."
+      ]
+    },
+    "link": {
+      "category": "actions",
+      "file": "src/components/button.css",
+      "base": "aui-link",
+      "modifiers": {
+        "variant": [
+          "aui-link--quiet",
+          "aui-link--plain",
+          "aui-link-external"
+        ]
+      },
+      "related": [
+        "aui-link-arrow"
+      ],
+      "markup": [
+        "<a class=\"aui-link\" href=\"#\">Docs</a>",
+        "<a class=\"aui-link-arrow\" href=\"#\">Read more <svg class=\"aui-icon\"><use href=\"#aui-i-arrow-right\"/></svg></a>"
+      ]
+    },
+    "chip": {
+      "category": "actions",
+      "file": "src/components/button.css",
+      "base": "aui-chip",
+      "modifiers": {
+        "variant": [
+          "aui-chip--soft"
+        ],
+        "tone": [
+          "--accent|--success|--info|--warning|--danger|--purple|--pink|--orange|--yellow|--teal|--neutral"
+        ],
+        "size": [
+          "aui-chip--sm",
+          "aui-chip--lg"
+        ],
+        "state": [
+          "is-active",
+          "[aria-pressed=\"true\"]",
+          ":has(input:checked)"
+        ]
+      },
+      "elements": [
+        "aui-chip-count",
+        "aui-chip-remove"
+      ],
+      "related": [
+        "aui-chip-group"
+      ],
+      "markup": [
+        "<div class=\"aui-chip-group\"><button class=\"aui-chip\" aria-pressed=\"true\">All <span class=\"aui-chip-count\">128</span></button><button class=\"aui-chip\" aria-pressed=\"false\">Errors</button></div>",
+        "<span class=\"aui-chip aui-chip--soft aui-chip--accent\">region: eu<button class=\"aui-chip-remove\" data-aui-dismiss aria-label=\"Remove\"><svg class=\"aui-icon\"><use href=\"#aui-i-x\"/></svg></button></span>"
+      ]
+    },
+    "field": {
+      "category": "forms",
+      "file": "src/components/forms.css",
+      "base": "aui-field",
+      "modifiers": {
+        "layout": [
+          "aui-field--inline",
+          "aui-field--horizontal"
+        ]
+      },
+      "elements": [
+        "aui-label",
+        "aui-label-row",
+        "aui-required",
+        "aui-optional",
+        "aui-help",
+        "aui-help.is-error",
+        "aui-help.is-success",
+        "aui-help.is-warning",
+        "aui-counter"
+      ],
+      "markup": [
+        "<div class=\"aui-field\"><label class=\"aui-label aui-required\" for=\"name\">Name</label><input class=\"aui-input\" id=\"name\"><p class=\"aui-help\">Shown to teammates.</p></div>",
+        "<div class=\"aui-field\"><div class=\"aui-label-row\"><label class=\"aui-label\" for=\"pw\">Password</label><a class=\"aui-link\" href=\"#\">Forgot?</a></div><input class=\"aui-input\" id=\"pw\" type=\"password\"></div>"
+      ],
+      "rules": [
+        "Always pair label[for] with the control id.",
+        "Errors: add is-invalid (or aria-invalid=\"true\") on the control and aui-help is-error below it."
+      ]
     },
     "input": {
+      "category": "forms",
+      "file": "src/components/forms.css",
       "base": "aui-input",
-      "related": [
-        "aui-input-wrap",
-        "aui-input-group",
-        "aui-input-addon",
+      "alsoApplies": [
+        "aui-select",
+        "aui-textarea"
+      ],
+      "modifiers": {
+        "size": [
+          "aui-input--xs",
+          "aui-input--sm",
+          "(md default)",
+          "aui-input--lg",
+          "aui-input--xl"
+        ],
+        "variant": [
+          "aui-input--filled",
+          "aui-input--ghost",
+          "aui-input--pill",
+          "aui-input--mono",
+          "aui-textarea--code"
+        ],
+        "state": [
+          "is-invalid",
+          "is-valid",
+          "is-warning",
+          "[aria-invalid=\"true\"]",
+          ":disabled",
+          "[readonly]"
+        ]
+      },
+      "dataAttributes": [
+        "textarea[data-aui-autosize]",
+        "[data-aui-counter] (uses maxlength)",
+        "input[data-aui-strength=\"#meter\"]"
+      ],
+      "markup": [
+        "<input class=\"aui-input\" placeholder=\"Search…\">",
+        "<select class=\"aui-select\"><option>eu-central</option></select>",
+        "<textarea class=\"aui-textarea\" maxlength=\"280\" data-aui-counter data-aui-autosize></textarea>"
+      ]
+    },
+    "inputAffix": {
+      "category": "forms",
+      "file": "src/components/forms.css",
+      "base": "aui-input-wrap",
+      "modifiers": {
+        "size": [
+          "aui-input-wrap--xs",
+          "aui-input-wrap--sm",
+          "aui-input-wrap--lg",
+          "aui-input-wrap--xl"
+        ]
+      },
+      "elements": [
+        "aui-icon (leading, first child)",
+        "aui-input-start",
         "aui-input-end",
-        "aui-label",
-        "aui-help",
-        "aui-field-error"
+        "aui-input-action",
+        "aui-unit",
+        "aui-input-status.is-error|is-success",
+        "aui-reveal-on",
+        "aui-reveal-off"
       ],
-      "variants": [
-        "aui-input--sm",
-        "aui-input--lg",
-        "aui-input--mono"
+      "dataAttributes": [
+        "data-aui-clear",
+        "data-aui-password-toggle",
+        "data-aui-copy"
       ],
-      "source": "src/components/forms.css",
-      "javascript": false
+      "markup": [
+        "<div class=\"aui-input-wrap\"><svg class=\"aui-icon\"><use href=\"#aui-i-search\"/></svg><input class=\"aui-input\" placeholder=\"Search\"><div class=\"aui-input-end\"><button class=\"aui-input-action\" type=\"button\" data-aui-clear aria-label=\"Clear\"><svg class=\"aui-icon\"><use href=\"#aui-i-x-circle\"/></svg></button></div></div>",
+        "<div class=\"aui-input-wrap\"><input class=\"aui-input\" type=\"password\"><div class=\"aui-input-end\"><button class=\"aui-input-action\" type=\"button\" data-aui-password-toggle aria-label=\"Show password\"><svg class=\"aui-icon aui-reveal-off\"><use href=\"#aui-i-eye\"/></svg><svg class=\"aui-icon aui-reveal-on\"><use href=\"#aui-i-eye-off\"/></svg></button></div></div>"
+      ]
     },
-    "select": {
-      "base": "aui-select",
-      "source": "src/components/forms.css",
-      "javascript": false
-    },
-    "textarea": {
-      "base": "aui-textarea",
-      "variants": [
-        "aui-textarea--code"
+    "inputGroup": {
+      "category": "forms",
+      "file": "src/components/forms.css",
+      "base": "aui-input-group",
+      "modifiers": {
+        "size": [
+          "aui-input-group--sm",
+          "aui-input-group--lg"
+        ]
+      },
+      "elements": [
+        "aui-input-addon",
+        "aui-input-addon--mono"
       ],
-      "source": "src/components/forms.css",
-      "javascript": false
+      "markup": [
+        "<div class=\"aui-input-group\"><span class=\"aui-input-addon\">https://</span><input class=\"aui-input\"><button class=\"aui-btn\">Save</button></div>"
+      ]
     },
-    "checkboxAndRadio": {
+    "combobox": {
+      "category": "forms",
+      "file": "src/components/forms.css + src/js/31-menus.js",
+      "base": "select.aui-select[data-aui-select]",
+      "generated": "aui-combobox > aui-combobox-trigger + aui-menu[role=listbox]",
+      "dataAttributes": [
+        "data-aui-select",
+        "data-aui-search",
+        "data-placeholder",
+        "data-aui-search-placeholder",
+        "data-aui-empty",
+        "option[data-description]",
+        "multiple"
+      ],
+      "js": [
+        "ArmsysUI.refreshSelect(select)"
+      ],
+      "events": [
+        "change/input on the native <select>"
+      ],
+      "markup": [
+        "<select class=\"aui-select\" data-aui-select data-aui-search data-placeholder=\"Choose a country\"><option value=\"\" hidden></option><option value=\"tr\">Türkiye</option><option value=\"de\">Germany</option></select>",
+        "<select class=\"aui-select\" multiple data-aui-select><optgroup label=\"Orders\"><option selected>order.created</option></optgroup></select>"
+      ],
+      "rules": [
+        "The native select stays in the DOM: forms, v-model and server posts keep working.",
+        "Opens as a bottom sheet on phones."
+      ]
+    },
+    "checkbox": {
+      "category": "forms",
+      "file": "src/components/forms.css",
       "base": "aui-check",
-      "related": [
+      "modifiers": {
+        "size": [
+          "aui-check--sm",
+          "aui-check--lg"
+        ]
+      },
+      "elements": [
+        "aui-check-body",
+        "aui-check-title",
         "aui-check-desc"
       ],
-      "source": "src/components/forms.css",
-      "javascript": false
+      "related": [
+        "aui-check-group",
+        "aui-check-group--row",
+        "input.aui-checkbox",
+        "input.aui-radio"
+      ],
+      "markup": [
+        "<label class=\"aui-check\"><input type=\"checkbox\" checked><span>Email alerts</span></label>",
+        "<label class=\"aui-check\"><input type=\"radio\" name=\"plan\"><span class=\"aui-check-body\"><span class=\"aui-check-title\">Yearly</span><span class=\"aui-check-desc\">Save 20%</span></span></label>"
+      ]
     },
     "switch": {
+      "category": "forms",
+      "file": "src/components/forms.css",
       "base": "aui-switch",
-      "variants": [
-        "aui-switch--sm"
-      ],
-      "source": "src/components/forms.css",
-      "javascript": false
-    },
-    "card": {
-      "base": "aui-card",
-      "related": [
-        "aui-card-header",
-        "aui-card-title",
-        "aui-card-desc",
-        "aui-card-body",
-        "aui-card-footer",
-        "aui-card-actions"
-      ],
-      "variants": [
-        "aui-card--flat",
-        "aui-card--interactive",
-        "aui-card--pad",
-        "aui-card--clip"
-      ],
-      "source": "src/components/data.css",
-      "javascript": false
-    },
-    "badge": {
-      "base": "aui-badge",
-      "variants": [
-        "aui-badge--solid",
-        "aui-badge--outline",
-        "aui-badge--pill",
-        "aui-badge--mono",
-        "aui-badge--success",
-        "aui-badge--info",
-        "aui-badge--warning",
-        "aui-badge--danger",
-        "aui-badge--accent",
-        "aui-badge--purple",
-        "aui-badge--pink",
-        "aui-badge--orange",
-        "aui-badge--yellow"
-      ],
-      "source": "src/components/data.css",
-      "javascript": false
-    },
-    "stat": {
-      "base": "aui-stat",
-      "related": [
-        "aui-stat-label",
-        "aui-stat-value",
-        "aui-stat-meta",
-        "aui-stat-icon"
-      ],
-      "variants": [
-        "aui-stat--sm",
-        "aui-stat--lg"
-      ],
-      "source": "src/components/data.css",
-      "javascript": false
-    },
-    "progress": {
-      "base": "aui-progress",
-      "related": [
-        "aui-progress-label"
-      ],
-      "variants": [
-        "aui-progress--sm",
-        "aui-progress--lg",
-        "aui-progress--success",
-        "aui-progress--warning",
-        "aui-progress--danger"
-      ],
-      "source": "src/components/data.css",
-      "javascript": false
-    },
-    "table": {
-      "base": "aui-table",
-      "wrapper": "aui-table-wrap",
-      "variants": [
-        "aui-table--dense",
-        "aui-table--public",
-        "aui-table--ranking",
-        "aui-table--comparison",
-        "aui-table--params",
-        "aui-table--static"
-      ],
-      "source": "src/components/tables.css",
-      "javascript": false
-    },
-    "tabs": {
-      "base": "aui-tabs",
-      "related": [
-        "aui-tab",
-        "aui-tab-panel",
-        "aui-tabs-block"
-      ],
-      "variants": [
-        "aui-tabs--sm"
-      ],
-      "source": "src/components/navigation.css",
-      "javascript": true,
-      "dataAttributes": [
-        "data-aui-tabs",
-        "data-aui-tab",
-        "data-aui-panel",
-        "data-aui-tabs-sync"
+      "modifiers": {
+        "size": [
+          "aui-switch--sm",
+          "aui-switch--lg"
+        ],
+        "tone": [
+          "--accent|--success|--info|--warning|--danger|--purple|--pink|--orange|--yellow|--teal|--neutral"
+        ],
+        "layout": [
+          "aui-switch--end"
+        ]
+      },
+      "markup": [
+        "<label class=\"aui-switch\"><input type=\"checkbox\" role=\"switch\" checked><span>Live updates</span></label>"
       ]
     },
-    "pagination": {
-      "base": "aui-pagination",
+    "choiceCard": {
+      "category": "forms",
+      "file": "src/components/forms.css",
+      "base": "aui-choice",
       "related": [
-        "aui-pagination-info"
+        "aui-choice-grid"
       ],
-      "source": "src/components/navigation.css",
-      "javascript": false
+      "elements": [
+        "aui-choice-body",
+        "aui-choice-title",
+        "aui-choice-desc",
+        "aui-choice-end",
+        "aui-choice-check"
+      ],
+      "modifiers": {
+        "layout": [
+          "aui-choice--center"
+        ]
+      },
+      "markup": [
+        "<div class=\"aui-choice-grid\"><label class=\"aui-choice\"><input type=\"radio\" name=\"tier\" checked><span class=\"aui-choice-body\"><span class=\"aui-choice-title\">Growth</span><span class=\"aui-choice-desc\">99.95% SLA</span></span><span class=\"aui-choice-check\"><svg class=\"aui-icon\"><use href=\"#aui-i-check\"/></svg></span></label></div>"
+      ]
+    },
+    "otp": {
+      "category": "forms",
+      "file": "src/components/forms.css",
+      "base": "aui-otp",
+      "modifiers": {
+        "size": [
+          "aui-otp--sm"
+        ],
+        "layout": [
+          "aui-otp--center"
+        ],
+        "state": [
+          "is-invalid",
+          "is-valid"
+        ]
+      },
+      "dataAttributes": [
+        "data-aui-otp=\"6\"",
+        "data-aui-otp-sep=\"3\"",
+        "data-aui-otp-alpha",
+        "data-name=\"code\" (hidden input)"
+      ],
+      "events": [
+        "aui:complete {value}"
+      ],
+      "markup": [
+        "<div class=\"aui-otp\" data-aui-otp=\"6\" data-aui-otp-sep=\"3\" data-name=\"code\"></div>"
+      ]
+    },
+    "tags": {
+      "category": "forms",
+      "file": "src/components/forms.css",
+      "base": "aui-tags",
+      "dataAttributes": [
+        "data-aui-tags",
+        "data-name",
+        "data-value=\"a,b\"",
+        "data-max"
+      ],
+      "events": [
+        "aui:change {value: string[]}"
+      ],
+      "js": [
+        "ArmsysUI.addTag(el, value)"
+      ],
+      "markup": [
+        "<div class=\"aui-tags\" data-aui-tags data-name=\"tags\" data-value=\"prod,eu\"><input placeholder=\"Add tag…\"></div>"
+      ]
+    },
+    "stepper": {
+      "category": "forms",
+      "file": "src/components/forms.css",
+      "base": "aui-stepper",
+      "modifiers": {
+        "size": [
+          "aui-stepper--sm",
+          "aui-stepper--lg"
+        ]
+      },
+      "dataAttributes": [
+        "data-aui-stepper",
+        "data-aui-step=\"-1|1\""
+      ],
+      "markup": [
+        "<div class=\"aui-stepper\" data-aui-stepper><button type=\"button\" data-aui-step=\"-1\" aria-label=\"Decrease\"><svg class=\"aui-icon\"><use href=\"#aui-i-minus\"/></svg></button><input type=\"number\" value=\"3\" min=\"1\" max=\"12\"><button type=\"button\" data-aui-step=\"1\" aria-label=\"Increase\"><svg class=\"aui-icon\"><use href=\"#aui-i-plus\"/></svg></button></div>"
+      ]
+    },
+    "range": {
+      "category": "forms",
+      "file": "src/components/forms.css",
+      "base": "aui-range",
+      "related": [
+        "aui-range-row",
+        "aui-range-value[data-aui-range-value]",
+        "aui-range-labels"
+      ],
+      "modifiers": {
+        "tone": [
+          "--accent|--success|--info|--warning|--danger|--purple|--pink|--orange|--yellow|--teal|--neutral"
+        ]
+      },
+      "markup": [
+        "<div class=\"aui-field\"><div class=\"aui-label-row\"><label class=\"aui-label\" for=\"r\">Sampling</label><output class=\"aui-range-value\" data-aui-range-value data-suffix=\"%\">40%</output></div><input class=\"aui-range\" id=\"r\" type=\"range\" value=\"40\"></div>"
+      ]
+    },
+    "file": {
+      "category": "forms",
+      "file": "src/components/forms.css",
+      "base": "aui-file",
+      "related": [
+        "aui-dropzone",
+        "aui-file-list",
+        "aui-file-item"
+      ],
+      "elements": [
+        "aui-file-btn",
+        "aui-file-name",
+        "aui-dropzone-icon",
+        "aui-dropzone-title",
+        "aui-dropzone-hint"
+      ],
+      "dataAttributes": [
+        ".aui-dropzone[data-aui-file-list=\"#list\"]"
+      ],
+      "events": [
+        "aui:files {files}"
+      ],
+      "markup": [
+        "<label class=\"aui-file\"><input type=\"file\"><span class=\"aui-file-btn\">Choose file</span><span class=\"aui-file-name\">No file chosen</span></label>",
+        "<label class=\"aui-dropzone\"><input type=\"file\" multiple><span class=\"aui-dropzone-icon\"><svg class=\"aui-icon\"><use href=\"#aui-i-upload\"/></svg></span><span class=\"aui-dropzone-title\"><b>Click to upload</b> or drag and drop</span><span class=\"aui-dropzone-hint\">CSV · 50 MB</span></label><ul class=\"aui-file-list\"></ul>"
+      ]
+    },
+    "strength": {
+      "category": "forms",
+      "file": "src/components/forms.css",
+      "base": "aui-strength",
+      "dataAttributes": [
+        "input[data-aui-strength=\"#id\"]",
+        "data-label-target=\"#label\""
+      ],
+      "markup": [
+        "<input class=\"aui-input\" type=\"password\" data-aui-strength=\"#s\"><div class=\"aui-strength\" id=\"s\" data-level=\"0\"><span></span><span></span><span></span><span></span></div>"
+      ]
+    },
+    "formLayout": {
+      "category": "forms",
+      "file": "src/components/forms.css",
+      "base": "aui-form",
+      "related": [
+        "aui-form-grid",
+        "aui-form-grid--3",
+        "aui-form-actions",
+        "aui-form-actions--start",
+        "aui-form-actions--between",
+        "aui-fieldset",
+        "aui-fieldset--card",
+        "aui-option-row",
+        "aui-option-row-title",
+        "aui-option-row-desc",
+        "aui-form-section (app.css)",
+        "aui-save-bar (app.css)",
+        "aui-daterange"
+      ],
+      "markup": [
+        "<form class=\"aui-form\"><div class=\"aui-form-grid\"><div class=\"aui-field\">…</div><div class=\"aui-field\">…</div><div class=\"aui-field aui-span-full\">…</div></div><div class=\"aui-form-actions\"><button class=\"aui-btn\">Cancel</button><button class=\"aui-btn aui-btn--primary\">Save</button></div></form>"
+      ]
     },
     "dropdown": {
-      "base": "aui-dropdown",
-      "related": [
+      "category": "overlays",
+      "file": "src/components/menu.css + src/js/31-menus.js",
+      "base": "aui-dropdown[data-aui-dropdown]",
+      "elements": [
         "aui-menu",
         "aui-menu-item",
+        "aui-menu-item-body",
+        "aui-menu-item-title",
+        "aui-menu-item-desc",
+        "aui-menu-item-end",
+        "aui-menu-label",
         "aui-menu-sep",
-        "aui-menu-label"
+        "aui-menu-header",
+        "aui-menu-footer",
+        "aui-menu-search",
+        "aui-menu-empty",
+        "aui-menu-sub",
+        "aui-menu-grid"
       ],
-      "source": "src/components/navigation.css",
-      "javascript": true,
+      "modifiers": {
+        "menu": [
+          "aui-menu--end",
+          "aui-menu--up",
+          "aui-menu--sm",
+          "aui-menu--lg",
+          "aui-menu--xl",
+          "aui-menu--scroll",
+          "aui-menu--context",
+          "is-static"
+        ],
+        "item": [
+          "aui-menu-item--danger",
+          "role=\"menuitemcheckbox|menuitemradio\" + aria-checked",
+          "data-aui-keep-open",
+          ":disabled"
+        ]
+      },
       "dataAttributes": [
         "data-aui-dropdown",
-        "data-aui-dropdown-trigger"
+        "data-aui-dropdown-trigger",
+        "data-aui-placement=\"bottom-start|bottom-end|top-start|…\"",
+        "data-aui-sheet=\"false|true\"",
+        "data-aui-floating=\"false\"",
+        "data-aui-context-menu=\"#menu\""
+      ],
+      "events": [
+        "aui:dropdown-open (cancelable)",
+        "aui:dropdown-opened",
+        "aui:dropdown-closed",
+        "aui:select {value,text} on items",
+        "aui:menu-check"
+      ],
+      "js": [
+        "ArmsysUI.openDropdown(el)",
+        "ArmsysUI.closeDropdown(el)",
+        "ArmsysUI.closeAll()"
+      ],
+      "markup": [
+        "<div class=\"aui-dropdown\" data-aui-dropdown><button class=\"aui-btn\" data-aui-dropdown-trigger>Actions <svg class=\"aui-icon\"><use href=\"#aui-i-chevron-down\"/></svg></button><div class=\"aui-menu\"><button class=\"aui-menu-item\"><svg class=\"aui-icon\"><use href=\"#aui-i-edit\"/></svg>Rename<kbd class=\"aui-kbd\">R</kbd></button><div class=\"aui-menu-sub\"><button class=\"aui-menu-item\">Share</button><div class=\"aui-menu\"><button class=\"aui-menu-item\">Copy link</button></div></div><div class=\"aui-menu-sep\"></div><button class=\"aui-menu-item aui-menu-item--danger\" data-aui-confirm=\"Delete?\">Delete</button></div></div>"
+      ],
+      "rules": [
+        "Menus are positioned with flip/shift (fixed) so they are never clipped by cards or tables.",
+        "Keyboard: ↑ ↓ Home End, typeahead, → opens a submenu, Esc closes.",
+        "On ≤640px they open as a bottom sheet with a drag handle."
       ]
     },
-    "alert": {
-      "base": "aui-alert",
-      "related": [
-        "aui-alert-body",
-        "aui-alert-title",
-        "aui-alert-text",
-        "aui-alert-actions",
-        "aui-alert-close"
+    "popover": {
+      "category": "overlays",
+      "file": "src/components/menu.css",
+      "base": "aui-popover",
+      "elements": [
+        "aui-popover-header",
+        "aui-popover-title",
+        "aui-popover-footer",
+        "aui-popover-arrow"
       ],
-      "source": "src/components/feedback.css",
-      "javascript": true,
+      "modifiers": {
+        "size": [
+          "aui-popover--lg",
+          "aui-popover--flush"
+        ],
+        "placement": [
+          "aui-popover--end",
+          "aui-popover--center",
+          "data-aui-placement"
+        ]
+      },
       "dataAttributes": [
-        "data-aui-dismiss"
+        "data-aui-popover=\"#id\" (trigger, toggles)"
+      ],
+      "events": [
+        "aui:popover-opened",
+        "aui:popover-closed"
+      ],
+      "markup": [
+        "<button class=\"aui-btn\" data-aui-popover=\"#usage\">Usage</button><div class=\"aui-popover\" id=\"usage\"><span class=\"aui-popover-arrow\"></span><div class=\"aui-popover-header\"><span class=\"aui-popover-title\">Quota</span></div>…</div>"
       ]
     },
-    "notice": {
-      "base": "aui-notice",
-      "source": "src/components/feedback.css",
-      "javascript": false
-    },
-    "toast": {
-      "base": "aui-toast",
-      "related": [
-        "aui-toast-region",
-        "aui-toast-title",
-        "aui-toast-text",
-        "aui-toast-close"
-      ],
-      "source": "src/components/feedback.css",
-      "javascript": true,
+    "tooltip": {
+      "category": "overlays",
+      "file": "src/components/menu.css",
+      "base": "[data-aui-tooltip]",
       "dataAttributes": [
-        "data-aui-toast"
+        "data-aui-tooltip=\"Text\"",
+        "data-aui-tooltip-pos=\"top|bottom|left|right\""
+      ],
+      "markup": [
+        "<button class=\"aui-btn aui-btn--icon\" data-aui-tooltip=\"Copy\" aria-label=\"Copy\">…</button>"
+      ],
+      "rules": [
+        "CSS-only, hidden on touch devices. Inside overflow containers prefer a popover."
       ]
     },
     "modal": {
-      "base": "aui-modal",
-      "related": [
+      "category": "overlays",
+      "file": "src/components/overlay.css + src/js/20-overlay.js",
+      "base": "dialog.aui-modal",
+      "elements": [
         "aui-modal-header",
+        "aui-modal-heading",
         "aui-modal-title",
         "aui-modal-desc",
         "aui-modal-body",
+        "aui-modal-body--flush",
         "aui-modal-footer",
-        "aui-modal-close"
+        "aui-modal-footer--plain",
+        "aui-modal-footer--split",
+        "aui-modal-footer--stack",
+        "aui-modal-header--bordered",
+        "aui-modal-hero",
+        "aui-modal-handle (auto-inserted)"
       ],
-      "variants": [
-        "aui-modal--sm",
-        "aui-modal--lg"
-      ],
-      "source": "src/components/overlays.css",
-      "javascript": true,
+      "modifiers": {
+        "size": [
+          "aui-modal--sm",
+          "(520 default)",
+          "aui-modal--lg",
+          "aui-modal--xl",
+          "aui-modal--full"
+        ],
+        "layout": [
+          "aui-modal--center",
+          "aui-modal--no-sheet",
+          "aui-modal--blur",
+          "is-static (render inline)"
+        ]
+      },
       "dataAttributes": [
-        "data-aui-modal",
-        "data-aui-modal-open",
-        "data-aui-modal-close"
+        "data-aui-modal-open=\"#id\"",
+        "data-aui-modal-close",
+        "data-aui-static (no Esc/backdrop close)",
+        "data-aui-value (close value)",
+        "[autofocus]"
+      ],
+      "events": [
+        "aui:open (cancelable)",
+        "aui:opened",
+        "aui:close (cancelable)",
+        "aui:closed {value}"
+      ],
+      "js": [
+        "ArmsysUI.openModal(\"#id\")",
+        "ArmsysUI.closeModal(\"#id\", value)"
+      ],
+      "markup": [
+        "<button class=\"aui-btn aui-btn--primary\" data-aui-modal-open=\"#invite\">Invite</button>\n<dialog class=\"aui-modal\" id=\"invite\" aria-labelledby=\"invite-title\">\n  <div class=\"aui-modal-header\"><div class=\"aui-modal-heading\"><h2 class=\"aui-modal-title\" id=\"invite-title\">Invite member</h2><p class=\"aui-modal-desc\">They will get an email.</p></div><button class=\"aui-close\" data-aui-modal-close aria-label=\"Close\"></button></div>\n  <div class=\"aui-modal-body\">…</div>\n  <div class=\"aui-modal-footer\"><button class=\"aui-btn\" data-aui-modal-close>Cancel</button><button class=\"aui-btn aui-btn--primary\">Send</button></div>\n</dialog>"
+      ],
+      "rules": [
+        "Use native <dialog>; never build modals from divs.",
+        "On ≤640px every modal is presented as a bottom sheet (drag handle, swipe down to close) unless aui-modal--no-sheet.",
+        "Animations, scroll-lock, focus return and backdrop click are handled by the JS."
+      ]
+    },
+    "sheet": {
+      "category": "overlays",
+      "file": "src/components/overlay.css",
+      "base": "dialog.aui-sheet",
+      "elements": [
+        "aui-sheet-handle (auto-inserted)",
+        "aui-modal-header/body/footer"
+      ],
+      "modifiers": {
+        "size": [
+          "aui-sheet--full",
+          "aui-sheet--blur"
+        ]
+      },
+      "markup": [
+        "<dialog class=\"aui-sheet\" id=\"share\"><div class=\"aui-modal-header\"><div class=\"aui-modal-heading\"><h2 class=\"aui-modal-title\">Share</h2></div><button class=\"aui-close\" data-aui-modal-close aria-label=\"Close\"></button></div><div class=\"aui-modal-body\">…</div></dialog>"
+      ],
+      "rules": [
+        "Bottom sheet on every screen size (Flutter showModalBottomSheet style)."
       ]
     },
     "drawer": {
-      "base": "aui-drawer",
-      "variants": [
-        "aui-drawer--left",
-        "aui-drawer--lg"
+      "category": "overlays",
+      "file": "src/components/overlay.css",
+      "base": "dialog.aui-drawer",
+      "modifiers": {
+        "side": [
+          "(right default)",
+          "aui-drawer--left",
+          "aui-drawer--top",
+          "aui-drawer--bottom"
+        ],
+        "size": [
+          "aui-drawer--sm",
+          "aui-drawer--lg",
+          "aui-drawer--xl"
+        ],
+        "layout": [
+          "aui-drawer--inset"
+        ]
+      },
+      "markup": [
+        "<dialog class=\"aui-drawer\" id=\"details\"><div class=\"aui-modal-header\"><h2 class=\"aui-modal-title\">Details</h2><button class=\"aui-close\" data-aui-modal-close aria-label=\"Close\"></button></div><div class=\"aui-modal-body\">…</div><div class=\"aui-modal-footer\">…</div></dialog>"
+      ]
+    },
+    "dialogApi": {
+      "category": "overlays",
+      "file": "src/js/20-overlay.js",
+      "base": "ArmsysUI.confirm / prompt / alert",
+      "js": [
+        "await ArmsysUI.confirm({ title, message, confirmText, cancelText, variant: \"danger\" }) → boolean",
+        "await ArmsysUI.prompt({ title, label, value, placeholder, required }) → string|null",
+        "await ArmsysUI.alert({ title, message, variant })"
       ],
-      "source": "src/components/overlays.css",
-      "javascript": true,
       "dataAttributes": [
-        "data-aui-modal",
-        "data-aui-modal-open",
-        "data-aui-modal-close"
+        "data-aui-confirm=\"Title\" data-aui-confirm-message data-aui-confirm-text data-aui-confirm-variant — confirm before the click proceeds"
+      ],
+      "markup": [
+        "<button class=\"aui-btn aui-btn--danger\" data-aui-confirm=\"Delete stream?\" data-aui-confirm-message=\"This cannot be undone.\">Delete</button>"
+      ]
+    },
+    "commandPalette": {
+      "category": "overlays",
+      "file": "src/components/overlay.css + src/js/60-code.js",
+      "base": "dialog.aui-command[data-aui-command]",
+      "elements": [
+        "aui-command-search",
+        "aui-command-list",
+        "aui-command-group",
+        "aui-command-empty",
+        "aui-command-footer",
+        "aui-menu-item[data-keywords]"
+      ],
+      "dataAttributes": [
+        "data-aui-command",
+        "data-aui-command-open",
+        "data-keywords"
+      ],
+      "js": [
+        "ArmsysUI.openCommand()",
+        "config.commandHotkey (default mod+k)"
+      ],
+      "markup": [
+        "<dialog class=\"aui-command\" data-aui-command aria-label=\"Search\"><div class=\"aui-command-search\"><svg class=\"aui-icon\"><use href=\"#aui-i-search\"/></svg><input placeholder=\"Search…\"></div><div class=\"aui-command-list\"><div class=\"aui-command-group\"><div class=\"aui-menu-label\">Pages</div><a class=\"aui-menu-item\" href=\"/streams\">Streams</a></div></div><div class=\"aui-command-empty\" hidden>No results</div></dialog>"
+      ]
+    },
+    "alert": {
+      "category": "feedback",
+      "file": "src/components/feedback.css",
+      "base": "aui-alert",
+      "modifiers": {
+        "tone": [
+          "--accent|--success|--info|--warning|--danger|--purple|--pink|--orange|--yellow|--teal|--neutral"
+        ],
+        "variant": [
+          "aui-alert--accent-bar",
+          "aui-alert--solid",
+          "aui-alert--banner",
+          "aui-alert--sm"
+        ]
+      },
+      "elements": [
+        "aui-alert-body",
+        "aui-alert-title",
+        "aui-alert-text",
+        "aui-alert-actions"
+      ],
+      "dataAttributes": [
+        "data-aui-dismiss"
+      ],
+      "markup": [
+        "<div class=\"aui-alert aui-alert--warning\"><svg class=\"aui-icon\"><use href=\"#aui-i-alert\"/></svg><div class=\"aui-alert-body\"><div class=\"aui-alert-title\">Approaching quota</div><div class=\"aui-alert-text\">92% used.</div></div><button class=\"aui-close aui-close--sm\" data-aui-dismiss aria-label=\"Dismiss\"></button></div>"
+      ]
+    },
+    "callout": {
+      "category": "feedback",
+      "file": "src/components/feedback.css",
+      "base": "aui-callout",
+      "modifiers": {
+        "tone": [
+          "aui-callout--note",
+          "aui-callout--tip",
+          "(info default)",
+          "aui-callout--warning",
+          "aui-callout--danger"
+        ]
+      },
+      "elements": [
+        "aui-callout-body",
+        "aui-callout-title"
+      ],
+      "markup": [
+        "<div class=\"aui-callout aui-callout--tip\"><svg class=\"aui-icon\"><use href=\"#aui-i-lightbulb\"/></svg><div class=\"aui-callout-body\"><div class=\"aui-callout-title\">Tip</div><p>Batch 50–200 events per request.</p></div></div>"
+      ]
+    },
+    "notice": {
+      "category": "feedback",
+      "file": "src/components/feedback.css",
+      "base": "aui-notice",
+      "modifiers": {
+        "tone": [
+          "--accent|--success|--info|--warning|--danger|--purple|--pink|--orange|--yellow|--teal|--neutral"
+        ]
+      },
+      "related": [
+        "aui-announce",
+        "aui-announce--accent"
+      ],
+      "markup": [
+        "<div class=\"aui-notice aui-notice--accent\"><strong>Note:</strong> …</div>"
+      ]
+    },
+    "toast": {
+      "category": "feedback",
+      "file": "src/components/feedback.css + src/js/50-ui.js",
+      "base": "aui-toast (generated)",
+      "js": [
+        "ArmsysUI.toast({ title, message, variant, action: {label, onClick}, position, timeout })",
+        "ArmsysUI.toast.promise(promise, { loading, success, error })"
+      ],
+      "dataAttributes": [
+        "data-aui-toast=\"Title\"",
+        "data-aui-toast-message",
+        "data-aui-toast-variant",
+        "data-aui-toast-position"
+      ],
+      "markup": [
+        "<button class=\"aui-btn\" data-aui-toast=\"Saved\" data-aui-toast-variant=\"success\">Save</button>"
+      ]
+    },
+    "spinner": {
+      "category": "feedback",
+      "file": "src/components/feedback.css",
+      "base": "aui-spinner",
+      "modifiers": {
+        "size": [
+          "aui-spinner--xs",
+          "aui-spinner--sm",
+          "aui-spinner--lg",
+          "aui-spinner--xl"
+        ],
+        "tone": [
+          "aui-spinner--accent"
+        ]
+      },
+      "related": [
+        "aui-dots",
+        "aui-loading",
+        "aui-loading-overlay",
+        "aui-page-loader",
+        "aui-skeleton"
+      ],
+      "markup": [
+        "<span class=\"aui-spinner\"></span>",
+        "<div class=\"aui-page-loader\"><span></span></div>"
+      ]
+    },
+    "nav": {
+      "category": "navigation",
+      "file": "src/components/navigation.css",
+      "base": "aui-nav",
+      "modifiers": {
+        "variant": [
+          "aui-nav--indicator"
+        ]
+      },
+      "elements": [
+        "aui-nav-title",
+        "aui-nav-item",
+        "aui-nav-label",
+        "aui-nav-count",
+        "aui-nav-sep",
+        "details.aui-nav-group",
+        "aui-nav-children"
+      ],
+      "markup": [
+        "<nav class=\"aui-nav aui-nav--indicator\"><div class=\"aui-nav-title\">Workspace</div><a class=\"aui-nav-item\" aria-current=\"page\" href=\"/\"><svg class=\"aui-icon\"><use href=\"#aui-i-grid\"/></svg><span class=\"aui-nav-label\">Overview</span></a><a class=\"aui-nav-item\" href=\"/events\"><svg class=\"aui-icon\"><use href=\"#aui-i-database\"/></svg><span class=\"aui-nav-label\">Events</span><span class=\"aui-nav-count\">12.4k</span></a></nav>"
+      ]
+    },
+    "tabs": {
+      "category": "navigation",
+      "file": "src/components/navigation.css",
+      "base": "aui-tabs",
+      "modifiers": {
+        "variant": [
+          "aui-tabs--pills",
+          "aui-tabs--enclosed",
+          "aui-tabs--vertical",
+          "aui-tabs--accent",
+          "aui-tabs--block"
+        ],
+        "size": [
+          "aui-tabs--sm",
+          "aui-tabs--lg"
+        ]
+      },
+      "elements": [
+        "aui-tab",
+        "aui-tab-count",
+        "aui-tab-panel",
+        "aui-tab-panel--flush"
+      ],
+      "dataAttributes": [
+        "data-aui-tabs (group)",
+        "data-aui-tab=\"id\"",
+        "data-aui-panel=\"id\"",
+        "data-aui-tabs-sync=\"key\" (sync + remember)"
+      ],
+      "events": [
+        "aui:tab {tab}"
+      ],
+      "markup": [
+        "<div data-aui-tabs><div class=\"aui-tabs\"><button class=\"aui-tab\" data-aui-tab=\"a\">Overview</button><button class=\"aui-tab\" data-aui-tab=\"b\">Events</button></div><div class=\"aui-tab-panel\" data-aui-panel=\"a\">…</div><div class=\"aui-tab-panel\" data-aui-panel=\"b\">…</div></div>"
+      ]
+    },
+    "segmented": {
+      "category": "navigation",
+      "file": "src/components/navigation.css",
+      "base": "aui-segmented",
+      "modifiers": {
+        "size": [
+          "aui-segmented--sm",
+          "aui-segmented--lg"
+        ],
+        "layout": [
+          "aui-segmented--block",
+          "aui-segmented--pill"
+        ]
+      },
+      "markup": [
+        "<div class=\"aui-segmented\"><button class=\"is-active\">1h</button><button>24h</button><button>7d</button></div>",
+        "<div class=\"aui-segmented\"><label><input type=\"radio\" name=\"r\" checked>Day</label><label><input type=\"radio\" name=\"r\">Week</label></div>"
+      ]
+    },
+    "breadcrumb": {
+      "category": "navigation",
+      "file": "src/components/navigation.css",
+      "base": "aui-breadcrumb",
+      "modifiers": {
+        "variant": [
+          "aui-breadcrumb--chevron",
+          "aui-breadcrumb--md"
+        ]
+      },
+      "markup": [
+        "<nav class=\"aui-breadcrumb\" aria-label=\"Breadcrumb\"><ol><li><a href=\"/\">Home</a></li><li><span aria-current=\"page\">Streams</span></li></ol></nav>"
+      ]
+    },
+    "pagination": {
+      "category": "navigation",
+      "file": "src/components/navigation.css",
+      "base": "aui-pagination",
+      "elements": [
+        "aui-page",
+        "aui-page-gap",
+        "aui-pagination-info"
+      ],
+      "markup": [
+        "<nav class=\"aui-pagination\"><button class=\"aui-page\" aria-current=\"page\">1</button><button class=\"aui-page\">2</button><span class=\"aui-page-gap\">…</span><button class=\"aui-page\">9</button></nav>"
+      ]
+    },
+    "wizard": {
+      "category": "navigation",
+      "file": "src/components/navigation.css",
+      "base": "aui-wizard",
+      "modifiers": {
+        "layout": [
+          "aui-wizard--vertical"
+        ],
+        "step": [
+          "is-done",
+          "is-current",
+          "is-error"
+        ]
+      },
+      "elements": [
+        "aui-wizard-body",
+        "aui-wizard-title",
+        "aui-wizard-desc"
+      ],
+      "markup": [
+        "<ol class=\"aui-wizard\"><li class=\"is-done\"><div class=\"aui-wizard-body\"><div class=\"aui-wizard-title\">Account</div></div></li><li class=\"is-current\"><div class=\"aui-wizard-body\"><div class=\"aui-wizard-title\">Workspace</div></div></li><li><div class=\"aui-wizard-body\"><div class=\"aui-wizard-title\">Invite</div></div></li></ol>"
+      ]
+    },
+    "pageHeader": {
+      "category": "navigation",
+      "file": "src/components/navigation.css",
+      "base": "aui-page-header",
+      "modifiers": {
+        "variant": [
+          "aui-page-header--bordered",
+          "aui-page-header--tabs"
+        ]
+      },
+      "elements": [
+        "aui-page-header-body",
+        "aui-page-title",
+        "aui-page-desc",
+        "aui-page-actions"
+      ],
+      "markup": [
+        "<div class=\"aui-page-header\"><div class=\"aui-page-header-body\"><h1 class=\"aui-page-title\">Streams <span class=\"aui-badge aui-badge--success\">Healthy</span></h1><p class=\"aui-page-desc\">Ordered, durable event logs.</p></div><div class=\"aui-page-actions\"><button class=\"aui-btn\">Export</button><button class=\"aui-btn aui-btn--primary\">New stream</button></div></div>"
+      ]
+    },
+    "toolbar": {
+      "category": "navigation",
+      "file": "src/components/navigation.css",
+      "base": "aui-toolbar",
+      "modifiers": {
+        "variant": [
+          "aui-toolbar--bar"
+        ]
+      },
+      "related": [
+        "aui-toolbar-label",
+        "aui-input-wrap--grow",
+        "aui-bulkbar"
+      ],
+      "markup": [
+        "<div class=\"aui-toolbar\"><div class=\"aui-input-wrap\"><svg class=\"aui-icon\"><use href=\"#aui-i-search\"/></svg><input class=\"aui-input aui-input--sm\" placeholder=\"Search\"></div><select class=\"aui-select aui-input--sm\"><option>All</option></select><div class=\"aui-spacer\"></div><button class=\"aui-btn aui-btn--sm\">Export</button></div>"
+      ]
+    },
+    "accordion": {
+      "category": "navigation",
+      "file": "src/components/navigation.css",
+      "base": "aui-accordion",
+      "modifiers": {
+        "variant": [
+          "aui-accordion--flush",
+          "aui-accordion--separated"
+        ]
+      },
+      "elements": [
+        "details > summary",
+        "aui-accordion-body"
+      ],
+      "markup": [
+        "<div class=\"aui-accordion\"><details open><summary>Question?</summary><div class=\"aui-accordion-body\">Answer.</div></details></div>"
+      ],
+      "rules": [
+        "Add name=\"group\" to <details> for exclusive (one-open) behaviour."
+      ]
+    },
+    "card": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-card",
+      "modifiers": {
+        "variant": [
+          "aui-card--pad",
+          "aui-card--pad-sm",
+          "aui-card--flat",
+          "aui-card--elevated",
+          "aui-card--inset",
+          "aui-card--dashed",
+          "aui-card--interactive",
+          "aui-card--selected",
+          "aui-card--tone (+tone)",
+          "aui-card--glow",
+          "aui-card--clip"
+        ]
+      },
+      "elements": [
+        "aui-card-header",
+        "aui-card-header--plain",
+        "aui-card-heading",
+        "aui-card-title",
+        "aui-card-desc",
+        "aui-card-actions",
+        "aui-card-body",
+        "aui-card-body--sm",
+        "aui-card-body--flush",
+        "aui-card-footer",
+        "aui-card-footer--end",
+        "aui-card-footer--muted",
+        "aui-card-media"
+      ],
+      "related": [
+        "aui-panel",
+        "aui-metric"
+      ],
+      "markup": [
+        "<div class=\"aui-card\"><div class=\"aui-card-header\"><div class=\"aui-card-heading\"><div class=\"aui-card-title\">Services</div><div class=\"aui-card-desc\">Live health</div></div><div class=\"aui-card-actions\"><button class=\"aui-btn aui-btn--ghost aui-btn--sm\">View all</button></div></div><div class=\"aui-card-body\">…</div></div>"
+      ]
+    },
+    "stat": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-stat",
+      "modifiers": {
+        "size": [
+          "aui-stat--sm",
+          "aui-stat--lg"
+        ]
+      },
+      "elements": [
+        "aui-stat-label",
+        "aui-stat-value",
+        "aui-stat-meta",
+        "aui-stat-icon",
+        "aui-delta.is-up|is-down",
+        "aui-delta--pill"
+      ],
+      "related": [
+        "aui-metric",
+        "aui-stats",
+        "aui-stats--public",
+        "aui-spark",
+        "aui-bars",
+        "aui-ring",
+        "aui-legend"
+      ],
+      "markup": [
+        "<div class=\"aui-card aui-metric\"><div class=\"aui-stat\"><div class=\"aui-stat-label\">Events<span class=\"aui-delta is-up\">8.2%</span></div><div class=\"aui-stat-value\">184.2M</div><div class=\"aui-stat-meta\">vs yesterday</div></div><svg class=\"aui-spark\" viewBox=\"0 0 100 30\" preserveAspectRatio=\"none\"><polyline points=\"0,24 20,18 40,20 60,10 80,12 100,6\"/></svg></div>",
+        "<div class=\"aui-bars\"><span style=\"--h:40%\"></span><span style=\"--h:70%\" class=\"is-hl\"></span></div>",
+        "<div class=\"aui-ring aui-ring--success\" style=\"--value:62\"><span>62%</span></div>"
+      ]
+    },
+    "badge": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-badge",
+      "modifiers": {
+        "tone": [
+          "--accent|--success|--info|--warning|--danger|--purple|--pink|--orange|--yellow|--teal|--neutral"
+        ],
+        "variant": [
+          "aui-badge--solid",
+          "aui-badge--outline",
+          "aui-badge--pill",
+          "aui-badge--mono"
+        ],
+        "size": [
+          "aui-badge--sm",
+          "aui-badge--lg"
+        ]
+      },
+      "related": [
+        "aui-count",
+        "aui-count--accent",
+        "aui-count--neutral"
+      ],
+      "markup": [
+        "<span class=\"aui-badge aui-badge--success\"><span class=\"aui-dot aui-dot--success\"></span>Healthy</span>",
+        "<span class=\"aui-count\">3</span>"
+      ]
+    },
+    "dot": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-dot",
+      "modifiers": {
+        "tone": [
+          "--accent|--success|--info|--warning|--danger|--purple|--pink|--orange|--yellow|--teal|--neutral"
+        ],
+        "variant": [
+          "aui-dot--ring",
+          "aui-dot--lg"
+        ],
+        "state": [
+          "is-live (pulse)"
+        ]
+      },
+      "related": [
+        "aui-status",
+        "aui-conn",
+        "aui-conn-meta"
+      ],
+      "markup": [
+        "<span class=\"aui-status\"><span class=\"aui-dot aui-dot--success is-live\"></span>Operational</span>"
+      ]
+    },
+    "avatar": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-avatar",
+      "modifiers": {
+        "tone": [
+          "--accent|--success|--info|--warning|--danger|--purple|--pink|--orange|--yellow|--teal|--neutral"
+        ],
+        "size": [
+          "aui-avatar--xs",
+          "aui-avatar--sm",
+          "(32 default)",
+          "aui-avatar--lg",
+          "aui-avatar--xl",
+          "aui-avatar--2xl"
+        ],
+        "shape": [
+          "aui-avatar--square"
+        ]
+      },
+      "elements": [
+        "aui-avatar-status.is-online|is-busy|is-away"
+      ],
+      "related": [
+        "aui-avatar-stack",
+        "aui-entity",
+        "aui-entity-body",
+        "aui-entity-name",
+        "aui-entity-sub"
+      ],
+      "markup": [
+        "<div class=\"aui-entity\"><span class=\"aui-avatar aui-avatar--accent\">AT<span class=\"aui-avatar-status is-online\"></span></span><div class=\"aui-entity-body\"><span class=\"aui-entity-name\">Ayla Tan</span><span class=\"aui-entity-sub\">ayla@armsys.tech</span></div></div>"
+      ]
+    },
+    "iconBox": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-icon-box",
+      "modifiers": {
+        "tone": [
+          "--accent|--success|--info|--warning|--danger|--purple|--pink|--orange|--yellow|--teal|--neutral"
+        ],
+        "size": [
+          "aui-icon-box--xs",
+          "aui-icon-box--sm",
+          "(36 default)",
+          "aui-icon-box--lg",
+          "aui-icon-box--xl"
+        ],
+        "variant": [
+          "aui-icon-box--round",
+          "aui-icon-box--solid"
+        ]
+      },
+      "markup": [
+        "<span class=\"aui-icon-box aui-icon-box--accent\"><svg class=\"aui-icon\"><use href=\"#aui-i-zap\"/></svg></span>"
+      ]
+    },
+    "list": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-list",
+      "modifiers": {
+        "variant": [
+          "aui-list--hover",
+          "aui-list--compact",
+          "aui-list--inset"
+        ],
+        "item": [
+          "is-active",
+          "is-unread"
+        ]
+      },
+      "elements": [
+        "aui-list-item",
+        "aui-list-body",
+        "aui-list-title",
+        "aui-list-meta",
+        "aui-list-text",
+        "aui-list-end"
+      ],
+      "markup": [
+        "<ul class=\"aui-list aui-list--hover\"><li><span class=\"aui-dot aui-dot--success\"></span><div class=\"aui-list-body\"><div class=\"aui-list-title\">stream.eu-1</div><div class=\"aui-list-meta\">18 ms</div></div><span class=\"aui-list-end\">99.99%</span></li></ul>"
+      ]
+    },
+    "descriptionList": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-dl",
+      "modifiers": {
+        "variant": [
+          "aui-dl--stacked"
+        ]
+      },
+      "related": [
+        "aui-kv"
+      ],
+      "markup": [
+        "<dl class=\"aui-kv\"><div><dt>Region</dt><dd>eu-central</dd></div><div><dt>Latency</dt><dd>18 ms</dd></div></dl>"
+      ]
+    },
+    "progress": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-progress",
+      "modifiers": {
+        "tone": [
+          "--accent|--success|--info|--warning|--danger|--purple|--pink|--orange|--yellow|--teal|--neutral"
+        ],
+        "size": [
+          "aui-progress--xs",
+          "aui-progress--sm",
+          "aui-progress--lg"
+        ],
+        "variant": [
+          "aui-progress--indeterminate",
+          "aui-progress--striped"
+        ]
+      },
+      "related": [
+        "aui-progress-label",
+        "aui-progress-stack",
+        "aui-ring",
+        "aui-uptime",
+        "aui-uptime-legend"
+      ],
+      "markup": [
+        "<div class=\"aui-progress-label\"><span>Upload</span><span>72%</span></div><div class=\"aui-progress\" style=\"--value:72%\"><span></span></div>"
+      ]
+    },
+    "emptyState": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-empty",
+      "modifiers": {
+        "variant": [
+          "aui-empty--bordered",
+          "aui-empty--sm"
+        ]
+      },
+      "elements": [
+        "aui-empty-title",
+        "aui-empty-text",
+        "aui-empty-actions"
+      ],
+      "markup": [
+        "<div class=\"aui-empty aui-empty--bordered\"><span class=\"aui-icon-box aui-icon-box--lg\"><svg class=\"aui-icon\"><use href=\"#aui-i-inbox\"/></svg></span><div class=\"aui-empty-title\">No webhooks yet</div><p class=\"aui-empty-text\">Push events to your endpoints.</p><div class=\"aui-empty-actions\"><button class=\"aui-btn aui-btn--primary aui-btn--sm\">Add webhook</button></div></div>"
+      ]
+    },
+    "skeleton": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-skeleton",
+      "modifiers": {
+        "variant": [
+          "aui-skeleton--text",
+          "aui-skeleton--title",
+          "aui-skeleton--circle",
+          "aui-skeleton--block"
+        ]
+      },
+      "markup": [
+        "<span class=\"aui-skeleton aui-skeleton--title\"></span><span class=\"aui-skeleton aui-skeleton--text\"></span>"
+      ]
+    },
+    "timeline": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-timeline",
+      "elements": [
+        "aui-timeline-marker (+tone)",
+        "aui-timeline-marker--icon",
+        "aui-timeline-head",
+        "aui-timeline-title",
+        "aui-timeline-time",
+        "aui-timeline-text"
+      ],
+      "markup": [
+        "<ol class=\"aui-timeline\"><li><span class=\"aui-timeline-marker aui-timeline-marker--success\"></span><div class=\"aui-timeline-head\"><span class=\"aui-timeline-title\">Deployed</span><span class=\"aui-timeline-time\">2m ago</span></div><div class=\"aui-timeline-text\">v3.18.2</div></li></ol>"
+      ]
+    },
+    "log": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-log",
+      "modifiers": {
+        "variant": [
+          "aui-log--scroll",
+          "aui-log--plain"
+        ],
+        "row": [
+          "is-new",
+          "is-selected"
+        ]
+      },
+      "elements": [
+        "aui-log-row",
+        "aui-log-time",
+        "aui-log-level.is-info|is-ok|is-warn|is-error|is-debug",
+        "aui-log-src",
+        "aui-log-msg",
+        "aui-log-extra",
+        "aui-log-empty"
+      ],
+      "markup": [
+        "<div class=\"aui-log aui-log--scroll\"><div class=\"aui-log-row\"><span class=\"aui-log-time\">14:02:14</span><span class=\"aui-log-level is-ok\">OK</span><span class=\"aui-log-src\">gateway</span><span class=\"aui-log-msg\">accepted</span><span class=\"aui-log-extra\">18 ms</span></div></div>"
+      ]
+    },
+    "table": {
+      "category": "data",
+      "file": "src/components/table.css",
+      "base": "aui-table",
+      "alsoApplies": [
+        "aui-table-wrap"
+      ],
+      "modifiers": {
+        "variant": [
+          "aui-table--dense",
+          "aui-table--public",
+          "aui-table--comparison",
+          "aui-table--params",
+          "aui-table--ranking",
+          "aui-table--striped",
+          "aui-table--bordered",
+          "aui-table--static"
+        ],
+        "wrap": [
+          "aui-table-wrap--plain",
+          "aui-table-wrap--scroll (sticky header)"
+        ],
+        "row": [
+          "is-selected",
+          "is-muted",
+          "is-locked",
+          "is-clickable"
+        ]
+      },
+      "elements": [
+        "aui-check-cell",
+        "aui-table-actions",
+        "aui-table-strong",
+        "aui-sort",
+        "aui-table-footer",
+        "aui-table-group",
+        "aui-table-cta",
+        "aui-num",
+        "aui-yes",
+        "aui-no",
+        "aui-rank",
+        "aui-rank--1|2|3",
+        "aui-rank-change"
+      ],
+      "dataAttributes": [
+        "th[data-aui-sort] / data-aui-sort=\"number|text\"",
+        "td[data-sort-value]",
+        "data-aui-select-all",
+        "data-aui-select-row",
+        "table[data-aui-bulkbar=\"#bar\"] + [data-aui-selected-count]"
+      ],
+      "events": [
+        "aui:sort {column, direction}",
+        "aui:selection {count, rows}"
+      ],
+      "markup": [
+        "<div class=\"aui-card aui-card--clip\"><div class=\"aui-table-wrap\"><table class=\"aui-table\"><thead><tr><th class=\"aui-check-cell\"><label class=\"aui-check\"><input type=\"checkbox\" data-aui-select-all aria-label=\"Select all\"></label></th><th data-aui-sort><button class=\"aui-sort\">Name<svg class=\"aui-icon\"><use href=\"#aui-i-arrow-up\"/></svg></button></th><th class=\"aui-num\">Events</th><th class=\"aui-table-actions\"></th></tr></thead><tbody><tr><td class=\"aui-check-cell\"><label class=\"aui-check\"><input type=\"checkbox\" data-aui-select-row aria-label=\"Select\"></label></td><td class=\"aui-table-strong\">orders</td><td class=\"aui-num\">48,210</td><td class=\"aui-table-actions\">…</td></tr></tbody></table></div><div class=\"aui-table-footer\">…</div></div>"
       ]
     },
     "code": {
+      "category": "code",
+      "file": "src/components/code.css + src/js/60-code.js",
       "base": "aui-code",
-      "related": [
+      "elements": [
         "aui-code-header",
         "aui-code-title",
         "aui-code-lang",
         "aui-code-actions",
-        "aui-code-body",
         "aui-code-tabs",
         "aui-code-tab",
-        "aui-code-output"
+        "aui-code-dots",
+        "aui-code-dots--color",
+        "aui-code-body",
+        "aui-code-footer",
+        "aui-copy",
+        "aui-copy--float",
+        "aui-copy--icon",
+        "aui-copy-idle",
+        "aui-copy-done",
+        "aui-line.is-hl|is-add|is-del|is-dim"
       ],
-      "variants": [
-        "aui-code--terminal",
-        "aui-code--scroll"
-      ],
-      "source": "src/components/code.css",
-      "javascript": true,
+      "modifiers": {
+        "variant": [
+          "aui-code--terminal",
+          "aui-code--scroll",
+          "aui-code--flush",
+          "aui-code--wrap",
+          "aui-code--sm",
+          "aui-code--lines"
+        ]
+      },
       "dataAttributes": [
-        "data-aui-copy"
+        "pre > code.language-xxx (auto highlight.js, Atom One Dark)",
+        "data-aui-lines",
+        "data-aui-hl=\"1,3-5\"",
+        "data-aui-add=\"4\"",
+        "data-aui-del=\"3\"",
+        "data-aui-tabs + data-aui-tab/data-aui-panel (code groups)",
+        "data-aui-tabs-sync=\"lang\"",
+        "data-aui-copy",
+        "code[data-aui-no-highlight]"
+      ],
+      "js": [
+        "ArmsysUI.highlight(root)",
+        "config.highlight / highlightUrl / highlightLanguageUrl"
+      ],
+      "related": [
+        "aui-cli",
+        "aui-code-inline",
+        "aui-code-prompt",
+        "aui-code-output",
+        "aui-tok-keyword|string|number|comment|function|property|type|operator (hand-written tokens)"
+      ],
+      "markup": [
+        "<div class=\"aui-code\" data-aui-lines data-aui-hl=\"2\"><div class=\"aui-code-header\"><span class=\"aui-code-title\"><svg class=\"aui-icon\"><use href=\"#aui-i-file\"/></svg>client.ts</span><div class=\"aui-code-actions\"><button class=\"aui-copy\" data-aui-copy aria-label=\"Copy\"><span class=\"aui-copy-idle\"><svg class=\"aui-icon\"><use href=\"#aui-i-copy\"/></svg>Copy</span><span class=\"aui-copy-done\"><svg class=\"aui-icon\"><use href=\"#aui-i-check\"/></svg>Copied</span></button></div></div><div class=\"aui-code-body\"><pre><code class=\"language-typescript\">const client = new Armsys();</code></pre></div></div>",
+        "<div class=\"aui-cli\"><code>npm install @armsys-tech/ui</code><button class=\"aui-copy aui-copy--icon\" data-aui-copy aria-label=\"Copy\"><span class=\"aui-copy-idle\"><svg class=\"aui-icon\"><use href=\"#aui-i-copy\"/></svg></span><span class=\"aui-copy-done\"><svg class=\"aui-icon\"><use href=\"#aui-i-check\"/></svg></span></button></div>"
+      ],
+      "rules": [
+        "Write plain text inside <pre><code class=\"language-…\">; escape < > &. Do not hand-colour spans.",
+        "Languages outside the highlight.js core bundle (e.g. dart, dockerfile, powershell, nginx) are fetched on demand."
       ]
     },
-    "apiEndpoint": {
-      "base": "aui-endpoint",
-      "related": [
+    "apiReference": {
+      "category": "code",
+      "file": "src/components/code.css",
+      "base": "aui-api",
+      "elements": [
+        "aui-api-examples",
+        "aui-endpoint",
+        "aui-endpoint-path",
+        "aui-endpoint-host",
+        "aui-path-param",
         "aui-endpoint-head",
         "aui-endpoint-title",
         "aui-endpoint-summary",
-        "aui-endpoint-path",
-        "aui-endpoint-host",
-        "aui-method"
+        "aui-method",
+        "aui-params",
+        "aui-params-title",
+        "aui-param",
+        "aui-param-head",
+        "aui-param-name",
+        "aui-param-type",
+        "aui-param-req",
+        "aui-param-opt",
+        "aui-param-default",
+        "aui-param-desc",
+        "aui-param-values",
+        "aui-param-children",
+        "details.aui-param-toggle",
+        "aui-responses",
+        "aui-response",
+        "aui-status-code.is-2xx|is-3xx|is-4xx|is-5xx"
       ],
-      "source": "src/components/code.css",
-      "javascript": false
+      "modifiers": {
+        "method": [
+          "aui-method--get",
+          "aui-method--post",
+          "aui-method--put",
+          "aui-method--patch",
+          "aui-method--delete",
+          "aui-method--head",
+          "aui-method--options",
+          "aui-method--ws",
+          "aui-method--wss",
+          "aui-method--grpc",
+          "aui-method--event",
+          "aui-method--sm"
+        ]
+      },
+      "markup": [
+        "<div class=\"aui-endpoint\"><span class=\"aui-method aui-method--post\">POST</span><span class=\"aui-endpoint-path\"><span class=\"aui-endpoint-host\">https://api.example.com</span>/v1/streams/<span class=\"aui-path-param\">{id}</span>/events</span><button class=\"aui-btn aui-btn--sm aui-btn--ghost\" data-aui-copy aria-label=\"Copy\"><svg class=\"aui-icon\"><use href=\"#aui-i-copy\"/></svg></button></div>"
+      ]
     },
-    "faq": {
-      "base": "aui-faq",
-      "related": [
-        "aui-faq-layout",
-        "aui-faq-body"
+    "icon": {
+      "category": "base",
+      "file": "src/base/base.css + src/js/10-icons.js",
+      "base": "aui-icon",
+      "modifiers": {
+        "size": [
+          "aui-icon--2xs",
+          "aui-icon--xs",
+          "aui-icon--sm",
+          "(16 default)",
+          "aui-icon--lg",
+          "aui-icon--xl",
+          "aui-icon--2xl"
+        ],
+        "variant": [
+          "aui-icon--fill",
+          "aui-icon--spin"
+        ]
+      },
+      "js": [
+        "ArmsysUI.icons (names)",
+        "ArmsysUI.addIcons({ name: \"<path …/>\" })",
+        "ArmsysUI.icon(name)"
       ],
-      "variants": [
-        "aui-faq--cards",
-        "aui-faq--sm"
+      "markup": [
+        "<svg class=\"aui-icon\"><use href=\"#aui-i-search\"/></svg>"
       ],
-      "source": "src/layouts/site.css",
-      "javascript": false
+      "rules": [
+        "The JS injects the sprite; icons are 24×24 stroke icons. Brand icons (google, github, microsoft, apple, discord) are filled."
+      ]
     },
-    "siteHeader": {
-      "base": "aui-site-header",
+    "brand": {
+      "category": "base",
+      "file": "src/base/base.css",
+      "base": "aui-brand",
       "related": [
+        "aui-logo",
+        "aui-logo--sm",
+        "aui-logo--lg",
+        "aui-logo--xl",
+        "aui-logo--accent",
+        "aui-brand-text",
+        "aui-brand-sub"
+      ],
+      "markup": [
+        "<a class=\"aui-brand\" href=\"/\"><span class=\"aui-logo\"><svg viewBox=\"0 0 24 24\"><use href=\"#aui-i-logo\"/></svg></span>Armsys</a>"
+      ]
+    },
+    "typography": {
+      "category": "base",
+      "file": "src/base/base.css + src/base/prose.css",
+      "base": "aui-h1",
+      "related": [
+        "aui-display",
+        "aui-h2",
+        "aui-h3",
+        "aui-h4",
+        "aui-lead",
+        "aui-body",
+        "aui-small",
+        "aui-caption",
+        "aui-overline",
+        "aui-mono",
+        "aui-kbd",
+        "aui-kbd--sm",
+        "aui-kbd-group",
+        "aui-gradient-text",
+        "aui-prose",
+        "aui-prose--sm",
+        "aui-prose--lg",
+        "aui-anchor",
+        "aui-steps"
+      ],
+      "markup": [
+        "<article class=\"aui-prose\"><h2 id=\"x\">Heading</h2><p>Markdown / CMS output is styled automatically.</p></article>"
+      ]
+    },
+    "utilities": {
+      "category": "base",
+      "file": "src/base/utilities.css",
+      "base": "aui-row",
+      "related": [
+        "aui-stack",
+        "aui-grid",
+        "aui-grid--2..6|12",
+        "aui-grid--auto (--min)",
+        "aui-grid--sidebar (--side)",
+        "aui-span-2..9",
+        "aui-span-full",
+        "aui-gap-0..12",
+        "aui-mt-0..16",
+        "aui-mb-0..8",
+        "aui-p-0..8",
+        "aui-ml-auto",
+        "aui-spacer",
+        "aui-grow",
+        "aui-wrap",
+        "aui-row--between|center|end|top|baseline",
+        "aui-text-*",
+        "aui-truncate",
+        "aui-clamp-2|3",
+        "aui-num",
+        "aui-tabular",
+        "aui-hide-mobile",
+        "aui-show-mobile",
+        "aui-sr-only",
+        "aui-divider",
+        "aui-divider-text",
+        "aui-skip-link",
+        "aui-w-full",
+        "aui-sticky"
+      ],
+      "rules": [
+        "Utilities are loaded last and win over component defaults. Use them for composition, not to restyle components."
+      ]
+    },
+    "siteFrame": {
+      "category": "layout",
+      "file": "src/layouts/frame.css",
+      "base": "aui-site",
+      "modifiers": {
+        "layout": [
+          "aui-site--fluid"
+        ]
+      },
+      "elements": [
+        "aui-container",
+        "aui-container--content",
+        "aui-container--narrow",
+        "aui-container--fluid",
+        "aui-site-header",
+        "aui-site-header--transparent",
+        "aui-site-header--static",
         "aui-site-header-inner",
         "aui-site-brand",
         "aui-site-nav",
         "aui-site-nav-item",
         "aui-site-nav-link",
+        "aui-site-search",
         "aui-site-actions",
-        "aui-nav-toggle"
+        "aui-nav-toggle",
+        "aui-site-nav-mobile-actions",
+        "aui-mega",
+        "aui-mega--end",
+        "aui-mega-grid",
+        "aui-mega-group",
+        "aui-mega-title",
+        "aui-mega-item",
+        "aui-mega-item-title",
+        "aui-mega-item-desc",
+        "aui-mega-feature",
+        "aui-mega-footer",
+        "aui-search-trigger",
+        "aui-site-footer",
+        "aui-site-footer--compact",
+        "aui-footer-grid",
+        "aui-footer-brand",
+        "aui-footer-col",
+        "aui-footer-title",
+        "aui-footer-bottom",
+        "aui-footer-legal"
       ],
-      "source": "src/layouts/site.css",
-      "javascript": true,
       "dataAttributes": [
-        "data-aui-nav-toggle"
+        "data-aui-nav-toggle (mobile menu)",
+        "button.aui-site-nav-link (opens mega)"
+      ],
+      "markup": [
+        "<body class=\"aui aui-site\">\n  <header class=\"aui-site-header\"><div class=\"aui-container aui-site-header-inner\">\n    <a class=\"aui-site-brand\" href=\"/\"><span class=\"aui-logo\"><svg viewBox=\"0 0 24 24\"><use href=\"#aui-i-logo\"/></svg></span>Armsys</a>\n    <nav class=\"aui-site-nav\"><a class=\"aui-site-nav-link\" aria-current=\"page\" href=\"/\">Product</a><a class=\"aui-site-nav-link\" href=\"/docs\">Docs</a></nav>\n    <div class=\"aui-site-actions\"><a class=\"aui-btn aui-btn--ghost aui-btn--sm aui-hide-mobile\" href=\"/login\">Sign in</a><a class=\"aui-btn aui-btn--primary aui-btn--sm\" href=\"/signup\">Get started</a><button class=\"aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm aui-nav-toggle\" data-aui-nav-toggle aria-label=\"Menu\"><svg class=\"aui-icon\"><use href=\"#aui-i-menu\"/></svg></button></div>\n  </div></header>\n  <main>…</main>\n  <footer class=\"aui-site-footer\"><div class=\"aui-container\">…</div></footer>\n</body>"
+      ],
+      "rules": [
+        "Every public page (site, docs, pricing, blog, data) uses this same header + .aui-container so the header never changes size between pages.",
+        "Width is --aui-frame (1440px); header height --aui-header-h (64px)."
       ]
     },
-    "sidebar": {
-      "base": "aui-sidebar",
+    "marketingSections": {
+      "category": "layout",
+      "file": "src/layouts/site.css",
+      "base": "aui-section",
       "related": [
-        "aui-sidebar-header",
-        "aui-sidebar-body",
-        "aui-sidebar-footer",
-        "aui-sidebar-toggle",
-        "aui-nav",
-        "aui-nav-item"
-      ],
-      "source": "src/layouts/app.css",
-      "javascript": true
-    },
-    "hero": {
-      "base": "aui-hero",
-      "related": [
+        "aui-hero",
+        "aui-hero--center",
+        "aui-hero--split",
+        "aui-hero--grid",
+        "aui-hero--glow",
+        "aui-hero--compact",
+        "aui-hero-grid",
         "aui-hero-inner",
         "aui-hero-title",
         "aui-hero-description",
         "aui-hero-actions",
-        "aui-hero-visual"
-      ],
-      "variants": [
-        "aui-hero--center",
-        "aui-hero--compact",
-        "aui-hero--grid",
-        "aui-hero--short",
-        "aui-hero--split"
-      ],
-      "source": "src/layouts/site.css",
-      "javascript": false
-    },
-    "featureGrid": {
-      "base": "aui-feature-grid",
-      "related": [
-        "aui-feature",
-        "aui-feature-card",
+        "aui-hero-meta",
+        "aui-hero-visual",
+        "aui-eyebrow",
+        "aui-eyebrow--pill",
+        "aui-eyebrow--caps",
+        "aui-section--tight",
+        "aui-section--alt",
+        "aui-section--bordered",
+        "aui-section-header",
+        "aui-section-header--center",
+        "aui-section-header--split",
+        "aui-section-title",
+        "aui-section-desc",
+        "aui-feature-grid",
         "aui-feature-title",
-        "aui-feature-text"
+        "aui-feature-text",
+        "aui-feature-card",
+        "aui-card-grid",
+        "aui-product-card",
+        "aui-tile",
+        "aui-tile-grid",
+        "aui-resource-card",
+        "aui-checklist",
+        "aui-logo-strip",
+        "aui-cta",
+        "aui-cta--center",
+        "aui-split",
+        "aui-split--reverse",
+        "aui-media",
+        "aui-window",
+        "aui-quote",
+        "aui-faq",
+        "aui-faq-layout",
+        "aui-link-list"
       ],
-      "variants": [
-        "aui-feature-grid--2",
-        "aui-feature-grid--4"
-      ],
-      "source": "src/layouts/site.css",
-      "javascript": false
-    },
-    "pricingCard": {
-      "base": "aui-pricing-card",
-      "related": [
-        "aui-pricing-grid",
-        "aui-plan-name",
-        "aui-plan-desc",
-        "aui-plan-badge",
-        "aui-plan-features",
-        "aui-price"
-      ],
-      "source": "src/layouts/pricing.css",
-      "javascript": false
+      "markup": [
+        "<section class=\"aui-hero aui-hero--grid aui-hero--glow\"><div class=\"aui-container\"><div class=\"aui-hero-inner\"><span class=\"aui-eyebrow aui-eyebrow--caps\">Platform</span><h1 class=\"aui-hero-title\">Ship real-time products</h1><p class=\"aui-hero-description\">…</p><div class=\"aui-hero-actions\"><a class=\"aui-btn aui-btn--primary aui-btn--lg\" href=\"#\">Start</a><a class=\"aui-btn aui-btn--lg\" href=\"#\">Docs</a></div></div></div></section>"
+      ]
     },
     "docsLayout": {
+      "category": "layout",
+      "file": "src/layouts/docs.css",
       "base": "aui-docs",
-      "related": [
+      "modifiers": {
+        "layout": [
+          "aui-docs--no-toc",
+          "aui-docs--wide"
+        ]
+      },
+      "elements": [
         "aui-docs-sidebar",
         "aui-docs-nav",
+        "aui-docs-group",
+        "details.aui-docs-group",
+        "aui-docs-group-title",
+        "aui-docs-link",
+        "aui-docs-sub",
         "aui-docs-main",
         "aui-docs-article",
+        "aui-docs-header",
+        "aui-docs-eyebrow",
+        "aui-docs-title",
+        "aui-docs-lead",
+        "aui-docs-meta",
+        "aui-docs-section",
         "aui-docs-toc",
-        "aui-docs-pager"
+        "aui-toc",
+        "aui-toc-title",
+        "aui-toc-sub",
+        "aui-toc-footer",
+        "aui-docs-pager",
+        "aui-pager-link",
+        "aui-pager-link--next",
+        "aui-pager-label",
+        "aui-pager-title",
+        "aui-docs-foot",
+        "aui-docs-mobilebar",
+        "aui-demo",
+        "aui-demo-preview",
+        "aui-swatch"
       ],
-      "variants": [
-        "aui-docs--no-toc",
-        "aui-docs--wide"
-      ],
-      "source": "src/layouts/docs.css",
-      "javascript": true,
       "dataAttributes": [
-        "data-aui-toc"
+        "data-aui-toc (scroll-spy on any nav with #links)",
+        "data-aui-nav-toggle=\"#docs-nav\" (mobile drawer)"
+      ],
+      "markup": [
+        "<body class=\"aui aui-site\">\n  <header class=\"aui-site-header\">…same as website…</header>\n  <div class=\"aui-docs-mobilebar\"><button class=\"aui-btn aui-btn--ghost aui-btn--sm\" data-aui-nav-toggle=\"#docs-nav\">Menu</button></div>\n  <div class=\"aui-docs\">\n    <aside class=\"aui-docs-sidebar\" id=\"docs-nav\"><nav class=\"aui-docs-nav\"><div class=\"aui-docs-group\"><div class=\"aui-docs-group-title\">Getting started</div><ul><li><a class=\"aui-docs-link\" aria-current=\"page\" href=\"#\">Introduction</a></li></ul></div></nav></aside>\n    <main class=\"aui-docs-main\"><article class=\"aui-docs-article\"><header class=\"aui-docs-header\"><h1 class=\"aui-docs-title\">Title</h1><p class=\"aui-docs-lead\">…</p></header><div class=\"aui-prose\">…</div></article></main>\n    <aside class=\"aui-docs-toc\"><nav class=\"aui-toc\" data-aui-toc><div class=\"aui-toc-title\">On this page</div><ul><li><a href=\"#a\">A</a></li></ul></nav></aside>\n  </div>\n</body>"
+      ]
+    },
+    "appShell": {
+      "category": "layout",
+      "file": "src/layouts/app.css",
+      "base": "aui-app",
+      "modifiers": {
+        "layout": [
+          "aui-app--collapsed",
+          "aui-app--topnav",
+          "[data-aui-collapsible] (remember collapse)"
+        ]
+      },
+      "elements": [
+        "aui-sidebar",
+        "aui-sidebar--alt",
+        "aui-sidebar-header",
+        "aui-sidebar-body",
+        "aui-sidebar-footer",
+        "aui-sidebar-card",
+        "aui-sidebar-user",
+        "aui-sidebar-user-text",
+        "aui-switcher",
+        "aui-sidebar-toggle",
+        "aui-sidebar-collapse",
+        "aui-app-main",
+        "aui-topbar",
+        "aui-topbar-title",
+        "aui-topbar-search",
+        "aui-topbar-actions",
+        "aui-topnav",
+        "aui-subnav",
+        "aui-app-content",
+        "aui-app-content--narrow",
+        "aui-app-content--center",
+        "aui-app-content--full",
+        "aui-section-title-sm",
+        "aui-settings",
+        "aui-settings-nav",
+        "aui-settings-content",
+        "aui-form-section",
+        "aui-form-section-title",
+        "aui-form-section-desc",
+        "aui-save-bar",
+        "aui-danger-zone",
+        "aui-split-pane",
+        "aui-pane",
+        "aui-pane-header",
+        "aui-pane-body",
+        "aui-tool",
+        "aui-tool-bar",
+        "aui-tool-body",
+        "aui-statusbar",
+        "aui-mini",
+        "aui-mini-header",
+        "aui-mini-body",
+        "aui-mini-footer"
+      ],
+      "dataAttributes": [
+        "data-aui-nav-toggle=\"#sidebar\" (mobile)",
+        "data-aui-sidebar-collapse (icon rail)"
+      ],
+      "events": [
+        "aui:sidebar {collapsed}"
+      ],
+      "markup": [
+        "<body class=\"aui\">\n<div class=\"aui-app\" data-aui-collapsible>\n  <aside class=\"aui-sidebar\" id=\"sidebar\">\n    <div class=\"aui-sidebar-header\"><a class=\"aui-brand\" href=\"/\"><span class=\"aui-logo\"><svg viewBox=\"0 0 24 24\"><use href=\"#aui-i-logo\"/></svg></span><span class=\"aui-brand-text\">Console<small>Production</small></span></a></div>\n    <div class=\"aui-sidebar-body\"><nav class=\"aui-nav aui-nav--indicator\">…</nav></div>\n    <div class=\"aui-sidebar-footer\"><button class=\"aui-sidebar-user\">…</button></div>\n  </aside>\n  <div class=\"aui-app-main\">\n    <header class=\"aui-topbar\"><button class=\"aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm aui-sidebar-toggle\" data-aui-nav-toggle=\"#sidebar\" aria-label=\"Menu\"><svg class=\"aui-icon\"><use href=\"#aui-i-menu\"/></svg></button><button class=\"aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm aui-sidebar-collapse\" data-aui-sidebar-collapse aria-label=\"Collapse sidebar\"><svg class=\"aui-icon\"><use href=\"#aui-i-panel-left\"/></svg></button><nav class=\"aui-breadcrumb\">…</nav><div class=\"aui-topbar-actions\">…</div></header>\n    <main class=\"aui-app-content\">\n      <div class=\"aui-page-header\">…</div>\n      …\n    </main>\n  </div>\n</div>\n</body>"
+      ]
+    },
+    "auth": {
+      "category": "layout",
+      "file": "src/layouts/auth.css",
+      "base": "aui-auth",
+      "modifiers": {
+        "layout": [
+          "aui-auth--reverse",
+          "aui-auth--center"
+        ]
+      },
+      "elements": [
+        "aui-auth-aside",
+        "aui-auth-aside--image",
+        "aui-auth-aside--mobile",
+        "aui-auth-aside-top",
+        "aui-auth-showcase",
+        "aui-auth-headline",
+        "aui-auth-subline",
+        "aui-auth-features",
+        "aui-auth-feature",
+        "aui-auth-feature-title",
+        "aui-auth-feature-text",
+        "aui-auth-list",
+        "aui-auth-quote",
+        "aui-auth-stats",
+        "aui-auth-logos",
+        "aui-auth-aside-bottom",
+        "aui-auth-main",
+        "aui-auth-top",
+        "aui-auth-form",
+        "aui-auth-form--wide",
+        "aui-auth-header",
+        "aui-auth-title",
+        "aui-auth-desc",
+        "aui-auth-social",
+        "aui-auth-social--2",
+        "aui-auth-social--3",
+        "aui-auth-divider",
+        "aui-auth-switch",
+        "aui-auth-legal",
+        "aui-auth-back",
+        "aui-auth-result",
+        "aui-auth-resend",
+        "aui-auth-bottom",
+        "aui-auth-card"
+      ],
+      "markup": [
+        "<body class=\"aui\">\n<div class=\"aui-auth\">\n  <aside class=\"aui-auth-aside\">\n    <div class=\"aui-auth-aside-top\"><a class=\"aui-brand\" href=\"/\">…</a></div>\n    <div class=\"aui-auth-showcase\"><h2 class=\"aui-auth-headline\">Headline <em>accent words.</em></h2><p class=\"aui-auth-subline\">…</p><div class=\"aui-auth-features\"><div class=\"aui-auth-feature\"><span class=\"aui-icon-box aui-icon-box--sm aui-icon-box--accent\">…</span><div class=\"aui-auth-feature-title\">Fast</div><div class=\"aui-auth-feature-text\">…</div></div></div></div>\n    <figure class=\"aui-auth-quote\"><blockquote>“…”</blockquote><figcaption>…</figcaption></figure>\n  </aside>\n  <main class=\"aui-auth-main\">\n    <div class=\"aui-auth-top\"><span>New here?</span><a class=\"aui-btn aui-btn--outline aui-btn--sm\" href=\"/signup\">Create account</a></div>\n    <div class=\"aui-auth-form\">\n      <div class=\"aui-auth-header\"><h1 class=\"aui-auth-title\">Welcome back</h1><p class=\"aui-auth-desc\">…</p></div>\n      <div class=\"aui-auth-social aui-auth-social--2\"><button class=\"aui-btn aui-btn--social aui-btn--lg\"><svg class=\"aui-btn-brand\" viewBox=\"0 0 24 24\"><use href=\"#aui-i-google\"/></svg>Google</button><button class=\"aui-btn aui-btn--social aui-btn--lg\"><svg class=\"aui-btn-brand\" viewBox=\"0 0 24 24\"><use href=\"#aui-i-github\"/></svg>GitHub</button></div>\n      <div class=\"aui-divider-text aui-auth-divider\">or continue with email</div>\n      <form class=\"aui-form\">…fields…<button class=\"aui-btn aui-btn--primary aui-btn--block\" type=\"submit\">Sign in</button></form>\n    </div>\n    <div class=\"aui-auth-bottom\">…</div>\n  </main>\n</div>\n</body>"
+      ],
+      "rules": [
+        "Inside .aui-auth-form, inputs and block buttons are automatically 42px tall.",
+        "Aside is hidden ≤900px (add aui-auth-aside--mobile for a compact header version)."
+      ]
+    },
+    "desktop": {
+      "category": "layout",
+      "file": "src/layouts/desktop.css",
+      "base": "aui-desktop",
+      "modifiers": {
+        "platform": [
+          "data-aui-platform=\"mac|win|linux\""
+        ]
+      },
+      "elements": [
+        "aui-titlebar",
+        "aui-titlebar-title",
+        "aui-titlebar-center",
+        "aui-titlebar-actions",
+        "aui-window-controls",
+        "aui-window-control",
+        "aui-window-control--close",
+        "aui-desktop-body",
+        "aui-no-drag",
+        "aui-drag"
+      ],
+      "markup": [
+        "<body class=\"aui aui-desktop\" data-aui-platform=\"win\">\n  <header class=\"aui-titlebar\"><div class=\"aui-titlebar-title\"><span class=\"aui-logo\">…</span>App</div><div class=\"aui-titlebar-actions\">…</div><div class=\"aui-window-controls\"><button class=\"aui-window-control\" aria-label=\"Minimize\">…</button><button class=\"aui-window-control\" aria-label=\"Maximize\">…</button><button class=\"aui-window-control aui-window-control--close\" aria-label=\"Close\">…</button></div></header>\n  <div class=\"aui-desktop-body\"><div class=\"aui-app\">…</div></div>\n</body>"
+      ],
+      "rules": [
+        "Electron: BrowserWindow({ frame:false, titleBarStyle:\"hidden\" }); wire window-control buttons through your preload IPC.",
+        "macOS: data-aui-platform=\"mac\" reserves space for the traffic lights and hides custom controls."
+      ]
+    },
+    "pricing": {
+      "category": "layout",
+      "file": "src/layouts/pricing.css",
+      "base": "aui-pricing-grid",
+      "related": [
+        "aui-pricing-grid--2|3|4",
+        "aui-pricing-controls",
+        "aui-pricing-card",
+        "aui-pricing-card.is-featured",
+        "aui-plan-badge",
+        "aui-plan-name",
+        "aui-plan-desc",
+        "aui-price",
+        "aui-price-currency",
+        "aui-price-amount",
+        "aui-price-suffix",
+        "aui-price-note",
+        "aui-plan-features",
+        "aui-pricing-wide"
+      ],
+      "markup": [
+        "see examples/pricing.html"
+      ]
+    },
+    "dataPages": {
+      "category": "layout",
+      "file": "src/layouts/data-pages.css",
+      "base": "aui-podium",
+      "related": [
+        "aui-podium-item.is-1|2|3",
+        "aui-podium-head",
+        "aui-podium-stats",
+        "aui-data-header",
+        "aui-data-meta",
+        "aui-data-section",
+        "aui-locked-overlay",
+        "aui-catalog-card"
+      ],
+      "markup": [
+        "see examples/leaderboard.html"
       ]
     }
   }

@@ -1,31 +1,40 @@
-# Armsys UI
+# Armsys UI 2
 
-> Framework-independent design system and UI library by Armsys Technology.
+> Framework-independent, dark-first design system by Armsys Technology for websites, documentation, admin panels, monitoring tools, embedded widgets and Electron apps. Plain HTML classes (`aui-*`), CSS tokens (`--aui-*`) and data-attribute behaviours (`data-aui-*`), scoped to `.aui`.
 
-Armsys UI is a dark-first, scoped (`.aui`) HTML/CSS/vanilla-JavaScript design system for dashboards, admin tools, monitoring, corporate/product websites, documentation, pricing and public data pages.
+## Start here
 
-## AI entry points
-
+- [llms-full.txt](llms-full.txt): everything in one file — rules, tokens, components with markup, JS API, recipes
 - [AI usage rules](AI_GUIDE.md)
-- [Machine-readable manifest](ai/index.json)
+- [Machine-readable index](ai/index.json)
+
+## Catalogues
+
 - [Components](ai/components.json)
-- [Patterns](ai/patterns.json)
+- [Page patterns](ai/patterns.json)
+- [JavaScript behaviours & API](ai/javascript.json)
 - [Design tokens](ai/tokens.json)
-- [Integration snippets](ai/integrations.json)
+- [Icons](ai/icons.json)
+- [Integrations](ai/integrations.json)
 
-## Primary implementation references
+## Recipes
 
-- [Component showcase](index.html)
-- [Dashboard](examples/dashboard.html)
-- [Monitoring](examples/monitoring.html)
-- [Corporate/product website](examples/website.html)
-- [Documentation/API reference](examples/documentation.html)
-- [Pricing](examples/pricing.html)
-- [Public data/ranking](examples/leaderboard.html)
+- [Admin panel](ai/recipes/admin-panel.md)
+- [Authentication](ai/recipes/auth.md)
+- [Documentation site](ai/recipes/docs-site.md)
+- [Marketing site](ai/recipes/marketing-site.md)
+- [Electron app](ai/recipes/electron-app.md)
+
+## Reference pages
+
+- [Component reference](index.html)
+- [Admin dashboard](examples/dashboard.html) · [Data table](examples/data-table.html) · [Settings](examples/settings.html) · [Monitoring](examples/monitoring.html)
+- [Website](examples/website.html) · [Documentation](examples/documentation.html) · [Pricing](examples/pricing.html) · [Leaderboard](examples/leaderboard.html)
+- [Login](examples/login.html) · [Register](examples/register.html) · [Reset password](examples/forgot-password.html) · [Two-factor](examples/two-factor.html)
+- [Electron desktop](examples/desktop.html) · [Embedded panel](examples/embedded-panel.html)
 
 ## Distribution
 
-- CSS: `dist/armsys-ui.css`
-- JavaScript: `dist/armsys-ui.js`
-- Package: `@armsys-tech/ui`
-- Version: `1.0.0`
+- CSS: https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.css
+- JS: https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.js
+- npm: `@armsys-tech/ui` (ESM, CJS, TypeScript)
