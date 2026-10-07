@@ -1,10 +1,11 @@
 /* ==========================================================================
-   Armsys UI — Prose
+   Armsys UI 2 — Prose
    Styles plain semantic HTML (CMS output, Markdown, WordPress content).
    Loaded before components so component classes inside prose win.
    ========================================================================== */
-.aui-prose { font-size: var(--aui-fs-lg); line-height: 1.75; color: var(--aui-text-secondary); overflow-wrap: break-word; }
+.aui-prose { font-size: 1rem; line-height: 1.75; color: var(--aui-text-secondary); overflow-wrap: break-word; }
 .aui-prose--sm { font-size: var(--aui-fs-md); line-height: 1.7; }
+.aui-prose--lg { font-size: 1.0625rem; line-height: 1.8; }
 .aui-prose > :where(:first-child) { margin-top: 0; }
 .aui-prose > :where(:last-child) { margin-bottom: 0; }
 .aui-prose :where(h1, h2, h3, h4, h5, h6) { position: relative; color: var(--aui-text); font-weight: var(--aui-fw-semibold); scroll-margin-top: calc(var(--aui-header-h) + 24px); text-wrap: balance; }
@@ -37,7 +38,7 @@
 }
 .aui-prose :where(pre) {
   margin: 1.6em 0; padding: 14px 16px; overflow-x: auto; border-radius: var(--aui-radius-md);
-  background: var(--aui-code-bg); border: 1px solid var(--aui-border); color: var(--aui-code-text);
+  background: var(--aui-code-bg); border: 1px solid var(--aui-code-border); color: var(--aui-code-text);
   font-size: .8125rem; line-height: 1.7; tab-size: 2;
 }
 .aui-prose :where(pre code) { background: none; border: 0; padding: 0; font-size: inherit; color: inherit; white-space: pre; }
@@ -52,7 +53,7 @@
 .aui-prose :where(dt) { color: var(--aui-text); font-weight: var(--aui-fw-semibold); margin-top: .8em; }
 .aui-prose :where(dd) { margin: .2em 0 0 1em; }
 .aui-prose :where(mark) { background: color-mix(in srgb, var(--aui-yellow) 22%, transparent); color: var(--aui-text); padding: 0 .2em; border-radius: 3px; }
-.aui-prose > :where(.aui-code, .aui-callout, .aui-table-wrap, .aui-endpoint, .aui-params, .aui-tabs-block, .aui-demo, .aui-cli, .aui-steps) { margin-block: 1.6em; }
+.aui-prose > :where(.aui-code, .aui-callout, .aui-table-wrap, .aui-endpoint, .aui-params, .aui-code-group, .aui-demo, .aui-cli, .aui-steps, .aui-accordion, .aui-card) { margin-block: 1.6em; }
 
 /* Heading anchors: <h2 id="x"><a class="aui-anchor" href="#x">#</a>Title</h2> */
 .aui-anchor {

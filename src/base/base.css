@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Armsys UI — Scoped base, typography, utilities
-   Every rule is scoped to .aui and uses :where() to keep specificity low,
-   so host applications can override anything without !important.
+   Armsys UI 2 — Scoped base, typography, tones, utilities, motion
+   Every element rule is scoped to .aui and uses :where() to keep specificity
+   at zero, so host applications can override anything without !important.
    ========================================================================== */
 .aui {
   font-family: var(--aui-font);
@@ -13,156 +13,119 @@
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-feature-settings: "cv11", "ss01", "ss03";
+  -webkit-text-size-adjust: 100%;
 }
-body.aui { margin: 0; min-height: 100vh; }
+html:has(> body.aui) { background: var(--aui-bg, #09090b); scroll-padding-top: 80px; }
+body.aui { margin: 0; min-height: 100vh; min-height: 100dvh; }
 .aui--transparent { background: transparent; }
 .aui :where(*, *::before, *::after) { box-sizing: border-box; }
 .aui :where(h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd) { margin: 0; }
 .aui :where(h1, h2, h3, h4, h5, h6) { font-weight: var(--aui-fw-semibold); line-height: var(--aui-lh-tight); letter-spacing: -.015em; color: var(--aui-text); }
 .aui :where(a) { color: inherit; text-decoration: none; }
-.aui :where(button, input, select, textarea) { font: inherit; color: inherit; }
-.aui :where(img, video, canvas) { max-width: 100%; height: auto; }
+.aui :where(button, input, select, textarea) { font: inherit; color: inherit; letter-spacing: inherit; }
+.aui :where(button) { -webkit-tap-highlight-color: transparent; }
+.aui :where(img, video, canvas, svg) { max-width: 100%; }
+.aui :where(img, video) { height: auto; }
 .aui :where(code, kbd, samp, pre) { font-family: var(--aui-font-mono); }
 .aui :where(hr) { border: 0; border-top: 1px solid var(--aui-border-soft); margin: var(--aui-space-6) 0; }
 .aui :where([hidden]) { display: none !important; }
-.aui ::selection { background: rgb(77 124 254 / .35); color: var(--aui-text); }
+.aui ::selection { background: color-mix(in srgb, var(--aui-accent) 35%, transparent); color: var(--aui-text); }
 .aui :where(:focus-visible) { outline: 2px solid var(--aui-focus); outline-offset: 2px; }
 .aui :where(:focus:not(:focus-visible)) { outline: none; }
+.aui :where(*) { scrollbar-color: var(--aui-surface-4) transparent; }
 .aui :where(::-webkit-scrollbar) { width: 10px; height: 10px; }
-.aui :where(::-webkit-scrollbar-thumb) { background: var(--aui-surface-3); border: 3px solid transparent; background-clip: padding-box; border-radius: 10px; }
-.aui :where(::-webkit-scrollbar-track) { background: transparent; }
+.aui :where(::-webkit-scrollbar-thumb) { background: var(--aui-surface-4); border: 3px solid transparent; background-clip: padding-box; border-radius: 10px; }
+.aui :where(::-webkit-scrollbar-thumb:hover) { background-color: var(--aui-border-interactive); }
+.aui :where(::-webkit-scrollbar-track, ::-webkit-scrollbar-corner) { background: transparent; }
+.aui.is-scroll-locked, .aui .is-scroll-locked { overflow: hidden; }
+html.aui-scroll-locked { overflow: hidden; }
 
-/* ---------- Icons ---------- */
+/* ---------- Icons: <svg class="aui-icon"><use href="#aui-i-search"/></svg> ---------- */
 .aui-icon {
   width: 16px; height: 16px; flex: none; display: inline-block; vertical-align: middle;
   fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
 }
+.aui-icon--2xs { width: 10px; height: 10px; }
 .aui-icon--xs { width: 12px; height: 12px; }
 .aui-icon--sm { width: 14px; height: 14px; }
 .aui-icon--lg { width: 20px; height: 20px; }
 .aui-icon--xl { width: 24px; height: 24px; }
+.aui-icon--2xl { width: 32px; height: 32px; stroke-width: 1.5; }
+.aui-icon--fill { fill: currentColor; stroke: none; }
+.aui-icon--spin { animation: aui-spin .8s linear infinite; }
 
 /* ---------- Brand mark ---------- */
-.aui-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: var(--aui-fw-semibold); font-size: var(--aui-fs-lg); letter-spacing: -.02em; color: var(--aui-text); white-space: nowrap; }
-.aui-brand small { font-size: var(--aui-fs-2xs); font-weight: var(--aui-fw-medium); letter-spacing: .02em; color: var(--aui-text-subtle); }
-.aui-brand-text { display: flex; flex-direction: column; line-height: 1.15; }
-.aui-logo { width: 26px; height: 26px; flex: none; display: inline-grid; place-items: center; border-radius: 7px; background: var(--aui-primary); color: var(--aui-on-primary); }
-.aui-logo svg { width: 16px; height: 16px; }
-.aui-logo--sm { width: 22px; height: 22px; border-radius: 6px; }
-.aui-logo--sm svg { width: 13px; height: 13px; }
-.aui-logo--lg { width: 36px; height: 36px; border-radius: 9px; }
-.aui-logo--lg svg { width: 22px; height: 22px; }
+.aui-brand { display: inline-flex; align-items: center; gap: 10px; font-size: var(--aui-fs-lg); font-weight: var(--aui-fw-semibold); letter-spacing: -.02em; color: var(--aui-text); white-space: nowrap; text-decoration: none; }
+.aui-brand-text { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+.aui-brand-text small, .aui-brand small { font-size: var(--aui-fs-2xs); font-weight: var(--aui-fw-medium); letter-spacing: .02em; color: var(--aui-text-subtle); }
+.aui-brand-sub { padding-left: 10px; margin-left: 2px; border-left: 1px solid var(--aui-border); font-weight: var(--aui-fw-regular); color: var(--aui-text-subtle); }
+.aui-logo { --_s: 28px; width: var(--_s); height: var(--_s); flex: none; display: inline-grid; place-items: center; border-radius: calc(var(--_s) * .27); background: var(--aui-primary); color: var(--aui-on-primary); }
+.aui-logo > svg, .aui-logo > img { width: 60%; height: 60%; }
+.aui-logo--sm { --_s: 22px; }
+.aui-logo--lg { --_s: 36px; }
+.aui-logo--xl { --_s: 48px; }
+.aui-logo--accent { background: var(--aui-accent); color: var(--aui-on-accent); }
 
 /* ---------- Typography scale ---------- */
-.aui-display { font-size: var(--aui-fs-display); font-weight: var(--aui-fw-bold); letter-spacing: -.035em; line-height: 1.08; text-wrap: balance; }
+.aui-display { font-family: var(--aui-font-display); font-size: var(--aui-fs-display); font-weight: var(--aui-fw-bold); letter-spacing: -.038em; line-height: 1.06; text-wrap: balance; }
 .aui-h1 { font-size: var(--aui-fs-h1); font-weight: var(--aui-fw-bold); letter-spacing: -.028em; line-height: 1.15; }
 .aui-h2 { font-size: var(--aui-fs-h2); font-weight: var(--aui-fw-semibold); letter-spacing: -.022em; line-height: 1.2; }
 .aui-h3 { font-size: var(--aui-fs-h3); font-weight: var(--aui-fw-semibold); letter-spacing: -.015em; line-height: 1.3; }
 .aui-h4 { font-size: var(--aui-fs-h4); font-weight: var(--aui-fw-semibold); letter-spacing: -.01em; line-height: 1.35; }
-.aui-lead { font-size: var(--aui-fs-xl); line-height: var(--aui-lh-relaxed); color: var(--aui-text-muted); }
+.aui-lead { font-size: var(--aui-fs-xl); line-height: var(--aui-lh-relaxed); color: var(--aui-text-muted); text-wrap: pretty; }
 .aui-body { font-size: var(--aui-fs-md); line-height: var(--aui-lh); }
 .aui-small { font-size: var(--aui-fs-sm); }
 .aui-caption { font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
 .aui-overline { font-size: var(--aui-fs-2xs); font-weight: var(--aui-fw-semibold); letter-spacing: .12em; text-transform: uppercase; color: var(--aui-text-subtle); }
 .aui-mono { font-family: var(--aui-font-mono); font-size: .92em; }
+.aui-gradient-text { background: linear-gradient(180deg, var(--aui-text) 30%, color-mix(in srgb, var(--aui-text) 55%, transparent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .aui-kbd, .aui :where(kbd) {
-  display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 5px;
-  font-family: var(--aui-font-mono); font-size: var(--aui-fs-2xs); line-height: 1; color: var(--aui-text-muted);
+  display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 5px; gap: 2px;
+  font-family: var(--aui-font-mono); font-size: var(--aui-fs-2xs); font-weight: var(--aui-fw-medium); line-height: 1; color: var(--aui-text-muted);
   background: var(--aui-surface-2); border: 1px solid var(--aui-border); border-bottom-width: 2px; border-radius: var(--aui-radius-xs);
 }
+.aui-kbd--sm { min-width: 16px; height: 16px; padding: 0 3px; font-size: 10px; border-bottom-width: 1px; }
+.aui-kbd-group { display: inline-flex; align-items: center; gap: 3px; }
 
-/* ---------- Text utilities ---------- */
-.aui-text { color: var(--aui-text); }
-.aui-text-secondary { color: var(--aui-text-secondary); }
-.aui-text-muted, .aui-muted { color: var(--aui-text-muted); }
-.aui-text-subtle { color: var(--aui-text-subtle); }
-.aui-text-accent { color: var(--aui-accent); }
-.aui-text-success { color: var(--aui-success); }
-.aui-text-warning { color: var(--aui-warning); }
-.aui-text-danger { color: var(--aui-danger); }
-.aui-text-info { color: var(--aui-info); }
-.aui-text-xs { font-size: var(--aui-fs-xs); }
-.aui-text-sm { font-size: var(--aui-fs-sm); }
-.aui-text-lg { font-size: var(--aui-fs-lg); }
-.aui-medium { font-weight: var(--aui-fw-medium); }
-.aui-semibold { font-weight: var(--aui-fw-semibold); }
-.aui-center { text-align: center; }
-.aui-right { text-align: right; }
-.aui-num { font-variant-numeric: tabular-nums; text-align: right; }
-.aui-tabular { font-variant-numeric: tabular-nums; }
-.aui-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
-.aui-nowrap { white-space: nowrap; }
-
-/* ---------- Layout utilities ---------- */
-.aui-row { display: flex; align-items: center; gap: var(--gap, 8px); min-width: 0; }
-.aui-row--top { align-items: flex-start; }
-.aui-row--between { justify-content: space-between; }
-.aui-row--end { justify-content: flex-end; }
-.aui-wrap { flex-wrap: wrap; }
-.aui-stack { display: flex; flex-direction: column; gap: var(--gap, 12px); min-width: 0; }
-.aui-spacer { flex: 1 1 auto; }
-.aui-grid { display: grid; gap: var(--gap, 16px); grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); }
-.aui-grid--2 { --cols: 2; }
-.aui-grid--3 { --cols: 3; }
-.aui-grid--4 { --cols: 4; }
-.aui-grid--6 { --cols: 6; }
-.aui-grid--12 { --cols: 12; }
-.aui-grid--auto { grid-template-columns: repeat(auto-fill, minmax(var(--min, 240px), 1fr)); }
-.aui-span-2 { grid-column: span 2; }
-.aui-span-3 { grid-column: span 3; }
-.aui-span-4 { grid-column: span 4; }
-.aui-span-6 { grid-column: span 6; }
-.aui-span-8 { grid-column: span 8; }
-.aui-span-full { grid-column: 1 / -1; }
-.aui-gap-1 { --gap: 4px; } .aui-gap-2 { --gap: 8px; } .aui-gap-3 { --gap: 12px; }
-.aui-gap-4 { --gap: 16px; } .aui-gap-6 { --gap: 24px; } .aui-gap-8 { --gap: 32px; }
-.aui-mt-1 { margin-top: 4px; } .aui-mt-2 { margin-top: 8px; } .aui-mt-3 { margin-top: 12px; }
-.aui-mt-4 { margin-top: 16px; } .aui-mt-6 { margin-top: 24px; } .aui-mt-8 { margin-top: 32px; } .aui-mt-12 { margin-top: 48px; }
-.aui-mb-4 { margin-bottom: 16px; } .aui-mb-6 { margin-bottom: 24px; }
-.aui-w-full { width: 100%; }
-.aui-w-auto { width: auto !important; }
-.aui-min-0 { min-width: 0; }
-.aui-divider { height: 1px; border: 0; background: var(--aui-border-soft); margin: var(--aui-space-4) 0; }
-.aui-divider--v { width: 1px; height: 20px; margin: 0 4px; align-self: center; }
-.aui-sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-.aui-show-mobile { display: none !important; }
-
-@media (max-width: 1100px) {
-  .aui-grid--4, .aui-grid--6 { --cols: 2; }
-  .aui-grid--12 { --cols: 6; }
-  .aui-span-8, .aui-span-6 { grid-column: 1 / -1; }
-}
-@media (max-width: 760px) {
-  .aui-grid--2, .aui-grid--3, .aui-grid--4, .aui-grid--6, .aui-grid--12 { --cols: 1; }
-  .aui-grid [class*="aui-span-"] { grid-column: 1 / -1; }
-  .aui-hide-mobile { display: none !important; }
-  .aui-show-mobile { display: revert !important; }
-  .aui { --aui-gutter: 16px; }
-}
-
-/* ---------- Tones (shared by badges, dots, alerts, avatars, icon boxes …) ---------- */
-:is(.aui-badge, .aui-dot, .aui-avatar, .aui-progress, .aui-alert, .aui-icon-box, .aui-toast, .aui-notice, .aui-callout, .aui-stat-icon)[class*="--accent"] { --aui-tone: var(--aui-accent); }
-:is(.aui-badge, .aui-dot, .aui-avatar, .aui-progress, .aui-alert, .aui-icon-box, .aui-toast, .aui-notice, .aui-callout, .aui-stat-icon)[class*="--success"] { --aui-tone: var(--aui-success); }
-:is(.aui-badge, .aui-dot, .aui-avatar, .aui-progress, .aui-alert, .aui-icon-box, .aui-toast, .aui-notice, .aui-callout, .aui-stat-icon)[class*="--info"] { --aui-tone: var(--aui-info); }
-:is(.aui-badge, .aui-dot, .aui-avatar, .aui-progress, .aui-alert, .aui-icon-box, .aui-toast, .aui-notice, .aui-callout, .aui-stat-icon)[class*="--warning"] { --aui-tone: var(--aui-warning); }
-:is(.aui-badge, .aui-dot, .aui-avatar, .aui-progress, .aui-alert, .aui-icon-box, .aui-toast, .aui-notice, .aui-callout, .aui-stat-icon)[class*="--danger"] { --aui-tone: var(--aui-danger); }
-:is(.aui-badge, .aui-dot, .aui-avatar, .aui-progress, .aui-alert, .aui-icon-box, .aui-toast, .aui-notice, .aui-callout, .aui-stat-icon)[class*="--purple"] { --aui-tone: var(--aui-purple); }
-:is(.aui-badge, .aui-dot, .aui-avatar, .aui-progress, .aui-alert, .aui-icon-box, .aui-toast, .aui-notice, .aui-callout, .aui-stat-icon)[class*="--pink"] { --aui-tone: var(--aui-pink); }
-:is(.aui-badge, .aui-dot, .aui-avatar, .aui-progress, .aui-alert, .aui-icon-box, .aui-toast, .aui-notice, .aui-callout, .aui-stat-icon)[class*="--orange"] { --aui-tone: var(--aui-orange); }
-:is(.aui-badge, .aui-dot, .aui-avatar, .aui-progress, .aui-alert, .aui-icon-box, .aui-toast, .aui-notice, .aui-callout, .aui-stat-icon)[class*="--yellow"] { --aui-tone: var(--aui-yellow); }
+/* ---------- Tones ----------
+   Any tonal component reads --aui-tone / --aui-on-tone. Set them with a
+   modifier that ends in the tone name (aui-badge--success, aui-alert--danger,
+   aui-btn--soft aui-btn--warning …) or the explicit aui-tone--{name} class.  */
+.aui :where([class*="--accent"])  { --aui-tone: var(--aui-accent);  --aui-on-tone: var(--aui-on-accent); }
+.aui :where([class*="--success"]) { --aui-tone: var(--aui-success); --aui-on-tone: var(--aui-on-success); }
+.aui :where([class*="--info"])    { --aui-tone: var(--aui-info);    --aui-on-tone: var(--aui-on-info); }
+.aui :where([class*="--warning"]) { --aui-tone: var(--aui-warning); --aui-on-tone: var(--aui-on-warning); }
+.aui :where([class*="--danger"])  { --aui-tone: var(--aui-danger);  --aui-on-tone: var(--aui-on-danger); }
+.aui :where([class*="--purple"])  { --aui-tone: var(--aui-purple);  --aui-on-tone: var(--aui-on-purple); }
+.aui :where([class*="--pink"])    { --aui-tone: var(--aui-pink);    --aui-on-tone: var(--aui-on-pink); }
+.aui :where([class*="--orange"])  { --aui-tone: var(--aui-orange);  --aui-on-tone: var(--aui-on-orange); }
+.aui :where([class*="--yellow"])  { --aui-tone: var(--aui-yellow);  --aui-on-tone: var(--aui-on-yellow); }
+.aui :where([class*="--teal"])    { --aui-tone: var(--aui-teal);    --aui-on-tone: var(--aui-on-teal); }
+.aui :where([class*="--neutral"]) { --aui-tone: var(--aui-neutral); --aui-on-tone: var(--aui-on-neutral); }
 
 /* ---------- Motion ---------- */
 @keyframes aui-spin { to { transform: rotate(360deg); } }
 @keyframes aui-fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes aui-rise { from { opacity: 0; transform: translateY(6px) scale(.985); } to { opacity: 1; transform: none; } }
-@keyframes aui-slide-in { from { transform: translateX(24px); opacity: .6; } to { transform: none; opacity: 1; } }
-@keyframes aui-slide-in-left { from { transform: translateX(-24px); opacity: .6; } to { transform: none; opacity: 1; } }
-@keyframes aui-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--aui-tone, var(--aui-success)) 45%, transparent); } 70%, 100% { box-shadow: 0 0 0 6px transparent; } }
+@keyframes aui-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes aui-rise { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes aui-sink { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(6px) scale(.985); } }
+@keyframes aui-pop { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes aui-slide-in-right { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes aui-slide-out-right { from { transform: none; } to { transform: translateX(100%); } }
+@keyframes aui-slide-in-left { from { transform: translateX(-100%); } to { transform: none; } }
+@keyframes aui-slide-out-left { from { transform: none; } to { transform: translateX(-100%); } }
+@keyframes aui-slide-in-up { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes aui-slide-out-down { from { transform: none; } to { transform: translateY(100%); } }
+@keyframes aui-slide-in-down { from { transform: translateY(-100%); } to { transform: none; } }
+@keyframes aui-slide-out-up { from { transform: none; } to { transform: translateY(-100%); } }
+@keyframes aui-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--_t, var(--aui-success)) 50%, transparent); } 70%, 100% { box-shadow: 0 0 0 6px transparent; } }
 @keyframes aui-shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
-@keyframes aui-flash { from { background: color-mix(in srgb, var(--aui-accent) 12%, transparent); } to { background: transparent; } }
+@keyframes aui-flash { from { background: color-mix(in srgb, var(--aui-accent) 14%, transparent); } to { background: transparent; } }
+@keyframes aui-indeterminate { from { transform: translateX(-100%); } to { transform: translateX(350%); } }
+@keyframes aui-shake { 10%, 90% { transform: translateX(-1px); } 20%, 80% { transform: translateX(2px); } 30%, 50%, 70% { transform: translateX(-3px); } 40%, 60% { transform: translateX(3px); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .aui :where(*:not(.aui-spinner):not(.is-loading)), .aui :where(*::before, *::after) {
+  .aui :where(*:not(.aui-spinner):not(.aui-icon--spin)), .aui :where(*::before, *::after) {
     animation-duration: .01ms !important; animation-iteration-count: 1 !important;
     transition-duration: .01ms !important; scroll-behavior: auto !important;
   }
