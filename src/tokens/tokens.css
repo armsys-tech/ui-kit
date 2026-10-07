@@ -1,30 +1,36 @@
 /* ==========================================================================
-   Armsys UI — Design tokens
-   All tokens live on the .aui scope so the kit never leaks into a host page.
-   Use <body class="aui"> for full pages or <div class="aui"> for embedding.
+   Armsys UI 2 — Design tokens
+   Every token lives on the .aui scope so the kit never leaks into a host page.
+   <body class="aui"> for full pages, <div class="aui"> for scoped islands.
    ========================================================================== */
+
+/* Tone is NOT inherited: a badge inside a danger alert stays neutral. */
+@property --aui-tone { syntax: "*"; inherits: false; }
+@property --aui-on-tone { syntax: "*"; inherits: false; }
+
 .aui {
   color-scheme: dark;
 
-  /* Background & surfaces */
+  /* ---------- Neutral surfaces ---------- */
   --aui-bg: #09090b;
-  --aui-bg-alt: #0c0c0f;
+  --aui-bg-alt: #0d0d10;
   --aui-surface-1: #111114;
-  --aui-surface-2: #17171b;
-  --aui-surface-3: #1e1e23;
-  --aui-surface-elevated: #141417;
-  --aui-overlay: rgb(4 4 6 / .72);
+  --aui-surface-2: #18181c;
+  --aui-surface-3: #202025;
+  --aui-surface-4: #29292f;
+  --aui-surface-elevated: #141417;  /* menus, popovers, modals */
+  --aui-overlay: rgb(3 3 5 / .66);
   --aui-hover: rgb(255 255 255 / .045);
-  --aui-active: rgb(255 255 255 / .075);
+  --aui-active: rgb(255 255 255 / .08);
   --aui-input-bg: #0c0c0f;
 
-  /* Borders */
-  --aui-border: #26262b;
-  --aui-border-soft: #1b1b1f;
-  --aui-border-strong: #34343b;
+  /* ---------- Borders ---------- */
+  --aui-border-soft: #1b1b20;
+  --aui-border: #27272c;
+  --aui-border-strong: #36363d;
   --aui-border-interactive: #4b4b55;
 
-  /* Text */
+  /* ---------- Text ---------- */
   --aui-text: #f4f4f5;
   --aui-text-secondary: #d4d4d8;
   --aui-text-muted: #a1a1aa;
@@ -32,61 +38,89 @@
   --aui-text-disabled: #52525b;
   --aui-link: #8fb0ff;
 
-  /* Primary action (inverted, high contrast) */
+  /* ---------- Primary action (inverted, high contrast) ---------- */
   --aui-primary: #f4f4f5;
   --aui-primary-hover: #ffffff;
+  --aui-primary-active: #e4e4e7;
   --aui-on-primary: #09090b;
 
-  /* Brand & semantic colors */
+  /* ---------- Brand accent (override with data-aui-accent) ---------- */
   --aui-accent: #4d7cfe;
   --aui-accent-hover: #6a91ff;
+  --aui-accent-active: #3f6ef0;
   --aui-on-accent: #ffffff;
-  --aui-success: #3ecf8e;
-  --aui-info: #5aa9ff;
-  --aui-warning: #f5b83d;
-  --aui-danger: #f2555a;
-  --aui-purple: #a78bfa;
-  --aui-pink: #f472b6;
-  --aui-orange: #fb8c3c;
-  --aui-yellow: #facc15;
 
-  /* Code */
-  --aui-code-bg: #0b0b0e;
-  --aui-code-header: #111114;
-  --aui-code-text: #e4e4e7;
-  --aui-code-keyword: #ff7aa2;
-  --aui-code-string: #9fe0a8;
-  --aui-code-number: #ffb37a;
-  --aui-code-comment: #62626d;
-  --aui-code-function: #8fb0ff;
-  --aui-code-property: #c3a6ff;
-  --aui-code-operator: #8b8b96;
-  --aui-code-punctuation: #a1a1aa;
-  --aui-code-type: #7fdbca;
+  /* ---------- Semantic & categorical colors ---------- */
+  --aui-success: #3ecf8e;  --aui-on-success: #03140c;
+  --aui-info: #5aa9ff;     --aui-on-info: #03101f;
+  --aui-warning: #f5b83d;  --aui-on-warning: #1a1002;
+  --aui-danger: #f2555a;   --aui-on-danger: #ffffff;
+  --aui-danger-solid: #e5484d;
+  --aui-danger-solid-hover: #ef5c61;
+  --aui-purple: #a78bfa;   --aui-on-purple: #12082b;
+  --aui-pink: #f472b6;     --aui-on-pink: #2a0818;
+  --aui-orange: #fb8c3c;   --aui-on-orange: #1f0d02;
+  --aui-yellow: #facc15;   --aui-on-yellow: #1a1500;
+  --aui-teal: #2dd4bf;     --aui-on-teal: #02171a;
+  --aui-neutral: #a1a1aa;  --aui-on-neutral: #09090b;
 
-  /* Typography */
-  --aui-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  --aui-font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  /* Soft/tonal mixing ratios — used by every tonal component */
+  --aui-soft-bg: 12%;
+  --aui-soft-border: 28%;
+
+  /* Rank / medal colors */
+  --aui-gold: #f3c64b;
+  --aui-silver: #cfd6e2;
+  --aui-bronze: #e39a64;
+
+  /* ---------- Code (Atom One Dark) ---------- */
+  --aui-code-bg: #1d2026;
+  --aui-code-header: #191b20;
+  --aui-code-border: #2a2e36;
+  --aui-code-line: rgb(255 255 255 / .04);
+  --aui-code-gutter: #4b5263;
+  --aui-code-text: #abb2bf;
+  --aui-code-muted: #7f848e;
+  --aui-code-keyword: #c678dd;
+  --aui-code-string: #98c379;
+  --aui-code-number: #d19a66;
+  --aui-code-comment: #5c6370;
+  --aui-code-function: #61afef;
+  --aui-code-property: #e06c75;
+  --aui-code-attr: #d19a66;
+  --aui-code-operator: #56b6c2;
+  --aui-code-punctuation: #abb2bf;
+  --aui-code-type: #e5c07b;
+  --aui-code-tag: #e06c75;
+  --aui-code-literal: #56b6c2;
+  --aui-code-selection: rgb(97 175 239 / .22);
+
+  /* ---------- Typography ---------- */
+  --aui-font: Inter, "Inter Variable", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --aui-font-display: var(--aui-font);
+  --aui-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Code", "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
   --aui-fs-2xs: .6875rem;   /* 11 */
   --aui-fs-xs: .75rem;      /* 12 */
   --aui-fs-sm: .8125rem;    /* 13 */
   --aui-fs-md: .875rem;     /* 14 — application body */
   --aui-fs-lg: .9375rem;    /* 15 — public body */
   --aui-fs-xl: 1.0625rem;   /* 17 — lead */
+  --aui-fs-2xl: 1.25rem;    /* 20 */
   --aui-fs-h4: 1rem;
   --aui-fs-h3: 1.1875rem;
   --aui-fs-h2: 1.5rem;
   --aui-fs-h1: 2rem;
-  --aui-fs-display: clamp(2.125rem, 4.4vw, 3.25rem);
+  --aui-fs-display: clamp(2.25rem, 4.6vw, 3.5rem);
   --aui-lh-tight: 1.2;
   --aui-lh: 1.55;
   --aui-lh-relaxed: 1.7;
   --aui-fw-regular: 400;
   --aui-fw-medium: 500;
   --aui-fw-semibold: 600;
-  --aui-fw-bold: 650;
+  --aui-fw-bold: 680;
 
-  /* Spacing scale (4px base) */
+  /* ---------- Spacing (4px base) ---------- */
+  --aui-space-0: 0;
   --aui-space-1: 4px;
   --aui-space-2: 8px;
   --aui-space-3: 12px;
@@ -100,73 +134,107 @@
   --aui-space-20: 80px;
   --aui-space-24: 96px;
 
-  /* Radius */
+  /* ---------- Radius ---------- */
   --aui-radius-xs: 4px;
   --aui-radius-sm: 6px;
   --aui-radius-md: 8px;
   --aui-radius-lg: 12px;
+  --aui-radius-xl: 16px;
+  --aui-radius-2xl: 20px;
   --aui-radius-full: 999px;
 
-  /* Controls */
-  --aui-control-h: 36px;
+  /* ---------- Control sizes (buttons, inputs, selects share these) ---------- */
+  --aui-control-h-xs: 24px;
   --aui-control-h-sm: 30px;
+  --aui-control-h: 36px;
   --aui-control-h-lg: 42px;
+  --aui-control-h-xl: 48px;
+  --aui-control-radius: var(--aui-radius-sm);
 
-  /* Layout */
-  --aui-container: 1200px;
-  --aui-container-wide: 1440px;
-  --aui-container-narrow: 760px;
-  --aui-container-docs: 1520px;
-  --aui-prose-width: 740px;
-  --aui-gutter: 24px;
-  --aui-header-h: 60px;
-  --aui-topbar-h: 56px;
-  --aui-sidebar-w: 248px;
+  /* ---------- Layout (one frame for every public surface) ---------- */
+  --aui-frame: 1440px;          /* header, docs, footer, sections */
+  --aui-content: 1200px;        /* optional inner content width */
+  --aui-narrow: 760px;
+  --aui-prose-width: 760px;
+  --aui-gutter: 32px;
+  --aui-header-h: 64px;         /* site header, docs header, app topbar, sidebar header */
+  --aui-sidebar-w: 256px;
+  --aui-sidebar-w-collapsed: 64px;
+  --aui-docs-nav-w: 264px;
+  --aui-docs-toc-w: 232px;
+  --aui-titlebar-h: 36px;       /* Electron / desktop title bar */
 
-  /* Effects */
+  /* ---------- Effects ---------- */
+  --aui-shadow-xs: 0 1px 1px rgb(0 0 0 / .25);
   --aui-shadow-sm: 0 1px 2px rgb(0 0 0 / .3);
-  --aui-shadow-md: 0 8px 24px rgb(0 0 0 / .28);
-  --aui-shadow-overlay: 0 16px 48px rgb(0 0 0 / .5), 0 0 0 1px rgb(0 0 0 / .2);
+  --aui-shadow-md: 0 8px 24px rgb(0 0 0 / .32);
+  --aui-shadow-lg: 0 18px 48px rgb(0 0 0 / .45);
+  --aui-shadow-overlay: 0 16px 48px rgb(0 0 0 / .5), 0 0 0 1px rgb(0 0 0 / .25);
+  --aui-highlight: inset 0 1px 0 rgb(255 255 255 / .04);
   --aui-focus: #7a9dff;
-  --aui-ring: 0 0 0 3px rgb(77 124 254 / .22);
+  --aui-ring: 0 0 0 3px color-mix(in srgb, var(--aui-accent) 24%, transparent);
   --aui-grid-line: rgb(255 255 255 / .035);
+  --aui-blur: saturate(1.4) blur(14px);
+
+  /* ---------- Motion ---------- */
   --aui-dur-fast: 120ms;
   --aui-dur: 180ms;
-  --aui-dur-slow: 260ms;
+  --aui-dur-slow: 280ms;
   --aui-ease: cubic-bezier(.2, .7, .2, 1);
+  --aui-ease-out: cubic-bezier(.16, 1, .3, 1);
+  --aui-ease-in: cubic-bezier(.4, 0, 1, 1);
 
-  /* Z layers */
+  /* ---------- Z layers ---------- */
   --aui-z-sticky: 30;
-  --aui-z-dropdown: 40;
+  --aui-z-header: 40;
+  --aui-z-dropdown: 50;
   --aui-z-drawer: 60;
   --aui-z-modal: 70;
   --aui-z-toast: 80;
   --aui-z-tooltip: 90;
 }
 
-/* Density modifier for embedded tools and dense operational screens */
+/* ---------- Brand accent presets: <body class="aui" data-aui-accent="violet"> ---------- */
+.aui[data-aui-accent="violet"]  { --aui-accent: #8b5cf6; --aui-accent-hover: #a07cff; --aui-accent-active: #7c4ddf; --aui-link: #b9a2ff; --aui-focus: #a58bff; }
+.aui[data-aui-accent="emerald"] { --aui-accent: #10b981; --aui-accent-hover: #2ccf98; --aui-accent-active: #0ea371; --aui-on-accent: #02140d; --aui-link: #5ee0b0; --aui-focus: #4ad6a3; }
+.aui[data-aui-accent="orange"]  { --aui-accent: #f97316; --aui-accent-hover: #ff8a3a; --aui-accent-active: #e5640c; --aui-on-accent: #1d0b00; --aui-link: #ffab73; --aui-focus: #ff9b55; }
+.aui[data-aui-accent="rose"]    { --aui-accent: #f43f5e; --aui-accent-hover: #ff5f7a; --aui-accent-active: #df2f4f; --aui-link: #ff8ea1; --aui-focus: #ff7b92; }
+.aui[data-aui-accent="cyan"]    { --aui-accent: #06b6d4; --aui-accent-hover: #22cbe6; --aui-accent-active: #0aa1bb; --aui-on-accent: #01141a; --aui-link: #67dcf0; --aui-focus: #4fd3ea; }
+.aui[data-aui-accent="mono"]    { --aui-accent: #f4f4f5; --aui-accent-hover: #ffffff; --aui-accent-active: #e4e4e7; --aui-on-accent: #09090b; --aui-link: #f4f4f5; --aui-focus: #a1a1aa; }
+
+/* ---------- Density ---------- */
 .aui--dense {
-  --aui-control-h: 30px;
+  --aui-control-h-xs: 22px;
   --aui-control-h-sm: 26px;
+  --aui-control-h: 30px;
   --aui-control-h-lg: 36px;
+  --aui-control-h-xl: 42px;
   --aui-fs-md: .8125rem;
+  --aui-header-h: 52px;
+}
+.aui--comfortable {
+  --aui-control-h-sm: 32px;
+  --aui-control-h: 40px;
+  --aui-control-h-lg: 46px;
+  --aui-control-h-xl: 52px;
 }
 
-/* Optional light theme — dark remains the primary Armsys surface */
+/* ---------- Light theme (full parity) ---------- */
 .aui[data-aui-theme="light"] {
   color-scheme: light;
   --aui-bg: #ffffff;
   --aui-bg-alt: #fafafa;
   --aui-surface-1: #ffffff;
   --aui-surface-2: #f4f4f5;
-  --aui-surface-3: #ececef;
+  --aui-surface-3: #ebebee;
+  --aui-surface-4: #e1e1e6;
   --aui-surface-elevated: #ffffff;
-  --aui-overlay: rgb(9 9 11 / .4);
+  --aui-overlay: rgb(9 9 11 / .38);
   --aui-hover: rgb(9 9 11 / .04);
-  --aui-active: rgb(9 9 11 / .065);
+  --aui-active: rgb(9 9 11 / .07);
   --aui-input-bg: #ffffff;
-  --aui-border: #e4e4e7;
   --aui-border-soft: #efeff1;
+  --aui-border: #e4e4e7;
   --aui-border-strong: #d4d4d8;
   --aui-border-interactive: #a1a1aa;
   --aui-text: #09090b;
@@ -177,29 +245,49 @@
   --aui-link: #2f5fe0;
   --aui-primary: #09090b;
   --aui-primary-hover: #27272a;
+  --aui-primary-active: #3f3f46;
   --aui-on-primary: #ffffff;
   --aui-accent: #3b6af0;
   --aui-accent-hover: #2f5fe0;
-  --aui-success: #16a36a;
-  --aui-info: #2f7fe0;
-  --aui-warning: #c98a0b;
-  --aui-danger: #dc3a40;
+  --aui-accent-active: #2852cc;
+  --aui-success: #16a36a;  --aui-on-success: #ffffff;
+  --aui-info: #2f7fe0;     --aui-on-info: #ffffff;
+  --aui-warning: #c98a0b;  --aui-on-warning: #ffffff;
+  --aui-danger: #dc3a40;   --aui-on-danger: #ffffff;
+  --aui-danger-solid: #dc3a40;
+  --aui-danger-solid-hover: #c9303a;
+  --aui-purple: #7c4ddf;   --aui-on-purple: #ffffff;
+  --aui-pink: #db2777;     --aui-on-pink: #ffffff;
+  --aui-orange: #e5640c;   --aui-on-orange: #ffffff;
+  --aui-yellow: #b38900;   --aui-on-yellow: #ffffff;
+  --aui-teal: #0f9488;     --aui-on-teal: #ffffff;
+  --aui-neutral: #52525b;  --aui-on-neutral: #ffffff;
+  --aui-gold: #b8860b;
+  --aui-silver: #6b7280;
+  --aui-bronze: #b4652d;
+  --aui-soft-bg: 10%;
+  --aui-soft-border: 30%;
+  --aui-shadow-xs: 0 1px 1px rgb(9 9 11 / .04);
+  --aui-shadow-sm: 0 1px 2px rgb(9 9 11 / .06);
   --aui-shadow-md: 0 8px 24px rgb(9 9 11 / .08);
-  --aui-shadow-overlay: 0 16px 48px rgb(9 9 11 / .14), 0 0 0 1px rgb(9 9 11 / .04);
-  --aui-grid-line: rgb(9 9 11 / .045);
+  --aui-shadow-lg: 0 18px 48px rgb(9 9 11 / .12);
+  --aui-shadow-overlay: 0 16px 48px rgb(9 9 11 / .14), 0 0 0 1px rgb(9 9 11 / .05);
+  --aui-highlight: inset 0 1px 0 rgb(255 255 255 / .6);
+  --aui-focus: #3b6af0;
+  --aui-grid-line: rgb(9 9 11 / .05);
 }
-/* Code surfaces stay dark in the light theme */
-.aui[data-aui-theme="light"] :is(.aui-code, .aui-cli, .aui-log, .aui-endpoint) {
-  --aui-text: #f4f4f5;
-  --aui-text-secondary: #d4d4d8;
-  --aui-text-muted: #a1a1aa;
-  --aui-text-subtle: #71717a;
-  --aui-border: #26262b;
-  --aui-border-soft: #1b1b1f;
-  --aui-border-strong: #34343b;
-  --aui-surface-1: #111114;
-  --aui-surface-2: #17171b;
-  --aui-hover: rgb(255 255 255 / .05);
-  --aui-primary: #f4f4f5;
-  color: var(--aui-text-secondary);
+/* Code surfaces stay Atom One Dark in the light theme — re-dark their local text tokens */
+.aui[data-aui-theme="light"] :is(.aui-code, .aui-cli, .aui-log, .aui-terminal) {
+  --aui-text: #e6e6e6;
+  --aui-text-secondary: #c8ccd4;
+  --aui-text-muted: #9aa1ad;
+  --aui-text-subtle: #7f848e;
+  --aui-border: #2a2e36;
+  --aui-border-soft: #252930;
+  --aui-border-strong: #353a44;
+  --aui-surface-1: #21252b;
+  --aui-surface-2: #2a2f37;
+  --aui-hover: rgb(255 255 255 / .06);
+  --aui-primary: #e6e6e6;
+  color-scheme: dark;
 }
