@@ -1,7 +1,7 @@
 {
   "name": "@armsys-tech/ui",
-  "version": "1.0.0",
-  "description": "Framework-independent design system and UI library by Armsys Technology.",
+  "version": "2.0.0",
+  "description": "Framework-independent design system and UI library by Armsys Technology — dark-first HTML/CSS/vanilla-JS for sites, docs, dashboards, admin panels and Electron apps.",
   "license": "MIT",
   "author": "Armsys Technology",
   "homepage": "https://github.com/armsys-tech/ui-kit#readme",
@@ -13,34 +13,75 @@
     "url": "https://github.com/armsys-tech/ui-kit/issues"
   },
   "keywords": [
-    "armsys",
-    "ui",
-    "design-system",
-    "ui-kit",
-    "css",
-    "dashboard",
     "admin",
-    "documentation",
+    "admin-panel",
+    "armsys",
+    "atom-one-dark",
+    "bottom-sheet",
+    "css",
     "dark-theme",
-    "vanilla-javascript"
+    "dashboard",
+    "design-system",
+    "documentation",
+    "electron",
+    "highlight.js",
+    "ui",
+    "ui-kit",
+    "vanilla-javascript",
+    "vue"
   ],
   "main": "dist/armsys-ui.js",
+  "module": "dist/armsys-ui.mjs",
+  "types": "dist/armsys-ui.d.ts",
   "browser": "dist/armsys-ui.js",
-  "jsdelivr": "dist/armsys-ui.js",
+  "jsdelivr": "dist/armsys-ui.min.js",
+  "unpkg": "dist/armsys-ui.min.js",
   "style": "dist/armsys-ui.css",
+  "exports": {
+    ".": {
+      "types": "./dist/armsys-ui.d.ts",
+      "import": "./dist/armsys-ui.mjs",
+      "require": "./dist/armsys-ui.js",
+      "default": "./dist/armsys-ui.mjs"
+    },
+    "./css": "./dist/armsys-ui.css",
+    "./min.css": "./dist/armsys-ui.min.css",
+    "./dist/*": "./dist/*",
+    "./src/*": "./src/*",
+    "./ai/*": "./ai/*",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": [
+    "*.css",
+    "./dist/armsys-ui.js",
+    "./dist/armsys-ui.min.js",
+    "./dist/armsys-ui.mjs"
+  ],
   "files": [
     "dist/",
     "src/",
     "examples/",
     "ai/",
+    "integrations/",
+    "scripts/",
     "AI_GUIDE.md",
     "AGENTS.md",
     "CLAUDE.md",
     "GEMINI.md",
     "llms.txt",
+    "llms-full.txt",
+    "MIGRATION.md",
     "PUBLISHING.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.12"
+  },
   "publishConfig": {
     "access": "public"
   }
