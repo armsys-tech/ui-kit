@@ -1,57 +1,57 @@
-# Armsys UI — AI Usage Guide
+# Armsys UI 2 — AI usage guide
 
-Armsys UI is the default visual system for Armsys Technology web interfaces unless the user explicitly requests another design system.
+Armsys UI is the default visual system for Armsys Technology web, admin, documentation and desktop (Electron) interfaces unless the user explicitly asks for another design system.
 
-## Efficient discovery
+## Fast path
 
-1. Read `ai/index.json` first.
-2. Load `ai/patterns.json` when creating a complete page or layout.
-3. Load `ai/components.json` only for components required by the task.
-4. Load `ai/tokens.json` only when custom styling is genuinely necessary.
-5. Use the existing example page that most closely matches the requested surface.
-6. Do not scan all source files unless the requested work cannot be completed from the manifests and examples.
+1. **One file:** read `llms-full.txt` — rules, tokens, every component with markup, the JS API and page recipes.
+2. **Or structured:** `ai/index.json` → `ai/patterns.json` (pick the surface) → the matching `ai/recipes/*.md` → `ai/components.json` for exact class names → `ai/javascript.json` for behaviours → `ai/tokens.json` only if custom CSS is unavoidable.
+3. Start from the closest page in `examples/` and keep its shell.
 
-## Implementation rules
+## Non-negotiable rules
 
-- Prefer existing `aui-*` components and layouts before adding custom CSS.
-- Keep the `.aui` scope intact.
-- Reuse `--aui-*` design tokens; do not invent arbitrary colors, radii or spacing values when a token already exists.
-- Do not introduce Bootstrap, Tailwind, Material UI, another component library, or another visual system unless explicitly requested.
-- Do not copy Armsys UI component styles into an application and fork them locally without a clear need. Prefer the distributed CSS/JS.
-- Keep application-specific CSS small and focused on domain-specific layout/content.
-- Use semantic HTML and existing accessibility behavior.
-- Prefer native HTML/CSS before adding JavaScript.
-- Use Armsys UI data attributes for supported interactive behavior.
-- Preserve the visual distinction between public websites and application dashboards while keeping the shared Armsys design language.
+- **Scope:** `<body class="aui">` for full pages, `<div class="aui">` for islands inside a host app. Nothing outside `.aui` is styled.
+- **Classes:** only `aui-*` classes that exist in `ai/components.json`. Never invent class names; never add Bootstrap, Tailwind, MUI or another UI kit.
+- **Tokens:** custom CSS (only for domain-specific layout) must use `--aui-*` tokens — no hard-coded colours, radii, shadows or spacing.
+- **One frame for public pages:** website, docs, pricing, blog and data pages use the same `.aui-site-header` + `.aui-container` + `.aui-site-footer`. Do not change header height or container width per page.
+- **Shells:** admin = `.aui-app`; docs = `.aui-site` + `.aui-docs`; auth = `.aui-auth` (split); Electron = `.aui-desktop` + `.aui-titlebar`; embedded = `.aui .aui--dense` + `.aui-mini`.
+- **Behaviour via attributes:** use `data-aui-*` (modals, dropdowns, tabs, copy, toasts, confirm, OTP, tags, select, sort…). Write custom JS only for app logic, and call the `ArmsysUI` API (`confirm`, `prompt`, `toast`, `openModal`) instead of re-implementing UI.
+- **Overlays are native `<dialog>`** (`aui-modal`, `aui-drawer`, `aui-sheet`, `aui-command`). They become bottom sheets on phones automatically.
+- **Code blocks:** plain, escaped text in `<pre><code class="language-xxx">` inside `.aui-code`. Highlighting (highlight.js, Atom One Dark) is automatic — never hand-colour spans.
+- **Icons:** `<svg class="aui-icon"><use href="#aui-i-NAME"/></svg>` with names from `ai/icons.json`.
+
+## Composition rules
+
+- Buttons: exactly one `aui-btn--primary` per view; tone + style for quieter actions (`aui-btn aui-btn--soft aui-btn--danger`); icon-only buttons need `aria-label`.
+- Tones: `--accent --success --info --warning --danger --purple --pink --orange --yellow --teal --neutral` on badges, dots, alerts, callouts, avatars, icon boxes, progress, chips, buttons.
+- Status: `aui-badge aui-badge--{tone}` + `aui-dot`; live states add `is-live`.
+- Forms: `aui-field` → `aui-label[for]` → control → `aui-help`; errors with `is-invalid` + `aui-help is-error`; layout with `aui-form`, `aui-form-grid`, `aui-form-actions`.
+- Destructive actions: `data-aui-confirm="…"` or `await ArmsysUI.confirm({ variant: 'danger' })`, followed by a toast.
+- Tables: wrap in `aui-table-wrap` (inside `aui-card aui-card--clip` for app screens); numbers in `aui-num`; row actions in a `aui-dropdown` with `aui-menu--end`.
+- Empty and loading states: `aui-empty`, `aui-skeleton`, `is-loading` on buttons.
+- Spacing between blocks: `aui-stack`, `aui-row`, `aui-grid--N`, `aui-gap-*`, `aui-mt-*` (utilities load last and win).
+- Accessibility: semantic elements, `aria-current="page"` for active nav, labels for every control, `aria-label` on icon buttons. Behaviours already handle focus, Escape and keyboard navigation.
 
 ## Surface selection
 
-Use the closest existing pattern:
-
-- Dashboard/admin UI → `examples/dashboard.html`
-- Monitoring/operations → `examples/monitoring.html`
-- Authentication → `examples/login.html`
-- Settings/forms → `examples/settings.html`
-- Data management/table → `examples/data-table.html`
-- Embedded/minimal panel → `examples/embedded-panel.html`
-- Corporate/product website → `examples/website.html`
-- Pricing → `examples/pricing.html`
-- Documentation/API reference → `examples/documentation.html`
-- Public ranking/catalog/data → `examples/leaderboard.html`
+| Request | Start from | Recipe |
+| --- | --- | --- |
+| Admin panel, dashboard, console, CRUD | `examples/dashboard.html`, `examples/data-table.html` | `ai/recipes/admin-panel.md` |
+| Settings / profile | `examples/settings.html` | admin-panel.md §6 |
+| Monitoring / logs | `examples/monitoring.html` | — |
+| Login, register, reset, 2FA | `examples/login.html` … `two-factor.html` | `ai/recipes/auth.md` |
+| Landing / corporate site | `examples/website.html` | `ai/recipes/marketing-site.md` |
+| Docs / API reference | `examples/documentation.html` | `ai/recipes/docs-site.md` |
+| Pricing | `examples/pricing.html` | marketing-site.md |
+| Rankings / directories | `examples/leaderboard.html` | — |
+| Electron / desktop | `examples/desktop.html` | `ai/recipes/electron-app.md` |
+| Widget inside another app | `examples/embedded-panel.html` | — |
 
 ## Distribution
 
-Canonical browser files:
-
-```text
-dist/armsys-ui.css
-dist/armsys-ui.js
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.js" defer></script>
 ```
 
-Public npm package metadata is prepared for:
-
-```text
-@armsys-tech/ui
-```
-
-When consuming a published production release through a CDN, prefer a version-pinned URL.
+npm: `@armsys-tech/ui` — `import '@armsys-tech/ui/css'; import ArmsysUI from '@armsys-tech/ui';` (types included). Framework notes: `integrations/`.

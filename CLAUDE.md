@@ -1,15 +1,13 @@
 # Armsys UI — Claude instructions
 
-Use Armsys UI as the canonical design system for work in this repository and as the preferred Armsys Technology frontend system.
+This repository is the canonical Armsys UI 2 design system.
 
-Read `AI_GUIDE.md` and `ai/index.json` before frontend work. Retrieve only the component/pattern information needed for the current task; avoid scanning the full CSS bundle when the manifests or examples are sufficient.
+For frontend/design work (here or in any Armsys project):
 
-Preserve:
+1. Read `AI_GUIDE.md`, then either `llms-full.txt` or `ai/index.json` → the relevant `ai/recipes/*.md`.
+2. Use only `aui-*` classes listed in `ai/components.json` and `--aui-*` tokens; keep the `.aui` scope.
+3. Public pages share one frame (`.aui-site-header` + `.aui-container`); apps use `.aui-app`; auth uses `.aui-auth`; Electron uses `.aui-desktop`.
+4. Declare behaviour with `data-aui-*` attributes and the `ArmsysUI` API instead of custom UI code.
+5. Do not introduce another UI framework unless explicitly requested.
 
-- `.aui` scoping
-- `aui-*` semantic classes
-- `--aui-*` tokens
-- framework-independent HTML/CSS/vanilla JavaScript
-- the existing distinction between public web and application layouts
-
-Do not introduce another UI framework or redesign existing components unless explicitly requested.
+When changing the library itself: edit `src/`, run `npm run build` (regenerates `dist/`, `ai/tokens.json`, `ai/icons.json`, `llms-full.txt`), update `ai/components.json` for new classes, and keep `index.html` + `examples/` in sync.

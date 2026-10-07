@@ -85,20 +85,20 @@ jsDelivr serves public npm package files automatically. No separate jsDelivr sub
 Version-pinned production URLs:
 
 ```text
-https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/dist/armsys-ui.css
-https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/dist/armsys-ui.js
+https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.css
+https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.js
 ```
 
 AI manifest:
 
 ```text
-https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/ai/index.json
+https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/ai/index.json
 ```
 
 Example component catalog:
 
 ```text
-https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/ai/components.json
+https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/ai/components.json
 ```
 
 Use pinned versions in production. A versionless URL can move when a new npm version becomes current.
@@ -149,11 +149,12 @@ https://github.com/cdnjs/packages/blob/master/CONTRIBUTING.md
 
 Before publishing a new release:
 
-1. Update `version` in `package.json`.
-2. Update visible/version metadata in `dist/armsys-ui.css`, `dist/armsys-ui.js`, `index.html`, `README.md` and `ai/index.json` when applicable.
-3. Commit the changes.
-4. Create a Git tag/release if desired.
-5. Publish the new npm version.
+1. Update `version` in `package.json` and `VERSION` in `src/js/00-core.js`.
+2. Run `npm run build` — it regenerates `dist/` (banners use the package version), `ai/tokens.json`, `ai/icons.json` and `llms-full.txt`, and verifies that every documented `aui-*` class exists.
+3. Update version strings in `README.md`, `ai/index.json`, `ai/integrations.json`, `llms.txt`, `index.html` and `CHANGELOG.md`.
+4. Commit the changes.
+5. Create a Git tag/release if desired.
+6. Publish the new npm version.
 
 Example:
 
@@ -175,7 +176,7 @@ ai/index.json
 For a versioned remote source after npm publication:
 
 ```text
-https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/ai/index.json
+https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/ai/index.json
 ```
 
 The manifest points to component, pattern, token and integration catalogs. Models should load only the specific files needed for the task rather than scanning the entire CSS bundle.

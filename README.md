@@ -1,135 +1,115 @@
-# Armsys UI
+# Armsys UI 2
 
-Framework-independent design system and UI library by **Armsys Technology**.
+Framework-independent design system and UI library by **Armsys Technology** — one visual language for websites, documentation, admin panels, monitoring tools, embedded widgets and Electron apps.
 
-Armsys UI is a dark-first, dependency-free interface system for application UIs and public web surfaces. It is designed to work with plain HTML as well as server-rendered and framework-based projects without forcing a frontend framework.
+Dark-first with a full light theme, scoped to `.aui`, no runtime dependencies, no build step for consumers.
 
-## Highlights
+## What's new in 2.0
 
-- Framework-independent HTML, CSS and vanilla JavaScript
-- No required runtime dependencies
-- Scoped with `.aui` to reduce style leakage into host applications
-- Application layouts: dashboards, admin panels, monitoring, settings and embedded panels
-- Public web layouts: corporate/product sites, pricing, documentation and public data pages
-- Developer UI: code windows, terminal blocks, API endpoints, parameters and response layouts
-- Responsive components and accessible interaction states
-- Reusable design tokens through `--aui-*` CSS custom properties
+- **One frame for every public page.** Website, docs, pricing and data pages share the same header (64 px) and container (`--aui-frame: 1440px`). Moving from the landing page to the docs no longer changes the layout.
+- **Button library:** 8 variants, 8 solid tones, soft/outline/ghost + any tone, 5 sizes, icon/pill/block shapes, loading with label, counts, split buttons, toggle groups, social sign-in, FAB.
+- **Input library:** affixes, clear & reveal actions, 5 sizes, validation states, input groups, searchable combobox (`data-aui-select`), OTP, tag input, stepper, range, file input & dropzone, choice cards, password strength.
+- **Professional dropdowns:** viewport-aware positioning (never clipped by tables or cards), submenus, checkable items, search, typeahead, keyboard navigation, context menus, popovers.
+- **Overlays like native apps:** animated modals, drawers on four sides, bottom sheets with drag-to-dismiss — every modal becomes a Flutter-style sheet on phones. Promise-based `ArmsysUI.confirm / prompt / alert`, toasts with actions and `toast.promise`, and a ⌘K command palette.
+- **Auth layouts:** split screen with showcase panel — sign in, register, reset password, two-factor.
+- **Code:** highlight.js loaded on demand with an **Atom One Dark** palette, code groups, line numbers, highlighted/added/removed lines.
+- **Integrations:** ES module + CommonJS + TypeScript types, auto-init for markup rendered later (Vue, Blazor, Livewire, Electron), Electron title bar.
+- **AI-ready:** `llms-full.txt`, a complete component catalogue, recipes and token map so assistants can build a full admin panel from the docs alone.
+
+Upgrading from 1.x? Read [MIGRATION.md](MIGRATION.md).
 
 ## Quick start
 
-### Direct files
+### CDN
 
 ```html
-<link rel="stylesheet" href="dist/armsys-ui.css">
-<script src="dist/armsys-ui.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.js" defer></script>
 
 <body class="aui">
-  <button class="aui-btn aui-btn--primary">Save changes</button>
+  <button class="aui-btn aui-btn--primary" data-aui-toast="Deployed" data-aui-toast-variant="success">Deploy</button>
 </body>
 ```
 
-Use `<body class="aui">` for a full Armsys UI page, or wrap only the required area with `<div class="aui">` when embedding the kit into an existing application.
+Optional fonts (falls back to the system UI stack):
 
-### npm
-
-The package metadata is prepared for the public package name:
-
-```text
-@armsys-tech/ui
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
 ```
 
-After the package has been published:
+### npm (Vue, Vite, Electron, Nuxt)
 
 ```bash
 npm install @armsys-tech/ui
 ```
 
-Then import the assets your project needs:
-
 ```js
-import "@armsys-tech/ui/dist/armsys-ui.css";
-import "@armsys-tech/ui/dist/armsys-ui.js";
+import '@armsys-tech/ui/css';
+import ArmsysUI from '@armsys-tech/ui';
+
+await ArmsysUI.confirm({ title: 'Delete server?', variant: 'danger' });
+ArmsysUI.toast({ title: 'Saved', variant: 'success' });
 ```
 
-### jsDelivr CDN
+Framework guides: [Vue / Nuxt](integrations/vue.md) · [Electron](integrations/electron.md) · [ASP.NET Core](integrations/dotnet.md) · [Laravel](integrations/laravel.md).
 
-After the npm package is public, jsDelivr can serve the published files directly:
+## Theming
 
 ```html
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/dist/armsys-ui.css"
->
-<script
-  src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@1.0.0/dist/armsys-ui.js"
-  defer
-></script>
+<body class="aui" data-aui-theme="light|dark|system" data-aui-accent="violet|emerald|orange|rose|cyan|mono">
+<div class="aui aui--dense">…</div>   <!-- tighter controls for embedded tools -->
 ```
 
-Pin a version in production projects. The complete publishing process is documented in [PUBLISHING.md](PUBLISHING.md).
+Every value is a `--aui-*` custom property (see `src/tokens/tokens.css` or `ai/tokens.json`). Override them on `.aui` to re-brand.
 
 ## Examples
 
-Open `index.html` for the complete component reference.
+Open `index.html` for the component reference. Complete pages in `examples/`:
 
-Full-page examples are available under `examples/`:
-
-- `dashboard.html` — application dashboard
-- `monitoring.html` — operational monitoring UI
-- `login.html` — authentication
-- `settings.html` — settings interface
-- `data-table.html` — data management/table UI
-- `embedded-panel.html` — scoped UI embedded in another surface
-- `website.html` — corporate/product website
-- `pricing.html` — pricing page
-- `documentation.html` — developer documentation/API reference
-- `leaderboard.html` — public ranking/data page
+| Public web | Application | Auth | Other |
+| --- | --- | --- | --- |
+| `website.html` | `dashboard.html` | `login.html` | `desktop.html` (Electron) |
+| `documentation.html` | `monitoring.html` | `register.html` | `embedded-panel.html` |
+| `pricing.html` | `data-table.html` | `forgot-password.html` | |
+| `leaderboard.html` | `settings.html` | `two-factor.html` | |
 
 ## Project structure
 
 ```text
-armsys-ui/
-├─ dist/              Directly consumable CSS and JavaScript
-├─ src/               Design tokens, components, layouts and JS source
-├─ examples/          Complete page examples
-├─ ai/                Machine-readable component and pattern manifests
-├─ publishing/        Optional publishing helper files
-├─ index.html         Component showcase
-├─ AI_GUIDE.md        Model-independent AI usage rules
-├─ AGENTS.md          OpenAI/Codex project instructions
-├─ CLAUDE.md          Claude project instructions
-├─ GEMINI.md          Gemini project instructions
-└─ llms.txt           Lightweight AI/crawler entry point
+ui-kit/
+├─ dist/            armsys-ui.css · .min.css · .js (UMD) · .min.js · .mjs (ESM) · .d.ts
+├─ src/
+│  ├─ tokens/       design tokens, themes, accents, density
+│  ├─ base/         base, typography, prose, utilities (loaded last)
+│  ├─ components/   button, forms, menu, overlay, navigation, data, table, feedback, code
+│  ├─ layouts/      frame (shared shell), site, docs, app, auth, pricing, data-pages, desktop
+│  ├─ js/           behaviour modules (concatenated into dist)
+│  └─ types/        TypeScript declarations
+├─ examples/        complete pages
+├─ integrations/    Vue, Electron, .NET, Laravel guides
+├─ ai/              components / patterns / tokens / javascript / icons catalogues + recipes
+├─ scripts/build.mjs
+├─ llms.txt · llms-full.txt · AI_GUIDE.md · AGENTS.md · CLAUDE.md · GEMINI.md
+└─ index.html       component reference
+```
+
+## Building (maintainers)
+
+Consumers never need a build. When you change `src/`:
+
+```bash
+npm install        # optional: esbuild for minification
+npm run build      # src → dist, ai/tokens.json, ai/icons.json, llms-full.txt; verifies every aui-* class used in docs exists
+npm run check      # CI: fails if dist/ is stale or a documented class is missing
 ```
 
 ## AI-assisted development
 
-Armsys UI includes a small machine-readable catalog so AI coding tools do not need to scan the entire stylesheet to understand the system.
+Point an assistant at `llms-full.txt` (single file) or `ai/index.json` (structured). Shared rules live in [AI_GUIDE.md](AI_GUIDE.md); `AGENTS.md`, `CLAUDE.md` and `GEMINI.md` point to them.
 
-Start with:
+## Browser support
 
-```text
-ai/index.json
-```
-
-Then load only the component or pattern metadata required for the current task. Shared rules are defined in `AI_GUIDE.md`.
-
-For external AI tools, the same files can be consumed from the public GitHub repository, GitHub Pages, or the versioned npm/jsDelivr package.
-
-## Distribution
-
-The canonical browser assets are:
-
-```text
-dist/armsys-ui.css
-dist/armsys-ui.js
-```
-
-The project does not require a build step to use these files.
-
-## Version
-
-Current release: **1.0.0**
+Evergreen browsers (Chrome/Edge 111+, Safari 16.4+, Firefox 128+) — the kit uses `color-mix()`, `:has()`, `@property` and native `<dialog>`. Electron 25+.
 
 ## License
 

@@ -28,10 +28,12 @@
         "basePath": "dist",
         "files": [
           "*.js",
-          "*.css"
+          "*.mjs",
+          "*.css",
+          "*.d.ts"
         ]
       }
     ]
   },
-  "filename": "armsys-ui.js"
+  "filename": "armsys-ui.min.js"
 }
