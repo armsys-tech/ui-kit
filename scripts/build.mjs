@@ -203,7 +203,7 @@ async function main() {
   let stale = 0;
   for (const [p, content] of Object.entries(files)) {
     const abs = join(root, p);
-    const prev = existsSync(abs) ? readFileSync(abs, 'utf8') : '';
+    const prev = existsSync(abs) ? readFileSync(abs, 'utf8').replace(/\r\n/g, '\n') : ''; // ignore Windows CRLF checkouts
     if (prev === content) continue;
     if (check) { console.error('out of date: ' + p); stale++; continue; }
     writeFileSync(abs, content);

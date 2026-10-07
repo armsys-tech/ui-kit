@@ -4,6 +4,7 @@
 
 ### Fixed
 - Re-release of 2.0.0 under a fresh version so CDNs (jsDelivr) serve the published files instead of a cached "release not found" response.
+- `npm run check` ignores CRLF line endings, so it no longer reports false "out of date" files on Windows checkouts.
 - `ArmsysUI.version` is now injected from `package.json` at build time, so the runtime version can no longer drift from the package version.
 
 ### Changed
