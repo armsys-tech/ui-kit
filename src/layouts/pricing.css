@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Armsys UI — Pricing
+   Armsys UI 2 — Pricing
    Works for 2, 3 or 4 plans without redesign: .aui-pricing-grid--2/--3/--4
    ========================================================================== */
 .aui-pricing-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; margin-bottom: 40px; }

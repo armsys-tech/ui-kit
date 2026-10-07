@@ -1,0 +1,46 @@
+/* ==========================================================================
+   Armsys UI 2 — Desktop apps (Electron, Tauri, WebView2)
+   Frameless title bar with drag region and window controls, plus a shell
+   that keeps scrolling inside the content area instead of the window.
+
+   <body class="aui aui-desktop" data-aui-platform="win|mac|linux">
+     <header class="aui-titlebar">
+       <div class="aui-titlebar-title">…</div>
+       <div class="aui-titlebar-actions aui-no-drag">…</div>
+       <div class="aui-window-controls aui-no-drag">min · max · close</div>
+     </header>
+     <div class="aui-desktop-body"> <div class="aui-app">…</div> </div>
+   </body>
+   ========================================================================== */
+.aui-desktop { display: flex; flex-direction: column; height: 100vh; overflow: hidden; user-select: none; -webkit-user-select: none; }
+.aui-desktop :is(input, textarea, [contenteditable], .aui-selectable, pre, code, .aui-prose, td) { user-select: text; -webkit-user-select: text; }
+.aui-desktop-body { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+.aui-desktop-body > .aui-app { flex: 1; min-height: 0; height: 100%; }
+.aui-desktop-body .aui-sidebar { height: 100%; }
+.aui-desktop-body .aui-app-main { min-height: 0; overflow-y: auto; }
+
+.aui-titlebar {
+  position: relative; z-index: var(--aui-z-header); display: flex; align-items: center; gap: 10px; height: var(--aui-titlebar-h); padding: 0 0 0 12px; flex: none;
+  font-size: var(--aui-fs-xs); color: var(--aui-text-muted); background: var(--aui-bg-alt); border-bottom: 1px solid var(--aui-border-soft);
+  -webkit-app-region: drag; app-region: drag;
+}
+.aui-titlebar-title { display: flex; align-items: center; gap: 8px; min-width: 0; font-weight: var(--aui-fw-medium); color: var(--aui-text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.aui-titlebar-title .aui-logo { --_s: 18px; }
+.aui-titlebar-center { position: absolute; left: 50%; transform: translateX(-50%); width: min(420px, 40vw); }
+.aui-titlebar-center .aui-search-trigger { height: 26px; font-size: var(--aui-fs-xs); background: var(--aui-surface-1); }
+.aui-titlebar-actions { display: flex; align-items: center; gap: 2px; margin-left: auto; padding-right: 6px; }
+.aui-titlebar-actions .aui-btn { --_h: 26px; }
+.aui-no-drag, .aui-titlebar :is(button, a, input, select, .aui-dropdown) { -webkit-app-region: no-drag; app-region: no-drag; }
+.aui-drag { -webkit-app-region: drag; app-region: drag; }
+/* macOS traffic lights live on the left: reserve space */
+.aui-desktop[data-aui-platform="mac"] .aui-titlebar { padding-left: 80px; }
+.aui-desktop[data-aui-platform="mac"] .aui-window-controls { display: none; }
+/* Windows / Linux controls */
+.aui-window-controls { display: flex; align-self: stretch; margin-left: 4px; }
+.aui-titlebar-actions + .aui-window-controls { margin-left: 0; }
+.aui-window-control { display: grid; place-items: center; width: 46px; height: 100%; padding: 0; color: var(--aui-text-muted); background: none; border: 0; cursor: default; transition: background-color var(--aui-dur-fast), color var(--aui-dur-fast); }
+.aui-window-control:hover { color: var(--aui-text); background: var(--aui-hover); }
+.aui-window-control--close:hover { color: #fff; background: #e81123; }
+.aui-window-control svg { width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1; }
+/* Desktop density: apps feel tighter than websites */
+.aui-desktop { --aui-header-h: 52px; }
