@@ -1,0 +1,144 @@
+/* ==========================================================================
+   Armsys UI 2 — Overlays: modal, dialog, drawer, bottom sheet
+   All use native <dialog> (focus trap, Escape, top layer). JS adds
+   enter/exit animations, scroll-lock, backdrop click and drag-to-dismiss.
+
+   Modals become bottom sheets on phones (≤640px) like Flutter's
+   showModalBottomSheet — opt out with .aui-modal--no-sheet.
+   ========================================================================== */
+.aui-modal, .aui-drawer, .aui-sheet {
+  max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+  color: var(--aui-text); font-size: var(--aui-fs-md);
+  background: var(--aui-surface-elevated); box-shadow: var(--aui-shadow-overlay); overflow: hidden;
+}
+.aui-modal::backdrop, .aui-drawer::backdrop, .aui-sheet::backdrop { background: var(--aui-overlay); animation: aui-fade-in var(--aui-dur) ease-out; }
+:is(.aui-modal, .aui-drawer, .aui-sheet).is-closing::backdrop { animation: aui-fade-out var(--aui-dur) ease-in forwards; }
+.aui-modal--blur::backdrop, .aui-sheet--blur::backdrop { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+
+/* ---------- Modal ---------- */
+.aui-modal {
+  --_w: 520px;
+  width: min(var(--_w), calc(100vw - 32px)); max-height: min(calc(100dvh - 48px), 880px); margin: auto;
+  border: 1px solid var(--aui-border-strong); border-radius: var(--aui-radius-xl);
+}
+.aui-modal[open], .aui-modal.is-static { display: flex; flex-direction: column; }
+.aui-modal[open] { animation: aui-rise var(--aui-dur) var(--aui-ease-out); }
+.aui-modal.is-closing { animation: aui-sink var(--aui-dur-fast) var(--aui-ease-in) forwards; }
+.aui-modal.is-static { position: relative; margin: 0; width: 100%; max-width: var(--_w); box-shadow: var(--aui-shadow-md); }
+.aui-modal--sm { --_w: 400px; }
+.aui-modal--lg { --_w: 720px; }
+.aui-modal--xl { --_w: 960px; }
+.aui-modal--full { --_w: 100vw; width: calc(100vw - 32px); height: calc(100dvh - 32px); max-height: none; }
+.aui-modal--center { text-align: center; }
+.aui-modal--center .aui-modal-header { flex-direction: column; align-items: center; padding-top: 24px; }
+.aui-modal--center .aui-modal-header > .aui-close { position: absolute; top: 12px; right: 12px; }
+.aui-modal--center .aui-modal-footer { justify-content: center; }
+
+.aui-modal-header { position: relative; display: flex; align-items: flex-start; gap: 14px; padding: 20px 20px 0; flex: none; }
+.aui-modal-header > .aui-icon-box { margin-top: -2px; }
+.aui-modal-heading { flex: 1; min-width: 0; }
+.aui-modal-title { font-size: var(--aui-fs-lg); font-weight: var(--aui-fw-semibold); letter-spacing: -.012em; line-height: 1.35; color: var(--aui-text); }
+.aui-modal-desc { margin-top: 4px; font-size: var(--aui-fs-sm); line-height: 1.55; color: var(--aui-text-muted); }
+.aui-modal-header > .aui-close { margin: -4px -6px 0 auto; }
+.aui-modal-header--bordered { padding-bottom: 16px; border-bottom: 1px solid var(--aui-border-soft); }
+.aui-modal-body { flex: 1 1 auto; min-height: 0; padding: 18px 20px 20px; overflow-y: auto; overscroll-behavior: contain; color: var(--aui-text-secondary); }
+.aui-modal-header + .aui-modal-footer { margin-top: 20px; }
+.aui-modal-body--flush { padding: 0; }
+.aui-modal-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; flex: none; padding: 14px 20px; background: var(--aui-bg-alt); border-top: 1px solid var(--aui-border-soft); }
+.aui-modal-footer > .aui-spacer { flex: 1; }
+.aui-modal-footer--plain { background: transparent; border-top: 0; padding-top: 0; }
+.aui-modal-footer--stack { flex-direction: column-reverse; align-items: stretch; }
+.aui-modal-footer--split > * { flex: 1; }
+.aui-modal-hero { display: grid; place-items: center; height: 140px; margin: -1px -1px 0; background: var(--aui-bg-alt); border-bottom: 1px solid var(--aui-border-soft); }
+
+/* ---------- Drawer (side / top / bottom panel) ---------- */
+.aui-drawer {
+  --_w: 440px;
+  position: fixed; inset: 0 0 0 auto; width: min(var(--_w), 100vw); height: 100%; height: 100dvh;
+  border-left: 1px solid var(--aui-border-strong);
+}
+.aui-drawer[open] { display: flex; flex-direction: column; animation: aui-slide-in-right var(--aui-dur-slow) var(--aui-ease-out); }
+.aui-drawer.is-closing { animation: aui-slide-out-right var(--aui-dur) var(--aui-ease-in) forwards; }
+.aui-drawer--left { inset: 0 auto 0 0; border-left: 0; border-right: 1px solid var(--aui-border-strong); }
+.aui-drawer--left[open] { animation-name: aui-slide-in-left; }
+.aui-drawer--left.is-closing { animation-name: aui-slide-out-left; }
+.aui-drawer--top, .aui-drawer--bottom { width: 100%; height: auto; max-height: 85dvh; border: 0; }
+.aui-drawer--top { inset: 0 0 auto 0; border-bottom: 1px solid var(--aui-border-strong); }
+.aui-drawer--top[open] { animation-name: aui-slide-in-down; }
+.aui-drawer--top.is-closing { animation-name: aui-slide-out-up; }
+.aui-drawer--bottom { inset: auto 0 0 0; border-top: 1px solid var(--aui-border-strong); }
+.aui-drawer--bottom[open] { animation-name: aui-slide-in-up; }
+.aui-drawer--bottom.is-closing { animation-name: aui-slide-out-down; }
+.aui-drawer--sm { --_w: 340px; }
+.aui-drawer--lg { --_w: 640px; }
+.aui-drawer--xl { --_w: 860px; }
+.aui-drawer--inset { inset: 8px 8px 8px auto; height: calc(100dvh - 16px); border: 1px solid var(--aui-border-strong); border-radius: var(--aui-radius-xl); }
+.aui-drawer .aui-modal-header { padding: 0 12px 0 20px; min-height: var(--aui-header-h); align-items: center; border-bottom: 1px solid var(--aui-border-soft); }
+.aui-drawer .aui-modal-header > .aui-close { margin: 0 0 0 auto; }
+.aui-drawer .aui-modal-body { padding: 20px; }
+
+/* ---------- Bottom sheet (all screen sizes) ----------
+   <dialog class="aui-sheet" id="s"><div class="aui-sheet-handle"></div> … </dialog> */
+.aui-sheet {
+  --_w: 640px;
+  position: fixed; inset: auto 0 0 0; width: min(var(--_w), 100vw); max-height: 92dvh; margin: 0 auto;
+  border: 1px solid var(--aui-border-strong); border-bottom: 0; border-radius: var(--aui-radius-2xl) var(--aui-radius-2xl) 0 0;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.aui-sheet[open] { display: flex; flex-direction: column; animation: aui-slide-in-up var(--aui-dur-slow) var(--aui-ease-out); }
+.aui-sheet.is-closing { animation: aui-slide-out-down var(--aui-dur) var(--aui-ease-in) forwards; }
+.aui-sheet.is-dragging { animation: none; transition: none; }
+.aui-sheet--full { height: 92dvh; }
+.aui-sheet-handle, .aui-modal-handle { display: none; flex: none; position: relative; height: 22px; cursor: grab; touch-action: none; }
+.aui-sheet-handle::before, .aui-modal-handle::before { content: ""; position: absolute; top: 9px; left: 50%; width: 38px; height: 4px; margin-left: -19px; border-radius: 4px; background: var(--aui-border-interactive); }
+.aui-sheet > .aui-sheet-handle { display: block; }
+.aui-sheet > .aui-sheet-handle + .aui-modal-header { padding-top: 4px; }
+.aui-sheet .aui-modal-footer { padding-bottom: max(14px, env(safe-area-inset-bottom)); }
+
+/* ---------- Phones: modals present as bottom sheets ---------- */
+@media (max-width: 640px) {
+  .aui-modal:not(.aui-modal--no-sheet):not(.is-static) {
+    width: 100%; max-width: none; max-height: 92dvh; margin: auto 0 0;
+    border-width: 1px 0 0; border-radius: var(--aui-radius-2xl) var(--aui-radius-2xl) 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .aui-modal:not(.aui-modal--no-sheet):not(.is-static)[open] { animation: aui-slide-in-up var(--aui-dur-slow) var(--aui-ease-out); }
+  .aui-modal:not(.aui-modal--no-sheet):not(.is-static).is-closing { animation: aui-slide-out-down var(--aui-dur) var(--aui-ease-in) forwards; }
+  .aui-modal:not(.aui-modal--no-sheet):not(.is-static).is-dragging { animation: none; }
+  .aui-modal:not(.aui-modal--no-sheet):not(.is-static) > .aui-modal-handle { display: block; }
+  .aui-modal:not(.aui-modal--no-sheet):not(.is-static) > .aui-modal-handle + .aui-modal-header { padding-top: 4px; }
+  .aui-modal:not(.aui-modal--no-sheet):not(.is-static) .aui-modal-footer { flex-direction: column-reverse; align-items: stretch; }
+  .aui-modal:not(.aui-modal--no-sheet):not(.is-static) .aui-modal-footer > .aui-btn { width: 100%; --_h: var(--aui-control-h-lg); }
+  .aui-modal:not(.aui-modal--no-sheet):not(.is-static) .aui-modal-footer > .aui-spacer { display: none; }
+  .aui-modal--full:not(.aui-modal--no-sheet) { height: 92dvh; }
+  .aui-sheet { width: 100%; border-left: 0; border-right: 0; }
+  .aui-drawer:not(.aui-drawer--left):not(.aui-drawer--top) { --_w: 100vw; }
+}
+
+/* ---------- Command palette (⌘K): <dialog class="aui-command" data-aui-command> ---------- */
+.aui-command {
+  --_w: 620px;
+  width: min(var(--_w), calc(100vw - 24px)); max-height: min(560px, calc(100dvh - 120px)); margin: 12vh auto auto;
+  border: 1px solid var(--aui-border-strong); border-radius: var(--aui-radius-xl);
+  color: var(--aui-text); background: var(--aui-surface-elevated); box-shadow: var(--aui-shadow-overlay); padding: 0; overflow: hidden;
+}
+.aui-command[open] { display: flex; flex-direction: column; animation: aui-pop var(--aui-dur) var(--aui-ease-out); }
+.aui-command.is-closing { animation: aui-fade-out var(--aui-dur-fast) ease-in forwards; }
+.aui-command::backdrop { background: var(--aui-overlay); animation: aui-fade-in var(--aui-dur) ease-out; }
+.aui-command-search { position: relative; flex: none; border-bottom: 1px solid var(--aui-border-soft); }
+.aui-command-search > .aui-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--aui-text-subtle); pointer-events: none; }
+.aui-command-search > input { width: 100%; height: 56px; padding: 0 16px 0 48px; margin: 0; font-size: var(--aui-fs-lg); color: var(--aui-text); background: transparent; border: 0; outline: none; }
+.aui-command-search > input::placeholder { color: var(--aui-text-disabled); }
+.aui-command-search > .aui-kbd { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); }
+.aui-command-list { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 6px; }
+.aui-command-group + .aui-command-group { margin-top: 6px; }
+.aui-command-list .aui-menu-item { min-height: 40px; padding: 8px 12px; border-radius: var(--aui-radius-md); }
+.aui-command-list .aui-menu-item > .aui-icon { width: 17px; height: 17px; }
+.aui-command-list .aui-menu-item[aria-selected="true"], .aui-command-list .aui-menu-item.is-highlighted { background: var(--aui-active); color: var(--aui-text); }
+.aui-command-empty { padding: 36px 16px; text-align: center; font-size: var(--aui-fs-sm); color: var(--aui-text-subtle); }
+.aui-command-footer { display: flex; align-items: center; gap: 16px; flex: none; padding: 9px 14px; font-size: var(--aui-fs-2xs); color: var(--aui-text-subtle); background: var(--aui-bg-alt); border-top: 1px solid var(--aui-border-soft); }
+.aui-command-footer > span { display: inline-flex; align-items: center; gap: 6px; }
+@media (max-width: 640px) {
+  .aui-command { margin: 8px auto auto; max-height: calc(100dvh - 16px); }
+  .aui-command-footer { display: none; }
+}
