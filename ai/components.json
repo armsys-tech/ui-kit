@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "prefix": "aui-",
   "toneModifiers": "Any component that lists 'tone' accepts a modifier ending in a tone name: --accent --success --info --warning --danger --purple --pink --orange --yellow --teal --neutral (also the generic classes aui-tone--accent, aui-tone--success …).",
   "stateClasses": [

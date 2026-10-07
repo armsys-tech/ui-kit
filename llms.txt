@@ -35,6 +35,6 @@
 
 ## Distribution
 
-- CSS: https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.css
-- JS: https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.js
+- CSS: https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.css
+- JS: https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.js
 - npm: `@armsys-tech/ui` (ESM, CJS, TypeScript)

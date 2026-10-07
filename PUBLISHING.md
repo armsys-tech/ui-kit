@@ -85,20 +85,20 @@ jsDelivr serves public npm package files automatically. No separate jsDelivr sub
 Version-pinned production URLs:
 
 ```text
-https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.css
-https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.js
+https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.css
+https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.js
 ```
 
 AI manifest:
 
 ```text
-https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/ai/index.json
+https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/ai/index.json
 ```
 
 Example component catalog:
 
 ```text
-https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/ai/components.json
+https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/ai/components.json
 ```
 
 Use pinned versions in production. A versionless URL can move when a new npm version becomes current.
@@ -176,7 +176,7 @@ ai/index.json
 For a versioned remote source after npm publication:
 
 ```text
-https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/ai/index.json
+https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/ai/index.json
 ```
 
 The manifest points to component, pattern, token and integration catalogs. Models should load only the specific files needed for the task rather than scanning the entire CSS bundle.

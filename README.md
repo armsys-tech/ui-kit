@@ -23,8 +23,8 @@ Upgrading from 1.x? Read [MIGRATION.md](MIGRATION.md).
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.js" defer></script>
 
 <body class="aui">
   <button class="aui-btn aui-btn--primary" data-aui-toast="Deployed" data-aui-toast-variant="success">Deploy</button>

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "usage": "<svg class=\"aui-icon\"><use href=\"#aui-i-NAME\"/></svg>",
   "sizes": "aui-icon--2xs|xs|sm|lg|xl|2xl",
   "brandAndFilled": [

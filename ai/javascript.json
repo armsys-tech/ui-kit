@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "global": "window.ArmsysUI",
   "load": {
     "script": "<script src=\".../armsys-ui.min.js\" defer></script>",

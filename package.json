@@ -1,6 +1,6 @@
 {
   "name": "@armsys-tech/ui",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Framework-independent design system and UI library by Armsys Technology — dark-first HTML/CSS/vanilla-JS for sites, docs, dashboards, admin panels and Electron apps.",
   "license": "MIT",
   "author": "Armsys Technology",

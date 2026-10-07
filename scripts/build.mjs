@@ -34,7 +34,7 @@ function buildCss() {
   return banner('Usage: <link rel="stylesheet" href="armsys-ui.css"> + <body class="aui"> (or any <div class="aui">)\n * Generated from src/ by scripts/build.mjs — edit the sources, not this file.') + '\n' + body;
 }
 function jsBody() {
-  return JS_ORDER.map((f) => read('src/js/' + f)).join('\n').split('\n').map((l) => (l ? '  ' + l : l)).join('\n');
+  return JS_ORDER.map((f) => read('src/js/' + f)).join('\n').replace(/var VERSION = '[^']*';/, `var VERSION = '${V}';`).split('\n').map((l) => (l ? '  ' + l : l)).join('\n');
 }
 function buildJs() {
   return banner('Dependency-free behaviours via data attributes. Load once (defer). Exposes window.ArmsysUI.\n * Generated from src/js by scripts/build.mjs — edit the sources, not this file.') +

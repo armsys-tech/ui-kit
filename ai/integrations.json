@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "package": "@armsys-tech/ui",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "cdn": {
-    "css": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.css",
-    "javascript": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.js",
-    "html": "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.css\">\n<script src=\"https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.js\" defer></script>"
+    "css": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.css",
+    "javascript": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.js",
+    "html": "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.css\">\n<script src=\"https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.js\" defer></script>"
   },
   "fonts": {
     "optional": "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap\">",

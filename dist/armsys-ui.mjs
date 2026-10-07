@@ -1,5 +1,5 @@
 /*!
- * Armsys UI 2.0.0 — Framework-independent design system by Armsys Technology
+ * Armsys UI 2.0.1 — Framework-independent design system by Armsys Technology
  * ES module build: import ArmsysUI from "@armsys-tech/ui"; (auto-initialises in the browser, SSR-safe)
  * MIT License · https://github.com/armsys-tech/ui-kit
  */
@@ -7,7 +7,7 @@ const ArmsysUI = (function () {
   'use strict';
   if (typeof window !== 'undefined' && window.ArmsysUI && window.ArmsysUI.version) return window.ArmsysUI;
   /* ---------- Core: config, helpers, events, storage ---------- */
-  var VERSION = '2.0.0';
+  var VERSION = '2.0.1';
   var w = typeof window !== 'undefined' ? window : null;
   var d = typeof document !== 'undefined' ? document : null;
   var cfg = {

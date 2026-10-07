@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.1 — 2026-10-07
+
+### Fixed
+- Re-release of 2.0.0 under a fresh version so CDNs (jsDelivr) serve the published files instead of a cached "release not found" response.
+- `ArmsysUI.version` is now injected from `package.json` at build time, so the runtime version can no longer drift from the package version.
+
+### Changed
+- All CDN snippets, AI catalogues, recipes and integration guides point to `@2.0.1`.
+
 ## 2.0.0 — 2026-10-07
 
 ### Layout

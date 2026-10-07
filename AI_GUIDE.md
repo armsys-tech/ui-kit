@@ -50,8 +50,8 @@ Armsys UI is the default visual system for Armsys Technology web, admin, documen
 ## Distribution
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.js" defer></script>
 ```
 
 npm: `@armsys-tech/ui` — `import '@armsys-tech/ui/css'; import ArmsysUI from '@armsys-tech/ui';` (types included). Framework notes: `integrations/`.

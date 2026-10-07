@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "name": "Armsys UI",
   "package": "@armsys-tech/ui",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "company": "Armsys Technology",
   "description": "Framework-independent, dark-first design system for websites, documentation, admin panels, monitoring, embedded widgets and Electron apps.",
   "scopeClass": "aui",
@@ -20,8 +20,8 @@
     "javascriptMin": "dist/armsys-ui.min.js",
     "esm": "dist/armsys-ui.mjs",
     "types": "dist/armsys-ui.d.ts",
-    "jsdelivrCss": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.css",
-    "jsdelivrJavascript": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.0/dist/armsys-ui.min.js"
+    "jsdelivrCss": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.css",
+    "jsdelivrJavascript": "https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.js"
   },
   "singleFileContext": "llms-full.txt",
   "catalogs": {

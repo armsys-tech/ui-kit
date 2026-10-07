@@ -1,5 +1,5 @@
 /*!
- * Armsys UI 2.0.0 — Framework-independent design system by Armsys Technology
+ * Armsys UI 2.0.1 — Framework-independent design system by Armsys Technology
  * Dependency-free behaviours via data attributes. Load once (defer). Exposes window.ArmsysUI.
  * Generated from src/js by scripts/build.mjs — edit the sources, not this file.
  * MIT License · https://github.com/armsys-tech/ui-kit
@@ -12,7 +12,7 @@
   'use strict';
   if (typeof window !== 'undefined' && window.ArmsysUI && window.ArmsysUI.version) return window.ArmsysUI;
   /* ---------- Core: config, helpers, events, storage ---------- */
-  var VERSION = '2.0.0';
+  var VERSION = '2.0.1';
   var w = typeof window !== 'undefined' ? window : null;
   var d = typeof document !== 'undefined' ? document : null;
   var cfg = {

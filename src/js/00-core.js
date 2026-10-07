@@ -1,5 +1,5 @@
 /* ---------- Core: config, helpers, events, storage ---------- */
-var VERSION = '2.0.0';
+var VERSION = '2.0.1';
 var w = typeof window !== 'undefined' ? window : null;
 var d = typeof document !== 'undefined' ? document : null;
 var cfg = {

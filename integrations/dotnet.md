@@ -6,7 +6,7 @@ Either reference the CDN, or install with LibMan / npm and serve from `wwwroot/l
 
 ```json
 // libman.json
-{ "libraries": [ { "provider": "jsdelivr", "library": "@armsys-tech/ui@2.0.0", "destination": "wwwroot/lib/armsys-ui/", "files": ["dist/armsys-ui.min.css", "dist/armsys-ui.min.js"] } ] }
+{ "libraries": [ { "provider": "jsdelivr", "library": "@armsys-tech/ui@2.0.1", "destination": "wwwroot/lib/armsys-ui/", "files": ["dist/armsys-ui.min.css", "dist/armsys-ui.min.js"] } ] }
 ```
 
 ## _Layout.cshtml

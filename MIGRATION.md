@@ -7,7 +7,7 @@
 | 1.x | 2.0 |
 | --- | --- |
 | `dist/armsys-ui.css`, `dist/armsys-ui.js` | same files, plus `.min.css`, `.min.js`, ESM `armsys-ui.mjs` and `armsys-ui.d.ts` |
-| CDN `@1.0.0` | `@2.0.0` |
+| CDN `@1.0.0` | `@2.0.1` |
 | `import "@armsys-tech/ui/dist/armsys-ui.css"` | `import '@armsys-tech/ui/css'` (old path still works) |
 
 ## Layout
@@ -59,5 +59,5 @@ aui-site-header-inner--fluid → (remove)
 --aui-topbar-h           → --aui-header-h
 --aui-container-docs     → --aui-frame
 class="aui-nav"          → class="aui-nav aui-nav--indicator"   (app sidebars)
-@1.0.0                   → @2.0.0
+@1.0.0                   → @2.0.1
 ```

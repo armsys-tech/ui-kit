@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "frameRule": "Public surfaces (website, docs, pricing, blog, data pages) share .aui-site + .aui-site-header + .aui-container + .aui-site-footer. Never give one page a different header or container width.",
   "patterns": {
     "adminPanel": {
