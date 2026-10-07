@@ -1,137 +1,387 @@
 /* ==========================================================================
-   Armsys UI — Forms
+   Armsys UI 2 — Forms
+   Field anatomy · inputs · selects · textareas · affixes · input groups ·
+   validation · password/clear/stepper · search · OTP · tags · file/dropzone ·
+   range · color · checkbox/radio/switch · choice cards · enhanced select.
    ========================================================================== */
+
+/* ---------- Field anatomy ---------- */
 .aui-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.aui-label { display: inline-flex; align-items: center; gap: 6px; font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-medium); color: var(--aui-text-secondary); }
+.aui-field--inline { flex-direction: row; align-items: center; gap: 12px; }
+.aui-field--horizontal { display: grid; grid-template-columns: minmax(140px, 220px) minmax(0, 1fr); align-items: start; gap: 6px 24px; }
+.aui-field--horizontal > .aui-label { padding-top: calc((var(--aui-control-h) - 20px) / 2); }
+.aui-field--horizontal > :not(.aui-label) { grid-column: 2; }
+.aui-label { display: inline-flex; align-items: center; gap: 6px; min-height: 20px; font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-medium); color: var(--aui-text-secondary); }
+.aui-label .aui-icon { width: 14px; height: 14px; color: var(--aui-text-subtle); }
 .aui-label-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.aui-required::after { content: "*"; margin-left: 3px; color: var(--aui-danger); font-weight: var(--aui-fw-semibold); }
+.aui-label-row > :not(.aui-label) { font-size: var(--aui-fs-xs); }
+.aui-required::after { content: "*"; margin-left: 2px; color: var(--aui-danger); font-weight: var(--aui-fw-semibold); }
 .aui-optional { font-size: var(--aui-fs-xs); font-weight: var(--aui-fw-regular); color: var(--aui-text-subtle); }
-.aui-help { font-size: var(--aui-fs-xs); line-height: 1.5; color: var(--aui-text-subtle); }
+.aui-help { display: flex; align-items: flex-start; gap: 6px; font-size: var(--aui-fs-xs); line-height: 1.5; color: var(--aui-text-subtle); }
+.aui-help > .aui-icon { width: 13px; height: 13px; margin-top: 2px; }
 .aui-help.is-error, .aui-field-error { color: var(--aui-danger); }
 .aui-help.is-success { color: var(--aui-success); }
+.aui-help.is-warning { color: var(--aui-warning); }
+.aui-help-row { display: flex; justify-content: space-between; gap: 12px; }
+.aui-counter { margin-left: auto; font-size: var(--aui-fs-2xs); color: var(--aui-text-subtle); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.aui-counter.is-over { color: var(--aui-danger); }
 
+/* ---------- Text-like controls ---------- */
 .aui-input, .aui-select, .aui-textarea {
-  display: block; width: 100%; height: var(--aui-control-h); margin: 0; padding: 0 12px;
-  font: inherit; font-size: var(--aui-fs-sm); line-height: 1.4; color: var(--aui-text);
-  background: var(--aui-input-bg); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-sm);
-  outline: none; appearance: none; -webkit-appearance: none; min-width: 0;
+  --_h: var(--aui-control-h); --_px: 12px; --_fs: var(--aui-fs-sm);
+  display: block; width: 100%; height: var(--_h); margin: 0; padding: 0 var(--_px); min-width: 0;
+  font: inherit; font-size: var(--_fs); line-height: 1.4; color: var(--aui-text);
+  background-color: var(--aui-input-bg); border: 1px solid var(--aui-border); border-radius: var(--aui-control-radius);
+  box-shadow: var(--aui-shadow-xs); outline: none; appearance: none; -webkit-appearance: none;
   transition: border-color var(--aui-dur-fast), box-shadow var(--aui-dur-fast), background-color var(--aui-dur-fast);
 }
-.aui-input::placeholder, .aui-textarea::placeholder { color: var(--aui-text-disabled); }
+.aui-input::placeholder, .aui-textarea::placeholder { color: var(--aui-text-disabled); opacity: 1; }
 .aui-input:hover, .aui-select:hover, .aui-textarea:hover { border-color: var(--aui-border-strong); }
-.aui-input:focus, .aui-select:focus, .aui-textarea:focus { border-color: var(--aui-border-interactive); box-shadow: var(--aui-ring); }
+.aui-input:focus, .aui-select:focus, .aui-textarea:focus, .aui-input.is-focused { border-color: color-mix(in srgb, var(--aui-accent) 65%, var(--aui-border-interactive)); box-shadow: var(--aui-ring); }
 .aui-input:focus-visible, .aui-select:focus-visible, .aui-textarea:focus-visible { outline: none; }
-.aui-textarea { height: auto; min-height: 92px; padding: 9px 12px; line-height: 1.55; resize: vertical; }
-.aui-textarea--code { font-family: var(--aui-font-mono); font-size: var(--aui-fs-xs); }
+.aui-textarea { height: auto; min-height: 92px; padding: 9px var(--_px); line-height: 1.55; resize: vertical; }
+.aui-textarea--code, .aui-input--mono { font-family: var(--aui-font-mono); font-size: var(--aui-fs-xs); }
+.aui-textarea[data-aui-autosize] { resize: none; overflow: hidden; }
 .aui-select {
-  padding-right: 34px; cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 10px center; background-size: 14px;
+  padding-right: 34px; cursor: pointer; text-overflow: ellipsis; white-space: nowrap;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center; background-size: 15px;
 }
+.aui-select[multiple], .aui-select[size] { height: auto; padding: 4px; background-image: none; }
 .aui-select option { background: var(--aui-surface-elevated); color: var(--aui-text); }
-.aui-input--sm, .aui-select.aui-input--sm { height: var(--aui-control-h-sm); font-size: var(--aui-fs-xs); padding-inline: 10px; }
-.aui-select.aui-input--sm { padding-right: 30px; }
-.aui-input--lg { height: var(--aui-control-h-lg); font-size: var(--aui-fs-md); }
-.aui-input--mono { font-family: var(--aui-font-mono); font-size: var(--aui-fs-xs); }
 .aui-input[type="number"] { font-variant-numeric: tabular-nums; }
-.aui-input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+.aui-input[type="search"]::-webkit-search-cancel-button, .aui-input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+.aui-input[type="date"], .aui-input[type="time"], .aui-input[type="datetime-local"], .aui-input[type="month"] { font-variant-numeric: tabular-nums; }
+.aui-input::-webkit-calendar-picker-indicator { opacity: .55; cursor: pointer; filter: invert(.8); }
+.aui[data-aui-theme="light"] .aui-input::-webkit-calendar-picker-indicator { filter: none; }
+.aui-input[type="color"] { width: var(--_h); padding: 4px; cursor: pointer; }
+.aui-input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+.aui-input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 4px; }
+
+/* Sizes (inputs, selects, addons, input groups) */
+:is(.aui-input, .aui-select).aui-input--xs, .aui-input-wrap--xs :is(.aui-input, .aui-select) { --_h: var(--aui-control-h-xs); --_px: 8px; --_fs: var(--aui-fs-2xs); }
+:is(.aui-input, .aui-select).aui-input--sm, .aui-input-wrap--sm :is(.aui-input, .aui-select) { --_h: var(--aui-control-h-sm); --_px: 10px; --_fs: var(--aui-fs-xs); }
+:is(.aui-input, .aui-select).aui-input--lg, .aui-input-wrap--lg :is(.aui-input, .aui-select) { --_h: var(--aui-control-h-lg); --_px: 14px; --_fs: var(--aui-fs-md); }
+:is(.aui-input, .aui-select).aui-input--xl, .aui-input-wrap--xl :is(.aui-input, .aui-select) { --_h: var(--aui-control-h-xl); --_px: 16px; --_fs: var(--aui-fs-lg); border-radius: var(--aui-radius-md); }
+.aui-select.aui-input--sm, .aui-select.aui-input--xs { padding-right: 28px; background-position: right 7px center; }
+/* Variants */
+.aui-input--filled { background-color: var(--aui-surface-2); border-color: transparent; box-shadow: none; }
+.aui-input--filled:hover { background-color: var(--aui-surface-3); border-color: transparent; }
+.aui-input--ghost { background-color: transparent; border-color: transparent; box-shadow: none; }
+.aui-input--ghost:hover { background-color: var(--aui-hover); border-color: transparent; }
+.aui-input--pill { border-radius: var(--aui-radius-full); }
 
 /* Validation */
-.aui-input.is-invalid, .aui-select.is-invalid, .aui-textarea.is-invalid, .aui-input[aria-invalid="true"], .aui-textarea[aria-invalid="true"] { border-color: color-mix(in srgb, var(--aui-danger) 70%, transparent); }
-.aui-input.is-invalid:focus, .aui-textarea.is-invalid:focus, .aui-input[aria-invalid="true"]:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--aui-danger) 20%, transparent); }
-.aui-input.is-valid, .aui-select.is-valid, .aui-textarea.is-valid { border-color: color-mix(in srgb, var(--aui-success) 60%, transparent); }
-.aui-input:disabled, .aui-select:disabled, .aui-textarea:disabled { opacity: .5; cursor: not-allowed; background: var(--aui-surface-1); }
-.aui-input[readonly], .aui-textarea[readonly] { background: transparent; border-style: dashed; color: var(--aui-text-muted); box-shadow: none; }
+:is(.aui-input, .aui-select, .aui-textarea):is(.is-invalid, [aria-invalid="true"]) { border-color: color-mix(in srgb, var(--aui-danger) 70%, transparent); }
+:is(.aui-input, .aui-select, .aui-textarea):is(.is-invalid, [aria-invalid="true"]):focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--aui-danger) 22%, transparent); }
+:is(.aui-input, .aui-select, .aui-textarea).is-valid { border-color: color-mix(in srgb, var(--aui-success) 60%, transparent); }
+:is(.aui-input, .aui-select, .aui-textarea).is-valid:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--aui-success) 20%, transparent); }
+:is(.aui-input, .aui-select, .aui-textarea).is-warning { border-color: color-mix(in srgb, var(--aui-warning) 60%, transparent); }
+.aui-input.is-shake, .aui-field.is-shake { animation: aui-shake .4s; }
+:is(.aui-input, .aui-select, .aui-textarea):disabled { opacity: .55; cursor: not-allowed; background-color: var(--aui-surface-1); box-shadow: none; }
+:is(.aui-input, .aui-textarea)[readonly] { background-color: var(--aui-bg-alt); color: var(--aui-text-muted); box-shadow: none; }
+:is(.aui-input, .aui-textarea)[readonly]:focus { box-shadow: none; border-color: var(--aui-border-strong); }
 
-/* Input with icon / trailing element */
-.aui-input-wrap { position: relative; display: block; min-width: 0; }
-.aui-input-wrap > .aui-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--aui-text-subtle); pointer-events: none; }
-.aui-input-wrap > .aui-icon ~ :is(.aui-input, .aui-select) { padding-left: 34px; }
-.aui-input-wrap > .aui-input-end { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 4px; }
-.aui-input-wrap > .aui-input-end ~ .aui-input, .aui-input-wrap > .aui-input:has(~ .aui-input-end) { padding-right: 44px; }
+/* ---------- Affixes: icons, buttons, text inside the control ----------
+   <div class="aui-input-wrap">
+     <svg class="aui-icon aui-input-icon">…</svg>          leading icon
+     <input class="aui-input">
+     <div class="aui-input-end">…</div>                     trailing slot (kbd, button, spinner, unit)
+   </div>                                                     */
+.aui-input-wrap { --_h: var(--aui-control-h); --_wrap-h: var(--_h); position: relative; display: block; min-width: 0; }
+.aui-input-wrap--xs { --_h: var(--aui-control-h-xs); }
+.aui-input-wrap--sm { --_h: var(--aui-control-h-sm); }
+.aui-input-wrap--lg { --_h: var(--aui-control-h-lg); }
+.aui-input-wrap--xl { --_h: var(--aui-control-h-xl); }
+.aui-input-wrap > .aui-icon, .aui-input-icon, .aui-input-start {
+  position: absolute; left: 11px; top: calc(var(--_h) / 2); transform: translateY(-50%); z-index: 1;
+  display: inline-flex; align-items: center; gap: 6px; color: var(--aui-text-subtle); pointer-events: none;
+}
+.aui-input-start { font-size: var(--aui-fs-sm); }
+.aui-input-wrap > .aui-icon ~ :is(.aui-input, .aui-select), .aui-input-wrap > .aui-input-icon ~ :is(.aui-input, .aui-select) { padding-left: 34px; }
+.aui-input-wrap--lg > .aui-icon ~ .aui-input, .aui-input-wrap--xl > .aui-icon ~ .aui-input { padding-left: 40px; }
+.aui-input-wrap--lg > .aui-icon, .aui-input-wrap--xl > .aui-icon { left: 14px; width: 18px; height: 18px; }
+.aui-input-wrap > .aui-input-start ~ .aui-input { padding-left: var(--_start, 44px); }
+.aui-input-end {
+  position: absolute; right: 5px; top: calc(var(--_h) / 2); transform: translateY(-50%); z-index: 1;
+  display: flex; align-items: center; gap: 2px; color: var(--aui-text-subtle); font-size: var(--aui-fs-xs);
+}
+.aui-input-end > .aui-btn { --_h: calc(var(--_wrap-h, var(--aui-control-h)) - 10px); }
+.aui-input-end > .aui-unit { padding: 0 7px; }
+.aui-input-wrap:has(> .aui-input-end) > :is(.aui-input, .aui-select) { padding-right: var(--_end, 40px); }
+.aui-input-wrap:has(> .aui-input-end > :nth-child(2)) > .aui-input { padding-right: var(--_end, 70px); }
+.aui-input-wrap--sm .aui-input-end > .aui-btn { --_h: 22px; }
+/* Small icon actions inside inputs: clear ×, show password, copy */
+.aui-input-action {
+  display: inline-grid; place-items: center; width: 26px; height: 26px; padding: 0; margin: 0;
+  color: var(--aui-text-subtle); background: none; border: 0; border-radius: var(--aui-radius-xs); cursor: pointer;
+  transition: color var(--aui-dur-fast), background-color var(--aui-dur-fast);
+}
+.aui-input-action:hover { color: var(--aui-text); background: var(--aui-hover); }
+.aui-input-action .aui-icon { width: 15px; height: 15px; }
+.aui-input-wrap--sm .aui-input-action { width: 22px; height: 22px; }
+.aui-input-wrap--sm .aui-input-action .aui-icon { width: 13px; height: 13px; }
+[data-aui-clear]:not(.is-visible) { visibility: hidden; }
+.aui-input-wrap.is-revealed .aui-reveal-off, .aui-input-wrap:not(.is-revealed) .aui-reveal-on { display: none; }
+/* Validation icon slot */
+.aui-input-status { width: 15px; height: 15px; margin-right: 5px; }
+.aui-input-status.is-error { color: var(--aui-danger); }
+.aui-input-status.is-success { color: var(--aui-success); }
+/* Keyboard hint inside search inputs */
+.aui-input-end > .aui-kbd { margin-right: 4px; }
 
-/* Input group with addons / buttons */
-.aui-input-group { display: flex; align-items: stretch; min-width: 0; }
-.aui-input-group > * { border-radius: 0 !important; }
+/* ---------- Input group with addons / buttons / selects ---------- */
+.aui-input-group { --_h: var(--aui-control-h); display: flex; align-items: stretch; min-width: 0; isolation: isolate; }
+.aui-input-group--sm { --_h: var(--aui-control-h-sm); }
+.aui-input-group--lg { --_h: var(--aui-control-h-lg); }
+.aui-input-group > * { border-radius: 0; box-shadow: none; }
+.aui-input-group > :is(.aui-input, .aui-select, .aui-btn) { --_h: inherit; height: var(--_h); }
 .aui-input-group > * + * { margin-left: -1px; }
-.aui-input-group > :first-child { border-top-left-radius: var(--aui-radius-sm) !important; border-bottom-left-radius: var(--aui-radius-sm) !important; }
-.aui-input-group > :last-child { border-top-right-radius: var(--aui-radius-sm) !important; border-bottom-right-radius: var(--aui-radius-sm) !important; }
-.aui-input-group > .aui-input, .aui-input-group > .aui-select { flex: 1 1 auto; width: auto; }
-.aui-input-group > .aui-select { flex: 0 0 auto; }
-.aui-input-group > :focus { position: relative; z-index: 1; }
+.aui-input-group > :first-child, .aui-input-group > :first-child > :is(.aui-input, .aui-select) { border-top-left-radius: var(--aui-control-radius); border-bottom-left-radius: var(--aui-control-radius); }
+.aui-input-group > :last-child, .aui-input-group > :last-child > :is(.aui-input, .aui-select) { border-top-right-radius: var(--aui-control-radius); border-bottom-right-radius: var(--aui-control-radius); }
+.aui-input-group > :not(:first-child) > :is(.aui-input, .aui-select) { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.aui-input-group > :not(:last-child) > :is(.aui-input, .aui-select) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.aui-input-group > :is(.aui-input, .aui-input-wrap) { flex: 1 1 auto; width: auto; }
+.aui-input-group > .aui-select { flex: 0 0 auto; width: auto; }
+.aui-input-group > :focus, .aui-input-group > :focus-within, .aui-input-group > :hover { position: relative; z-index: 1; }
 .aui-input-addon {
-  display: inline-flex; align-items: center; padding: 0 12px; height: var(--aui-control-h);
+  display: inline-flex; align-items: center; gap: 6px; flex: none; padding: 0 12px; height: var(--_h);
   font-size: var(--aui-fs-sm); color: var(--aui-text-subtle); white-space: nowrap;
   background: var(--aui-surface-1); border: 1px solid var(--aui-border);
 }
 .aui-input-addon--mono { font-family: var(--aui-font-mono); font-size: var(--aui-fs-xs); }
+.aui-input-addon .aui-icon { width: 15px; height: 15px; }
 
-/* Checkbox & radio: <label class="aui-check"><input type="checkbox"><span>Label</span></label> */
-.aui-check { display: inline-flex; align-items: flex-start; gap: 10px; font-size: var(--aui-fs-sm); line-height: 1.45; color: var(--aui-text-secondary); cursor: pointer; }
-.aui-check > input {
-  appearance: none; -webkit-appearance: none; flex: none; width: 16px; height: 16px; margin: 1px 0 0; display: grid; place-content: center;
-  background: var(--aui-input-bg); border: 1px solid var(--aui-border-interactive); border-radius: 4px; cursor: pointer;
-  transition: background-color var(--aui-dur-fast), border-color var(--aui-dur-fast);
+/* ---------- Number stepper: <div class="aui-stepper" data-aui-stepper> − <input> + </div> ---------- */
+.aui-stepper { --_h: var(--aui-control-h); display: inline-flex; align-self: flex-start; width: max-content; align-items: stretch; height: var(--_h); background: var(--aui-input-bg); border: 1px solid var(--aui-border); border-radius: var(--aui-control-radius); overflow: hidden; box-shadow: var(--aui-shadow-xs); }
+.aui-stepper:focus-within { border-color: color-mix(in srgb, var(--aui-accent) 65%, var(--aui-border-interactive)); box-shadow: var(--aui-ring); }
+.aui-stepper > input { width: var(--_w, 64px); min-width: 0; padding: 0 4px; margin: 0; text-align: center; font-size: var(--aui-fs-sm); font-variant-numeric: tabular-nums; color: var(--aui-text); background: transparent; border: 0; outline: none; -moz-appearance: textfield; appearance: textfield; }
+.aui-stepper > input::-webkit-inner-spin-button, .aui-stepper > input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.aui-stepper > button { display: grid; place-items: center; width: var(--_h); flex: none; padding: 0; color: var(--aui-text-muted); background: var(--aui-surface-1); border: 0; cursor: pointer; transition: background-color var(--aui-dur-fast), color var(--aui-dur-fast); }
+.aui-stepper > button:first-child { border-right: 1px solid var(--aui-border); }
+.aui-stepper > button:last-child { border-left: 1px solid var(--aui-border); }
+.aui-stepper > button:hover { color: var(--aui-text); background: var(--aui-surface-2); }
+.aui-stepper > button:disabled { opacity: .4; cursor: not-allowed; }
+.aui-stepper > button .aui-icon { width: 14px; height: 14px; }
+.aui-stepper--sm { --_h: var(--aui-control-h-sm); }
+.aui-stepper--lg { --_h: var(--aui-control-h-lg); }
+
+/* ---------- OTP / PIN: <div class="aui-otp" data-aui-otp><input>×6</div> ---------- */
+.aui-otp { display: flex; align-items: center; gap: 8px; }
+.aui-otp > input {
+  width: var(--_s, 44px); height: calc(var(--_s, 44px) * 1.15); padding: 0; margin: 0; text-align: center;
+  font-family: var(--aui-font-mono); font-size: 1.25rem; font-weight: var(--aui-fw-semibold); color: var(--aui-text); caret-color: var(--aui-accent);
+  background: var(--aui-input-bg); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-md); outline: none; box-shadow: var(--aui-shadow-xs);
+  transition: border-color var(--aui-dur-fast), box-shadow var(--aui-dur-fast);
 }
-.aui-check > input[type="radio"] { border-radius: 50%; }
-.aui-check > input::before {
-  content: ""; width: 10px; height: 10px; transform: scale(0); transition: transform var(--aui-dur-fast) var(--aui-ease); background: var(--aui-on-accent);
+.aui-otp > input:hover { border-color: var(--aui-border-strong); }
+.aui-otp > input:focus { border-color: color-mix(in srgb, var(--aui-accent) 65%, var(--aui-border-interactive)); box-shadow: var(--aui-ring); }
+.aui-otp > input:not(:placeholder-shown) { border-color: var(--aui-border-strong); }
+.aui-otp-sep { width: 10px; height: 2px; flex: none; background: var(--aui-border-interactive); border-radius: 2px; }
+.aui-otp.is-invalid > input { border-color: color-mix(in srgb, var(--aui-danger) 70%, transparent); }
+.aui-otp.is-valid > input { border-color: color-mix(in srgb, var(--aui-success) 60%, transparent); }
+.aui-otp--sm { --_s: 36px; gap: 6px; }
+.aui-otp--sm > input { font-size: 1rem; }
+.aui-otp--center { justify-content: center; }
+
+/* ---------- Tag input: <div class="aui-tags" data-aui-tags><input></div> ---------- */
+.aui-tags {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-height: var(--aui-control-h); padding: 4px 6px; cursor: text;
+  background: var(--aui-input-bg); border: 1px solid var(--aui-border); border-radius: var(--aui-control-radius); box-shadow: var(--aui-shadow-xs);
+  transition: border-color var(--aui-dur-fast), box-shadow var(--aui-dur-fast);
+}
+.aui-tags:hover { border-color: var(--aui-border-strong); }
+.aui-tags:focus-within { border-color: color-mix(in srgb, var(--aui-accent) 65%, var(--aui-border-interactive)); box-shadow: var(--aui-ring); }
+.aui-tags > input { flex: 1 1 80px; min-width: 60px; height: 24px; padding: 0 4px; margin: 0; font-size: var(--aui-fs-sm); color: var(--aui-text); background: transparent; border: 0; outline: none; }
+.aui-tags > input::placeholder { color: var(--aui-text-disabled); }
+.aui-tags > .aui-chip { --_h: 24px; padding: 0 8px; background: var(--aui-surface-2); border-color: var(--aui-border-strong); color: var(--aui-text-secondary); }
+
+/* ---------- File input & dropzone ---------- */
+.aui-file { position: relative; display: flex; align-items: center; gap: 10px; min-width: 0; height: var(--aui-control-h); padding: 0 4px 0 0; font-size: var(--aui-fs-sm); color: var(--aui-text-subtle); background: var(--aui-input-bg); border: 1px solid var(--aui-border); border-radius: var(--aui-control-radius); overflow: hidden; }
+.aui-file > input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.aui-file-btn { display: inline-flex; align-items: center; gap: 6px; height: 100%; padding: 0 12px; font-weight: var(--aui-fw-medium); color: var(--aui-text); background: var(--aui-surface-2); border-right: 1px solid var(--aui-border); white-space: nowrap; }
+.aui-file-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.aui-file:hover .aui-file-btn { background: var(--aui-surface-3); }
+.aui-file:focus-within { box-shadow: var(--aui-ring); border-color: color-mix(in srgb, var(--aui-accent) 65%, var(--aui-border-interactive)); }
+.aui-dropzone {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 28px 20px; text-align: center;
+  font-size: var(--aui-fs-sm); color: var(--aui-text-muted); background: var(--aui-bg-alt); border: 1.5px dashed var(--aui-border-strong); border-radius: var(--aui-radius-lg);
+  cursor: pointer; transition: border-color var(--aui-dur-fast), background-color var(--aui-dur-fast);
+}
+.aui-dropzone > input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.aui-dropzone:hover, .aui-dropzone.is-dragover { border-color: var(--aui-accent); background: color-mix(in srgb, var(--aui-accent) 6%, var(--aui-bg-alt)); }
+.aui-dropzone:focus-within { box-shadow: var(--aui-ring); }
+.aui-dropzone-icon { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 4px; color: var(--aui-text-secondary); background: var(--aui-surface-2); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-md); }
+.aui-dropzone-title { font-weight: var(--aui-fw-medium); color: var(--aui-text); }
+.aui-dropzone-title b { color: var(--aui-link); font-weight: var(--aui-fw-medium); }
+.aui-dropzone-hint { font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
+.aui-file-list { display: grid; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
+.aui-file-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; font-size: var(--aui-fs-sm); background: var(--aui-surface-1); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-md); }
+.aui-file-item-body { flex: 1; min-width: 0; }
+.aui-file-item-name { color: var(--aui-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.aui-file-item-meta { font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
+.aui-file-item .aui-progress { margin-top: 6px; }
+
+/* ---------- Range slider: <input type="range" class="aui-range"> (fill via --_p, set by JS) ---------- */
+.aui-range { --_p: 50%; --_t: var(--aui-tone, var(--aui-accent)); width: 100%; height: 20px; margin: 0; padding: 0; background: transparent; cursor: pointer; appearance: none; -webkit-appearance: none; }
+.aui-range::-webkit-slider-runnable-track { height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--_t) var(--_p), var(--aui-surface-4) var(--_p)); }
+.aui-range::-moz-range-track { height: 4px; border-radius: 4px; background: var(--aui-surface-4); }
+.aui-range::-moz-range-progress { height: 4px; border-radius: 4px; background: var(--_t); }
+.aui-range::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; margin-top: -6px; border-radius: 50%; background: #fff; border: 0; box-shadow: 0 0 0 1px rgb(0 0 0 / .25), 0 2px 6px rgb(0 0 0 / .35); transition: transform var(--aui-dur-fast); }
+.aui-range::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 0; box-shadow: 0 0 0 1px rgb(0 0 0 / .25), 0 2px 6px rgb(0 0 0 / .35); }
+.aui-range:hover::-webkit-slider-thumb { transform: scale(1.1); }
+.aui-range:focus-visible { outline: none; }
+.aui-range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px color-mix(in srgb, var(--_t) 30%, transparent); }
+.aui-range:disabled { opacity: .45; cursor: not-allowed; }
+.aui-range-row { display: flex; align-items: center; gap: 12px; }
+.aui-range-value { min-width: 40px; text-align: right; font-size: var(--aui-fs-xs); font-variant-numeric: tabular-nums; color: var(--aui-text); }
+.aui-range-labels { display: flex; justify-content: space-between; margin-top: 2px; font-size: var(--aui-fs-2xs); color: var(--aui-text-subtle); }
+
+/* ---------- Checkbox & radio: <label class="aui-check"><input type="checkbox"><span>Label</span></label> ---------- */
+.aui-check { --_s: 16px; position: relative; display: inline-flex; align-items: flex-start; gap: 10px; font-size: var(--aui-fs-sm); line-height: 1.45; color: var(--aui-text-secondary); cursor: pointer; }
+.aui-check > input, input.aui-checkbox, input.aui-radio {
+  appearance: none; -webkit-appearance: none; flex: none; width: var(--_s, 16px); height: var(--_s, 16px); margin: calc((1.45em - var(--_s, 16px)) / 2) 0 0; display: inline-grid; place-content: center;
+  background: var(--aui-input-bg); border: 1px solid var(--aui-border-interactive); border-radius: 4px; cursor: pointer;
+  transition: background-color var(--aui-dur-fast), border-color var(--aui-dur-fast), box-shadow var(--aui-dur-fast);
+}
+.aui-check > input[type="radio"], input.aui-radio { border-radius: 50%; }
+.aui-check > input::before, input.aui-checkbox::before, input.aui-radio::before {
+  content: ""; width: calc(var(--_s, 16px) * .62); height: calc(var(--_s, 16px) * .62); transform: scale(0); transition: transform var(--aui-dur-fast) var(--aui-ease); background: var(--aui-on-accent);
   clip-path: polygon(14% 44%, 0 62%, 42% 100%, 100% 22%, 84% 6%, 40% 66%);
 }
-.aui-check > input[type="radio"]::before { width: 6px; height: 6px; border-radius: 50%; clip-path: none; }
-.aui-check > input:checked, .aui-check > input:indeterminate { background: var(--aui-accent); border-color: var(--aui-accent); }
-.aui-check > input:checked::before { transform: scale(1); }
-.aui-check > input:indeterminate::before { transform: scale(1); height: 2px; width: 8px; clip-path: none; }
-.aui-check > input:hover { border-color: var(--aui-text-subtle); }
-.aui-check > input:focus-visible { outline: 2px solid var(--aui-focus); outline-offset: 2px; }
+.aui-check > input[type="radio"]::before, input.aui-radio::before { width: calc(var(--_s, 16px) * .38); height: calc(var(--_s, 16px) * .38); border-radius: 50%; clip-path: none; }
+.aui-check > input:checked, .aui-check > input:indeterminate, input:is(.aui-checkbox, .aui-radio):is(:checked, :indeterminate) { background: var(--aui-accent); border-color: var(--aui-accent); }
+.aui-check > input:checked::before, input:is(.aui-checkbox, .aui-radio):checked::before { transform: scale(1); }
+.aui-check > input:indeterminate::before, input.aui-checkbox:indeterminate::before { transform: scale(1); height: 2px; width: 8px; clip-path: none; }
+.aui-check > input:hover:not(:checked), input:is(.aui-checkbox, .aui-radio):hover:not(:checked) { border-color: var(--aui-text-subtle); }
+.aui-check > input:focus-visible, input:is(.aui-checkbox, .aui-radio):focus-visible { outline: 2px solid var(--aui-focus); outline-offset: 2px; }
+.aui-check > input.is-invalid, .aui-check > input[aria-invalid="true"] { border-color: var(--aui-danger); }
 .aui-check > input:disabled { opacity: .45; cursor: not-allowed; }
 .aui-check:has(> input:disabled) { cursor: not-allowed; color: var(--aui-text-disabled); }
+.aui-check-body { display: flex; flex-direction: column; min-width: 0; }
+.aui-check-title { color: var(--aui-text); font-weight: var(--aui-fw-medium); }
 .aui-check-desc { display: block; margin-top: 2px; font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
+.aui-check--sm { --_s: 14px; font-size: var(--aui-fs-xs); gap: 8px; }
+.aui-check--lg { --_s: 18px; font-size: var(--aui-fs-md); }
+.aui-check-group { display: flex; flex-direction: column; gap: 10px; }
+.aui-check-group--row { flex-direction: row; flex-wrap: wrap; gap: 10px 20px; }
 
-/* Switch: <label class="aui-switch"><input type="checkbox" role="switch"><span>Label</span></label> */
-.aui-switch { display: inline-flex; align-items: center; gap: 10px; font-size: var(--aui-fs-sm); color: var(--aui-text-secondary); cursor: pointer; }
+/* ---------- Switch: <label class="aui-switch"><input type="checkbox" role="switch"><span>Label</span></label> ---------- */
+.aui-switch { --_w: 34px; --_h: 20px; --_t: var(--aui-tone, var(--aui-accent)); display: inline-flex; align-items: center; gap: 10px; font-size: var(--aui-fs-sm); color: var(--aui-text-secondary); cursor: pointer; }
 .aui-switch > input {
-  appearance: none; -webkit-appearance: none; position: relative; flex: none; width: 32px; height: 18px; margin: 0;
-  background: var(--aui-surface-3); border: 1px solid var(--aui-border-strong); border-radius: 999px; cursor: pointer;
+  appearance: none; -webkit-appearance: none; position: relative; flex: none; width: var(--_w); height: var(--_h); margin: 0;
+  background: var(--aui-surface-4); border: 1px solid var(--aui-border-strong); border-radius: 999px; cursor: pointer;
   transition: background-color var(--aui-dur), border-color var(--aui-dur);
 }
 .aui-switch > input::before {
-  content: ""; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%;
-  background: var(--aui-text-muted); transition: transform var(--aui-dur) var(--aui-ease), background-color var(--aui-dur);
+  content: ""; position: absolute; top: 2px; left: 2px; width: calc(var(--_h) - 6px); height: calc(var(--_h) - 6px); border-radius: 50%;
+  background: var(--aui-text-muted); box-shadow: 0 1px 2px rgb(0 0 0 / .3); transition: transform var(--aui-dur) var(--aui-ease-out), background-color var(--aui-dur), width var(--aui-dur);
 }
-.aui-switch > input:checked { background: var(--aui-accent); border-color: var(--aui-accent); }
-.aui-switch > input:checked::before { transform: translateX(14px); background: #fff; }
+.aui-switch > input:active::before { width: calc(var(--_h) - 2px); }
+.aui-switch > input:checked { background: var(--_t); border-color: var(--_t); }
+.aui-switch > input:checked::before { transform: translateX(calc(var(--_w) - var(--_h))); background: #fff; }
+.aui-switch > input:checked:active::before { transform: translateX(calc(var(--_w) - var(--_h) - 4px)); }
 .aui-switch > input:focus-visible { outline: 2px solid var(--aui-focus); outline-offset: 2px; }
 .aui-switch > input:disabled { opacity: .45; cursor: not-allowed; }
-.aui-switch--sm > input { width: 26px; height: 15px; }
-.aui-switch--sm > input::before { width: 9px; height: 9px; }
-.aui-switch--sm > input:checked::before { transform: translateX(11px); }
+.aui-switch:has(> input:disabled) { cursor: not-allowed; color: var(--aui-text-disabled); }
+.aui-switch--sm { --_w: 28px; --_h: 16px; font-size: var(--aui-fs-xs); }
+.aui-switch--lg { --_w: 42px; --_h: 24px; }
+.aui-switch--end { flex-direction: row-reverse; justify-content: space-between; width: 100%; }
 
-/* Composed form layouts */
+/* ---------- Choice cards: radio/checkbox as selectable cards ----------
+   <label class="aui-choice"><input type="radio" name="plan"><span class="aui-choice-body">…</span></label> */
+.aui-choice-grid { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 10px; }
+.aui-choice {
+  position: relative; display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; min-width: 0; cursor: pointer;
+  background: var(--aui-surface-1); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-md);
+  transition: border-color var(--aui-dur-fast), background-color var(--aui-dur-fast), box-shadow var(--aui-dur-fast);
+}
+.aui-choice:hover { border-color: var(--aui-border-strong); background: var(--aui-surface-2); }
+.aui-choice > input { position: absolute; opacity: 0; pointer-events: none; }
+.aui-choice > input.aui-checkbox, .aui-choice > input.aui-radio { position: static; opacity: 1; pointer-events: auto; margin-top: 2px; }
+.aui-choice:has(> input:checked) { border-color: var(--aui-accent); background: color-mix(in srgb, var(--aui-accent) 6%, var(--aui-surface-1)); box-shadow: 0 0 0 1px var(--aui-accent); }
+.aui-choice:has(> input:focus-visible) { outline: 2px solid var(--aui-focus); outline-offset: 2px; }
+.aui-choice:has(> input:disabled) { opacity: .5; cursor: not-allowed; }
+.aui-choice-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.aui-choice-title { font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-semibold); color: var(--aui-text); }
+.aui-choice-desc { font-size: var(--aui-fs-xs); line-height: 1.5; color: var(--aui-text-subtle); }
+.aui-choice-end { margin-left: auto; font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-semibold); color: var(--aui-text); white-space: nowrap; }
+.aui-choice-check { width: 18px; height: 18px; flex: none; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--aui-border-interactive); color: transparent; transition: all var(--aui-dur-fast); }
+.aui-choice-check .aui-icon { width: 12px; height: 12px; stroke-width: 3; }
+.aui-choice:has(> input:checked) .aui-choice-check { color: var(--aui-on-accent); background: var(--aui-accent); border-color: var(--aui-accent); }
+.aui-choice--center { flex-direction: column; align-items: center; text-align: center; }
+.aui-choice--center .aui-choice-body { align-items: center; }
+
+/* ---------- Enhanced select / combobox (JS: <select class="aui-select" data-aui-select>) ---------- */
+.aui-combobox { position: relative; display: block; min-width: 0; }
+.aui-combobox > select { position: absolute; inset: auto 0 0; width: 100%; height: 1px; opacity: 0; pointer-events: none; }
+.aui-combobox-trigger {
+  --_h: var(--aui-control-h);
+  display: flex; align-items: center; gap: 6px; width: 100%; min-height: var(--_h); padding: 3px 34px 3px 12px; margin: 0; text-align: left; cursor: pointer;
+  font: inherit; font-size: var(--aui-fs-sm); color: var(--aui-text);
+  background: var(--aui-input-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m8 9 4-4 4 4M8 15l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 10px center / 15px;
+  border: 1px solid var(--aui-border); border-radius: var(--aui-control-radius); box-shadow: var(--aui-shadow-xs);
+  transition: border-color var(--aui-dur-fast), box-shadow var(--aui-dur-fast);
+}
+.aui-combobox-trigger:hover { border-color: var(--aui-border-strong); }
+.aui-combobox-trigger:focus-visible, .aui-combobox.is-open .aui-combobox-trigger { outline: none; border-color: color-mix(in srgb, var(--aui-accent) 65%, var(--aui-border-interactive)); box-shadow: var(--aui-ring); }
+.aui-combobox-value { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; overflow: hidden; }
+.aui-combobox-value > span:only-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.aui-combobox-placeholder { color: var(--aui-text-disabled); }
+.aui-combobox-value > .aui-chip { --_h: 22px; padding: 0 7px; background: var(--aui-surface-2); border-color: var(--aui-border-strong); color: var(--aui-text-secondary); }
+.aui-combobox--sm .aui-combobox-trigger { --_h: var(--aui-control-h-sm); font-size: var(--aui-fs-xs); padding-left: 10px; }
+.aui-combobox--lg .aui-combobox-trigger { --_h: var(--aui-control-h-lg); font-size: var(--aui-fs-md); }
+.aui-combobox.is-disabled .aui-combobox-trigger { opacity: .55; cursor: not-allowed; }
+.aui-combobox > .aui-menu { width: 100%; max-height: 320px; display: flex; flex-direction: column; }
+.aui-combobox .aui-menu-list { overflow-y: auto; overscroll-behavior: contain; }
+.aui-combobox-empty { padding: 14px 10px; font-size: var(--aui-fs-sm); text-align: center; color: var(--aui-text-subtle); }
+
+/* ---------- Composed form layouts ---------- */
 .aui-form { display: flex; flex-direction: column; gap: 18px; }
-.aui-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 16px; }
+.aui-form--compact { gap: 12px; }
+.aui-form-grid { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); gap: 18px 16px; }
+.aui-form-grid--3 { --cols: 3; }
 .aui-form-grid > .aui-span-full { grid-column: 1 / -1; }
 .aui-form-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; }
 .aui-form-actions--start { justify-content: flex-start; }
+.aui-form-actions--between { justify-content: space-between; }
 .aui-fieldset { margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .aui-fieldset > legend { padding: 0; margin-bottom: 8px; font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-medium); color: var(--aui-text-secondary); }
+.aui-fieldset--card { padding: 18px; background: var(--aui-surface-1); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-md); }
+.aui-fieldset--card > legend { float: left; width: 100%; margin-bottom: 14px; }
 .aui-option-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px 0; border-top: 1px solid var(--aui-border-soft); }
 .aui-option-row:first-child { border-top: 0; padding-top: 0; }
+.aui-option-row:last-child { padding-bottom: 0; }
+.aui-option-row-body { min-width: 0; }
 .aui-option-row-title { font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-medium); color: var(--aui-text); }
 .aui-option-row-desc { font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); margin-top: 2px; }
 
-/* Date range visual */
+/* Date range trigger (visual) */
 .aui-daterange {
   display: inline-flex; align-items: center; gap: 8px; height: var(--aui-control-h); padding: 0 12px;
   font-size: var(--aui-fs-sm); color: var(--aui-text-secondary); background: var(--aui-input-bg);
-  border: 1px solid var(--aui-border); border-radius: var(--aui-radius-sm); cursor: pointer; white-space: nowrap;
+  border: 1px solid var(--aui-border); border-radius: var(--aui-control-radius); cursor: pointer; white-space: nowrap; font-variant-numeric: tabular-nums;
 }
 .aui-daterange--sm { height: var(--aui-control-h-sm); padding: 0 10px; font-size: var(--aui-fs-xs); }
 .aui-daterange:hover { border-color: var(--aui-border-strong); }
 .aui-daterange .aui-icon { color: var(--aui-text-subtle); }
 .aui-daterange-sep { color: var(--aui-text-disabled); }
 
+/* Password strength meter */
+.aui-strength { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.aui-strength > span { height: 4px; border-radius: 4px; background: var(--aui-surface-4); transition: background-color var(--aui-dur); }
+.aui-strength[data-level="1"] > span:nth-child(-n+1) { background: var(--aui-danger); }
+.aui-strength[data-level="2"] > span:nth-child(-n+2) { background: var(--aui-warning); }
+.aui-strength[data-level="3"] > span:nth-child(-n+3) { background: var(--aui-info); }
+.aui-strength[data-level="4"] > span { background: var(--aui-success); }
+
 @media (max-width: 760px) {
-  .aui-form-grid { grid-template-columns: 1fr; }
+  .aui-form-grid, .aui-form-grid--3 { --cols: 1; }
+  .aui-choice-grid { --cols: 1; }
+  .aui-field--horizontal { grid-template-columns: minmax(0, 1fr); }
+  .aui-field--horizontal > :not(.aui-label) { grid-column: 1; }
+  .aui-field--horizontal > .aui-label { padding-top: 0; }
   .aui-option-row { align-items: flex-start; }
+  .aui-otp { gap: 6px; }
+  .aui-input, .aui-select, .aui-textarea, .aui-combobox-trigger, .aui-tags > input { font-size: max(16px, var(--_fs, 16px)); } /* prevent iOS zoom */
 }
