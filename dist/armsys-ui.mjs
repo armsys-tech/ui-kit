@@ -1,14 +1,9 @@
 /*!
  * Armsys UI 2.0.0 — Framework-independent design system by Armsys Technology
- * Dependency-free behaviours via data attributes. Load once (defer). Exposes window.ArmsysUI.
- * Generated from src/js by scripts/build.mjs — edit the sources, not this file.
+ * ES module build: import ArmsysUI from "@armsys-tech/ui"; (auto-initialises in the browser, SSR-safe)
  * MIT License · https://github.com/armsys-tech/ui-kit
  */
-(function (root, factory) {
-  var api = factory();
-  if (typeof module === 'object' && module.exports) module.exports = api;
-  else if (root && !root.ArmsysUI) root.ArmsysUI = api;
-})(typeof self !== 'undefined' ? self : this, function () {
+const ArmsysUI = (function () {
   'use strict';
   if (typeof window !== 'undefined' && window.ArmsysUI && window.ArmsysUI.version) return window.ArmsysUI;
   /* ---------- Core: config, helpers, events, storage ---------- */
@@ -1520,4 +1515,7 @@
   if (d && cfg.autoInit) { if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', function () { init(); }); else init(); }
 
   return ArmsysUI;
-});
+})();
+export default ArmsysUI;
+export { ArmsysUI };
+export const { init, openModal, closeModal, confirm, prompt, alert, toast, setTheme, getTheme, openCommand, openDropdown, closeDropdown, closeAll, selectTab, copy, refreshSelect, highlight, addIcons, icon, position } = ArmsysUI;
