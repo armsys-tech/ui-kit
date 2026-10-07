@@ -13,7 +13,7 @@
 <div class="aui-app">
 <aside class="aui-sidebar" id="app-sidebar" aria-label="Application">
   <div class="aui-sidebar-header"><a class="aui-brand" href="dashboard.html"><span class="aui-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aui-i-logo"/></svg></span><span class="aui-brand-text">Armsys Console<small>Production</small></span></a></div>
-  <div class="aui-sidebar-body"><nav class="aui-nav" aria-label="Primary">
+  <div class="aui-sidebar-body"><nav class="aui-nav aui-nav--indicator" aria-label="Primary">
     <div class="aui-nav-title">Workspace</div>
     <a class="aui-nav-item" href="dashboard.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-grid"/></svg><span class="aui-nav-label">Overview</span></a>
     <a class="aui-nav-item" href="monitoring.html" aria-current="page"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-activity"/></svg><span class="aui-nav-label">Monitoring</span><span class="aui-badge aui-badge--success"><span class="aui-dot aui-dot--success is-live"></span>Live</span></a>
@@ -151,7 +151,7 @@
 </div>
 
 <dialog class="aui-drawer" id="mon-settings" aria-labelledby="mon-settings-title">
-  <div class="aui-modal-header"><h2 class="aui-modal-title" id="mon-settings-title">Monitor settings</h2><button type="button" class="aui-modal-close" data-aui-modal-close aria-label="Close"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-x"/></svg></button></div>
+  <div class="aui-modal-header"><h2 class="aui-modal-title" id="mon-settings-title">Monitor settings</h2><button type="button" class="aui-close" data-aui-close aria-label="Close"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-x"/></svg></button></div>
   <div class="aui-modal-body aui-form">
     <div class="aui-field"><label class="aui-label" for="ms-buf">Buffer size</label><div class="aui-input-group"><input class="aui-input" id="ms-buf" type="number" value="5000"><span class="aui-input-addon">events</span></div></div>
     <div class="aui-field"><label class="aui-label" for="ms-th">Latency threshold</label><div class="aui-input-group"><input class="aui-input" id="ms-th" type="number" value="120"><span class="aui-input-addon">ms</span></div><span class="aui-help">Rows above this value are highlighted.</span></div>
@@ -164,7 +164,7 @@
     <label class="aui-switch"><input type="checkbox" role="switch" checked><span>Auto-scroll to newest</span></label>
     <label class="aui-switch"><input type="checkbox" role="switch"><span>Sound on errors</span></label>
   </div>
-  <div class="aui-modal-footer"><button type="button" class="aui-btn" data-aui-modal-close>Cancel</button><button type="button" class="aui-btn aui-btn--primary" data-aui-modal-close data-aui-toast="Settings saved" data-aui-toast-variant="success">Apply</button></div>
+  <div class="aui-modal-footer"><button type="button" class="aui-btn" data-aui-close>Cancel</button><button type="button" class="aui-btn aui-btn--primary" data-aui-close data-aui-toast="Settings saved" data-aui-toast-variant="success">Apply</button></div>
 </dialog>
 </body>
 </html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Create account — Armsys</title>
+<link rel="stylesheet" href="../dist/armsys-ui.css">
+<script src="../dist/armsys-ui.js" defer></script>
+</head>
+<body class="aui">
+<div class="aui-auth aui-auth--reverse">
+  <aside class="aui-auth-aside">
+    <div class="aui-auth-aside-top">
+      <a class="aui-brand" href="website.html"><span class="aui-logo"><svg viewBox="0 0 24 24"><use href="#aui-i-logo"/></svg></span>Armsys</a>
+      <a class="aui-link-arrow aui-text-sm" href="website.html"><svg class="aui-icon"><use href="#aui-i-arrow-left"/></svg>Back to website</a>
+    </div>
+    <div class="aui-auth-showcase">
+      <span class="aui-overline">Start free · no card required</span>
+      <h2 class="aui-auth-headline aui-mt-4">Ship your first real-time feature <em>this afternoon.</em></h2>
+      <ul class="aui-auth-list">
+        <li><span class="aui-icon-box aui-icon-box--accent"><svg class="aui-icon"><use href="#aui-i-check"/></svg></span><span><b>1 million events every month</b>Free developer tier with all core features.</span></li>
+        <li><span class="aui-icon-box aui-icon-box--accent"><svg class="aui-icon"><use href="#aui-i-check"/></svg></span><span><b>Invite your whole team</b>Unlimited members, roles and SSO when you grow.</span></li>
+        <li><span class="aui-icon-box aui-icon-box--accent"><svg class="aui-icon"><use href="#aui-i-check"/></svg></span><span><b>EU & US data residency</b>Pick where your events live from day one.</span></li>
+      </ul>
+      <div class="aui-auth-stats">
+        <div class="aui-stat"><div class="aui-stat-value">184B</div><div class="aui-stat-meta">events delivered</div></div>
+        <div class="aui-stat"><div class="aui-stat-value">99.99%</div><div class="aui-stat-meta">uptime last 12 months</div></div>
+        <div class="aui-stat"><div class="aui-stat-value">2.4k</div><div class="aui-stat-meta">teams in production</div></div>
+      </div>
+    </div>
+    <div class="aui-auth-aside-bottom"><div class="aui-auth-logos"><span>Northwind</span><span>Kestrel</span><span>Voltline</span><span>Meridian</span></div></div>
+  </aside>
+  <main class="aui-auth-main">
+    <div class="aui-auth-top"><a class="aui-brand aui-show-mobile" href="website.html"><span class="aui-logo aui-logo--sm"><svg viewBox="0 0 24 24"><use href="#aui-i-logo"/></svg></span>Armsys</a><span class="aui-row aui-gap-3 aui-ml-auto"><span>Already have an account?</span><a class="aui-btn aui-btn--outline aui-btn--sm" href="login.html">Sign in</a></span></div>
+    <div class="aui-auth-form">
+      <ol class="aui-wizard aui-mb-8">
+        <li class="is-current"><div class="aui-wizard-body"><div class="aui-wizard-title">Account</div></div></li>
+        <li><div class="aui-wizard-body"><div class="aui-wizard-title">Workspace</div></div></li>
+        <li><div class="aui-wizard-body"><div class="aui-wizard-title">Invite</div></div></li>
+      </ol>
+      <div class="aui-auth-header">
+        <h1 class="aui-auth-title">Create your account</h1>
+        <p class="aui-auth-desc">Free forever for side projects. Upgrade when you go live.</p>
+      </div>
+      <div class="aui-auth-social aui-auth-social--2">
+        <button class="aui-btn aui-btn--social aui-btn--lg" type="button"><svg class="aui-btn-brand" viewBox="0 0 24 24"><use href="#aui-i-google"/></svg>Google</button>
+        <button class="aui-btn aui-btn--social aui-btn--lg" type="button"><svg class="aui-btn-brand" viewBox="0 0 24 24"><use href="#aui-i-github"/></svg>GitHub</button>
+      </div>
+      <div class="aui-divider-text aui-auth-divider">or sign up with email</div>
+      <form class="aui-form" onsubmit="event.preventDefault(); this.querySelector('[type=submit]').classList.add('is-loading'); setTimeout(function(){ location.href='two-factor.html'; }, 900);">
+        <div class="aui-form-grid">
+          <div class="aui-field"><label class="aui-label" for="first">First name</label><input class="aui-input" id="first" autocomplete="given-name" placeholder="Ayla"></div>
+          <div class="aui-field"><label class="aui-label" for="last">Last name</label><input class="aui-input" id="last" autocomplete="family-name" placeholder="Tan"></div>
+        </div>
+        <div class="aui-field"><label class="aui-label" for="r-email">Work email</label><input class="aui-input" id="r-email" type="email" autocomplete="email" placeholder="you@company.com"></div>
+        <div class="aui-field">
+          <label class="aui-label" for="r-pw">Password</label>
+          <div class="aui-input-wrap">
+            <input class="aui-input" id="r-pw" type="password" autocomplete="new-password" placeholder="At least 8 characters" data-aui-strength="#r-strength">
+            <div class="aui-input-end"><button class="aui-input-action" type="button" data-aui-password-toggle aria-label="Show password"><svg class="aui-icon aui-reveal-off"><use href="#aui-i-eye"/></svg><svg class="aui-icon aui-reveal-on"><use href="#aui-i-eye-off"/></svg></button></div>
+          </div>
+          <div class="aui-strength" id="r-strength" data-level="0" data-label-target="#r-strength-label"><span></span><span></span><span></span><span></span></div>
+          <p class="aui-help">Strength: <span id="r-strength-label">—</span> · use 8+ characters with a number and a symbol.</p>
+        </div>
+        <label class="aui-check"><input type="checkbox"><span>I agree to the <a class="aui-link" href="#">Terms</a> and <a class="aui-link" href="#">Privacy Policy</a></span></label>
+        <button class="aui-btn aui-btn--primary aui-btn--block" type="submit">Create account</button>
+      </form>
+    </div>
+    <div class="aui-auth-bottom"><div class="aui-footer-legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Help</a></div><button class="aui-btn aui-btn--ghost aui-btn--xs" type="button" data-aui-theme-toggle><svg class="aui-icon"><use href="#aui-i-sun"/></svg>Theme</button></div>
+  </main>
+</div>
+
+</body>
+</html>

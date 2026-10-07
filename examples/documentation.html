@@ -170,49 +170,49 @@
             </div>
             <div class="aui-code-actions"><button type="button" class="aui-copy" data-aui-copy aria-label="Copy code"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg>Copy</span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg>Copied</span></button></div>
           </div>
-<pre class="aui-pre" data-aui-panel="curl"><span class="aui-code-function">curl</span> <span class="aui-code-property">-X</span> POST <span class="aui-code-string">https://api.armsys.tech/v1/streams/orders/events</span> \
-  <span class="aui-code-property">-H</span> <span class="aui-code-string">"Authorization: Bearer $ARMSYS_KEY"</span> \
-  <span class="aui-code-property">-H</span> <span class="aui-code-string">"Content-Type: application/json"</span> \
-  <span class="aui-code-property">-d</span> <span class="aui-code-string">'{"events":[{"type":"order.created","key":"cus_42","payload":{"total":129.9}}]}'</span></pre>
-<pre class="aui-pre" data-aui-panel="js" hidden><span class="aui-code-keyword">const</span> <span class="aui-code-variable">res</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">await</span> <span class="aui-code-function">fetch</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"https://api.armsys.tech/v1/streams/orders/events"</span><span class="aui-code-punctuation">, {</span>
-  <span class="aui-code-property">method</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"POST"</span><span class="aui-code-punctuation">,</span>
-  <span class="aui-code-property">headers</span><span class="aui-code-punctuation">: {</span> <span class="aui-code-property">Authorization</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">`Bearer ${process.env.ARMSYS_KEY}`</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">"Content-Type"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"application/json"</span> <span class="aui-code-punctuation">},</span>
-  <span class="aui-code-property">body</span><span class="aui-code-punctuation">:</span> <span class="aui-code-variable">JSON</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">stringify</span><span class="aui-code-punctuation">({</span> <span class="aui-code-property">events</span><span class="aui-code-punctuation">: [{</span> <span class="aui-code-property">type</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"order.created"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">key</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">payload</span><span class="aui-code-punctuation">: {</span> <span class="aui-code-property">total</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">129.9</span> <span class="aui-code-punctuation">} }] }),</span>
-<span class="aui-code-punctuation">});</span></pre>
-<pre class="aui-pre" data-aui-panel="ts" hidden><span class="aui-code-keyword">import</span> <span class="aui-code-punctuation">{</span> <span class="aui-code-type">Armsys</span><span class="aui-code-punctuation">,</span> <span class="aui-code-keyword">type</span> <span class="aui-code-type">PublishResult</span> <span class="aui-code-punctuation">}</span> <span class="aui-code-keyword">from</span> <span class="aui-code-string">"@armsys/sdk"</span><span class="aui-code-punctuation">;</span>
+<pre class="aui-pre" data-aui-panel="curl"><code class="language-bash">curl -X POST https://api.armsys.tech/v1/streams/orders/events \
+  -H "Authorization: Bearer $ARMSYS_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"events":[{"type":"order.created","key":"cus_42","payload":{"total":129.9}}]}'</code></pre>
+<pre class="aui-pre" data-aui-panel="js" hidden><code class="language-javascript">const res = await fetch("https://api.armsys.tech/v1/streams/orders/events", {
+  method: "POST",
+  headers: { Authorization: `Bearer ${process.env.ARMSYS_KEY}`, "Content-Type": "application/json" },
+  body: JSON.stringify({ events: [{ type: "order.created", key: "cus_42", payload: { total: 129.9 } }] }),
+});</code></pre>
+<pre class="aui-pre" data-aui-panel="ts" hidden><code class="language-typescript">import { Armsys, type PublishResult } from "@armsys/sdk";
 
-<span class="aui-code-keyword">const</span> <span class="aui-code-variable">armsys</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">new</span> <span class="aui-code-function">Armsys</span><span class="aui-code-punctuation">({</span> <span class="aui-code-property">apiKey</span><span class="aui-code-punctuation">:</span> <span class="aui-code-variable">process</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">env</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">ARMSYS_KEY</span><span class="aui-code-operator">!</span> <span class="aui-code-punctuation">});</span>
-<span class="aui-code-keyword">const</span> <span class="aui-code-variable">result</span><span class="aui-code-punctuation">:</span> <span class="aui-code-type">PublishResult</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">await</span> <span class="aui-code-variable">armsys</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">streams</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">publish</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"orders"</span><span class="aui-code-punctuation">, [</span>
-  <span class="aui-code-punctuation">{</span> <span class="aui-code-property">type</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"order.created"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">key</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">payload</span><span class="aui-code-punctuation">: {</span> <span class="aui-code-property">total</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">129.9</span> <span class="aui-code-punctuation">} },</span>
-<span class="aui-code-punctuation">]);</span></pre>
-<pre class="aui-pre" data-aui-panel="py" hidden><span class="aui-code-keyword">from</span> <span class="aui-code-variable">armsys</span> <span class="aui-code-keyword">import</span> <span class="aui-code-type">Armsys</span>
+const armsys = new Armsys({ apiKey: process.env.ARMSYS_KEY! });
+const result: PublishResult = await armsys.streams.publish("orders", [
+  { type: "order.created", key: "cus_42", payload: { total: 129.9 } },
+]);</code></pre>
+<pre class="aui-pre" data-aui-panel="py" hidden><code class="language-python">from armsys import Armsys
 
-<span class="aui-code-variable">armsys</span> <span class="aui-code-operator">=</span> <span class="aui-code-function">Armsys</span><span class="aui-code-punctuation">()</span>  <span class="aui-code-comment"># reads ARMSYS_KEY from the environment</span>
-<span class="aui-code-variable">result</span> <span class="aui-code-operator">=</span> <span class="aui-code-variable">armsys</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">streams</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">publish</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"orders"</span><span class="aui-code-punctuation">, [</span>
-    <span class="aui-code-punctuation">{</span><span class="aui-code-string">"type"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"order.created"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">"key"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">"payload"</span><span class="aui-code-punctuation">: {</span><span class="aui-code-string">"total"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">129.9</span><span class="aui-code-punctuation">}},</span>
-<span class="aui-code-punctuation">])</span></pre>
-<pre class="aui-pre" data-aui-panel="go" hidden><span class="aui-code-variable">client</span> <span class="aui-code-operator">:=</span> <span class="aui-code-variable">armsys</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">NewClient</span><span class="aui-code-punctuation">(</span><span class="aui-code-variable">os</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">Getenv</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"ARMSYS_KEY"</span><span class="aui-code-punctuation">))</span>
+armsys = Armsys()  # reads ARMSYS_KEY from the environment
+result = armsys.streams.publish("orders", [
+    {"type": "order.created", "key": "cus_42", "payload": {"total": 129.9}},
+])</code></pre>
+<pre class="aui-pre" data-aui-panel="go" hidden><code class="language-go">client := armsys.NewClient(os.Getenv("ARMSYS_KEY"))
 
-<span class="aui-code-variable">res</span><span class="aui-code-punctuation">,</span> <span class="aui-code-variable">err</span> <span class="aui-code-operator">:=</span> <span class="aui-code-variable">client</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">Streams</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">Publish</span><span class="aui-code-punctuation">(</span><span class="aui-code-variable">ctx</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">"orders"</span><span class="aui-code-punctuation">, []</span><span class="aui-code-type">armsys.Event</span><span class="aui-code-punctuation">{</span>
-	<span class="aui-code-punctuation">{</span><span class="aui-code-property">Type</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"order.created"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">Key</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">Payload</span><span class="aui-code-punctuation">:</span> <span class="aui-code-type">map</span><span class="aui-code-punctuation">[</span><span class="aui-code-type">string</span><span class="aui-code-punctuation">]</span><span class="aui-code-type">any</span><span class="aui-code-punctuation">{</span><span class="aui-code-string">"total"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">129.9</span><span class="aui-code-punctuation">}},</span>
-<span class="aui-code-punctuation">})</span>
-<span class="aui-code-keyword">if</span> <span class="aui-code-variable">err</span> <span class="aui-code-operator">!=</span> <span class="aui-code-boolean">nil</span> <span class="aui-code-punctuation">{</span> <span class="aui-code-function">log</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">Fatal</span><span class="aui-code-punctuation">(</span><span class="aui-code-variable">err</span><span class="aui-code-punctuation">)</span> <span class="aui-code-punctuation">}</span></pre>
-<pre class="aui-pre" data-aui-panel="php" hidden><span class="aui-code-variable">$armsys</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">new</span> <span class="aui-code-type">\Armsys\Client</span><span class="aui-code-punctuation">(</span><span class="aui-code-function">getenv</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">'ARMSYS_KEY'</span><span class="aui-code-punctuation">));</span>
+res, err := client.Streams.Publish(ctx, "orders", []armsys.Event{
+	{Type: "order.created", Key: "cus_42", Payload: map[string]any{"total": 129.9}},
+})
+if err != nil { log.Fatal(err) }</code></pre>
+<pre class="aui-pre" data-aui-panel="php" hidden><code class="language-php">$armsys = new \Armsys\Client(getenv('ARMSYS_KEY'));
 
-<span class="aui-code-variable">$result</span> <span class="aui-code-operator">=</span> <span class="aui-code-variable">$armsys</span><span class="aui-code-operator">-&gt;</span><span class="aui-code-property">streams</span><span class="aui-code-operator">-&gt;</span><span class="aui-code-function">publish</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">'orders'</span><span class="aui-code-punctuation">, [</span>
-    <span class="aui-code-punctuation">[</span><span class="aui-code-string">'type'</span> <span class="aui-code-operator">=&gt;</span> <span class="aui-code-string">'order.created'</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">'key'</span> <span class="aui-code-operator">=&gt;</span> <span class="aui-code-string">'cus_42'</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">'payload'</span> <span class="aui-code-operator">=&gt;</span> <span class="aui-code-punctuation">[</span><span class="aui-code-string">'total'</span> <span class="aui-code-operator">=&gt;</span> <span class="aui-code-number">129.9</span><span class="aui-code-punctuation">]],</span>
-<span class="aui-code-punctuation">]);</span></pre>
-<pre class="aui-pre" data-aui-panel="java" hidden><span class="aui-code-type">Armsys</span> <span class="aui-code-variable">armsys</span> <span class="aui-code-operator">=</span> <span class="aui-code-type">Armsys</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">fromEnv</span><span class="aui-code-punctuation">();</span>
+$result = $armsys-&gt;streams-&gt;publish('orders', [
+    ['type' =&gt; 'order.created', 'key' =&gt; 'cus_42', 'payload' =&gt; ['total' =&gt; 129.9]],
+]);</code></pre>
+<pre class="aui-pre" data-aui-panel="java" hidden><code class="language-java">Armsys armsys = Armsys.fromEnv();
 
-<span class="aui-code-type">PublishResult</span> <span class="aui-code-variable">result</span> <span class="aui-code-operator">=</span> <span class="aui-code-variable">armsys</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">streams</span><span class="aui-code-punctuation">().</span><span class="aui-code-function">publish</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"orders"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-type">List</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">of</span><span class="aui-code-punctuation">(</span>
-    <span class="aui-code-type">Event</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">of</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"order.created"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-type">Map</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">of</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"total"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-number">129.9</span><span class="aui-code-punctuation">))</span>
-<span class="aui-code-punctuation">));</span></pre>
-<pre class="aui-pre" data-aui-panel="cs" hidden><span class="aui-code-keyword">var</span> <span class="aui-code-variable">armsys</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">new</span> <span class="aui-code-type">ArmsysClient</span><span class="aui-code-punctuation">(</span><span class="aui-code-type">Environment</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">GetEnvironmentVariable</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"ARMSYS_KEY"</span><span class="aui-code-punctuation">));</span>
+PublishResult result = armsys.streams().publish("orders", List.of(
+    Event.of("order.created", "cus_42", Map.of("total", 129.9))
+));</code></pre>
+<pre class="aui-pre" data-aui-panel="cs" hidden><code class="language-csharp">var armsys = new ArmsysClient(Environment.GetEnvironmentVariable("ARMSYS_KEY"));
 
-<span class="aui-code-keyword">var</span> <span class="aui-code-variable">result</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">await</span> <span class="aui-code-variable">armsys</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">Streams</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">PublishAsync</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"orders"</span><span class="aui-code-punctuation">, new[]</span>
-<span class="aui-code-punctuation">{</span>
-    <span class="aui-code-keyword">new</span> <span class="aui-code-type">Event</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"order.created"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">key</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">payload</span><span class="aui-code-punctuation">:</span> <span class="aui-code-keyword">new</span> <span class="aui-code-punctuation">{</span> <span class="aui-code-property">total</span> <span class="aui-code-operator">=</span> <span class="aui-code-number">129.9m</span> <span class="aui-code-punctuation">})</span>
-<span class="aui-code-punctuation">});</span></pre>
+var result = await armsys.Streams.PublishAsync("orders", new[]
+{
+    new Event("order.created", key: "cus_42", payload: new { total = 129.9m })
+});</code></pre>
         </div>
 
         <div class="aui-callout aui-callout--warning"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-alert"/></svg><div class="aui-callout-body"><div class="aui-callout-title">Keep keys server-side</div><p>Never ship a key with <code>streams:write</code> to browsers or mobile apps. Use short-lived publish tokens instead.</p></div></div>
@@ -298,22 +298,22 @@
           </div>
           <div class="aui-code-actions"><span class="aui-code-lang">JSON</span><button type="button" class="aui-copy" data-aui-copy aria-label="Copy code"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg>Copy</span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg>Copied</span></button></div>
         </div>
-<pre class="aui-pre" data-aui-panel="r202"><span class="aui-code-punctuation">{</span>
-  <span class="aui-code-property">"accepted"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">1</span><span class="aui-code-punctuation">,</span>
-  <span class="aui-code-property">"stream"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"orders"</span><span class="aui-code-punctuation">,</span>
-  <span class="aui-code-property">"events"</span><span class="aui-code-punctuation">: [</span>
-    <span class="aui-code-punctuation">{</span> <span class="aui-code-property">"id"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"evt_01J9Z6Q4N7"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">"offset"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">884213</span><span class="aui-code-punctuation">,</span> <span class="aui-code-property">"partition"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">3</span> <span class="aui-code-punctuation">}</span>
-  <span class="aui-code-punctuation">],</span>
-  <span class="aui-code-property">"duplicate"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-boolean">false</span><span class="aui-code-punctuation">,</span>
-  <span class="aui-code-property">"region"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"eu-central"</span>
-<span class="aui-code-punctuation">}</span></pre>
-<pre class="aui-pre" data-aui-panel="r429" hidden><span class="aui-code-punctuation">{</span>
-  <span class="aui-code-property">"error"</span><span class="aui-code-punctuation">: {</span>
-    <span class="aui-code-property">"code"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"rate_limited"</span><span class="aui-code-punctuation">,</span>
-    <span class="aui-code-property">"message"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"Publish quota of 5000 events/s exceeded"</span><span class="aui-code-punctuation">,</span>
-    <span class="aui-code-property">"retry_after"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">2</span>
-  <span class="aui-code-punctuation">}</span>
-<span class="aui-code-punctuation">}</span></pre>
+<pre class="aui-pre" data-aui-panel="r202"><code class="language-json">{
+  "accepted": 1,
+  "stream": "orders",
+  "events": [
+    { "id": "evt_01J9Z6Q4N7", "offset": 884213, "partition": 3 }
+  ],
+  "duplicate": false,
+  "region": "eu-central"
+}</code></pre>
+<pre class="aui-pre" data-aui-panel="r429" hidden><code class="language-json">{
+  "error": {
+    "code": "rate_limited",
+    "message": "Publish quota of 5000 events/s exceeded",
+    "retry_after": 2
+  }
+}</code></pre>
       </div>
 
       <div class="aui-prose aui-mt-8">

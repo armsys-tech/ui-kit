@@ -95,27 +95,27 @@
               </div>
               <div class="aui-code-actions"><button type="button" class="aui-copy" data-aui-copy aria-label="Copy code"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg>Copy</span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg>Copied</span></button></div>
             </div>
-<pre class="aui-pre" data-aui-panel="js"><span class="aui-code-keyword">import</span> <span class="aui-code-punctuation">{</span> <span class="aui-code-variable">Armsys</span> <span class="aui-code-punctuation">}</span> <span class="aui-code-keyword">from</span> <span class="aui-code-string">"@armsys/sdk"</span><span class="aui-code-punctuation">;</span>
+<pre class="aui-pre" data-aui-panel="js"><code class="language-javascript">import { Armsys } from "@armsys/sdk";
 
-<span class="aui-code-keyword">const</span> <span class="aui-code-variable">client</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">new</span> <span class="aui-code-function">Armsys</span><span class="aui-code-punctuation">({</span> <span class="aui-code-property">apiKey</span><span class="aui-code-punctuation">:</span> <span class="aui-code-variable">process</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">env</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">ARMSYS_KEY</span> <span class="aui-code-punctuation">});</span>
+const client = new Armsys({ apiKey: process.env.ARMSYS_KEY });
 
-<span class="aui-code-comment">// Subscribe to a live stream of events</span>
-<span class="aui-code-keyword">const</span> <span class="aui-code-variable">stream</span> <span class="aui-code-operator">=</span> <span class="aui-code-keyword">await</span> <span class="aui-code-variable">client</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">streams</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">connect</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"orders.created"</span><span class="aui-code-punctuation">);</span>
+// Subscribe to a live stream of events
+const stream = await client.streams.connect("orders.created");
 
-<span class="aui-code-variable">stream</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">on</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"event"</span><span class="aui-code-punctuation">,</span> <span class="aui-code-punctuation">(</span><span class="aui-code-variable">evt</span><span class="aui-code-punctuation">)</span> <span class="aui-code-operator">=&gt;</span> <span class="aui-code-punctuation">{</span>
-  <span class="aui-code-variable">console</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">log</span><span class="aui-code-punctuation">(</span><span class="aui-code-variable">evt</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">id</span><span class="aui-code-punctuation">,</span> <span class="aui-code-variable">evt</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">payload</span><span class="aui-code-punctuation">);</span>
-<span class="aui-code-punctuation">});</span></pre>
-<pre class="aui-pre" data-aui-panel="py" hidden><span class="aui-code-keyword">from</span> <span class="aui-code-variable">armsys</span> <span class="aui-code-keyword">import</span> <span class="aui-code-type">Armsys</span>
-<span class="aui-code-keyword">import</span> <span class="aui-code-variable">os</span>
+stream.on("event", (evt) =&gt; {
+  console.log(evt.id, evt.payload);
+});</code></pre>
+<pre class="aui-pre" data-aui-panel="py" hidden><code class="language-python">from armsys import Armsys
+import os
 
-<span class="aui-code-variable">client</span> <span class="aui-code-operator">=</span> <span class="aui-code-function">Armsys</span><span class="aui-code-punctuation">(</span><span class="aui-code-property">api_key</span><span class="aui-code-operator">=</span><span class="aui-code-variable">os</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">environ</span><span class="aui-code-punctuation">[</span><span class="aui-code-string">"ARMSYS_KEY"</span><span class="aui-code-punctuation">])</span>
+client = Armsys(api_key=os.environ["ARMSYS_KEY"])
 
-<span class="aui-code-comment"># Subscribe to a live stream of events</span>
-<span class="aui-code-keyword">async</span> <span class="aui-code-keyword">for</span> <span class="aui-code-variable">evt</span> <span class="aui-code-keyword">in</span> <span class="aui-code-variable">client</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">streams</span><span class="aui-code-punctuation">.</span><span class="aui-code-function">connect</span><span class="aui-code-punctuation">(</span><span class="aui-code-string">"orders.created"</span><span class="aui-code-punctuation">):</span>
-    <span class="aui-code-function">print</span><span class="aui-code-punctuation">(</span><span class="aui-code-variable">evt</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">id</span><span class="aui-code-punctuation">,</span> <span class="aui-code-variable">evt</span><span class="aui-code-punctuation">.</span><span class="aui-code-property">payload</span><span class="aui-code-punctuation">)</span></pre>
-<pre class="aui-pre" data-aui-panel="curl" hidden><span class="aui-code-function">curl</span> <span class="aui-code-string">https://api.armsys.tech/v1/streams/orders.created/events</span> \
-  <span class="aui-code-property">-H</span> <span class="aui-code-string">"Authorization: Bearer $ARMSYS_KEY"</span> \
-  <span class="aui-code-property">-H</span> <span class="aui-code-string">"Accept: text/event-stream"</span></pre>
+# Subscribe to a live stream of events
+async for evt in client.streams.connect("orders.created"):
+    print(evt.id, evt.payload)</code></pre>
+<pre class="aui-pre" data-aui-panel="curl" hidden><code class="language-bash">curl https://api.armsys.tech/v1/streams/orders.created/events \
+  -H "Authorization: Bearer $ARMSYS_KEY" \
+  -H "Accept: text/event-stream"</code></pre>
             <div class="aui-code-footer"><span class="aui-dot aui-dot--success is-live"></span>Connected · eu-central · 18 ms</div>
           </div>
         </div>

@@ -13,7 +13,7 @@
 <div class="aui-app">
 <aside class="aui-sidebar" id="app-sidebar" aria-label="Application">
   <div class="aui-sidebar-header"><a class="aui-brand" href="dashboard.html"><span class="aui-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aui-i-logo"/></svg></span><span class="aui-brand-text">Armsys Console<small>Production</small></span></a></div>
-  <div class="aui-sidebar-body"><nav class="aui-nav" aria-label="Primary">
+  <div class="aui-sidebar-body"><nav class="aui-nav aui-nav--indicator" aria-label="Primary">
     <div class="aui-nav-title">Workspace</div>
     <a class="aui-nav-item" href="dashboard.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-grid"/></svg><span class="aui-nav-label">Overview</span></a>
     <a class="aui-nav-item" href="monitoring.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-activity"/></svg><span class="aui-nav-label">Monitoring</span><span class="aui-badge aui-badge--success"><span class="aui-dot aui-dot--success is-live"></span>Live</span></a>
@@ -53,7 +53,7 @@
 
       <div class="aui-settings">
         <aside class="aui-settings-nav">
-          <nav class="aui-nav" aria-label="Settings">
+          <nav class="aui-nav aui-nav--indicator" aria-label="Settings">
             <div class="aui-nav-title">Project</div>
             <a class="aui-nav-item" href="#general" aria-current="page"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-settings"/></svg><span class="aui-nav-label">General</span></a>
             <a class="aui-nav-item" href="#keys"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-key"/></svg><span class="aui-nav-label">API keys</span><span class="aui-nav-count">4</span></a>
@@ -129,7 +129,7 @@
             <div><h2 class="aui-form-section-title">Danger zone</h2><p class="aui-form-section-desc">Irreversible and destructive actions.</p></div>
             <div class="aui-danger-zone">
               <div class="aui-option-row"><div><div class="aui-option-row-title">Transfer project</div><div class="aui-option-row-desc">Move this project to another organisation.</div></div><button type="button" class="aui-btn aui-btn--sm">Transfer</button></div>
-              <div class="aui-option-row"><div><div class="aui-option-row-title">Pause all streams</div><div class="aui-option-row-desc">Stops delivery; publishers receive 503 responses.</div></div><button type="button" class="aui-btn aui-btn--sm aui-btn--danger-soft">Pause</button></div>
+              <div class="aui-option-row"><div><div class="aui-option-row-title">Pause all streams</div><div class="aui-option-row-desc">Stops delivery; publishers receive 503 responses.</div></div><button type="button" class="aui-btn aui-btn--sm aui-btn--soft aui-btn--danger">Pause</button></div>
               <div class="aui-option-row"><div><div class="aui-option-row-title">Delete project</div><div class="aui-option-row-desc">Permanently delete Northwind and all of its data.</div></div><button type="button" class="aui-btn aui-btn--sm aui-btn--danger" data-aui-modal-open="#confirm-delete">Delete project</button></div>
             </div>
           </section>
@@ -150,7 +150,7 @@
     <div><h2 class="aui-modal-title" id="cd-title">Delete project?</h2><p class="aui-modal-desc">This permanently deletes <strong>Northwind</strong>, 14 streams and 30 days of retained events. This cannot be undone.</p></div>
   </div>
   <div class="aui-modal-body aui-field"><label class="aui-label" for="cd-confirm">Type <span class="aui-code-inline">northwind</span> to confirm</label><input class="aui-input aui-input--mono" id="cd-confirm" autocomplete="off" autofocus></div>
-  <div class="aui-modal-footer"><button type="button" class="aui-btn" data-aui-modal-close>Cancel</button><button type="button" class="aui-btn aui-btn--danger" data-aui-modal-close data-aui-toast="Project scheduled for deletion" data-aui-toast-variant="danger">Delete project</button></div>
+  <div class="aui-modal-footer"><button type="button" class="aui-btn" data-aui-close>Cancel</button><button type="button" class="aui-btn aui-btn--danger" data-aui-close data-aui-toast="Project scheduled for deletion" data-aui-toast-variant="danger">Delete project</button></div>
 </dialog>
 </body>
 </html>

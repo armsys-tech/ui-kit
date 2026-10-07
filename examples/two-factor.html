@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sign in — Armsys</title>
+<title>Two-factor authentication — Armsys</title>
 <link rel="stylesheet" href="../dist/armsys-ui.css">
 <script src="../dist/armsys-ui.js" defer></script>
 </head>
@@ -32,48 +32,42 @@
     <div class="aui-auth-aside-bottom aui-mt-6"><span>© 2026 Armsys Technology</span><span class="aui-status aui-text-xs"><span class="aui-dot aui-dot--success is-live"></span>All systems operational</span></div>
   </aside>
   <main class="aui-auth-main">
-    <div class="aui-auth-top"><a class="aui-brand aui-show-mobile" href="website.html"><span class="aui-logo aui-logo--sm"><svg viewBox="0 0 24 24"><use href="#aui-i-logo"/></svg></span>Armsys</a><span class="aui-row aui-gap-3 aui-ml-auto"><span>New to Armsys?</span><a class="aui-btn aui-btn--outline aui-btn--sm" href="register.html">Create account</a></span></div>
+    <div class="aui-auth-top"><a class="aui-brand aui-show-mobile" href="website.html"><span class="aui-logo aui-logo--sm"><svg viewBox="0 0 24 24"><use href="#aui-i-logo"/></svg></span>Armsys</a><a class="aui-link aui-link--quiet aui-text-sm" href="#">Contact support</a></div>
     <div class="aui-auth-form">
+      <a class="aui-auth-back" href="login.html"><svg class="aui-icon"><use href="#aui-i-arrow-left"/></svg>Use a different account</a>
       <div class="aui-auth-header">
-        <h1 class="aui-auth-title">Welcome back</h1>
-        <p class="aui-auth-desc">Sign in to the Armsys console to manage your streams.</p>
+        <span class="aui-icon-box aui-icon-box--lg aui-icon-box--accent"><svg class="aui-icon"><use href="#aui-i-shield-check"/></svg></span>
+        <h1 class="aui-auth-title">Two-factor authentication</h1>
+        <p class="aui-auth-desc">Enter the 6-digit code from your authenticator app for <b>ayla@armsys.tech</b>.</p>
       </div>
-      <div class="aui-auth-social aui-auth-social--2">
-        <button class="aui-btn aui-btn--social aui-btn--lg" type="button"><svg class="aui-btn-brand" viewBox="0 0 24 24"><use href="#aui-i-google"/></svg>Google</button>
-        <button class="aui-btn aui-btn--social aui-btn--lg" type="button"><svg class="aui-btn-brand" viewBox="0 0 24 24"><use href="#aui-i-github"/></svg>GitHub</button>
-      </div>
-      <button class="aui-btn aui-btn--social aui-btn--lg aui-btn--block aui-mt-3" type="button"><svg class="aui-icon"><use href="#aui-i-key"/></svg>Continue with SSO</button>
-      <div class="aui-divider-text aui-auth-divider">or continue with email</div>
-      <form class="aui-form" id="login-form" novalidate>
-        <div class="aui-field">
-          <label class="aui-label" for="email">Work email</label>
-          <div class="aui-input-wrap"><svg class="aui-icon"><use href="#aui-i-mail"/></svg><input class="aui-input" id="email" type="email" autocomplete="email" placeholder="you@company.com" required></div>
-        </div>
-        <div class="aui-field">
-          <div class="aui-label-row"><label class="aui-label" for="password">Password</label><a class="aui-link" href="forgot-password.html">Forgot password?</a></div>
-          <div class="aui-input-wrap">
-            <svg class="aui-icon"><use href="#aui-i-lock"/></svg>
-            <input class="aui-input" id="password" type="password" autocomplete="current-password" placeholder="••••••••" required>
-            <div class="aui-input-end"><button class="aui-input-action" type="button" data-aui-password-toggle aria-label="Show password"><svg class="aui-icon aui-reveal-off"><use href="#aui-i-eye"/></svg><svg class="aui-icon aui-reveal-on"><use href="#aui-i-eye-off"/></svg></button></div>
-          </div>
-        </div>
-        <label class="aui-check"><input type="checkbox" checked><span>Keep me signed in for 30 days</span></label>
-        <button class="aui-btn aui-btn--primary aui-btn--block" type="submit">Sign in<svg class="aui-icon"><use href="#aui-i-arrow-right"/></svg></button>
+      <form class="aui-form" id="otp-form">
+        <div class="aui-otp" id="otp" data-aui-otp="6" data-aui-otp-sep="3" data-name="code"></div>
+        <label class="aui-check"><input type="checkbox"><span>Trust this device for 30 days</span></label>
+        <button class="aui-btn aui-btn--primary aui-btn--block" type="submit">Verify and continue</button>
       </form>
-      <p class="aui-auth-legal">Protected by rate limiting and device verification. By continuing you agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
+      <div class="aui-divider-text aui-auth-divider">having trouble?</div>
+      <div class="aui-stack aui-gap-2">
+        <button class="aui-btn aui-btn--social aui-btn--block" type="button"><svg class="aui-icon"><use href="#aui-i-smartphone"/></svg>Send a code by SMS</button>
+        <button class="aui-btn aui-btn--social aui-btn--block" type="button"><svg class="aui-icon"><use href="#aui-i-key"/></svg>Use a recovery code</button>
+      </div>
     </div>
     <div class="aui-auth-bottom"><div class="aui-footer-legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Help</a></div><button class="aui-btn aui-btn--ghost aui-btn--xs" type="button" data-aui-theme-toggle><svg class="aui-icon"><use href="#aui-i-sun"/></svg>Theme</button></div>
   </main>
 </div>
 
 <script>
-document.getElementById('login-form').addEventListener('submit', function (e) {
-  e.preventDefault();
-  var email = document.getElementById('email'), pw = document.getElementById('password'), btn = this.querySelector('[type=submit]');
-  [email, pw].forEach(function (i) { i.classList.toggle('is-invalid', !i.value); });
-  if (!email.value || !pw.value) { ArmsysUI.toast({ title: 'Enter your email and password', variant: 'danger' }); return; }
-  btn.classList.add('is-loading');
-  setTimeout(function () { location.href = 'two-factor.html'; }, 900);
+document.addEventListener('DOMContentLoaded', function () {
+  var otp = document.getElementById('otp'), form = document.getElementById('otp-form');
+  function verify(code) {
+    var btn = form.querySelector('[type=submit]'); btn.classList.add('is-loading');
+    setTimeout(function () {
+      btn.classList.remove('is-loading');
+      if (code === '123456') { otp.classList.add('is-valid'); ArmsysUI.toast({ title: 'Signed in', variant: 'success' }); setTimeout(function () { location.href = 'dashboard.html'; }, 700); }
+      else { otp.classList.add('is-invalid', 'is-shake'); setTimeout(function () { otp.classList.remove('is-shake'); }, 400); ArmsysUI.toast({ title: 'Invalid code', message: 'Tip: the demo code is 123456', variant: 'danger' }); }
+    }, 700);
+  }
+  otp.addEventListener('aui:complete', function (e) { verify(e.detail.value); });
+  form.addEventListener('submit', function (e) { e.preventDefault(); verify(otp.querySelector('input[type=hidden]').value); });
 });
 </script>
 </body>

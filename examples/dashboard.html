@@ -13,7 +13,7 @@
 <div class="aui-app">
 <aside class="aui-sidebar" id="app-sidebar" aria-label="Application">
   <div class="aui-sidebar-header"><a class="aui-brand" href="dashboard.html"><span class="aui-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aui-i-logo"/></svg></span><span class="aui-brand-text">Armsys Console<small>Production</small></span></a></div>
-  <div class="aui-sidebar-body"><nav class="aui-nav" aria-label="Primary">
+  <div class="aui-sidebar-body"><nav class="aui-nav aui-nav--indicator" aria-label="Primary">
     <div class="aui-nav-title">Workspace</div>
     <a class="aui-nav-item" href="dashboard.html" aria-current="page"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-grid"/></svg><span class="aui-nav-label">Overview</span></a>
     <a class="aui-nav-item" href="monitoring.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-activity"/></svg><span class="aui-nav-label">Monitoring</span><span class="aui-badge aui-badge--success"><span class="aui-dot aui-dot--success is-live"></span>Live</span></a>
@@ -51,8 +51,8 @@
           <div class="aui-menu aui-menu--end aui-popover" role="menu">
             <div class="aui-row aui-row--between aui-mb-4"><strong class="aui-text-sm">Notifications</strong><a class="aui-link aui-text-xs" href="#">Mark all read</a></div>
             <ul class="aui-timeline">
-              <li><span class="aui-timeline-marker aui-dot--warning"></span><div class="aui-timeline-title">Latency above threshold</div><div class="aui-timeline-time">edge.fra · 4 min ago</div></li>
-              <li><span class="aui-timeline-marker aui-dot--success"></span><div class="aui-timeline-title">Deploy v3.18.2 completed</div><div class="aui-timeline-time">gateway · 26 min ago</div></li>
+              <li><span class="aui-timeline-marker aui-timeline-marker--warning"></span><div class="aui-timeline-title">Latency above threshold</div><div class="aui-timeline-time">edge.fra · 4 min ago</div></li>
+              <li><span class="aui-timeline-marker aui-timeline-marker--success"></span><div class="aui-timeline-title">Deploy v3.18.2 completed</div><div class="aui-timeline-time">gateway · 26 min ago</div></li>
               <li><span class="aui-timeline-marker"></span><div class="aui-timeline-title">Key rotated</div><div class="aui-timeline-time">ak_live_8f2 · 1 h ago</div></li>
             </ul>
           </div>
@@ -77,7 +77,7 @@
       <div class="aui-alert aui-alert--warning aui-mb-6" role="status">
         <svg class="aui-icon" aria-hidden="true"><use href="#aui-i-alert"/></svg>
         <div class="aui-alert-body"><div class="aui-alert-title">Elevated latency in Frankfurt</div><div class="aui-alert-text">p95 delivery latency at edge.fra is 142 ms (threshold 120 ms). Traffic is being shifted to edge.ams.</div></div>
-        <button type="button" class="aui-alert-close" data-aui-dismiss aria-label="Dismiss"><svg class="aui-icon aui-icon--sm" aria-hidden="true"><use href="#aui-i-x"/></svg></button>
+        <button type="button" class="aui-close" data-aui-dismiss aria-label="Dismiss"><svg class="aui-icon aui-icon--sm" aria-hidden="true"><use href="#aui-i-x"/></svg></button>
       </div>
 
       <div class="aui-grid aui-grid--4">
@@ -156,9 +156,9 @@
           <div class="aui-card-header"><div class="aui-card-title">Activity</div></div>
           <div class="aui-card-body">
             <ul class="aui-timeline">
-              <li><span class="aui-timeline-marker aui-dot--accent"></span><div class="aui-timeline-title">Stream <span class="aui-mono">checkout.v2</span> created</div><div class="aui-timeline-time">Ayla Tan · 12:41</div></li>
-              <li><span class="aui-timeline-marker aui-dot--success"></span><div class="aui-timeline-title">Deploy v3.18.2 succeeded</div><div class="aui-timeline-time">CI · 11:58</div><div class="aui-timeline-text">Gateway rolled out to 12 pods in 3 regions.</div></li>
-              <li><span class="aui-timeline-marker aui-dot--warning"></span><div class="aui-timeline-title">Alert opened: latency</div><div class="aui-timeline-time">Observe · 11:20</div></li>
+              <li><span class="aui-timeline-marker aui-timeline-marker--accent"></span><div class="aui-timeline-title">Stream <span class="aui-mono">checkout.v2</span> created</div><div class="aui-timeline-time">Ayla Tan · 12:41</div></li>
+              <li><span class="aui-timeline-marker aui-timeline-marker--success"></span><div class="aui-timeline-title">Deploy v3.18.2 succeeded</div><div class="aui-timeline-time">CI · 11:58</div><div class="aui-timeline-text">Gateway rolled out to 12 pods in 3 regions.</div></li>
+              <li><span class="aui-timeline-marker aui-timeline-marker--warning"></span><div class="aui-timeline-title">Alert opened: latency</div><div class="aui-timeline-time">Observe · 11:20</div></li>
               <li><span class="aui-timeline-marker"></span><div class="aui-timeline-title">Member invited</div><div class="aui-timeline-time">Kemal Ersoy · 09:02</div></li>
             </ul>
           </div>
@@ -171,7 +171,7 @@
 <dialog class="aui-modal" id="new-stream" aria-labelledby="new-stream-title">
   <div class="aui-modal-header">
     <div><h2 class="aui-modal-title" id="new-stream-title">Create stream</h2><p class="aui-modal-desc">Streams are ordered, durable topics your services publish to.</p></div>
-    <button type="button" class="aui-modal-close" data-aui-modal-close aria-label="Close"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-x"/></svg></button>
+    <button type="button" class="aui-close" data-aui-close aria-label="Close"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-x"/></svg></button>
   </div>
   <form class="aui-modal-body aui-form" method="dialog" id="new-stream-form">
     <div class="aui-field"><label class="aui-label aui-required" for="ns-name">Name</label><input class="aui-input aui-input--mono" id="ns-name" placeholder="orders.created" autofocus><span class="aui-help">Lowercase letters, numbers and dots.</span></div>
@@ -182,8 +182,8 @@
     <label class="aui-switch"><input type="checkbox" role="switch" checked><span>Enable replay</span></label>
   </form>
   <div class="aui-modal-footer">
-    <button type="button" class="aui-btn" data-aui-modal-close>Cancel</button>
-    <button type="button" class="aui-btn aui-btn--primary" data-aui-modal-close data-aui-toast="Stream created" data-aui-toast-message="orders.created is ready to receive events." data-aui-toast-variant="success">Create stream</button>
+    <button type="button" class="aui-btn" data-aui-close>Cancel</button>
+    <button type="button" class="aui-btn aui-btn--primary" data-aui-close data-aui-toast="Stream created" data-aui-toast-message="orders.created is ready to receive events." data-aui-toast-variant="success">Create stream</button>
   </div>
 </dialog>
 </body>

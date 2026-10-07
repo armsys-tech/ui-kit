@@ -13,7 +13,7 @@
 <div class="aui-app">
 <aside class="aui-sidebar" id="app-sidebar" aria-label="Application">
   <div class="aui-sidebar-header"><a class="aui-brand" href="dashboard.html"><span class="aui-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#aui-i-logo"/></svg></span><span class="aui-brand-text">Armsys Console<small>Production</small></span></a></div>
-  <div class="aui-sidebar-body"><nav class="aui-nav" aria-label="Primary">
+  <div class="aui-sidebar-body"><nav class="aui-nav aui-nav--indicator" aria-label="Primary">
     <div class="aui-nav-title">Workspace</div>
     <a class="aui-nav-item" href="dashboard.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-grid"/></svg><span class="aui-nav-label">Overview</span></a>
     <a class="aui-nav-item" href="monitoring.html"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-activity"/></svg><span class="aui-nav-label">Monitoring</span><span class="aui-badge aui-badge--success"><span class="aui-dot aui-dot--success is-live"></span>Live</span></a>
@@ -125,7 +125,7 @@
 <dialog class="aui-drawer aui-drawer--lg" id="event-drawer" aria-labelledby="ed-title">
   <div class="aui-modal-header">
     <div><div class="aui-row"><h2 class="aui-modal-title aui-mono" id="ed-title">evt_01J9Z6Q4N7</h2><span class="aui-badge aui-badge--success">Delivered</span></div><p class="aui-modal-desc">order.created · orders · partition 3 · offset 884213</p></div>
-    <button type="button" class="aui-modal-close" data-aui-modal-close aria-label="Close"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-x"/></svg></button>
+    <button type="button" class="aui-close" data-aui-close aria-label="Close"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-x"/></svg></button>
   </div>
   <div class="aui-modal-body aui-stack aui-gap-6">
     <dl class="aui-dl">
@@ -136,23 +136,23 @@
     </dl>
     <div class="aui-code">
       <div class="aui-code-header"><span class="aui-code-title"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-file"/></svg>payload.json</span><div class="aui-code-actions"><button type="button" class="aui-copy" data-aui-copy aria-label="Copy code"><span class="aui-copy-idle"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-copy"/></svg>Copy</span><span class="aui-copy-done"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-check"/></svg>Copied</span></button></div></div>
-<pre class="aui-pre"><span class="aui-code-punctuation">{</span>
-  <span class="aui-code-property">"order_id"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"ord_9921"</span><span class="aui-code-punctuation">,</span>
-  <span class="aui-code-property">"customer"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"cus_42"</span><span class="aui-code-punctuation">,</span>
-  <span class="aui-code-property">"total"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-number">129.9</span><span class="aui-code-punctuation">,</span>
-  <span class="aui-code-property">"currency"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-string">"EUR"</span><span class="aui-code-punctuation">,</span>
-  <span class="aui-code-property">"gift"</span><span class="aui-code-punctuation">:</span> <span class="aui-code-boolean">false</span>
-<span class="aui-code-punctuation">}</span></pre>
+<pre class="aui-pre"><code class="language-json">{
+  "order_id": "ord_9921",
+  "customer": "cus_42",
+  "total": 129.9,
+  "currency": "EUR",
+  "gift": false
+}</code></pre>
     </div>
     <div>
       <h3 class="aui-h4 aui-mb-4">Delivery attempts</h3>
       <ul class="aui-timeline">
-        <li><span class="aui-timeline-marker aui-dot--success"></span><div class="aui-timeline-title">Delivered to 312 subscribers</div><div class="aui-timeline-time">14:02:14.920 · 38 ms</div></li>
-        <li><span class="aui-timeline-marker aui-dot--accent"></span><div class="aui-timeline-title">Accepted by gateway</div><div class="aui-timeline-time">14:02:14.882</div></li>
+        <li><span class="aui-timeline-marker aui-timeline-marker--success"></span><div class="aui-timeline-title">Delivered to 312 subscribers</div><div class="aui-timeline-time">14:02:14.920 · 38 ms</div></li>
+        <li><span class="aui-timeline-marker aui-timeline-marker--accent"></span><div class="aui-timeline-title">Accepted by gateway</div><div class="aui-timeline-time">14:02:14.882</div></li>
       </ul>
     </div>
   </div>
-  <div class="aui-modal-footer"><button type="button" class="aui-btn" data-aui-modal-close>Close</button><button type="button" class="aui-btn aui-btn--primary" data-aui-modal-close data-aui-toast="Replay queued" data-aui-toast-variant="success"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-play"/></svg>Replay event</button></div>
+  <div class="aui-modal-footer"><button type="button" class="aui-btn" data-aui-close>Close</button><button type="button" class="aui-btn aui-btn--primary" data-aui-close data-aui-toast="Replay queued" data-aui-toast-variant="success"><svg class="aui-icon" aria-hidden="true"><use href="#aui-i-play"/></svg>Replay event</button></div>
 </dialog>
 </body>
 </html>
