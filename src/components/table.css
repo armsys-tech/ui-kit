@@ -1,8 +1,10 @@
 /* ==========================================================================
-   Armsys UI — Table system
+   Armsys UI 2 — Table system
    One foundation (.aui-table) + modifiers: dense, public, comparison, params, ranking.
    ========================================================================== */
-.aui-table-wrap { width: 100%; overflow-x: auto; background: var(--aui-surface-1); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-md); -webkit-overflow-scrolling: touch; }
+.aui-table-wrap { width: 100%; overflow-x: auto; background: var(--aui-surface-1); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-lg); -webkit-overflow-scrolling: touch; }
+.aui-table-wrap--scroll { max-height: var(--aui-table-h, 520px); overflow: auto; }
+.aui-table-wrap--scroll .aui-table thead th { position: sticky; top: 0; z-index: 1; }
 .aui-table-wrap--plain { background: transparent; border: 0; border-radius: 0; }
 .aui-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: var(--aui-fs-sm); font-variant-numeric: tabular-nums; }
 .aui-table th {
@@ -29,7 +31,13 @@
 .aui-table code { font-size: .92em; color: var(--aui-text); }
 .aui-sort { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; background: none; border: 0; padding: 0; font: inherit; color: inherit; }
 .aui-sort:hover, th[aria-sort] .aui-sort { color: var(--aui-text); }
-.aui-sort .aui-icon { width: 12px; height: 12px; }
+.aui-sort .aui-icon { width: 12px; height: 12px; opacity: .5; }
+th[aria-sort] .aui-sort .aui-icon { opacity: 1; }
+th[aria-sort="descending"] .aui-sort .aui-icon { transform: rotate(180deg); }
+th[data-aui-sort], th[data-aui-sort] .aui-sort { cursor: pointer; user-select: none; }
+.aui-table tr.is-clickable { cursor: pointer; }
+.aui-table--striped tbody tr:nth-child(even) { background: color-mix(in srgb, var(--aui-surface-2) 45%, transparent); }
+.aui-table--bordered td + td, .aui-table--bordered th + th { border-left: 1px solid var(--aui-border-soft); }
 .aui-table-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; border-top: 1px solid var(--aui-border-soft); font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
 
 /* Dense — operational screens */
@@ -73,15 +81,15 @@
 
 /* Rank number */
 .aui-rank {
-  --aui-tone: var(--aui-text-secondary);
+  --_t: var(--aui-text-secondary);
   display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 6px;
-  font-size: var(--aui-fs-xs); font-weight: var(--aui-fw-semibold); font-variant-numeric: tabular-nums; color: var(--aui-tone);
+  font-size: var(--aui-fs-xs); font-weight: var(--aui-fw-semibold); font-variant-numeric: tabular-nums; color: var(--_t);
   background: var(--aui-surface-2); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-sm);
 }
-.aui-rank--1 { --aui-tone: #f3c64b; }
-.aui-rank--2 { --aui-tone: #cfd6e2; }
-.aui-rank--3 { --aui-tone: #e39a64; }
-.aui-rank--1, .aui-rank--2, .aui-rank--3 { background: color-mix(in srgb, var(--aui-tone) 12%, transparent); border-color: color-mix(in srgb, var(--aui-tone) 32%, transparent); }
+.aui-rank--1 { --_t: var(--aui-gold); }
+.aui-rank--2 { --_t: var(--aui-silver); }
+.aui-rank--3 { --_t: var(--aui-bronze); }
+.aui-rank--1, .aui-rank--2, .aui-rank--3 { background: color-mix(in srgb, var(--_t) 12%, transparent); border-color: color-mix(in srgb, var(--_t) 32%, transparent); }
 .aui-rank-change { font-size: var(--aui-fs-2xs); font-variant-numeric: tabular-nums; margin-left: 6px; color: var(--aui-text-subtle); }
 .aui-rank-change.is-up { color: var(--aui-success); }
 .aui-rank-change.is-down { color: var(--aui-danger); }
