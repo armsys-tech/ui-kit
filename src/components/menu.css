@@ -16,7 +16,8 @@
 }
 .aui-dropdown.is-open > .aui-menu, .aui-menu.is-open, .aui-menu.is-static { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
 .aui-menu.is-static { position: relative; top: auto; left: auto; z-index: auto; }
-.aui-menu.is-floating { position: fixed; top: 0; left: 0; margin: 0; }
+/* JS sets top/left; reset the static-placement edges (--up sets bottom, --end sets right) or the box collapses */
+.aui-menu.is-floating { position: fixed; top: 0; left: 0; right: auto; bottom: auto; margin: 0; }
 .aui-menu[data-placement^="top"] { --_origin: bottom left; }
 .aui-menu--end { left: auto; right: 0; --_origin: top right; }
 .aui-menu--up { top: auto; bottom: calc(100% + 6px); --_origin: bottom left; }
@@ -105,7 +106,7 @@
 }
 .aui-popover.is-open, .aui-popover.is-static, .aui-dropdown.is-open > .aui-popover { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
 .aui-popover.is-static { position: relative; }
-.aui-popover.is-floating { position: fixed; top: 0; left: 0; }
+.aui-popover.is-floating { position: fixed; top: 0; left: 0; right: auto; bottom: auto; }
 .aui-dropdown > .aui-popover { top: calc(100% + 8px); left: 0; }
 .aui-dropdown > .aui-popover--end { left: auto; right: 0; }
 .aui-dropdown > .aui-popover--center { left: 50%; translate: -50% 0; }
