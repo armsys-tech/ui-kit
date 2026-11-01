@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Armsys UI 2 — Table system
+   Armsys UI 3 — Table system
    One foundation (.aui-table) + modifiers: dense, public, comparison, params, ranking.
    ========================================================================== */
 .aui-table-wrap { width: 100%; overflow-x: auto; background: var(--aui-surface-1); border: 1px solid var(--aui-border); border-radius: var(--aui-radius-lg); -webkit-overflow-scrolling: touch; }

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Armsys UI 2 — Data display
+   Armsys UI 3 — Data display
    Card · panel · icon box · stat/metric · badge · dot/status · avatar ·
    entity · list · description list · progress/ring/meter · mini charts ·
    skeleton · empty state · timeline · log stream · uptime strip
@@ -161,6 +161,28 @@
 .aui-list-meta { font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .aui-list-text { margin-top: 2px; font-size: var(--aui-fs-sm); color: var(--aui-text-muted); }
 .aui-list-end { margin-left: auto; display: flex; align-items: center; gap: 8px; flex: none; font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
+
+/* ---------- Notification center ----------
+   Rows with their own action buttons must be <a> or <div tabindex="0">, never <button> (buttons cannot nest).
+   <div class="aui-notifs"><a class="aui-notif is-unread"><span class="aui-avatar">…</span><div class="aui-notif-body">…</div><time class="aui-notif-time">2m</time></a></div> */
+.aui-notifs { display: flex; flex-direction: column; min-width: 0; }
+.aui-notif { position: relative; display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px 12px 20px; color: inherit; text-decoration: none; border-top: 1px solid var(--aui-border-soft); transition: background-color var(--aui-dur-fast); }
+.aui-notif:first-child { border-top: 0; }
+:is(a, button, [tabindex]).aui-notif { width: 100%; margin: 0; font: inherit; text-align: left; background: none; border-left: 0; border-right: 0; border-bottom: 0; cursor: pointer; }
+:is(a, button, [tabindex]).aui-notif:hover { background: var(--aui-hover); }
+:is(a, button, [tabindex]).aui-notif:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--aui-focus); }
+.aui-notif.is-unread { background: color-mix(in srgb, var(--aui-accent) 5%, transparent); }
+.aui-notif.is-unread::before { content: ""; position: absolute; left: 8px; top: 20px; width: 6px; height: 6px; border-radius: 50%; background: var(--aui-accent); }
+.aui-notif > .aui-avatar, .aui-notif > .aui-icon-box { margin-top: 1px; }
+.aui-notif-body { flex: 1; min-width: 0; font-size: var(--aui-fs-sm); line-height: 1.45; color: var(--aui-text-muted); }
+.aui-notif-body b, .aui-notif-title { color: var(--aui-text); font-weight: var(--aui-fw-medium); }
+.aui-notif-text { margin-top: 2px; color: var(--aui-text-muted); }
+.aui-notif-quote { margin-top: 6px; padding: 8px 10px; font-size: var(--aui-fs-xs); color: var(--aui-text-secondary); background: var(--aui-surface-2); border: 1px solid var(--aui-border-soft); border-radius: var(--aui-radius-sm); }
+.aui-notif-actions { display: flex; gap: 6px; margin-top: 8px; }
+.aui-notif-time { flex: none; font-size: var(--aui-fs-2xs); color: var(--aui-text-subtle); font-variant-numeric: tabular-nums; white-space: nowrap; padding-top: 2px; }
+.aui-notif-more { position: absolute; right: 10px; bottom: 10px; opacity: 0; transition: opacity var(--aui-dur-fast); }
+.aui-notif:hover .aui-notif-more, .aui-notif:focus-within .aui-notif-more { opacity: 1; }
+.aui-notif-day { padding: 10px 16px 4px; font-size: var(--aui-fs-2xs); font-weight: var(--aui-fw-semibold); letter-spacing: .08em; text-transform: uppercase; color: var(--aui-text-subtle); }
 
 /* ---------- Description list & key/value ---------- */
 .aui-dl { display: grid; grid-template-columns: minmax(120px, max-content) minmax(0, 1fr); gap: 10px 28px; margin: 0; font-size: var(--aui-fs-sm); }

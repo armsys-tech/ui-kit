@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Armsys UI 2 — Documentation layout
+   Armsys UI 3 — Documentation layout
    Lives INSIDE the shared frame: same header, same container edges as the
    website, so the docs nav text lines up with the header logo.
 
@@ -12,6 +12,7 @@
      </div>
    ========================================================================== */
 .aui-docs {
+  --aui-docs-inset: 10px;
   display: grid; grid-template-columns: var(--aui-docs-nav-w) minmax(0, 1fr) var(--aui-docs-toc-w);
   width: 100%; max-width: calc(var(--aui-frame) + var(--aui-gutter) * 2); margin-inline: auto; padding-inline: var(--aui-gutter);
   flex: 1 0 auto;
@@ -20,7 +21,9 @@
 .aui-docs-sidebar {
   position: sticky; top: var(--aui-header-h); height: calc(100vh - var(--aui-header-h)); height: calc(100dvh - var(--aui-header-h));
   overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin;
-  padding: 28px 20px 48px 0; border-right: 1px solid var(--aui-border-soft); background: var(--aui-bg);
+  /* The sidebar overhangs the gutter by the link padding, so link text aligns with the header logo
+     while hover/active pills keep their 10px inset instead of being clipped by overflow */
+  margin-left: calc(var(--aui-docs-inset) * -1); padding: 28px 20px 48px 0; border-right: 1px solid var(--aui-border-soft); background: var(--aui-bg);
 }
 .aui-docs-main { min-width: 0; padding: 44px 0 96px 56px; }
 .aui-docs--no-toc .aui-docs-main { padding-right: 0; }
@@ -29,14 +32,14 @@
 .aui-docs-toc { position: sticky; top: var(--aui-header-h); height: calc(100vh - var(--aui-header-h)); overflow-y: auto; padding: 44px 0 40px 32px; scrollbar-width: none; }
 .aui-docs-sidebar > .aui-search-trigger { margin-bottom: 20px; }
 
-/* Docs navigation — negative inline margin aligns link text with the header logo */
-.aui-docs-nav { display: flex; flex-direction: column; margin-left: -10px; }
+/* Docs navigation — links and group titles share the same 10px inset (= the sidebar overhang) */
+.aui-docs-nav { display: flex; flex-direction: column; }
 .aui-docs-group + .aui-docs-group { margin-top: 24px; }
-.aui-docs-group-title { display: flex; align-items: center; gap: 8px; padding: 0 10px 6px; font-size: var(--aui-fs-xs); font-weight: var(--aui-fw-semibold); color: var(--aui-text); }
+.aui-docs-group-title { display: flex; align-items: center; gap: 8px; min-height: 28px; padding: 0 var(--aui-docs-inset) 4px; font-size: var(--aui-fs-xs); font-weight: var(--aui-fw-semibold); color: var(--aui-text); }
 .aui-docs-group-title .aui-icon { width: 14px; height: 14px; color: var(--aui-text-subtle); }
 .aui-docs-group ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 1px; }
 .aui-docs-link {
-  display: flex; align-items: center; gap: 8px; min-height: 30px; padding: 5px 10px; border-radius: var(--aui-radius-sm);
+  display: flex; align-items: center; gap: 8px; min-height: 30px; padding: 5px var(--aui-docs-inset); border-radius: var(--aui-radius-sm);
   font-size: var(--aui-fs-sm); line-height: 1.45; color: var(--aui-text-muted); text-decoration: none; transition: color var(--aui-dur-fast), background-color var(--aui-dur-fast);
 }
 .aui-docs-link:hover { color: var(--aui-text); background: var(--aui-hover); }
@@ -132,8 +135,8 @@ details.aui-docs-group[open] > summary::after { transform: rotate(45deg); }
     font-size: var(--aui-fs-sm); color: var(--aui-text-muted); background: color-mix(in srgb, var(--aui-bg) 92%, transparent); border-bottom: 1px solid var(--aui-border-soft); backdrop-filter: var(--aui-blur); -webkit-backdrop-filter: var(--aui-blur);
   }
   .aui-docs-sidebar {
-    position: fixed; left: 0; top: var(--aui-header-h); bottom: 0; z-index: var(--aui-z-drawer); width: min(320px, 86vw); height: auto;
-    padding: 20px 16px 48px 26px; transform: translateX(-102%); visibility: hidden; transition: transform var(--aui-dur-slow) var(--aui-ease-out), visibility 0s linear var(--aui-dur-slow); box-shadow: var(--aui-shadow-overlay);
+    position: fixed; left: 0; top: var(--aui-header-h); bottom: 0; z-index: var(--aui-z-drawer); width: min(320px, 86vw); height: auto; margin-left: 0;
+    padding: 20px 16px 48px 16px; transform: translateX(-102%); visibility: hidden; transition: transform var(--aui-dur-slow) var(--aui-ease-out), visibility 0s linear var(--aui-dur-slow); box-shadow: var(--aui-shadow-overlay);
   }
   .aui-docs-sidebar.is-open { transform: none; visibility: visible; transition-delay: 0s; }
   .aui-docs-main { padding: 28px var(--aui-gutter) 72px; }

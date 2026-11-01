@@ -1,3 +1,24 @@
+# Migrating to Armsys UI 3
+
+No class was removed or renamed. Upgrade by changing the version:
+
+```text
+@2.0.1 → @3.0.0
+```
+
+Things that changed:
+
+- `examples/desktop.html` is now a full workbench (menubar, rail, tree, tab strip, resizable panels). The 2.x `aui-app--collapsed` + `aui-tool` layout still works; the new shell is the recommended starting point for IDE-like tools.
+- `.aui-docs-sidebar` overhangs the content gutter by `--aui-docs-inset` (10px) so hover/active pills are not clipped. If you set a custom `margin-left` on it, keep that in mind (mobile resets it).
+- `.aui-search-trigger > span` only stretches the label; wrap keyboard hints in `.aui-kbd-group` or `<kbd>` as before.
+- `.aui-option-row-title` / `-desc` are now `display:block` (previously inherited inline when used with `<span>`).
+- Notification rows that contain buttons must be `<a>` or `<div tabindex="0">`.
+- `.aui-btn--toggle[aria-pressed]` buttons flip their pressed state on click automatically; remove any custom click handler that did only that.
+
+Everything below is the 1.x → 2.x guide.
+
+---
+
 # Migrating from Armsys UI 1.x to 2.0
 
 2.0 is a clean break: a few class names changed, the layout frame is unified and the JavaScript grew. Most markup keeps working; this list covers everything that needs an edit.
@@ -59,5 +80,5 @@ aui-site-header-inner--fluid → (remove)
 --aui-topbar-h           → --aui-header-h
 --aui-container-docs     → --aui-frame
 class="aui-nav"          → class="aui-nav aui-nav--indicator"   (app sidebars)
-@1.0.0                   → @2.0.1
+@1.0.0                   → @3.0.0
 ```

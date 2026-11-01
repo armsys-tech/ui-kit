@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "2.0.1",
+  "version": "3.0.0",
   "global": "window.ArmsysUI",
   "load": {
     "script": "<script src=\".../armsys-ui.min.js\" defer></script>",
@@ -57,7 +57,16 @@
     "data-aui-toc": "Scroll-spy for any nav of #anchor links.",
     "data-aui-command / data-aui-command-open": "Command palette dialog and its triggers (+ mod+k).",
     "data-aui-lines / data-aui-hl / data-aui-add / data-aui-del (on .aui-code)": "Line numbers, highlighted, added and removed lines.",
-    "data-aui-no-highlight (on code)": "Skip highlight.js for one block."
+    "data-aui-no-highlight (on code)": "Skip highlight.js for one block.",
+    "data-aui-menubar": "On .aui-menubar: hovering / ←→ switches between open menus.",
+    "data-aui-tab-close / data-aui-tab-add": "Inside .aui-tabstrip tabs: close the tab (cancelable aui:tab-close) / fire aui:tab-add.",
+    "data-aui-tree [=\"chevron\"]": "Tree view: selection, expand/collapse, keyboard; \"chevron\" limits toggling to the chevron.",
+    "data-aui-resize [+ data-aui-resize-key]": "Resizable panels; handles are .aui-resize-handle with data-aui-min/max.",
+    "data-aui-calendar": "Render an inline calendar (data-value, data-min/max, data-marked, data-aui-locale, data-aui-week-start).",
+    "data-aui-datepicker [+ data-aui-format]": "Floating calendar on a text input; opens on focus (=\"click\" opens on click only).",
+    "data-aui-composer [=\"ctrl\"]": "Chat composer: autosize, Enter sends (aui:send), send/mic icon swap.",
+    "data-aui-chat-scroll": "Chat body: start at the bottom, follow new messages, toggle .aui-chat-jump.",
+    "data-aui-chat-info-toggle": "Toggle the info pane (aui-chat--info) of the closest .aui-chat."
   },
   "api": {
     "init(root?)": "Initialise behaviours inside root (idempotent).",
@@ -76,7 +85,14 @@
     "refreshSelect(select)": "Rebuild an enhanced select after changing options.",
     "highlight(root?)": "Highlight new code blocks now.",
     "addTag(el, value)": "Add a tag to a [data-aui-tags] input.",
-    "addIcons({name: svgInner}) / icon(name) / icons": "Icon sprite helpers."
+    "addIcons({name: svgInner}) / icon(name) / icons": "Icon sprite helpers.",
+    "closeTab(ref)": "Close a tab-strip tab (fires cancelable aui:tab-close, activates a neighbour).",
+    "treeSelect(ref) / treeToggle(ref, open?)": "Select or expand/collapse a tree item.",
+    "openDatepicker(input) / closeDatepicker()": "Open or close the floating date picker.",
+    "setDate(calendar, value)": "Set an inline calendar (ISO string, Date or null).",
+    "parseDate(str, fmt?) / formatDate(date, fmt?)": "Date helpers used by the picker (fmt tokens: dd mm yyyy).",
+    "send(composer)": "Trigger a composer send (fires aui:send).",
+    "scrollChat(body, smooth?)": "Scroll a chat body to the latest message."
   },
   "events": [
     "aui:open (cancelable)",
@@ -102,7 +118,19 @@
     "aui:theme {theme,preference}",
     "aui:sidebar {collapsed}",
     "aui:nav-open",
-    "aui:nav-close"
+    "aui:nav-close",
+    "aui:tab-close {tab} (cancelable)",
+    "aui:tab-closed {tab}",
+    "aui:tab-add",
+    "aui:tree-select {item, value}",
+    "aui:tree-toggle {item, expanded}",
+    "aui:tree-activate {item, value}",
+    "aui:resize {pane, size}",
+    "aui:date {value, date}",
+    "aui:send {text, input} (cancelable)",
+    "aui:send-empty",
+    "aui:convo {value}",
+    "aui:toggle {pressed}"
   ],
   "icons": "Use <svg class=\"aui-icon\"><use href=\"#aui-i-NAME\"/></svg>. Names: see ArmsysUI.icons or ai/icons.json."
 }

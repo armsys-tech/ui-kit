@@ -103,6 +103,21 @@ export interface ArmsysUIApi {
   refreshSelect(ref: ElementRef): void;
   highlight(ref?: ElementRef): Promise<void>;
   addTag(ref: ElementRef, value: string): void;
+
+  /* Workbench (3.0) */
+  /** Close a tab-strip tab (fires cancelable `aui:tab-close`). */
+  closeTab(ref: ElementRef): void;
+  treeSelect(ref: ElementRef): void;
+  treeToggle(ref: ElementRef, open?: boolean): void;
+  openDatepicker(ref: ElementRef): void;
+  closeDatepicker(refocus?: boolean): void;
+  /** Set a `[data-aui-calendar]` value (ISO string or Date, null clears). */
+  setDate(ref: ElementRef, value: string | Date | null): void;
+  formatDate(date: Date | null, format?: string): string;
+  parseDate(value: string, format?: string): Date | null;
+  /** Trigger a composer send (fires cancelable `aui:send`). */
+  send(ref: ElementRef): void;
+  scrollChat(ref: ElementRef, smooth?: boolean): void;
 }
 
 /** Custom events (all bubble, prefixed `aui:`). */
@@ -128,6 +143,18 @@ export interface ArmsysUIEventMap {
   'aui:sidebar': CustomEvent<{ collapsed: boolean }>;
   'aui:nav-open': CustomEvent;
   'aui:nav-close': CustomEvent;
+  'aui:tab-close': CustomEvent<{ tab: string | null }>;
+  'aui:tab-closed': CustomEvent<{ tab: string | null }>;
+  'aui:tab-add': CustomEvent;
+  'aui:tree-select': CustomEvent<{ item: HTMLLIElement; value: string | null }>;
+  'aui:tree-toggle': CustomEvent<{ item: HTMLLIElement; expanded: boolean }>;
+  'aui:tree-activate': CustomEvent<{ item: HTMLLIElement; value: string | null }>;
+  'aui:resize': CustomEvent<{ pane: HTMLElement; size: number | null }>;
+  'aui:date': CustomEvent<{ value: string; date: Date | null }>;
+  'aui:send': CustomEvent<{ text: string; input: HTMLTextAreaElement | HTMLInputElement }>;
+  'aui:send-empty': CustomEvent;
+  'aui:convo': CustomEvent<{ value: string | null }>;
+  'aui:toggle': CustomEvent<{ pressed: boolean }>;
 }
 
 declare const ArmsysUI: ArmsysUIApi;
@@ -158,3 +185,13 @@ declare global {
   interface Window { ArmsysUI: ArmsysUIApi; ArmsysUIConfig?: ArmsysUIConfig; }
   interface HTMLElementEventMap extends ArmsysUIEventMap {}
 }
+export const closeTab: ArmsysUIApi['closeTab'];
+export const treeSelect: ArmsysUIApi['treeSelect'];
+export const treeToggle: ArmsysUIApi['treeToggle'];
+export const openDatepicker: ArmsysUIApi['openDatepicker'];
+export const closeDatepicker: ArmsysUIApi['closeDatepicker'];
+export const setDate: ArmsysUIApi['setDate'];
+export const formatDate: ArmsysUIApi['formatDate'];
+export const parseDate: ArmsysUIApi['parseDate'];
+export const send: ArmsysUIApi['send'];
+export const scrollChat: ArmsysUIApi['scrollChat'];

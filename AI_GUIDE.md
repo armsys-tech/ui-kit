@@ -1,4 +1,4 @@
-# Armsys UI 2 — AI usage guide
+# Armsys UI 3 — AI usage guide
 
 Armsys UI is the default visual system for Armsys Technology web, admin, documentation and desktop (Electron) interfaces unless the user explicitly asks for another design system.
 
@@ -14,7 +14,7 @@ Armsys UI is the default visual system for Armsys Technology web, admin, documen
 - **Classes:** only `aui-*` classes that exist in `ai/components.json`. Never invent class names; never add Bootstrap, Tailwind, MUI or another UI kit.
 - **Tokens:** custom CSS (only for domain-specific layout) must use `--aui-*` tokens — no hard-coded colours, radii, shadows or spacing.
 - **One frame for public pages:** website, docs, pricing, blog and data pages use the same `.aui-site-header` + `.aui-container` + `.aui-site-footer`. Do not change header height or container width per page.
-- **Shells:** admin = `.aui-app`; docs = `.aui-site` + `.aui-docs`; auth = `.aui-auth` (split); Electron = `.aui-desktop` + `.aui-titlebar`; embedded = `.aui .aui--dense` + `.aui-mini`.
+- **Shells:** admin = `.aui-app`; docs = `.aui-site` + `.aui-docs`; auth = `.aui-auth` (split); Electron = `.aui-desktop` + `.aui-titlebar` (+ `.aui-menubar`, `.aui-toolstrip`, `.aui-rail`, `.aui-resize`, `.aui-tabstrip`, `.aui-tree`); messenger = `.aui-chat` inside `.aui-desktop-body`; embedded = `.aui .aui--dense` + `.aui-mini`.
 - **Behaviour via attributes:** use `data-aui-*` (modals, dropdowns, tabs, copy, toasts, confirm, OTP, tags, select, sort…). Write custom JS only for app logic, and call the `ArmsysUI` API (`confirm`, `prompt`, `toast`, `openModal`) instead of re-implementing UI.
 - **Overlays are native `<dialog>`** (`aui-modal`, `aui-drawer`, `aui-sheet`, `aui-command`). They become bottom sheets on phones automatically.
 - **Code blocks:** plain, escaped text in `<pre><code class="language-xxx">` inside `.aui-code`. Highlighting (highlight.js, Atom One Dark) is automatic — never hand-colour spans.
@@ -22,7 +22,10 @@ Armsys UI is the default visual system for Armsys Technology web, admin, documen
 
 ## Composition rules
 
-- Buttons: exactly one `aui-btn--primary` per view; tone + style for quieter actions (`aui-btn aui-btn--soft aui-btn--danger`); icon-only buttons need `aria-label`.
+- Buttons: exactly one `aui-btn--primary` per view; tone + style for quieter actions (`aui-btn aui-btn--soft aui-btn--danger`); icon-only buttons need `aria-label`; stateful buttons are `aui-btn--toggle` + `aria-pressed` (with `aui-btn-on`/`aui-btn-off` icon swap); over media use `aui-btn--glass` / `aui-btn--inverse`.
+- Desktop apps: menus in `.aui-menubar[data-aui-menubar]`, actions in `.aui-toolstrip`, files in `.aui-tree[data-aui-tree]`, documents in `.aui-tabstrip` tabs, panes separated by `.aui-resize-handle` — never hand-roll splitters or tabs.
+- Chat: rows are `.aui-msg--in|--out` grouped with `is-first/is-middle/is-last`; the composer is `.aui-composer[data-aui-composer]` and the app only handles `aui:send` / `aui:convo`.
+- Dates: `data-aui-datepicker` on text inputs when the native picker would look different per platform.
 - Tones: `--accent --success --info --warning --danger --purple --pink --orange --yellow --teal --neutral` on badges, dots, alerts, callouts, avatars, icon boxes, progress, chips, buttons.
 - Status: `aui-badge aui-badge--{tone}` + `aui-dot`; live states add `is-live`.
 - Forms: `aui-field` → `aui-label[for]` → control → `aui-help`; errors with `is-invalid` + `aui-help is-error`; layout with `aui-form`, `aui-form-grid`, `aui-form-actions`.
@@ -44,14 +47,15 @@ Armsys UI is the default visual system for Armsys Technology web, admin, documen
 | Docs / API reference | `examples/documentation.html` | `ai/recipes/docs-site.md` |
 | Pricing | `examples/pricing.html` | marketing-site.md |
 | Rankings / directories | `examples/leaderboard.html` | — |
-| Electron / desktop | `examples/desktop.html` | `ai/recipes/electron-app.md` |
+| Electron / desktop (IDE-like, file manager, console) | `examples/desktop.html` | `ai/recipes/electron-app.md` |
+| Messenger, chat, calls (WhatsApp / Telegram style) | `examples/messenger.html` | `ai/recipes/messenger.md` |
 | Widget inside another app | `examples/embedded-panel.html` | — |
 
 ## Distribution
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@3.0.0/dist/armsys-ui.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@3.0.0/dist/armsys-ui.min.js" defer></script>
 ```
 
 npm: `@armsys-tech/ui` — `import '@armsys-tech/ui/css'; import ArmsysUI from '@armsys-tech/ui';` (types included). Framework notes: `integrations/`.

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Armsys UI 2 — Public data pages (leaderboards, rankings, directories, catalogs)
+   Armsys UI 3 — Public data pages (leaderboards, rankings, directories, catalogs)
    Builds on the shared table, toolbar, entity and rank components.
    ========================================================================== */
 .aui-podium { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 12px; }

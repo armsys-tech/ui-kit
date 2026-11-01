@@ -1,0 +1,234 @@
+/* ==========================================================================
+   Armsys UI 3 — Workbench: the pieces a desktop application is built from
+   Menubar (File · Edit · View) · tool strip · activity rail · browser-style
+   tab strip · tree view · resizable panels · panel groups · property grid ·
+   traffic lights. Behaviour: data-aui-menubar, data-aui-tree, data-aui-resize,
+   data-aui-tab-close (see src/js/70-workbench.js).
+   ========================================================================== */
+
+/* ---------- Menubar: <div class="aui-menubar" data-aui-menubar><div class="aui-dropdown" data-aui-dropdown><button class="aui-menubar-item" data-aui-dropdown-trigger>File</button><div class="aui-menu">…</div></div>…</div> ---------- */
+.aui-menubar { display: flex; align-items: center; gap: 0; height: var(--aui-menubar-h); padding: 0 6px; flex: none; min-width: 0; font-size: var(--aui-fs-xs); background: var(--aui-bg-alt); border-bottom: 1px solid var(--aui-border-soft); user-select: none; -webkit-user-select: none; }
+.aui-menubar > .aui-dropdown { display: inline-flex; height: 100%; align-items: center; }
+.aui-menubar-item {
+  display: inline-flex; align-items: center; gap: 6px; height: calc(var(--aui-menubar-h) - 8px); padding: 0 9px; margin: 0;
+  font: inherit; font-size: var(--aui-fs-xs); color: var(--aui-text-secondary); white-space: nowrap;
+  background: none; border: 0; border-radius: var(--aui-radius-xs); cursor: default; transition: background-color var(--aui-dur-fast), color var(--aui-dur-fast);
+}
+.aui-menubar-item:hover, .aui-dropdown.is-open > .aui-menubar-item, .aui-menubar-item[aria-expanded="true"] { color: var(--aui-text); background: var(--aui-hover); }
+.aui-menubar-item u { display: contents; text-decoration: none; }
+.aui-menubar.is-alt .aui-menubar-item u { text-decoration: underline; text-underline-offset: 2px; }
+.aui-menubar > .aui-dropdown > .aui-menu { top: calc(100% + 2px); --_w: 240px; border-radius: var(--aui-radius-md); }
+.aui-menubar > .aui-spacer { flex: 1; }
+.aui-menubar .aui-menu-item { min-height: 28px; padding: 4px 10px; font-size: var(--aui-fs-xs); }
+.aui-menubar .aui-menu-item:is([role="menuitemcheckbox"], [role="menuitemradio"]) { padding-left: 32px; }
+.aui-menubar .aui-menu-item > .aui-kbd-group { font-family: var(--aui-font); }
+.aui-titlebar > .aui-menubar { height: 100%; padding: 0; background: transparent; border: 0; }
+
+/* ---------- Tool strip: 28px icon buttons with separators ---------- */
+.aui-toolstrip { display: flex; align-items: center; gap: 2px; min-height: var(--aui-toolstrip-h); padding: 0 8px; flex: none; min-width: 0; overflow-x: auto; scrollbar-width: none; background: var(--aui-bg-alt); border-bottom: 1px solid var(--aui-border-soft); }
+.aui-toolstrip::-webkit-scrollbar { display: none; }
+.aui-toolstrip > .aui-btn, .aui-toolstrip > .aui-dropdown > .aui-btn, .aui-toolstrip > .aui-btn-group > .aui-btn { --_h: 28px; --_fs: var(--aui-fs-xs); --_ic: 16px; }
+.aui-toolstrip > .aui-btn--ghost, .aui-toolstrip > .aui-dropdown > .aui-btn--ghost { --_fg: var(--aui-text-secondary); }
+.aui-toolstrip > :is(.aui-input-wrap, .aui-input, .aui-select, .aui-segmented) { --_h: 28px; }
+.aui-toolstrip > .aui-input-wrap { width: 220px; }
+.aui-toolstrip > .aui-input-wrap > .aui-input { --_h: 28px; --_fs: var(--aui-fs-xs); }
+.aui-toolstrip-sep { flex: none; width: 1px; height: 18px; margin: 0 5px; background: var(--aui-border); }
+.aui-toolstrip-label { flex: none; padding: 0 4px 0 6px; font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
+.aui-toolstrip > .aui-spacer { flex: 1; }
+.aui-toolstrip--plain { background: transparent; border-bottom: 0; }
+.aui-toolstrip--floating { position: absolute; z-index: var(--aui-z-sticky); min-height: 36px; padding: 0 4px; gap: 1px; background: var(--aui-surface-elevated); border: 1px solid var(--aui-border-strong); border-radius: var(--aui-radius-md); box-shadow: var(--aui-shadow-md); }
+.aui-toolstrip--vertical { flex-direction: column; width: var(--aui-toolstrip-h); min-height: 0; height: 100%; padding: 8px 0; border-bottom: 0; border-right: 1px solid var(--aui-border-soft); overflow: visible; }
+.aui-toolstrip--vertical > .aui-toolstrip-sep { width: 18px; height: 1px; margin: 5px 0; }
+
+/* ---------- Activity rail: <nav class="aui-rail"><a class="aui-rail-item is-active">…</a><div class="aui-spacer"></div>…</nav> ---------- */
+.aui-rail { display: flex; flex-direction: column; align-items: center; gap: 2px; width: var(--aui-rail-w); height: 100%; padding: 6px 0; flex: none; background: var(--aui-bg-alt); border-right: 1px solid var(--aui-border-soft); }
+.aui-rail > .aui-spacer { flex: 1; }
+.aui-rail-item {
+  position: relative; display: inline-grid; place-items: center; width: calc(var(--aui-rail-w) - 12px); height: calc(var(--aui-rail-w) - 12px); padding: 0; margin: 0;
+  color: var(--aui-text-subtle); background: none; border: 0; border-radius: var(--aui-radius-md); cursor: pointer; transition: color var(--aui-dur-fast), background-color var(--aui-dur-fast);
+}
+.aui-rail-item > .aui-icon { width: 22px; height: 22px; stroke-width: 1.6; }
+.aui-rail-item:hover { color: var(--aui-text); background: var(--aui-hover); }
+.aui-rail-item.is-active, .aui-rail-item[aria-current="page"], .aui-rail-item[aria-pressed="true"] { color: var(--aui-text); background: var(--aui-active); }
+.aui-rail-item.is-active::before, .aui-rail-item[aria-current="page"]::before { content: ""; position: absolute; left: -6px; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: var(--aui-accent); }
+.aui-rail-item > .aui-btn-badge { top: 2px; right: 2px; }
+.aui-rail-item > .aui-avatar { --_s: 26px; }
+.aui-rail-sep { width: 20px; height: 1px; margin: 6px 0; background: var(--aui-border); }
+.aui-rail--right { border-right: 0; border-left: 1px solid var(--aui-border-soft); }
+.aui-rail--right .aui-rail-item.is-active::before { left: auto; right: -6px; }
+
+/* ---------- Tab strip: browser / editor tabs ----------
+   <div class="aui-tabstrip" data-aui-tabs><button class="aui-tabstrip-tab is-active" data-aui-tab="a">…<button class="aui-tabstrip-close" data-aui-tab-close></button></button>…<button class="aui-tabstrip-add">+</button></div> */
+.aui-tabstrip { --_h: 36px; display: flex; align-items: flex-end; gap: 1px; height: var(--_h); min-width: 0; padding: 0 6px 0 0; flex: none; overflow-x: auto; scrollbar-width: none; background: var(--aui-bg-alt); border-bottom: 1px solid var(--aui-border-soft); }
+.aui-tabstrip::-webkit-scrollbar { display: none; }
+.aui-tabstrip-tab {
+  position: relative; display: inline-flex; align-items: center; gap: 8px; flex: 0 1 200px; min-width: 60px; max-width: 220px; height: var(--_h); padding: 0 8px 0 12px; margin: 0;
+  font: inherit; font-size: var(--aui-fs-xs); color: var(--aui-text-muted); white-space: nowrap; text-decoration: none;
+  background: transparent; border: 0; border-right: 1px solid var(--aui-border-soft); cursor: pointer; transition: background-color var(--aui-dur-fast), color var(--aui-dur-fast);
+}
+.aui-tabstrip-tab > .aui-icon { width: 15px; height: 15px; flex: none; color: var(--aui-text-subtle); }
+.aui-tabstrip-tab > img { width: 16px; height: 16px; flex: none; border-radius: 3px; }
+.aui-tabstrip-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; mask-image: linear-gradient(90deg, #000 85%, transparent); -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); text-overflow: clip; }
+.aui-tabstrip-tab:hover { color: var(--aui-text); background: var(--aui-hover); }
+.aui-tabstrip-tab:is(.is-active, [aria-selected="true"]) { color: var(--aui-text); background: var(--aui-bg); box-shadow: inset 0 1px 0 var(--aui-accent), 0 1px 0 var(--aui-bg); }
+.aui-tabstrip-tab:is(.is-active, [aria-selected="true"]) > .aui-icon { color: var(--aui-text-secondary); }
+.aui-tabstrip-tab.is-modified .aui-tabstrip-close::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--aui-text-muted); }
+.aui-tabstrip-tab.is-modified .aui-tabstrip-close > .aui-icon { display: none; }
+.aui-tabstrip-tab.is-modified:hover .aui-tabstrip-close::after, .aui-tabstrip-tab.is-modified .aui-tabstrip-close:hover::after { display: none; }
+.aui-tabstrip-tab.is-modified:hover .aui-tabstrip-close > .aui-icon { display: block; }
+.aui-tabstrip-tab.is-pinned { flex: none; padding-right: 12px; }
+.aui-tabstrip-tab.is-pinned > .aui-tabstrip-label, .aui-tabstrip-tab.is-pinned > .aui-tabstrip-close { display: none; }
+.aui-tabstrip-tab:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--aui-focus); }
+.aui-tabstrip-close { display: inline-grid; place-items: center; width: 20px; height: 20px; flex: none; padding: 0; margin: 0 -2px 0 0; color: var(--aui-text-subtle); background: none; border: 0; border-radius: var(--aui-radius-xs); cursor: pointer; opacity: 0; transition: opacity var(--aui-dur-fast), background-color var(--aui-dur-fast), color var(--aui-dur-fast); }
+.aui-tabstrip-close > .aui-icon { width: 13px; height: 13px; }
+.aui-tabstrip-tab:hover .aui-tabstrip-close, .aui-tabstrip-tab:is(.is-active, [aria-selected="true"]) .aui-tabstrip-close, .aui-tabstrip-tab.is-modified .aui-tabstrip-close, .aui-tabstrip-close:focus-visible { opacity: 1; }
+.aui-tabstrip-close:hover { color: var(--aui-text); background: var(--aui-active); }
+.aui-tabstrip-add { display: inline-grid; place-items: center; width: 28px; height: 28px; flex: none; margin: 0 0 4px 4px; padding: 0; color: var(--aui-text-subtle); background: none; border: 0; border-radius: var(--aui-radius-sm); cursor: pointer; }
+.aui-tabstrip-add:hover { color: var(--aui-text); background: var(--aui-hover); }
+.aui-tabstrip-add > .aui-icon { width: 15px; height: 15px; }
+.aui-tabstrip-end { display: flex; align-items: center; gap: 2px; margin-left: auto; padding: 0 2px 4px 8px; flex: none; }
+/* Chrome-style: rounded, lifted active tab (browsers, window title bars) */
+.aui-tabstrip--chrome { --_h: 34px; gap: 0; padding: 4px 6px 0; align-items: flex-end; }
+.aui-tabstrip--chrome .aui-tabstrip-tab { height: 30px; border-right: 0; border-radius: var(--aui-radius-md) var(--aui-radius-md) 0 0; }
+.aui-tabstrip--chrome .aui-tabstrip-tab + .aui-tabstrip-tab::before { content: ""; position: absolute; left: 0; top: 7px; bottom: 7px; width: 1px; background: var(--aui-border); }
+.aui-tabstrip--chrome .aui-tabstrip-tab:is(.is-active, [aria-selected="true"]) { box-shadow: 0 1px 0 var(--aui-bg); }
+.aui-tabstrip--chrome .aui-tabstrip-tab:is(.is-active, [aria-selected="true"]) + .aui-tabstrip-tab::before, .aui-tabstrip--chrome .aui-tabstrip-tab:is(.is-active, [aria-selected="true"])::before { display: none; }
+/* Pills (settings panes, chat folders) */
+.aui-tabstrip--pills { --_h: 40px; align-items: center; gap: 4px; padding: 0 8px; }
+.aui-tabstrip--pills .aui-tabstrip-tab { flex: none; height: 28px; padding: 0 10px; border: 0; border-radius: var(--aui-radius-full); }
+.aui-tabstrip--pills .aui-tabstrip-tab:is(.is-active, [aria-selected="true"]) { background: var(--aui-active); box-shadow: none; }
+.aui-titlebar > .aui-tabstrip { height: 100%; flex: 1; background: transparent; border-bottom: 0; }
+.aui-titlebar > .aui-tabstrip .aui-tabstrip-tab { -webkit-app-region: no-drag; app-region: no-drag; }
+
+/* ---------- Tree view ----------
+   <ul class="aui-tree" role="tree" data-aui-tree>
+     <li role="treeitem" aria-expanded="true"><div class="aui-tree-row"><span class="aui-tree-toggle"></span><svg class="aui-icon">…</svg><span class="aui-tree-label">src</span></div>
+       <ul role="group">…</ul></li>
+   </ul> */
+.aui-tree { --_indent: 16px; --_row: 28px; margin: 0; padding: 0 4px; list-style: none; font-size: var(--aui-fs-sm); user-select: none; -webkit-user-select: none; }
+.aui-tree ul { margin: 0; padding: 0 0 0 var(--_indent); list-style: none; position: relative; }
+.aui-tree--guides ul::before { content: ""; position: absolute; left: calc(var(--_indent) - 7px); top: 0; bottom: 0; width: 1px; background: var(--aui-border-soft); }
+.aui-tree li { position: relative; }
+.aui-tree li[aria-expanded="false"] > ul { display: none; }
+.aui-tree-row {
+  display: flex; align-items: center; gap: 6px; height: var(--_row); padding: 0 8px 0 2px; border-radius: var(--aui-radius-sm);
+  color: var(--aui-text-secondary); white-space: nowrap; cursor: default; transition: background-color var(--aui-dur-fast), color var(--aui-dur-fast);
+}
+.aui-tree-row:hover { background: var(--aui-hover); color: var(--aui-text); }
+.aui-tree li[aria-selected="true"] > .aui-tree-row { background: var(--aui-active); color: var(--aui-text); }
+.aui-tree:focus-within li[aria-selected="true"] > .aui-tree-row { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--aui-accent) 55%, transparent); }
+.aui-tree li.is-current > .aui-tree-row { color: var(--aui-text); font-weight: var(--aui-fw-medium); }
+.aui-tree li.is-dimmed > .aui-tree-row { color: var(--aui-text-subtle); }
+.aui-tree li.is-drop > .aui-tree-row { box-shadow: inset 0 0 0 1px var(--aui-accent); background: color-mix(in srgb, var(--aui-accent) 10%, transparent); }
+.aui-tree-toggle { display: inline-grid; place-items: center; width: 18px; height: 18px; flex: none; color: var(--aui-text-subtle); border-radius: var(--aui-radius-xs); }
+.aui-tree-toggle::before { content: ""; width: 5px; height: 5px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg) translate(-1px, 0); transition: transform var(--aui-dur) var(--aui-ease); }
+.aui-tree li[aria-expanded="true"] > .aui-tree-row > .aui-tree-toggle::before { transform: rotate(45deg) translate(-1px, -1px); }
+.aui-tree li:not([aria-expanded]) > .aui-tree-row > .aui-tree-toggle { visibility: hidden; }
+.aui-tree-row > .aui-icon { width: 16px; height: 16px; flex: none; color: var(--aui-text-subtle); }
+.aui-tree li[aria-expanded] > .aui-tree-row > .aui-icon { color: var(--aui-warning); }
+.aui-tree-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.aui-tree-meta { flex: none; margin-left: auto; font-size: var(--aui-fs-2xs); color: var(--aui-text-subtle); font-variant-numeric: tabular-nums; }
+.aui-tree-row > .aui-badge { --_h: 16px; padding: 0 5px; font-size: 10px; margin-left: auto; }
+.aui-tree-row > .aui-dot { margin-left: auto; }
+.aui-tree-row > .aui-check { gap: 0; }
+.aui-tree-row > .aui-check > input { margin: 0; }
+.aui-tree-actions { display: none; align-items: center; gap: 2px; margin-left: auto; }
+.aui-tree-row:hover > .aui-tree-actions, .aui-tree-row:focus-within > .aui-tree-actions { display: flex; }
+.aui-tree-row:hover > .aui-tree-actions ~ :is(.aui-tree-meta, .aui-badge) { display: none; }
+.aui-tree-actions > .aui-btn { --_h: 20px; --_ic: 13px; }
+.aui-tree--sm { --_row: 24px; font-size: var(--aui-fs-xs); --_indent: 14px; }
+.aui-tree--lg { --_row: 34px; font-size: var(--aui-fs-md); --_indent: 20px; }
+.aui-tree--lg .aui-tree-row > .aui-icon { width: 18px; height: 18px; }
+
+/* ---------- Resizable panels ----------
+   <div class="aui-resize" data-aui-resize><aside style="width:260px">…</aside><div class="aui-resize-handle" data-aui-min="180" data-aui-max="480"></div><main>…</main></div> */
+.aui-resize { display: flex; min-width: 0; min-height: 0; }
+.aui-resize > * { min-width: 0; min-height: 0; }
+.aui-resize > :not(.aui-resize-handle):last-child { flex: 1 1 auto; }
+.aui-resize > :not(.aui-resize-handle) { flex: 0 0 auto; }
+.aui-resize--vertical { flex-direction: column; }
+.aui-resize-handle { position: relative; z-index: 2; flex: none; width: 1px; margin: 0; background: var(--aui-border-soft); cursor: col-resize; touch-action: none; transition: background-color var(--aui-dur); }
+.aui-resize-handle::before { content: ""; position: absolute; inset: 0 -4px; }
+.aui-resize-handle:hover, .aui-resize-handle.is-dragging { background: var(--aui-accent); transition-delay: 150ms; }
+.aui-resize-handle.is-dragging { transition-delay: 0s; }
+.aui-resize--vertical > .aui-resize-handle { width: auto; height: 1px; cursor: row-resize; }
+.aui-resize--vertical > .aui-resize-handle::before { inset: -4px 0; }
+.aui-resize.is-resizing, .aui-resize.is-resizing * { cursor: inherit !important; user-select: none !important; -webkit-user-select: none !important; pointer-events: none; }
+.aui-resize.is-resizing > .aui-resize-handle { pointer-events: auto; }
+.aui-resize-handle--grip::after { content: ""; position: absolute; left: 50%; top: 50%; width: 3px; height: 22px; margin: -11px 0 0 -1.5px; border-radius: 3px; background: var(--aui-border-interactive); opacity: 0; transition: opacity var(--aui-dur-fast); }
+.aui-resize-handle--grip:hover::after { opacity: 1; }
+.aui-resize--vertical > .aui-resize-handle--grip::after { width: 22px; height: 3px; margin: -1.5px 0 0 -11px; }
+.aui-resize > .is-collapsed { display: none; }
+
+/* ---------- Panel group: collapsible sections inside side panels (EXPLORER, OUTLINE …) ---------- */
+.aui-panel-group { display: flex; flex-direction: column; min-height: 0; border-top: 1px solid var(--aui-border-soft); }
+.aui-panel-group:first-child { border-top: 0; }
+.aui-panel-group > summary {
+  display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 8px 0 6px; flex: none; list-style: none; cursor: pointer;
+  font-size: var(--aui-fs-2xs); font-weight: var(--aui-fw-semibold); letter-spacing: .08em; text-transform: uppercase; color: var(--aui-text-secondary); user-select: none; -webkit-user-select: none;
+}
+.aui-panel-group > summary::-webkit-details-marker { display: none; }
+.aui-panel-group > summary::before { content: ""; width: 5px; height: 5px; border-right: 1.5px solid var(--aui-text-subtle); border-bottom: 1.5px solid var(--aui-text-subtle); transform: rotate(-45deg); margin: 0 4px 0 5px; transition: transform var(--aui-dur) var(--aui-ease); }
+.aui-panel-group[open] > summary::before { transform: rotate(45deg); margin-top: -2px; }
+.aui-panel-group > summary:hover { color: var(--aui-text); }
+.aui-panel-group > summary > .aui-row { margin-left: auto; opacity: 0; transition: opacity var(--aui-dur-fast); }
+.aui-panel-group > summary:hover > .aui-row, .aui-panel-group[open]:focus-within > summary > .aui-row { opacity: 1; }
+.aui-panel-group > summary .aui-btn { --_h: 20px; --_ic: 13px; }
+.aui-panel-group > summary .aui-badge { --_h: 16px; font-size: 10px; margin-left: auto; letter-spacing: 0; text-transform: none; }
+.aui-panel-group-body { flex: 1; min-height: 0; overflow: auto; padding: 2px 0 8px; }
+.aui-panel-group[open] { flex: 1 1 auto; }
+.aui-panel-group:not([open]) { flex: none; }
+.aui-panel-group--fixed[open] { flex: none; }
+/* Panel header for tool windows (Output, Terminal, Problems) */
+.aui-panel-header { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 6px 0 12px; flex: none; border-bottom: 1px solid var(--aui-border-soft); background: var(--aui-bg-alt); }
+.aui-panel-header > .aui-tabs { align-self: stretch; border-bottom: 0; }
+.aui-panel-header > .aui-tabs .aui-tab { padding: 0 10px; font-size: var(--aui-fs-xs); }
+.aui-panel-header-title { font-size: var(--aui-fs-xs); font-weight: var(--aui-fw-semibold); letter-spacing: .06em; text-transform: uppercase; color: var(--aui-text-secondary); }
+.aui-panel-header > .aui-row:last-child { margin-left: auto; }
+.aui-panel-header .aui-btn { --_h: 24px; --_ic: 14px; }
+
+/* ---------- Property grid: label | control rows for inspectors ---------- */
+.aui-props { display: grid; grid-template-columns: minmax(96px, 38%) minmax(0, 1fr); align-items: center; gap: 0; font-size: var(--aui-fs-xs); }
+.aui-props > * { min-width: 0; padding: 4px 8px; border-bottom: 1px solid var(--aui-border-soft); min-height: 30px; display: flex; align-items: center; }
+.aui-props > :nth-child(odd) { color: var(--aui-text-muted); padding-left: 12px; }
+.aui-props > :nth-child(even) { color: var(--aui-text); }
+.aui-props :is(.aui-input, .aui-select, .aui-combobox-trigger) { --_h: 24px; --_px: 6px; --_fs: var(--aui-fs-xs); box-shadow: none; background: transparent; border-color: transparent; }
+.aui-props :is(.aui-input, .aui-select):hover { background: var(--aui-input-bg); border-color: var(--aui-border); }
+.aui-props :is(.aui-input, .aui-select):focus { background: var(--aui-input-bg); }
+.aui-props .aui-switch { --_w: 28px; --_h: 16px; }
+.aui-props .aui-check { --_s: 14px; }
+.aui-props-title { grid-column: 1 / -1; padding: 10px 12px 4px; font-size: var(--aui-fs-2xs); font-weight: var(--aui-fw-semibold); letter-spacing: .08em; text-transform: uppercase; color: var(--aui-text-subtle); border-bottom: 0; min-height: 0; }
+.aui-props-swatch { width: 14px; height: 14px; flex: none; border-radius: 3px; border: 1px solid rgb(0 0 0 / .25); background: var(--c); margin-right: 6px; }
+
+/* ---------- macOS traffic lights (custom title bars, Tauri, docs mockups) ---------- */
+.aui-traffic-lights { display: inline-flex; align-items: center; gap: 8px; padding: 0 12px; flex: none; -webkit-app-region: no-drag; app-region: no-drag; }
+.aui-traffic-lights > button { width: 12px; height: 12px; padding: 0; margin: 0; border-radius: 50%; border: 1px solid rgb(0 0 0 / .18); cursor: default; background: var(--aui-surface-4); transition: filter var(--aui-dur-fast); }
+.aui-traffic-lights > button:nth-child(1) { background: #ff5f57; }
+.aui-traffic-lights > button:nth-child(2) { background: #febc2e; }
+.aui-traffic-lights > button:nth-child(3) { background: #28c840; }
+.aui-traffic-lights:hover > button { filter: brightness(.9); }
+.aui-traffic-lights > button:focus-visible { outline: 2px solid var(--aui-focus); outline-offset: 1px; }
+.aui-desktop:not(:focus-within) .aui-traffic-lights--dim > button { background: var(--aui-surface-4); }
+.aui-desktop[data-aui-platform="mac"] .aui-titlebar:has(> .aui-traffic-lights) { padding-left: 0; }
+
+/* ---------- Status bar items (clickable) ---------- */
+.aui-statusbar-item { display: inline-flex; align-items: center; gap: 5px; height: 100%; padding: 0 6px; margin: 0; font: inherit; font-size: inherit; color: inherit; background: none; border: 0; cursor: pointer; white-space: nowrap; transition: background-color var(--aui-dur-fast), color var(--aui-dur-fast); }
+.aui-statusbar-item:hover { color: var(--aui-text); background: var(--aui-hover); }
+.aui-statusbar-item > .aui-icon { width: 13px; height: 13px; }
+.aui-statusbar--accent { color: var(--aui-on-accent); background: var(--aui-accent); border-top-color: transparent; }
+.aui-statusbar--accent .aui-statusbar-item:hover { color: inherit; background: rgb(255 255 255 / .14); }
+
+/* ---------- Window chrome demo: <div class="aui-desktop aui-desktop--framed"> ---------- */
+.aui-desktop--framed { height: auto; min-height: 0; border: 1px solid var(--aui-border-strong); border-radius: var(--aui-radius-lg); overflow: hidden; box-shadow: var(--aui-shadow-md); background: var(--aui-bg); }
+.aui-desktop--framed > .aui-desktop-body { height: var(--h, 520px); }
+
+@media (max-width: 760px) {
+  .aui-resize:not(.aui-resize--vertical) { flex-direction: column; }
+  .aui-resize:not(.aui-resize--vertical) > .aui-resize-handle { display: none; }
+  .aui-resize:not(.aui-resize--vertical) > :not(.aui-resize-handle) { width: auto !important; }
+  /* The activity rail becomes a bottom tab bar on phones */
+  .aui-resize > .aui-rail, .aui-desktop-body > .aui-rail { flex-direction: row; justify-content: space-around; order: 99; width: auto; height: calc(var(--aui-rail-w) + env(safe-area-inset-bottom)); padding: 0 6px env(safe-area-inset-bottom); border-right: 0; border-top: 1px solid var(--aui-border-soft); }
+  .aui-rail > .aui-spacer, .aui-rail-sep { display: none; }
+  .aui-rail-item.is-active::before, .aui-rail-item[aria-current="page"]::before { left: 8px; right: 8px; top: -6px; bottom: auto; width: auto; height: 2px; }
+  .aui-menubar { overflow-x: auto; scrollbar-width: none; }
+}

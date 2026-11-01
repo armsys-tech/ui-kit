@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Armsys UI 2 — Dropdown menus, context menus, submenus, popovers, tooltips
+   Armsys UI 3 — Dropdown menus, context menus, submenus, popovers, tooltips
    JS positions open menus with position:fixed and flips/shifts them inside
    the viewport (works inside overflow:hidden cards & tables). On phones a
    menu opens as a bottom sheet unless data-aui-sheet="false".

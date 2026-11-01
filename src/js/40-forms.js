@@ -176,6 +176,7 @@ function onFormInput(e) {
   if (t.closest('.aui-input-wrap')) syncClear(t);
   if (t.matches('.aui-menu-search input, .aui-command-search input')) filterMenu(t);
   if (t.closest('.aui-stepper')) syncStepper(t.closest('.aui-stepper'));
+  if (t.closest('[data-aui-composer]')) syncComposer(t.closest('[data-aui-composer]'));
   if (t.classList.contains('is-invalid') && t.value) { t.classList.remove('is-invalid'); t.removeAttribute('aria-invalid'); }
 }
 function onFormChange(e) {

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Armsys UI 2 — Component reference</title>
-<meta name="description" content="Armsys UI 2: framework-independent, dark-first design system for websites, documentation, dashboards, admin panels and Electron apps.">
+<title>Armsys UI 3 — Component reference</title>
+<meta name="description" content="Armsys UI 3: framework-independent, dark-first design system for websites, documentation, dashboards, admin panels, messengers and Electron desktop apps.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="dist/armsys-ui.css">
@@ -24,7 +24,7 @@
   <div class="aui-container aui-site-header-inner">
     <a class="aui-site-brand" href="index.html">
       <span class="aui-logo"><svg viewBox="0 0 24 24"><use href="#aui-i-logo"/></svg></span>
-      Armsys UI <span class="aui-badge aui-badge--pill aui-badge--accent">v2.0</span>
+      Armsys UI <span class="aui-badge aui-badge--pill aui-badge--accent">v3.0</span>
     </a>
     <nav class="aui-site-nav" aria-label="Main">
       <a class="aui-site-nav-link" aria-current="page" href="index.html">Components</a>
@@ -44,10 +44,11 @@
               <a class="aui-mega-item" href="examples/dashboard.html"><span class="aui-icon-box"><svg class="aui-icon"><use href="#aui-i-grid"/></svg></span><span><span class="aui-mega-item-title">Admin dashboard</span><span class="aui-mega-item-desc">Sidebar shell, KPIs, charts, tables</span></span></a>
               <a class="aui-mega-item" href="examples/data-table.html"><span class="aui-icon-box"><svg class="aui-icon"><use href="#aui-i-database"/></svg></span><span><span class="aui-mega-item-title">Data management</span><span class="aui-mega-item-desc">Filters, bulk actions, drawer detail</span></span></a>
               <a class="aui-mega-item" href="examples/login.html"><span class="aui-icon-box"><svg class="aui-icon"><use href="#aui-i-lock"/></svg></span><span><span class="aui-mega-item-title">Authentication</span><span class="aui-mega-item-desc">Split login, register, reset, 2FA</span></span></a>
+              <a class="aui-mega-item" href="examples/messenger.html"><span class="aui-icon-box aui-icon-box--accent"><svg class="aui-icon"><use href="#aui-i-message"/></svg></span><span><span class="aui-mega-item-title">Messenger <span class="aui-badge aui-badge--accent aui-badge--sm">New</span></span><span class="aui-mega-item-desc">WhatsApp / Telegram style desktop client</span></span></a>
               <a class="aui-mega-item" href="examples/desktop.html"><span class="aui-icon-box"><svg class="aui-icon"><use href="#aui-i-monitor"/></svg></span><span><span class="aui-mega-item-title">Electron desktop app</span><span class="aui-mega-item-desc">Frameless title bar, tool layout</span></span></a>
             </div>
           </div>
-          <div class="aui-mega-footer"><span>12 complete pages built only from shared classes</span><a class="aui-link-arrow" href="#examples">All examples <svg class="aui-icon"><use href="#aui-i-arrow-right"/></svg></a></div>
+          <div class="aui-mega-footer"><span>15 complete pages built only from shared classes</span><a class="aui-link-arrow" href="#examples">All examples <svg class="aui-icon"><use href="#aui-i-arrow-right"/></svg></a></div>
         </div>
       </div>
       <a class="aui-site-nav-link" href="#ai">AI usage</a>
@@ -80,7 +81,7 @@
         <ul>
           <li><a class="aui-docs-link" href="#start">Getting started</a></li>
           <li><a class="aui-docs-link" href="#foundations">Foundations</a></li>
-          <li><a class="aui-docs-link" href="#frame">Frame & layout <span class="aui-badge aui-badge--accent">New</span></a></li>
+          <li><a class="aui-docs-link" href="#frame">Frame & layout</a></li>
         </ul>
       </div>
       <div class="aui-docs-group">
@@ -91,6 +92,7 @@
           <li><a class="aui-docs-link" href="#selection">Checkbox, radio, switch</a></li>
           <li><a class="aui-docs-link" href="#select">Select & combobox</a></li>
           <li><a class="aui-docs-link" href="#advanced-inputs">OTP, tags, files, range</a></li>
+          <li><a class="aui-docs-link" href="#pickers">Date picker <span class="aui-badge aui-badge--accent">New</span></a></li>
         </ul>
       </div>
       <div class="aui-docs-group">
@@ -114,6 +116,13 @@
         </ul>
       </div>
       <div class="aui-docs-group">
+        <div class="aui-docs-group-title"><svg class="aui-icon"><use href="#aui-i-monitor"/></svg>Applications</div>
+        <ul>
+          <li><a class="aui-docs-link" href="#workbench">Desktop workbench <span class="aui-badge aui-badge--accent">New</span></a></li>
+          <li><a class="aui-docs-link" href="#messaging">Messaging <span class="aui-badge aui-badge--accent">New</span></a></li>
+        </ul>
+      </div>
+      <div class="aui-docs-group">
         <div class="aui-docs-group-title"><svg class="aui-icon"><use href="#aui-i-code"/></svg>Integrate</div>
         <ul>
           <li><a class="aui-docs-link" href="#examples">Page examples</a></li>
@@ -127,9 +136,9 @@
   <main class="aui-docs-main" id="content">
     <article class="aui-docs-article">
       <header class="aui-docs-header" id="start">
-        <a class="aui-eyebrow aui-eyebrow--pill" href="MIGRATION.md"><span class="aui-badge aui-badge--accent">2.0</span>Unified frame, bottom sheets, rich inputs <svg class="aui-icon"><use href="#aui-i-arrow-right"/></svg></a>
+        <a class="aui-eyebrow aui-eyebrow--pill" href="MIGRATION.md"><span class="aui-badge aui-badge--accent">3.0</span>Desktop workbench, messaging, date picker <svg class="aui-icon"><use href="#aui-i-arrow-right"/></svg></a>
         <h1 class="aui-docs-title aui-mt-4">Armsys UI</h1>
-        <p class="aui-docs-lead">One framework-independent visual language for Armsys websites, documentation, dashboards, admin panels, embedded tools and Electron apps. Plain HTML, CSS custom properties and ~20 KB of gzipped vanilla JavaScript.</p>
+        <p class="aui-docs-lead">One framework-independent visual language for Armsys websites, documentation, dashboards, admin panels, embedded tools, messengers and Electron desktop apps. Plain HTML, CSS custom properties and ~20 KB of gzipped vanilla JavaScript.</p>
         <div class="aui-docs-meta">
           <span><svg class="aui-icon aui-text-success"><use href="#aui-i-check"/></svg>No build step</span>
           <span><svg class="aui-icon aui-text-success"><use href="#aui-i-check"/></svg>Scoped to <code class="aui-code-inline">.aui</code></span>
@@ -146,8 +155,8 @@
             <div class="aui-code-tabs"><button class="aui-code-tab" data-aui-tab="cdn">CDN</button><button class="aui-code-tab" data-aui-tab="npm">npm</button><button class="aui-code-tab" data-aui-tab="vue">Vue / Vite</button><button class="aui-code-tab" data-aui-tab="razor">ASP.NET Razor</button></div>
             <div class="aui-code-actions"><button class="aui-copy" type="button" data-aui-copy aria-label="Copy"><span class="aui-copy-idle"><svg class="aui-icon"><use href="#aui-i-copy"/></svg>Copy</span><span class="aui-copy-done"><svg class="aui-icon"><use href="#aui-i-check"/></svg>Copied</span></button></div>
           </div>
-          <div class="aui-code-body" data-aui-panel="cdn"><pre><code class="language-html">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.css"&gt;
-&lt;script src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.js" defer&gt;&lt;/script&gt;
+          <div class="aui-code-body" data-aui-panel="cdn"><pre><code class="language-html">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@3.0.0/dist/armsys-ui.min.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@3.0.0/dist/armsys-ui.min.js" defer&gt;&lt;/script&gt;
 
 &lt;body class="aui"&gt;
   &lt;button class="aui-btn aui-btn--primary"&gt;Deploy&lt;/button&gt;
@@ -417,6 +426,40 @@ ArmsysUI.toast({ title: 'Ready', variant: 'success' });</code></pre></div>
           </div>
         </div>
 
+        <h3 class="aui-demo-title" id="buttons-media">Over media: inverse &amp; glass</h3>
+        <p class="aui-demo-desc"><code>aui-btn--inverse</code> and <code>aui-btn--glass</code> keep fixed colours in both themes — for image viewers, video players and the call stage. Combine glass with <code>--danger</code> for hang-up.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview" style="background:linear-gradient(135deg,#1e2a4a,#3b2a5a 55%,#5a2a3a)">
+            <button class="aui-btn aui-btn--inverse">Open in viewer</button>
+            <button class="aui-btn aui-btn--glass"><svg class="aui-icon"><use href="#aui-i-download"/></svg>Download</button>
+            <button class="aui-btn aui-btn--glass aui-btn--round" aria-label="Mute"><svg class="aui-icon"><use href="#aui-i-mic"/></svg></button>
+            <button class="aui-btn aui-btn--glass aui-btn--round aui-btn--danger" aria-label="Hang up"><svg class="aui-icon"><use href="#aui-i-phone-off"/></svg></button>
+            <button class="aui-btn aui-btn--glass aui-btn--pill aui-btn--sm">1.5×</button>
+          </div>
+        </div>
+
+        <h3 class="aui-demo-title" id="buttons-toggle">Toggles, icon swap &amp; stacked</h3>
+        <p class="aui-demo-desc"><code>aui-btn--toggle</code> + <code>aria-pressed</code> flips automatically on click and takes the tone when pressed. Put two icons inside with <code>aui-btn-on</code> / <code>aui-btn-off</code> to swap them (mic ↔ mic-off). <code>aui-btn--stack</code> places a short label under the icon; <code>aui-btn--round</code> is a circular icon button; <code>aui-btn--dashed</code> marks "add new" placeholders; <code>aui-btn-badge</code> is a corner count.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview">
+            <button class="aui-btn aui-btn--toggle" aria-pressed="true"><svg class="aui-icon aui-btn-off"><use href="#aui-i-mic"/></svg><svg class="aui-icon aui-btn-on"><use href="#aui-i-mic-off"/></svg>Muted</button>
+            <button class="aui-btn aui-btn--toggle aui-btn--icon aui-btn--warning" aria-pressed="false" aria-label="Pin"><svg class="aui-icon"><use href="#aui-i-pin"/></svg></button>
+            <button class="aui-btn aui-btn--toggle aui-btn--icon aui-btn--ghost" aria-pressed="true" aria-label="Bold"><svg class="aui-icon"><use href="#aui-i-bold"/></svg></button>
+            <button class="aui-btn aui-btn--round aui-btn--accent" aria-label="Send"><svg class="aui-icon"><use href="#aui-i-send"/></svg></button>
+            <button class="aui-btn aui-btn--round aui-btn--2xl aui-btn--danger" aria-label="Record"><svg class="aui-icon"><use href="#aui-i-mic"/></svg></button>
+            <button class="aui-btn aui-btn--stack"><svg class="aui-icon"><use href="#aui-i-video"/></svg>Video</button>
+            <button class="aui-btn aui-btn--stack aui-btn--ghost"><svg class="aui-icon"><use href="#aui-i-share"/></svg>Share</button>
+            <button class="aui-btn aui-btn--dashed"><svg class="aui-icon"><use href="#aui-i-plus"/></svg>Add column</button>
+            <button class="aui-btn aui-btn--ghost aui-btn--icon" aria-label="Inbox"><svg class="aui-icon"><use href="#aui-i-inbox"/></svg><span class="aui-btn-badge">12</span></button>
+            <button class="aui-btn aui-btn--ghost aui-btn--hover-danger aui-btn--sm"><svg class="aui-icon"><use href="#aui-i-trash"/></svg>Remove</button>
+            <button class="aui-btn aui-btn--sm aui-btn--square"><svg class="aui-icon"><use href="#aui-i-grid"/></svg>Square</button>
+            <button class="aui-btn aui-btn--wide aui-btn--primary">Wide</button>
+            <button class="aui-btn aui-btn--neutral">Neutral</button>
+            <button class="aui-btn aui-btn--yellow">Yellow</button>
+            <button class="aui-btn aui-btn--sm"><span class="aui-avatar aui-avatar--accent">AT</span>Ayla Tan</button>
+          </div>
+        </div>
+
         <h3 class="aui-demo-title">Sign-in providers & block buttons</h3>
         <div class="aui-demo">
           <div class="aui-demo-preview aui-demo-preview--block"><div class="aui-stack aui-gap-2" style="max-width:420px">
@@ -681,6 +724,41 @@ ArmsysUI.toast({ title: 'Ready', variant: 'success' });</code></pre></div>
           </div>
         </div>
       </section>
+      <section class="aui-docs-section" id="pickers">
+        <h2 class="aui-h2">Date picker &amp; calendar</h2>
+        <p class="aui-text-muted aui-mt-2">Add <code class="aui-code-inline">data-aui-datepicker</code> to any text input: focusing it opens a floating calendar (flip/shift aware, Escape closes, arrows move between days). Native <code class="aui-code-inline">type="date|time"</code> inputs stay native — use the picker when you need one look across platforms (Electron, Windows WebView2).</p>
+
+        <h3 class="aui-demo-title">Input picker</h3>
+        <p class="aui-demo-desc"><code>min</code>/<code>max</code>, <code>data-aui-format="dd.mm.yyyy"</code> (default ISO), <code>data-aui-week-start="0|1"</code>, <code>data-aui-locale="tr"</code>, <code>data-marked="2026-11-05 2026-11-12"</code>. Fires <code>aui:date</code> on the calendar and <code>change</code> on the input.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--start">
+            <div class="aui-field" style="width:220px"><label class="aui-label" for="dp1">Start date</label><div class="aui-input-wrap"><svg class="aui-icon"><use href="#aui-i-calendar"/></svg><input class="aui-input" id="dp1" data-aui-datepicker placeholder="yyyy-mm-dd" value="2026-11-01"></div></div>
+            <div class="aui-field" style="width:220px"><label class="aui-label" for="dp2">Delivery (dd.mm.yyyy, Mon–Fri only shown)</label><div class="aui-input-wrap"><svg class="aui-icon"><use href="#aui-i-calendar"/></svg><input class="aui-input" id="dp2" data-aui-datepicker data-aui-format="dd.mm.yyyy" data-aui-locale="tr" min="2026-11-01" max="2026-12-31" data-marked="2026-11-05 2026-11-19" placeholder="gg.aa.yyyy"></div></div>
+            <div class="aui-field" style="width:220px"><label class="aui-label" for="dp3">Time (native)</label><input class="aui-input" id="dp3" type="time" value="15:00"></div>
+          </div>
+          <template class="sc-code">
+<input class="aui-input" data-aui-datepicker data-aui-format="dd.mm.yyyy" min="2026-11-01">
+
+<!-- events -->
+input.addEventListener('change', e => console.log(e.target.value));            // "05.11.2026"
+ArmsysUI.parseDate('05.11.2026', 'dd.mm.yyyy'); ArmsysUI.formatDate(new Date(), 'dd.mm.yyyy');
+</template>
+        </div>
+
+        <h3 class="aui-demo-title">Inline calendar</h3>
+        <p class="aui-demo-desc"><code>&lt;div data-aui-calendar data-value="…"&gt;</code> renders in place. Sizes <code>aui-calendar--sm|lg</code>, <code>aui-calendar--block</code> stretches to the container; click the title to jump by month and year. <code>ArmsysUI.setDate(el, '2026-12-24')</code> sets it from code.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--start">
+            <div class="aui-card"><div data-aui-calendar data-value="2026-11-01" data-marked="2026-11-05 2026-11-19 2026-11-27" id="cal-demo"></div></div>
+            <div class="aui-card aui-grow" style="min-width:260px"><div class="aui-calendar--block aui-calendar--sm" data-aui-calendar data-aui-week-start="0" data-aui-no-foot></div></div>
+          </div>
+          <template class="sc-code">
+<div class="aui-card"><div data-aui-calendar data-value="2026-11-01" data-marked="2026-11-05 2026-11-19"></div></div>
+<script>cal.addEventListener('aui:date', e => e.detail.value /* "2026-11-05" */);</script>
+</template>
+        </div>
+      </section>
+
       <section class="aui-docs-section" id="dropdowns">
         <h2 class="aui-h2">Dropdown menus</h2>
         <p class="aui-text-muted aui-mt-2">Wrap a trigger and a <code class="aui-code-inline">.aui-menu</code> in <code class="aui-code-inline">[data-aui-dropdown]</code>. Menus are positioned with flip/shift so they never leave the viewport (even inside scrolling tables), support arrow keys, Home/End, typeahead, submenus, checkable items and search. At ≤640&nbsp;px they open as a bottom sheet; opt out with <code class="aui-code-inline">data-aui-sheet="false"</code>.</p>
@@ -966,7 +1044,7 @@ await ArmsysUI.alert({ title: 'Export ready', message: 'We emailed you a downloa
         <div class="aui-demo">
           <div class="aui-demo-preview aui-demo-preview--stack">
             <div class="aui-row aui-wrap aui-gap-2">
-              <span class="aui-badge">Default</span><span class="aui-badge aui-badge--accent">Accent</span><span class="aui-badge aui-badge--success"><span class="aui-dot aui-dot--success"></span>Healthy</span><span class="aui-badge aui-badge--warning">Degraded</span><span class="aui-badge aui-badge--danger">Down</span><span class="aui-badge aui-badge--purple aui-badge--pill">Beta</span><span class="aui-badge aui-badge--success aui-badge--solid">Live</span><span class="aui-badge aui-badge--outline aui-badge--info">Outline</span><span class="aui-badge aui-badge--mono">v2.0.1</span><span class="aui-count">3</span><span class="aui-count aui-count--accent">12</span>
+              <span class="aui-badge">Default</span><span class="aui-badge aui-badge--accent">Accent</span><span class="aui-badge aui-badge--success"><span class="aui-dot aui-dot--success"></span>Healthy</span><span class="aui-badge aui-badge--warning">Degraded</span><span class="aui-badge aui-badge--danger">Down</span><span class="aui-badge aui-badge--purple aui-badge--pill">Beta</span><span class="aui-badge aui-badge--success aui-badge--solid">Live</span><span class="aui-badge aui-badge--outline aui-badge--info">Outline</span><span class="aui-badge aui-badge--mono">v3.0.0</span><span class="aui-count">3</span><span class="aui-count aui-count--accent">12</span>
             </div>
             <div class="aui-row aui-wrap aui-gap-4">
               <span class="aui-status"><span class="aui-dot aui-dot--success is-live"></span>Operational</span>
@@ -1013,6 +1091,20 @@ await ArmsysUI.alert({ title: 'Export ready', message: 'We emailed you a downloa
                 <div><span class="aui-skeleton aui-skeleton--title"></span><span class="aui-skeleton aui-skeleton--text"></span><span class="aui-skeleton aui-skeleton--text" style="width:70%"></span></div>
               </div>
               <div class="aui-empty aui-empty--bordered aui-empty--sm"><span class="aui-icon-box aui-icon-box--lg"><svg class="aui-icon"><use href="#aui-i-inbox"/></svg></span><div class="aui-empty-title">No webhooks yet</div><p class="aui-empty-text">Push events to your own HTTPS endpoints.</p><div class="aui-empty-actions"><button class="aui-btn aui-btn--primary aui-btn--sm"><svg class="aui-icon"><use href="#aui-i-plus"/></svg>Add webhook</button></div></div>
+            </div>
+          </div>
+        </div>
+        <h3 class="aui-demo-title" id="notifications">Notification center</h3>
+        <p class="aui-demo-desc"><code>.aui-notifs</code> list of <code>.aui-notif</code> rows (avatar or icon box · body · time). <code>is-unread</code> tints the row and adds the dot; <code>.aui-notif-quote</code> and <code>.aui-notif-actions</code> for inline context and actions; <code>.aui-notif-day</code> groups by date. Rows that contain buttons must be <code>&lt;a&gt;</code> or <code>&lt;div tabindex="0"&gt;</code>, not <code>&lt;button&gt;</code>. Pair with a popover from the bell or a drawer.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--flush" style="max-width:420px">
+            <div class="aui-popover-header" style="margin:0;padding:10px 10px 10px 16px"><span class="aui-popover-title">Notifications</span><button class="aui-btn aui-btn--ghost aui-btn--xs">Mark all read</button></div>
+            <div class="aui-notifs">
+              <div class="aui-notif is-unread" tabindex="0"><span class="aui-icon-box aui-icon-box--sm aui-icon-box--danger"><svg class="aui-icon"><use href="#aui-i-alert"/></svg></span><div class="aui-notif-body"><b>audit.logged</b> consumer lag crossed 2 minutes<div class="aui-notif-actions"><button class="aui-btn aui-btn--xs">Open stream</button><button class="aui-btn aui-btn--xs aui-btn--ghost">Snooze</button></div></div><time class="aui-notif-time">2m</time></div>
+              <div class="aui-notif is-unread" tabindex="0"><span class="aui-avatar aui-avatar--sm aui-avatar--pink">AY</span><div class="aui-notif-body"><b>Ayşe Yılmaz</b> mentioned you in <b>#deploys</b><div class="aui-notif-quote">Can we ship the schema change after the 15:00 review?</div></div><time class="aui-notif-time">18m</time></div>
+              <a class="aui-notif" href="#"><span class="aui-avatar aui-avatar--sm aui-avatar--teal">BK</span><div class="aui-notif-body"><b>Burak Kaya</b> approved your pull request <b>#482</b></div><time class="aui-notif-time">1h</time></a>
+              <div class="aui-notif-day">Yesterday</div>
+              <a class="aui-notif" href="#"><span class="aui-icon-box aui-icon-box--sm aui-icon-box--success"><svg class="aui-icon"><use href="#aui-i-check-circle"/></svg></span><div class="aui-notif-body"><b>Deploy 2026.11.01-3</b> finished in 4m 12s</div><time class="aui-notif-time">1d</time></a>
             </div>
           </div>
         </div>
@@ -1116,6 +1208,287 @@ for evt := range sub.Events() {
           <div class="aui-row aui-wrap aui-gap-2"><span class="aui-method aui-method--get">GET</span><span class="aui-method aui-method--post">POST</span><span class="aui-method aui-method--put">PUT</span><span class="aui-method aui-method--patch">PATCH</span><span class="aui-method aui-method--delete">DELETE</span><span class="aui-method aui-method--wss">WSS</span><span class="aui-method aui-method--event">EVENT</span></div>
         </div>
       </section>
+      <section class="aui-docs-section" id="workbench">
+        <h2 class="aui-h2">Desktop workbench</h2>
+        <p class="aui-text-muted aui-mt-2">The parts an Electron / Tauri application is built from, on top of <code class="aui-code-inline">.aui-desktop</code> + <code class="aui-code-inline">.aui-titlebar</code>: menubar, tool strip, activity rail, editor tab strip, tree view, resizable panels, panel groups and a property grid. See <a class="aui-link" href="examples/desktop.html">the workbench example</a> for the full shell.</p>
+
+        <h3 class="aui-demo-title" id="menubar">Menubar &amp; tool strip</h3>
+        <p class="aui-demo-desc"><code>.aui-menubar[data-aui-menubar]</code> holds ordinary dropdowns: while one is open, hovering or <kbd>←</kbd>/<kbd>→</kbd> switches menus like a native menubar. <code>.aui-toolstrip</code> is a 40px row of 28px buttons with <code>.aui-toolstrip-sep</code> separators. Both sit inside the title bar or directly under it.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--flush">
+            <div class="aui-menubar" data-aui-menubar>
+              <div class="aui-dropdown" data-aui-dropdown data-aui-sheet="false"><button class="aui-menubar-item" type="button" data-aui-dropdown-trigger><u>F</u>ile</button><div class="aui-menu"><button class="aui-menu-item">New<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">N</kbd></span></button><button class="aui-menu-item">Open…</button><div class="aui-menu-sep"></div><button class="aui-menu-item">Quit</button></div></div>
+              <div class="aui-dropdown" data-aui-dropdown data-aui-sheet="false"><button class="aui-menubar-item" type="button" data-aui-dropdown-trigger><u>E</u>dit</button><div class="aui-menu"><button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-undo"/></svg>Undo</button><button class="aui-menu-item" disabled><svg class="aui-icon"><use href="#aui-i-redo"/></svg>Redo</button></div></div>
+              <div class="aui-dropdown" data-aui-dropdown data-aui-sheet="false"><button class="aui-menubar-item" type="button" data-aui-dropdown-trigger><u>V</u>iew</button><div class="aui-menu"><button class="aui-menu-item" role="menuitemcheckbox" aria-checked="true">Sidebar</button><button class="aui-menu-item" role="menuitemcheckbox" aria-checked="false">Minimap</button></div></div>
+              <div class="aui-dropdown" data-aui-dropdown data-aui-sheet="false"><button class="aui-menubar-item" type="button" data-aui-dropdown-trigger><u>H</u>elp</button><div class="aui-menu"><button class="aui-menu-item">About</button></div></div>
+            </div>
+            <div class="aui-toolstrip">
+              <button class="aui-btn aui-btn--ghost aui-btn--icon" aria-label="Undo"><svg class="aui-icon"><use href="#aui-i-undo"/></svg></button>
+              <button class="aui-btn aui-btn--ghost aui-btn--icon" aria-label="Redo" disabled><svg class="aui-icon"><use href="#aui-i-redo"/></svg></button>
+              <span class="aui-toolstrip-sep"></span>
+              <button class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--toggle" aria-pressed="true" aria-label="Bold"><svg class="aui-icon"><use href="#aui-i-bold"/></svg></button>
+              <button class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--toggle" aria-pressed="false" aria-label="Italic"><svg class="aui-icon"><use href="#aui-i-italic"/></svg></button>
+              <button class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--toggle" aria-pressed="false" aria-label="Strikethrough"><svg class="aui-icon"><use href="#aui-i-strikethrough"/></svg></button>
+              <span class="aui-toolstrip-sep"></span>
+              <span class="aui-toolstrip-label">Zoom</span>
+              <div class="aui-segmented aui-segmented--sm"><button class="is-active">100%</button><button>125%</button><button>150%</button></div>
+              <div class="aui-spacer"></div>
+              <div class="aui-input-wrap aui-input-wrap--sm"><svg class="aui-icon"><use href="#aui-i-search"/></svg><input class="aui-input aui-input--sm" placeholder="Find"></div>
+              <button class="aui-btn aui-btn--primary aui-btn--sm"><svg class="aui-icon"><use href="#aui-i-play"/></svg>Run</button>
+            </div>
+          </div>
+          <template class="sc-code">
+<div class="aui-menubar" data-aui-menubar>
+  <div class="aui-dropdown" data-aui-dropdown data-aui-sheet="false">
+    <button class="aui-menubar-item" data-aui-dropdown-trigger><u>F</u>ile</button>
+    <div class="aui-menu">…</div>
+  </div>
+</div>
+<div class="aui-toolstrip">
+  <button class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--toggle" aria-pressed="true">…</button>
+  <span class="aui-toolstrip-sep"></span>
+</div>
+</template>
+        </div>
+
+        <h3 class="aui-demo-title" id="tabstrip">Tab strip</h3>
+        <p class="aui-demo-desc">Editor / browser tabs on top of <code>data-aui-tabs</code>. Tabs are <code>&lt;div role="tab" data-aui-tab&gt;</code> so a close button can sit inside; <code>data-aui-tab-close</code> closes (cancelable <code>aui:tab-close</code>, middle-click and <kbd>Del</kbd> work too), <code>data-aui-tab-add</code> fires <code>aui:tab-add</code>. States: <code>is-modified</code>, <code>is-pinned</code>. Variants <code>--chrome</code> (browser) and <code>--pills</code>.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--flush aui-demo-preview--stack" style="gap:0">
+            <div data-aui-tabs>
+              <div class="aui-tabstrip" role="tablist">
+                <div class="aui-tabstrip-tab is-pinned" role="tab" data-aui-tab="t0" tabindex="-1" data-aui-tooltip="Home" data-aui-tooltip-pos="bottom"><svg class="aui-icon"><use href="#aui-i-home"/></svg></div>
+                <div class="aui-tabstrip-tab is-active" role="tab" data-aui-tab="t1" tabindex="0"><svg class="aui-icon"><use href="#aui-i-code"/></svg><span class="aui-tabstrip-label">app.vue</span><button class="aui-tabstrip-close" data-aui-tab-close aria-label="Close"><svg class="aui-icon"><use href="#aui-i-x"/></svg></button></div>
+                <div class="aui-tabstrip-tab is-modified" role="tab" data-aui-tab="t2" tabindex="-1"><svg class="aui-icon"><use href="#aui-i-file-text"/></svg><span class="aui-tabstrip-label">README.md</span><button class="aui-tabstrip-close" data-aui-tab-close aria-label="Close"><svg class="aui-icon"><use href="#aui-i-x"/></svg></button></div>
+                <div class="aui-tabstrip-tab" role="tab" data-aui-tab="t3" tabindex="-1"><svg class="aui-icon"><use href="#aui-i-settings"/></svg><span class="aui-tabstrip-label">settings.json — a long tab label that fades</span><button class="aui-tabstrip-close" data-aui-tab-close aria-label="Close"><svg class="aui-icon"><use href="#aui-i-x"/></svg></button></div>
+                <button class="aui-tabstrip-add" data-aui-tab-add aria-label="New tab"><svg class="aui-icon"><use href="#aui-i-plus"/></svg></button>
+                <div class="aui-tabstrip-end"><button class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" aria-label="More"><svg class="aui-icon"><use href="#aui-i-more"/></svg></button></div>
+              </div>
+              <div class="aui-p-4 aui-text-sm aui-text-muted" data-aui-panel="t0">Home</div>
+              <div class="aui-p-4 aui-text-sm aui-text-muted" data-aui-panel="t1">app.vue — panels are plain <code>data-aui-panel</code> elements.</div>
+              <div class="aui-p-4 aui-text-sm aui-text-muted" data-aui-panel="t2">README.md (unsaved)</div>
+              <div class="aui-p-4 aui-text-sm aui-text-muted" data-aui-panel="t3">settings.json</div>
+            </div>
+            <div class="aui-tabstrip aui-tabstrip--chrome" data-aui-tabs role="tablist" style="border-top:1px solid var(--aui-border)">
+              <div class="aui-tabstrip-tab is-active" role="tab" data-aui-tab="c1" tabindex="0"><svg class="aui-icon"><use href="#aui-i-globe"/></svg><span class="aui-tabstrip-label">armsys.tech</span><button class="aui-tabstrip-close" data-aui-tab-close aria-label="Close"><svg class="aui-icon"><use href="#aui-i-x"/></svg></button></div>
+              <div class="aui-tabstrip-tab" role="tab" data-aui-tab="c2" tabindex="-1"><svg class="aui-icon"><use href="#aui-i-book"/></svg><span class="aui-tabstrip-label">Documentation</span><button class="aui-tabstrip-close" data-aui-tab-close aria-label="Close"><svg class="aui-icon"><use href="#aui-i-x"/></svg></button></div>
+              <div class="aui-tabstrip-tab" role="tab" data-aui-tab="c3" tabindex="-1"><svg class="aui-icon"><use href="#aui-i-github"/></svg><span class="aui-tabstrip-label">ui-kit · GitHub</span><button class="aui-tabstrip-close" data-aui-tab-close aria-label="Close"><svg class="aui-icon"><use href="#aui-i-x"/></svg></button></div>
+              <button class="aui-tabstrip-add" data-aui-tab-add aria-label="New tab"><svg class="aui-icon"><use href="#aui-i-plus"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="aui-demo-title" id="tree">Tree view</h3>
+        <p class="aui-demo-desc"><code>&lt;ul class="aui-tree" data-aui-tree&gt;</code> with nested lists. Click selects (and toggles folders — <code>data-aui-tree="chevron"</code> limits toggling to the chevron), double-click fires <code>aui:tree-activate</code>; <kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>Enter</kbd><kbd>*</kbd> keyboard. <code>aui-tree--guides</code> draws indent guides; rows accept <code>.aui-tree-meta</code>, badges, dots, checkboxes and hover <code>.aui-tree-actions</code>.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--start">
+            <div class="aui-card" style="width:300px;padding:6px 0">
+              <ul class="aui-tree aui-tree--guides" data-aui-tree aria-label="Files">
+                <li aria-expanded="true"><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-folder"/></svg><span class="aui-tree-label">src</span></div>
+                  <ul>
+                    <li aria-expanded="true"><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-folder"/></svg><span class="aui-tree-label">components</span></div>
+                      <ul>
+                        <li aria-selected="true"><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-code"/></svg><span class="aui-tree-label">button.css</span><span class="aui-tree-actions"><button class="aui-btn aui-btn--ghost aui-btn--icon" aria-label="Rename"><svg class="aui-icon"><use href="#aui-i-edit"/></svg></button></span><span class="aui-badge aui-badge--warning">M</span></div></li>
+                        <li><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-code"/></svg><span class="aui-tree-label">chat.css</span><span class="aui-badge aui-badge--success">A</span></div></li>
+                        <li><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-code"/></svg><span class="aui-tree-label">forms.css</span></div></li>
+                      </ul>
+                    </li>
+                    <li aria-expanded="false"><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-folder"/></svg><span class="aui-tree-label">js</span><span class="aui-tree-meta">10</span></div><ul><li><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-code"/></svg><span class="aui-tree-label">00-core.js</span></div></li></ul></li>
+                  </ul>
+                </li>
+                <li aria-expanded="false"><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-folder"/></svg><span class="aui-tree-label">examples</span><span class="aui-tree-meta">15</span></div><ul><li><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-file"/></svg><span class="aui-tree-label">messenger.html</span></div></li></ul></li>
+                <li class="is-dimmed"><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-file"/></svg><span class="aui-tree-label">.gitignore</span></div></li>
+                <li><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-file-text"/></svg><span class="aui-tree-label">README.md</span></div></li>
+              </ul>
+            </div>
+            <div class="aui-card" style="width:260px;padding:6px 0">
+              <ul class="aui-tree aui-tree--sm" data-aui-tree="chevron" aria-label="Layers">
+                <li aria-expanded="true"><div class="aui-tree-row"><span class="aui-tree-label">Page</span><label class="aui-check aui-check--sm"><input type="checkbox" checked></label></div>
+                  <ul>
+                    <li><div class="aui-tree-row"><span class="aui-dot aui-dot--accent"></span><span class="aui-tree-label">Header</span><label class="aui-check aui-check--sm"><input type="checkbox" checked></label></div></li>
+                    <li><div class="aui-tree-row"><span class="aui-dot aui-dot--purple"></span><span class="aui-tree-label">Hero</span><label class="aui-check aui-check--sm"><input type="checkbox"></label></div></li>
+                    <li><div class="aui-tree-row"><span class="aui-dot aui-dot--teal"></span><span class="aui-tree-label">Footer</span><label class="aui-check aui-check--sm"><input type="checkbox" checked></label></div></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <template class="sc-code">
+<ul class="aui-tree aui-tree--guides" data-aui-tree>
+  <li aria-expanded="true" data-value="src">
+    <div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-folder"/></svg><span class="aui-tree-label">src</span></div>
+    <ul>
+      <li aria-selected="true" data-value="src/app.js"><div class="aui-tree-row">…<span class="aui-tree-label">app.js</span><span class="aui-badge aui-badge--warning">M</span></div></li>
+    </ul>
+  </li>
+</ul>
+tree.addEventListener('aui:tree-activate', e => open(e.detail.value));
+</template>
+        </div>
+
+        <h3 class="aui-demo-title" id="resize">Resizable panels, rail &amp; panel groups</h3>
+        <p class="aui-demo-desc"><code>.aui-resize[data-aui-resize]</code> is a flex row (or <code>--vertical</code> column); drop a <code>.aui-resize-handle</code> between two children and the one before it becomes draggable (<code>data-aui-min/max</code>, keyboard arrows, double-click resets, <code>data-aui-resize-key</code> remembers the size). <code>.aui-rail</code> is the 48px activity bar; <code>&lt;details class="aui-panel-group"&gt;</code> stacks collapsible sections like a sidebar explorer; <code>.aui-props</code> is a compact property grid.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--flush">
+            <div class="aui-resize" data-aui-resize style="height:340px">
+              <nav class="aui-rail" aria-label="Views">
+                <button class="aui-rail-item is-active" aria-label="Explorer"><svg class="aui-icon"><use href="#aui-i-folder"/></svg></button>
+                <button class="aui-rail-item" aria-label="Search"><svg class="aui-icon"><use href="#aui-i-search"/></svg></button>
+                <button class="aui-rail-item" aria-label="Source control"><svg class="aui-icon"><use href="#aui-i-branch"/></svg><span class="aui-btn-badge aui-btn-badge--accent">3</span></button>
+                <div class="aui-spacer"></div>
+                <button class="aui-rail-item" aria-label="Settings"><svg class="aui-icon"><use href="#aui-i-settings"/></svg></button>
+              </nav>
+              <aside class="aui-pane" style="width:220px;background:var(--aui-bg-alt)">
+                <details class="aui-panel-group" open><summary>Explorer <span class="aui-row aui-gap-0"><button class="aui-btn aui-btn--ghost aui-btn--icon" aria-label="New file"><svg class="aui-icon"><use href="#aui-i-plus"/></svg></button></span></summary><div class="aui-panel-group-body"><ul class="aui-tree aui-tree--sm" data-aui-tree><li aria-expanded="true"><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-folder"/></svg><span class="aui-tree-label">src</span></div><ul><li aria-selected="true"><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-code"/></svg><span class="aui-tree-label">main.ts</span></div></li><li><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-code"/></svg><span class="aui-tree-label">preload.ts</span></div></li></ul></li></ul></div></details>
+                <details class="aui-panel-group"><summary>Outline</summary><div class="aui-panel-group-body aui-p-3 aui-text-xs aui-text-subtle">Nothing to show.</div></details>
+                <details class="aui-panel-group"><summary>Timeline <span class="aui-badge">4</span></summary><div class="aui-panel-group-body aui-p-3 aui-text-xs aui-text-subtle">Saved · 4 min ago</div></details>
+              </aside>
+              <div class="aui-resize-handle" data-aui-min="140" data-aui-max="420" aria-label="Resize sidebar"></div>
+              <div class="aui-resize aui-resize--vertical aui-grow">
+                <div class="aui-pane aui-grow aui-p-4 aui-text-sm aui-text-muted" style="min-height:80px">Editor — drag the handles. Sizes persist when the container has <code>data-aui-resize-key</code>.</div>
+                <div class="aui-resize-handle aui-resize-handle--grip" data-aui-min="60" data-aui-max="240"></div>
+                <div class="aui-pane" style="height:120px"><div class="aui-panel-header"><span class="aui-panel-header-title">Properties</span></div><div class="aui-pane-body"><div class="aui-props"><div>Name</div><div><input class="aui-input" value="main.ts"></div><div>Encoding</div><div><select class="aui-select"><option>UTF-8</option><option>UTF-16</option></select></div><div>Read-only</div><div><label class="aui-switch aui-switch--sm"><input type="checkbox" role="switch"></label></div></div></div></div>
+              </div>
+            </div>
+          </div>
+          <template class="sc-code">
+<div class="aui-resize" data-aui-resize data-aui-resize-key="main">
+  <aside class="aui-pane" style="width:260px">…</aside>
+  <div class="aui-resize-handle" data-aui-min="180" data-aui-max="480"></div>
+  <main class="aui-pane">…</main>
+</div>
+</template>
+        </div>
+
+        <h3 class="aui-demo-title" id="traffic-lights">Window chrome</h3>
+        <p class="aui-demo-desc"><code>.aui-traffic-lights</code> draws macOS controls for custom title bars (Tauri, or when the OS ones are hidden); Windows keeps <code>.aui-window-controls</code>. <code>.aui-desktop--framed</code> renders the shell inside a bordered window for docs and marketing pages. Clickable status items are <code>.aui-statusbar-item</code>.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--block">
+            <div class="aui aui-desktop aui-desktop--framed" data-aui-platform="mac" style="--h:150px">
+              <header class="aui-titlebar">
+                <div class="aui-traffic-lights"><button type="button" aria-label="Close"></button><button type="button" aria-label="Minimize"></button><button type="button" aria-label="Zoom"></button></div>
+                <div class="aui-tabstrip aui-tabstrip--chrome" data-aui-tabs role="tablist"><div class="aui-tabstrip-tab is-active" role="tab" data-aui-tab="w1" tabindex="0"><svg class="aui-icon"><use href="#aui-i-message"/></svg><span class="aui-tabstrip-label">Chats</span></div><div class="aui-tabstrip-tab" role="tab" data-aui-tab="w2" tabindex="-1"><svg class="aui-icon"><use href="#aui-i-phone"/></svg><span class="aui-tabstrip-label">Calls</span></div></div>
+                <div class="aui-titlebar-actions"><button class="aui-btn aui-btn--ghost aui-btn--icon" aria-label="Search"><svg class="aui-icon"><use href="#aui-i-search"/></svg></button></div>
+              </header>
+              <div class="aui-desktop-body"><div class="aui-empty aui-empty--sm"><div class="aui-empty-text">Window content</div></div>
+                <div class="aui-statusbar"><button class="aui-statusbar-item" type="button"><span class="aui-dot aui-dot--success"></span>Connected</button><button class="aui-statusbar-item" type="button"><svg class="aui-icon"><use href="#aui-i-branch"/></svg>main</button><span class="aui-spacer"></span><button class="aui-statusbar-item" type="button">UTF-8</button><button class="aui-statusbar-item" type="button"><svg class="aui-icon"><use href="#aui-i-bell"/></svg></button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="aui-docs-section" id="messaging">
+        <h2 class="aui-h2">Messaging</h2>
+        <p class="aui-text-muted aui-mt-2">WhatsApp / Telegram style clients: <code class="aui-code-inline">.aui-chat</code> is the three-pane shell (list · conversation · info; <code class="aui-code-inline">aui-chat--info</code> shows the third pane, single pane under 900px with <code class="aui-code-inline">is-conversation</code>), conversation rows, message bubbles, a composer and call screens. The complete client is in <a class="aui-link" href="examples/messenger.html">examples/messenger.html</a>.</p>
+
+        <h3 class="aui-demo-title" id="convos">Conversation list</h3>
+        <p class="aui-demo-desc"><code>.aui-convo</code> rows (button or link): avatar · name row · preview row. States <code>is-active</code>, <code>is-unread</code>, <code>is-muted</code>; preview modifiers <code>is-typing</code>, <code>is-draft</code>; ticks via <code>.aui-ticks[.is-read]</code>. <code>aui-convos--compact</code> and <code>aui-convos--cards</code> change density.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--flush" style="max-width:380px">
+            <div class="aui-convos">
+              <div class="aui-convos-label">Pinned</div>
+              <button class="aui-convo is-active" type="button"><span class="aui-avatar aui-avatar--purple"><svg class="aui-icon aui-icon--lg"><use href="#aui-i-users"/></svg></span><div class="aui-convo-head"><span class="aui-convo-name">Design team<svg class="aui-icon"><use href="#aui-i-pin"/></svg></span><time class="aui-convo-time">14:02</time></div><div class="aui-convo-foot"><span class="aui-convo-preview is-typing"><span>Mert is typing…</span></span><span class="aui-convo-badges"><span class="aui-count aui-count--accent">3</span></span></div></button>
+              <button class="aui-convo is-unread" type="button"><span class="aui-avatar aui-avatar--pink">AY<span class="aui-avatar-status is-online"></span></span><div class="aui-convo-head"><span class="aui-convo-name">Ayşe Yılmaz</span><time class="aui-convo-time">13:47</time></div><div class="aui-convo-foot"><span class="aui-convo-preview"><svg class="aui-icon"><use href="#aui-i-image"/></svg><span>Photo · the new mockups</span></span><span class="aui-convo-badges"><span class="aui-count aui-count--accent">2</span></span></div></button>
+              <button class="aui-convo" type="button"><span class="aui-avatar aui-avatar--teal">BK</span><div class="aui-convo-head"><span class="aui-convo-name">Burak Kaya</span><time class="aui-convo-time">12:10</time></div><div class="aui-convo-foot"><span class="aui-convo-preview"><span class="aui-ticks is-read"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span><span>Sounds good, see you at 3</span></span></div></button>
+              <button class="aui-convo is-muted" type="button"><span class="aui-avatar aui-avatar--orange"><svg class="aui-icon aui-icon--lg"><use href="#aui-i-radio"/></svg></span><div class="aui-convo-head"><span class="aui-convo-name">Ops alerts<svg class="aui-icon"><use href="#aui-i-volume-x"/></svg></span><time class="aui-convo-time">11:58</time></div><div class="aui-convo-foot"><span class="aui-convo-preview"><b>edge.fra:</b><span>p95 latency back to 61 ms</span></span><span class="aui-convo-badges"><span class="aui-count">18</span></span></div></button>
+              <button class="aui-convo" type="button"><span class="aui-avatar aui-avatar--warning"><svg class="aui-icon aui-icon--lg"><use href="#aui-i-heart"/></svg></span><div class="aui-convo-head"><span class="aui-convo-name">Family</span><time class="aui-convo-time">Yesterday</time></div><div class="aui-convo-foot"><span class="aui-convo-preview is-draft"><b>Draft:</b><span>Dinner at 8 works for me</span></span></div></button>
+            </div>
+          </div>
+          <template class="sc-code">
+<button class="aui-convo is-unread" data-value="ayse">
+  <span class="aui-avatar aui-avatar--pink">AY<span class="aui-avatar-status is-online"></span></span>
+  <div class="aui-convo-head"><span class="aui-convo-name">Ayşe Yılmaz</span><time class="aui-convo-time">13:47</time></div>
+  <div class="aui-convo-foot"><span class="aui-convo-preview"><span>Photo · the new mockups</span></span><span class="aui-convo-badges"><span class="aui-count aui-count--accent">2</span></span></div>
+</button>
+</template>
+        </div>
+
+        <h3 class="aui-demo-title" id="bubbles">Message bubbles</h3>
+        <p class="aui-demo-desc"><code>.aui-msg--in|--out</code> rows with <code>is-first / is-middle / is-last</code> to group consecutive messages (corners and avatars follow). Inside <code>.aui-bubble</code>: <code>-sender</code>, <code>-text</code>, <code>-meta</code> (time + <code>.aui-ticks</code>), <code>-reply</code>, <code>-forwarded</code>, <code>-media</code> (1–4 images), <code>-file</code>, <code>-voice</code>, <code>-link</code>, <code>.aui-poll</code>, <code>-reactions</code>, <code>-call</code>; <code>aui-bubble--media|--sticker|--deleted</code>. <code>aui-msgs--tails</code> adds speech tails; day separators, unread divider and system rows are block elements between messages.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--flush" style="background:var(--aui-chat-bg)">
+            <div class="aui-msgs aui-msgs--tails aui-msgs--narrow">
+              <div class="aui-msg-day">Today</div>
+              <div class="aui-msg-system"><svg class="aui-icon"><use href="#aui-i-lock"/></svg>Messages are end-to-end encrypted.</div>
+              <div class="aui-msg aui-msg--in is-first"><span class="aui-avatar aui-avatar--pink aui-avatar--sm">AY</span><div class="aui-bubble aui-tone--pink"><span class="aui-bubble-sender">Ayşe Yılmaz</span><div class="aui-bubble-text">Grouped messages share a sender and tighten their corners.</div><span class="aui-bubble-meta">09:12</span></div><div class="aui-msg-actions"><button class="aui-btn aui-btn--ghost aui-btn--icon" aria-label="React"><svg class="aui-icon"><use href="#aui-i-smile"/></svg></button><button class="aui-btn aui-btn--ghost aui-btn--icon" aria-label="Reply"><svg class="aui-icon"><use href="#aui-i-reply"/></svg></button></div></div>
+              <div class="aui-msg aui-msg--in is-middle"><span class="aui-avatar aui-avatar--pink aui-avatar--sm">AY</span><div class="aui-bubble aui-tone--pink"><div class="aui-bubble-text">Middle of the group — no avatar, no sender.</div><span class="aui-bubble-meta">09:12</span></div></div>
+              <div class="aui-msg aui-msg--in is-last"><span class="aui-avatar aui-avatar--pink aui-avatar--sm">AY</span><div class="aui-bubble aui-tone--pink"><div class="aui-bubble-text">Last one gets the tail and the avatar 👋</div><span class="aui-bubble-meta">09:13<span class="is-edited">· edited</span></span><div class="aui-bubble-reactions"><button class="aui-reaction is-mine" type="button">❤️ <span>2</span></button><button class="aui-reaction" type="button">😂 <span>1</span></button></div></div></div>
+              <div class="aui-msg aui-msg--out is-first"><div class="aui-bubble"><div class="aui-bubble-reply aui-tone--pink"><span class="aui-bubble-reply-name">Ayşe Yılmaz</span><span class="aui-bubble-reply-text">Last one gets the tail and the avatar 👋</span></div><div class="aui-bubble-text">Outgoing bubbles use <code>--aui-bubble-out</code> (accent-tinted) and show ticks.</div><span class="aui-bubble-meta">09:20<span class="aui-ticks is-read"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span></span></div></div>
+              <div class="aui-msg aui-msg--out is-middle"><div class="aui-bubble"><a class="aui-bubble-file" href="#"><span class="aui-icon-box aui-icon-box--danger"><svg class="aui-icon"><use href="#aui-i-file-text"/></svg></span><span class="aui-bubble-file-body"><span class="aui-bubble-file-name">Design-review-notes.pdf</span><span class="aui-bubble-file-meta">PDF · 1.2 MB</span></span><span class="aui-btn aui-btn--ghost aui-btn--icon" aria-label="Download"><svg class="aui-icon"><use href="#aui-i-download"/></svg></span></a><span class="aui-bubble-meta">09:21<span class="aui-ticks"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span></span></div></div>
+              <div class="aui-msg aui-msg--out is-last"><div class="aui-bubble"><div class="aui-bubble-voice"><button class="aui-btn aui-btn--accent aui-btn--round" aria-label="Play"><svg class="aui-icon"><use href="#aui-i-play"/></svg></button><div class="aui-voice-body"><div class="aui-wave"><span class="is-played" style="--h:30%"></span><span class="is-played" style="--h:60%"></span><span class="is-played" style="--h:90%"></span><span class="is-played" style="--h:50%"></span><span style="--h:70%"></span><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:65%"></span><span style="--h:35%"></span><span style="--h:55%"></span><span style="--h:95%"></span><span style="--h:45%"></span><span style="--h:60%"></span><span style="--h:30%"></span><span style="--h:75%"></span><span style="--h:50%"></span><span style="--h:40%"></span><span style="--h:80%"></span></div><div class="aui-voice-meta"><span>0:14 / 0:42</span><button class="aui-btn aui-btn--soft aui-voice-speed" type="button">1.5×</button></div></div></div><span class="aui-bubble-meta">09:22<span class="aui-ticks is-pending"><svg class="aui-icon"><use href="#aui-i-clock"/></svg></span></span></div></div>
+              <div class="aui-msg-unread">2 unread messages</div>
+              <div class="aui-msg aui-msg--in is-first is-last"><span class="aui-avatar aui-avatar--teal aui-avatar--sm">BK</span><div class="aui-bubble aui-bubble--media aui-tone--teal"><div class="aui-bubble-media"><span style="display:block;aspect-ratio:1;background:linear-gradient(135deg,#313140,#4d7cfe)"></span><span style="display:block;aspect-ratio:1;background:linear-gradient(135deg,#1f2a24,#3ecf8e)"></span><span style="display:block;aspect-ratio:1;background:linear-gradient(135deg,#2a1f2a,#f472b6)"></span><span class="aui-bubble-media-more" data-count="5" style="display:block;aspect-ratio:1;background:linear-gradient(135deg,#2a2a1f,#f5b83d)"></span></div><span class="aui-bubble-meta">09:30</span></div></div>
+              <div class="aui-msg aui-msg--in is-first is-last"><span class="aui-avatar aui-avatar--teal aui-avatar--sm">BK</span><div class="aui-bubble aui-bubble--deleted aui-tone--teal"><div class="aui-bubble-text"><svg class="aui-icon"><use href="#aui-i-ban"/></svg>This message was deleted</div><span class="aui-bubble-meta">09:31</span></div></div>
+              <div class="aui-msg aui-msg--in aui-msg--typing is-first is-last"><span class="aui-avatar aui-avatar--teal aui-avatar--sm">BK</span><div class="aui-bubble"><span class="aui-dots"><span></span><span></span><span></span></span></div></div>
+            </div>
+          </div>
+          <template class="sc-code">
+<div class="aui-msgs aui-msgs--tails">
+  <div class="aui-msg-day">Today</div>
+  <div class="aui-msg aui-msg--in is-first"><span class="aui-avatar aui-avatar--sm">AY</span>
+    <div class="aui-bubble aui-tone--pink"><span class="aui-bubble-sender">Ayşe</span><div class="aui-bubble-text">Hi!</div><span class="aui-bubble-meta">09:12</span></div>
+  </div>
+  <div class="aui-msg aui-msg--out is-first is-last">
+    <div class="aui-bubble"><div class="aui-bubble-text">Hello</div>
+      <span class="aui-bubble-meta">09:20<span class="aui-ticks is-read"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span></span></div>
+  </div>
+</div>
+</template>
+        </div>
+
+        <h3 class="aui-demo-title" id="composer">Composer</h3>
+        <p class="aui-demo-desc"><code>.aui-composer[data-aui-composer]</code>: the textarea autosizes, <kbd>Enter</kbd> sends (cancelable <code>aui:send</code> with the text; <kbd>Shift</kbd>+<kbd>Enter</kbd> newline; <code>data-aui-composer="ctrl"</code> for Ctrl+Enter), the <code>.aui-composer-send</code> button swaps its <code>-send-on</code>/<code>-send-off</code> icons (send ↔ mic) as you type. Optional <code>.aui-composer-reply</code>, <code>.aui-composer-attachments</code> and <code>.aui-composer-tools</code> rows sit above the bar.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--flush">
+            <div class="aui-composer" data-aui-composer>
+              <div class="aui-composer-reply"><svg class="aui-icon"><use href="#aui-i-reply"/></svg><div class="aui-composer-reply-body"><div class="aui-composer-reply-name">Burak Kaya</div><div class="aui-composer-reply-text">Reviewed. Two comments in Figma, otherwise 👍</div></div><button class="aui-close aui-close--sm" type="button" aria-label="Cancel reply"></button></div>
+              <div class="aui-composer-attachments"><div class="aui-composer-thumb" style="background:linear-gradient(135deg,#313140,#4d7cfe)"><button class="aui-close" type="button" aria-label="Remove"></button></div><div class="aui-composer-thumb aui-composer-thumb--file"><svg class="aui-icon aui-icon--lg"><use href="#aui-i-file-text"/></svg>notes.pdf</div></div>
+              <div class="aui-composer-bar">
+                <button class="aui-btn aui-btn--ghost aui-btn--round" type="button" aria-label="Attach"><svg class="aui-icon"><use href="#aui-i-paperclip"/></svg></button>
+                <div class="aui-composer-field"><textarea class="aui-composer-input" rows="1" placeholder="Type a message" aria-label="Message"></textarea><button class="aui-btn aui-btn--ghost aui-btn--round" type="button" aria-label="Emoji"><svg class="aui-icon"><use href="#aui-i-smile"/></svg></button></div>
+                <button class="aui-btn aui-btn--accent aui-btn--round aui-composer-send" type="button" aria-label="Send"><svg class="aui-icon aui-composer-send-on"><use href="#aui-i-send"/></svg><svg class="aui-icon aui-composer-send-off"><use href="#aui-i-mic"/></svg></button>
+              </div>
+              <div class="aui-composer-hint">Enter to send · Shift+Enter for a new line</div>
+            </div>
+          </div>
+          <template class="sc-code">
+<footer class="aui-composer" data-aui-composer>
+  <div class="aui-composer-bar">
+    <button class="aui-btn aui-btn--ghost aui-btn--round" aria-label="Attach">…</button>
+    <div class="aui-composer-field"><textarea class="aui-composer-input" rows="1" placeholder="Type a message"></textarea></div>
+    <button class="aui-btn aui-btn--accent aui-btn--round aui-composer-send" aria-label="Send">
+      <svg class="aui-icon aui-composer-send-on"><use href="#aui-i-send"/></svg><svg class="aui-icon aui-composer-send-off"><use href="#aui-i-mic"/></svg>
+    </button>
+  </div>
+</footer>
+composer.addEventListener('aui:send', e => { api.send(e.detail.text); /* e.preventDefault() keeps the draft */ });
+</template>
+        </div>
+
+        <h3 class="aui-demo-title" id="calls">Calls</h3>
+        <p class="aui-demo-desc"><code>.aui-call</code> is the call stage (put it in a full modal, <code>aui-call--fixed</code>, or a floating <code>aui-call--window</code>): header, stage with <code>.aui-call-peer</code> (ringing rings with <code>is-ringing</code>) or a <code>.aui-call-grid</code> of tiles, picture-in-picture <code>.aui-call-pip</code>, and <code>.aui-call-controls</code> made of glass toggle buttons. <code>.aui-call-banner</code> is the incoming-call card.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--flush">
+            <div class="aui-call" style="height:360px">
+              <div class="aui-call-header"><div class="aui-call-header-body"><div class="aui-call-title">Ayşe Yılmaz</div><div class="aui-call-status"><svg class="aui-icon"><use href="#aui-i-lock"/></svg>Ringing…</div></div><button class="aui-btn aui-btn--ghost aui-btn--icon" aria-label="Minimize"><svg class="aui-icon"><use href="#aui-i-minimize"/></svg></button></div>
+              <div class="aui-call-stage"><div class="aui-call-peer is-ringing"><span class="aui-avatar aui-avatar--pink">AY</span><div><div class="aui-call-peer-name">Ayşe Yılmaz</div><div class="aui-call-peer-sub">Calling · video</div></div></div><div class="aui-call-pip" style="background:linear-gradient(135deg,#23232c,#0f0f14)"><span class="aui-call-tag">You</span></div></div>
+              <div class="aui-call-controls aui-call-controls--bar">
+                <div class="aui-call-control"><button class="aui-btn aui-btn--glass aui-btn--round aui-btn--toggle" aria-pressed="false" aria-label="Mute"><svg class="aui-icon aui-btn-off"><use href="#aui-i-mic"/></svg><svg class="aui-icon aui-btn-on"><use href="#aui-i-mic-off"/></svg></button><span>Mute</span></div>
+                <div class="aui-call-control"><button class="aui-btn aui-btn--glass aui-btn--round aui-btn--toggle" aria-pressed="false" aria-label="Camera off"><svg class="aui-icon aui-btn-off"><use href="#aui-i-video"/></svg><svg class="aui-icon aui-btn-on"><use href="#aui-i-video-off"/></svg></button><span>Camera</span></div>
+                <div class="aui-call-control"><button class="aui-btn aui-btn--glass aui-btn--round" aria-label="Share screen"><svg class="aui-icon"><use href="#aui-i-screen-share"/></svg></button><span>Share</span></div>
+                <div class="aui-call-control aui-call-control--end"><button class="aui-btn aui-btn--round" aria-label="End call"><svg class="aui-icon"><use href="#aui-i-phone-off"/></svg></button><span>End</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--center">
+            <div class="aui-call-banner aui-call-banner--static"><span class="aui-avatar aui-avatar--teal">BK<span class="aui-avatar-status is-online"></span></span><div class="aui-call-banner-body"><div class="aui-call-banner-name">Burak Kaya</div><div class="aui-call-banner-sub">Incoming voice call · Armsys Chat</div></div><div class="aui-row"><button class="aui-btn aui-btn--round aui-btn--danger" aria-label="Decline"><svg class="aui-icon"><use href="#aui-i-phone-off"/></svg></button><button class="aui-btn aui-btn--round aui-btn--success" aria-label="Accept"><svg class="aui-icon"><use href="#aui-i-phone"/></svg></button></div></div>
+          </div>
+        </div>
+      </section>
+
       <section class="aui-docs-section" id="examples">
         <h2 class="aui-h2">Page examples</h2>
         <p class="aui-text-muted aui-mt-2">Complete pages composed only from shared classes. Start from the closest one.</p>
@@ -1133,7 +1506,8 @@ for evt := range sub.Events() {
           <a class="aui-tile" href="examples/forgot-password.html"><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon"><use href="#aui-i-key"/></svg></span><span class="aui-tile-body"><span class="aui-tile-title">Reset password</span><span class="aui-tile-meta">Auth · split</span></span><svg class="aui-icon"><use href="#aui-i-arrow-right"/></svg></a>
           <a class="aui-tile" href="examples/two-factor.html"><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon"><use href="#aui-i-shield-check"/></svg></span><span class="aui-tile-body"><span class="aui-tile-title">Two-factor</span><span class="aui-tile-meta">Auth · OTP</span></span><svg class="aui-icon"><use href="#aui-i-arrow-right"/></svg></a>
           <a class="aui-tile" href="examples/embedded-panel.html"><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon"><use href="#aui-i-panel-left"/></svg></span><span class="aui-tile-body"><span class="aui-tile-title">Embedded panel</span><span class="aui-tile-meta">Scoped island</span></span><svg class="aui-icon"><use href="#aui-i-arrow-right"/></svg></a>
-          <a class="aui-tile" href="examples/desktop.html"><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon"><use href="#aui-i-monitor"/></svg></span><span class="aui-tile-body"><span class="aui-tile-title">Electron desktop</span><span class="aui-tile-meta">Frameless window</span></span><svg class="aui-icon"><use href="#aui-i-arrow-right"/></svg></a>
+          <a class="aui-tile" href="examples/desktop.html"><span class="aui-icon-box aui-icon-box--sm"><svg class="aui-icon"><use href="#aui-i-monitor"/></svg></span><span class="aui-tile-body"><span class="aui-tile-title">Electron workbench</span><span class="aui-tile-meta">Menubar · tabs · tree · panels</span></span><svg class="aui-icon"><use href="#aui-i-arrow-right"/></svg></a>
+          <a class="aui-tile" href="examples/messenger.html"><span class="aui-icon-box aui-icon-box--sm aui-icon-box--accent"><svg class="aui-icon"><use href="#aui-i-message"/></svg></span><span class="aui-tile-body"><span class="aui-tile-title">Messenger</span><span class="aui-tile-meta">Chat · calls · desktop</span></span><svg class="aui-icon"><use href="#aui-i-arrow-right"/></svg></a>
         </div>
       </section>
 
@@ -1199,14 +1573,14 @@ const win = new BrowserWindow({
         </div>
         <div class="aui-code aui-mt-4">
           <div class="aui-code-header"><span class="aui-code-title">prompt.txt</span><div class="aui-code-actions"><button class="aui-copy" type="button" data-aui-copy aria-label="Copy"><span class="aui-copy-idle"><svg class="aui-icon"><use href="#aui-i-copy"/></svg>Copy</span><span class="aui-copy-done"><svg class="aui-icon"><use href="#aui-i-check"/></svg>Copied</span></button></div></div>
-          <div class="aui-code-body"><pre class="aui-code--wrap"><code class="language-plaintext">Build an admin panel for managing VPN servers using Armsys UI 2.
+          <div class="aui-code-body"><pre class="aui-code--wrap"><code class="language-plaintext">Build an admin panel for managing VPN servers using Armsys UI 3.
 Read https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2/llms-full.txt first and follow its rules:
 use only aui-* classes and --aui-* tokens, the .aui-app sidebar shell, data-aui-* behaviours,
 ArmsysUI.confirm() for destructive actions and toasts for results. No other UI framework.</code></pre></div>
         </div>
       </section>
       <footer class="aui-docs-foot">
-        <span>Armsys UI 2.0.1 · MIT © 2026 Armsys Technology</span>
+        <span>Armsys UI 3.0.0 · MIT © 2026 Armsys Technology</span>
         <a href="https://github.com/armsys-tech/ui-kit"><svg class="aui-icon aui-icon--sm"><use href="#aui-i-github"/></svg>Edit on GitHub</a>
       </footer>
     </article>

@@ -1,13 +1,24 @@
-# Armsys UI 2
+# Armsys UI 3
 
-Framework-independent design system and UI library by **Armsys Technology** — one visual language for websites, documentation, admin panels, monitoring tools, embedded widgets and Electron apps.
+Framework-independent design system and UI library by **Armsys Technology** — one visual language for websites, documentation, admin panels, monitoring tools, embedded widgets, messengers and Electron desktop apps.
 
 Dark-first with a full light theme, scoped to `.aui`, no runtime dependencies, no build step for consumers.
+
+## What's new in 3.0
+
+- **Desktop workbench.** Everything an Electron / Tauri app is built from: menubar with hover-switching menus, tool strip, activity rail, browser-style tab strip (closable, pinned, modified), tree view with keyboard navigation, resizable panels that remember their size, collapsible panel groups, property grid, status-bar items and macOS traffic lights.
+- **Messaging.** A WhatsApp / Telegram style client out of the box: three-pane `.aui-chat` shell, conversation rows with unread/muted/typing states, grouped message bubbles with tails, ticks, replies, media grids, files, voice messages, link previews, polls and reactions, a composer that autosizes and sends on Enter, contact/group info pane, call stage with group grid, picture-in-picture and incoming-call banner.
+- **Buttons.** Inverse and glass variants for media, toggle buttons with icon swap, stacked icon+label, round, dashed, wide, 2xl, yellow/neutral solids, corner count badges, hover-danger.
+- **Date picker & calendar.** `data-aui-datepicker` on any text input; inline `data-aui-calendar`; locale, week start, min/max, marked days, month/year jump.
+- **Notification center**, 40 new icons (mic, video, phone states, reply, forward, pin, undo/redo, bold/italic …), `aui-option-row` fixes.
+- **Polish.** Docs sidebar pills keep their inset (text aligns with the logo without clipping), search-trigger shortcut hints hug the right edge.
+
+Upgrading from 2.x? Nothing breaks — see [MIGRATION.md](MIGRATION.md) for the few things that changed.
 
 ## What's new in 2.0
 
 - **One frame for every public page.** Website, docs, pricing and data pages share the same header (64 px) and container (`--aui-frame: 1440px`). Moving from the landing page to the docs no longer changes the layout.
-- **Button library:** 8 variants, 8 solid tones, soft/outline/ghost + any tone, 5 sizes, icon/pill/block shapes, loading with label, counts, split buttons, toggle groups, social sign-in, FAB.
+- **Button library (2.0):** 8 variants, 8 solid tones, soft/outline/ghost + any tone, 5 sizes, icon/pill/block shapes, loading with label, counts, split buttons, toggle groups, social sign-in, FAB.
 - **Input library:** affixes, clear & reveal actions, 5 sizes, validation states, input groups, searchable combobox (`data-aui-select`), OTP, tag input, stepper, range, file input & dropzone, choice cards, password strength.
 - **Professional dropdowns:** viewport-aware positioning (never clipped by tables or cards), submenus, checkable items, search, typeahead, keyboard navigation, context menus, popovers.
 - **Overlays like native apps:** animated modals, drawers on four sides, bottom sheets with drag-to-dismiss — every modal becomes a Flutter-style sheet on phones. Promise-based `ArmsysUI.confirm / prompt / alert`, toasts with actions and `toast.promise`, and a ⌘K command palette.
@@ -16,15 +27,13 @@ Dark-first with a full light theme, scoped to `.aui`, no runtime dependencies, n
 - **Integrations:** ES module + CommonJS + TypeScript types, auto-init for markup rendered later (Vue, Blazor, Livewire, Electron), Electron title bar.
 - **AI-ready:** `llms-full.txt`, a complete component catalogue, recipes and token map so assistants can build a full admin panel from the docs alone.
 
-Upgrading from 1.x? Read [MIGRATION.md](MIGRATION.md).
-
 ## Quick start
 
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@3.0.0/dist/armsys-ui.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@armsys-tech/ui@3.0.0/dist/armsys-ui.min.js" defer></script>
 
 <body class="aui">
   <button class="aui-btn aui-btn--primary" data-aui-toast="Deployed" data-aui-toast-variant="success">Deploy</button>
@@ -66,9 +75,10 @@ Every value is a `--aui-*` custom property (see `src/tokens/tokens.css` or `ai/t
 
 Open `index.html` for the component reference. Complete pages in `examples/`:
 
-| Public web | Application | Auth | Other |
+| Public web | Application | Auth | Desktop |
 | --- | --- | --- | --- |
-| `website.html` | `dashboard.html` | `login.html` | `desktop.html` (Electron) |
+| `website.html` | `dashboard.html` | `login.html` | `desktop.html` (Electron workbench) |
+| | | | `messenger.html` (chat + calls) |
 | `documentation.html` | `monitoring.html` | `register.html` | `embedded-panel.html` |
 | `pricing.html` | `data-table.html` | `forgot-password.html` | |
 | `leaderboard.html` | `settings.html` | `two-factor.html` | |
@@ -81,7 +91,7 @@ ui-kit/
 ├─ src/
 │  ├─ tokens/       design tokens, themes, accents, density
 │  ├─ base/         base, typography, prose, utilities (loaded last)
-│  ├─ components/   button, forms, menu, overlay, navigation, data, table, feedback, code
+│  ├─ components/   button, forms, menu, overlay, navigation, data, table, feedback, code, picker, workbench, chat
 │  ├─ layouts/      frame (shared shell), site, docs, app, auth, pricing, data-pages, desktop
 │  ├─ js/           behaviour modules (concatenated into dist)
 │  └─ types/        TypeScript declarations

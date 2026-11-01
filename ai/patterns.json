@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "2.0.1",
+  "version": "3.0.0",
   "frameRule": "Public surfaces (website, docs, pricing, blog, data pages) share .aui-site + .aui-site-header + .aui-container + .aui-site-footer. Never give one page a different header or container width.",
   "patterns": {
     "adminPanel": {
@@ -158,12 +158,14 @@
       "example": "examples/desktop.html",
       "recipe": "ai/recipes/electron-app.md",
       "surface": "desktop",
-      "shell": "aui-desktop > aui-titlebar + aui-desktop-body > aui-app",
+      "shell": "aui-desktop > aui-titlebar (+ aui-menubar) + aui-toolstrip + aui-desktop-body > aui-resize > aui-rail | side pane (aui-panel-group + aui-tree) | aui-tabstrip + panels + aui-statusbar",
       "useFor": [
         "Electron",
         "Tauri",
         "WebView2",
-        "desktop tool"
+        "IDE-like tool",
+        "file manager",
+        "console"
       ]
     },
     "componentReference": {
@@ -172,6 +174,18 @@
       "useFor": [
         "design system docs",
         "showcase"
+      ]
+    },
+    "messenger": {
+      "example": "examples/messenger.html",
+      "recipe": "ai/recipes/messenger.md",
+      "surface": "desktop",
+      "shell": "aui-desktop > aui-titlebar + aui-desktop-body > aui-resize > aui-rail | aui-chat (aui-chat-side | aui-chat-main | aui-chat-info)",
+      "useFor": [
+        "WhatsApp / Telegram style client",
+        "support inbox",
+        "team chat",
+        "voice & video calls"
       ]
     }
   }

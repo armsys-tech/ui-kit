@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Armsys UI 2 — Scoped base, typography, tones, utilities, motion
+   Armsys UI 3 — Scoped base, typography, tones, utilities, motion
    Every element rule is scoped to .aui and uses :where() to keep specificity
    at zero, so host applications can override anything without !important.
    ========================================================================== */

@@ -17,11 +17,12 @@ export const CSS_ORDER = [
   'base/base.css', 'base/prose.css',
   'components/button.css', 'components/forms.css', 'components/menu.css', 'components/overlay.css',
   'components/navigation.css', 'components/data.css', 'components/table.css', 'components/feedback.css', 'components/code.css',
+  'components/picker.css', 'components/workbench.css', 'components/chat.css',
   'layouts/frame.css', 'layouts/site.css', 'layouts/docs.css', 'layouts/app.css', 'layouts/auth.css',
   'layouts/pricing.css', 'layouts/data-pages.css', 'layouts/desktop.css',
   'base/utilities.css'
 ];
-export const JS_ORDER = ['00-core.js', '10-icons.js', '20-overlay.js', '30-floating.js', '31-menus.js', '40-forms.js', '50-ui.js', '60-code.js', '90-init.js'];
+export const JS_ORDER = ['00-core.js', '10-icons.js', '20-overlay.js', '30-floating.js', '31-menus.js', '40-forms.js', '50-ui.js', '60-code.js', '70-workbench.js', '90-init.js'];
 
 const banner = (kind) => `/*!
  * Armsys UI ${V} — Framework-independent design system by Armsys Technology
@@ -60,7 +61,7 @@ ${jsBody()}
 })();
 export default ArmsysUI;
 export { ArmsysUI };
-export const { init, openModal, closeModal, confirm, prompt, alert, toast, setTheme, getTheme, openCommand, openDropdown, closeDropdown, closeAll, selectTab, copy, refreshSelect, highlight, addIcons, icon, position } = ArmsysUI;
+export const { init, openModal, closeModal, confirm, prompt, alert, toast, setTheme, getTheme, openCommand, openDropdown, closeDropdown, closeAll, selectTab, copy, refreshSelect, highlight, addIcons, icon, position, closeTab, treeSelect, treeToggle, openDatepicker, closeDatepicker, setDate, formatDate, parseDate, send, scrollChat } = ArmsysUI;
 `;
 }
 

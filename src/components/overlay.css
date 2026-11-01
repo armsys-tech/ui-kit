@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Armsys UI 2 — Overlays: modal, dialog, drawer, bottom sheet
+   Armsys UI 3 — Overlays: modal, dialog, drawer, bottom sheet
    All use native <dialog> (focus trap, Escape, top layer). JS adds
    enter/exit animations, scroll-lock, backdrop click and drag-to-dismiss.
 

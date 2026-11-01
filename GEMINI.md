@@ -1,6 +1,6 @@
 # Armsys UI — Gemini instructions
 
-This repository is the canonical Armsys UI 2 design system.
+This repository is the canonical Armsys UI 3 design system.
 
 For frontend/design work (here or in any Armsys project):
 

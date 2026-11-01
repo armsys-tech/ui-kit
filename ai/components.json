@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "2.0.1",
+  "version": "3.0.0",
   "prefix": "aui-",
   "toneModifiers": "Any component that lists 'tone' accepts a modifier ending in a tone name: --accent --success --info --warning --danger --purple --pink --orange --yellow --teal --neutral (also the generic classes aui-tone--accent, aui-tone--success …).",
   "stateClasses": [
@@ -27,7 +27,12 @@
           "aui-btn--ghost",
           "aui-btn--soft",
           "aui-btn--link",
-          "aui-btn--social"
+          "aui-btn--social",
+          "aui-btn--dashed",
+          "aui-btn--inverse",
+          "aui-btn--glass",
+          "aui-btn--toggle (+ aria-pressed)",
+          "aui-btn--hover-danger"
         ],
         "tone": [
           "aui-btn--success",
@@ -37,20 +42,28 @@
           "aui-btn--purple",
           "aui-btn--pink",
           "aui-btn--orange",
-          "aui-btn--teal"
+          "aui-btn--teal",
+          "aui-btn--yellow",
+          "aui-btn--neutral"
         ],
         "size": [
           "aui-btn--xs",
           "aui-btn--sm",
           "(md default)",
           "aui-btn--lg",
-          "aui-btn--xl"
+          "aui-btn--xl",
+          "aui-btn--2xl"
         ],
         "shape": [
           "aui-btn--icon",
           "aui-btn--pill",
           "aui-btn--block",
-          "aui-btn--start"
+          "aui-btn--start",
+          "aui-btn--round",
+          "aui-btn--square",
+          "aui-btn--rounded",
+          "aui-btn--wide",
+          "aui-btn--stack"
         ],
         "state": [
           "is-loading",
@@ -66,7 +79,11 @@
         "aui-btn-count",
         "aui-btn-dot",
         "aui-btn-end",
-        "aui-btn-brand"
+        "aui-btn-brand",
+        "aui-btn-badge",
+        "aui-btn-badge--accent",
+        "aui-btn-on",
+        "aui-btn-off"
       ],
       "dataAttributes": [
         "data-aui-confirm=\"Title\" (+ data-aui-confirm-message, -text, -variant)",
@@ -79,12 +96,16 @@
         "<button class=\"aui-btn\"><svg class=\"aui-icon\"><use href=\"#aui-i-plus\"/></svg>New</button>",
         "<button class=\"aui-btn aui-btn--soft aui-btn--danger\">Remove</button>",
         "<button class=\"aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm\" aria-label=\"Settings\"><svg class=\"aui-icon\"><use href=\"#aui-i-settings\"/></svg></button>",
-        "<button class=\"aui-btn aui-btn--primary is-loading\">Saving…</button>"
+        "<button class=\"aui-btn aui-btn--primary is-loading\">Saving…</button>",
+        "<button class=\"aui-btn aui-btn--glass aui-btn--round aui-btn--toggle\" aria-pressed=\"false\" aria-label=\"Mute\"><svg class=\"aui-icon aui-btn-off\"><use href=\"#aui-i-mic\"/></svg><svg class=\"aui-icon aui-btn-on\"><use href=\"#aui-i-mic-off\"/></svg></button>",
+        "<button class=\"aui-btn aui-btn--stack\"><svg class=\"aui-icon\"><use href=\"#aui-i-video\"/></svg>Video</button>"
       ],
       "rules": [
         "Exactly one aui-btn--primary per view; secondary actions use the default variant or --outline/--ghost.",
         "Tone + style: combine a tone with --soft/--outline/--ghost (aui-btn--soft aui-btn--danger). A tone alone is a solid button.",
-        "Icon-only buttons need aria-label."
+        "Icon-only buttons need aria-label.",
+        "aui-btn--toggle flips aria-pressed on click and fires aui:toggle; inside it .aui-btn-on shows only when pressed, .aui-btn-off only when not.",
+        "aui-btn--inverse / aui-btn--glass keep fixed colours in both themes — use them over images, video and the call stage only."
       ]
     },
     "buttonGroup": {
@@ -2089,6 +2110,580 @@
       ],
       "markup": [
         "see examples/leaderboard.html"
+      ]
+    },
+    "notifications": {
+      "category": "data",
+      "file": "src/components/data.css",
+      "base": "aui-notifs",
+      "elements": [
+        "aui-notif",
+        "aui-notif-body",
+        "aui-notif-title",
+        "aui-notif-text",
+        "aui-notif-quote",
+        "aui-notif-actions",
+        "aui-notif-time",
+        "aui-notif-more",
+        "aui-notif-day"
+      ],
+      "modifiers": {
+        "state": [
+          "is-unread"
+        ]
+      },
+      "markup": [
+        "<div class=\"aui-notifs\"><a class=\"aui-notif is-unread\" href=\"#\"><span class=\"aui-avatar aui-avatar--sm\">AY</span><div class=\"aui-notif-body\"><b>Ayşe</b> mentioned you<div class=\"aui-notif-quote\">Can we ship after the review?</div></div><time class=\"aui-notif-time\">18m</time></a></div>"
+      ],
+      "rules": [
+        "A row that contains action buttons must be <a> or <div tabindex=\"0\">, never <button> (buttons cannot nest).",
+        "Show the list in a popover from the bell (data-aui-popover) or in a drawer."
+      ]
+    },
+    "calendar": {
+      "category": "forms",
+      "file": "src/components/picker.css",
+      "base": "aui-calendar",
+      "generated": "JS renders .aui-calendar-head/-title/-grid/-wd/-day/-foot (and -months/-years when the title is clicked)",
+      "modifiers": {
+        "size": [
+          "aui-calendar--sm",
+          "aui-calendar--lg",
+          "aui-calendar--block"
+        ],
+        "day state": [
+          "is-today",
+          "is-selected",
+          "is-outside",
+          "is-weekend",
+          "is-marked",
+          ":disabled"
+        ]
+      },
+      "dataAttributes": [
+        "data-aui-calendar (inline)",
+        "data-aui-datepicker on a text input (floating picker)",
+        "data-value=\"YYYY-MM-DD\"",
+        "min / max or data-min / data-max",
+        "data-aui-format=\"dd.mm.yyyy\" (input display format; default ISO)",
+        "data-aui-locale=\"tr\"",
+        "data-aui-week-start=\"0|1\"",
+        "data-marked=\"YYYY-MM-DD …\"",
+        "data-aui-no-foot"
+      ],
+      "events": [
+        "aui:date {value, date}"
+      ],
+      "js": [
+        "ArmsysUI.openDatepicker(input)",
+        "ArmsysUI.closeDatepicker()",
+        "ArmsysUI.setDate(calendar, '2026-12-24' | Date | null)",
+        "ArmsysUI.parseDate(str, fmt) / formatDate(date, fmt)"
+      ],
+      "markup": [
+        "<div class=\"aui-input-wrap\"><svg class=\"aui-icon\"><use href=\"#aui-i-calendar\"/></svg><input class=\"aui-input\" data-aui-datepicker data-aui-format=\"dd.mm.yyyy\" min=\"2026-01-01\"></div>",
+        "<div class=\"aui-card\"><div data-aui-calendar data-value=\"2026-11-01\"></div></div>"
+      ],
+      "rules": [
+        "Use the picker for a consistent look across platforms (Electron/WebView2); plain <input type=\"date|time\"> stays native and is fine for simple forms.",
+        "The input fires normal input/change events; the value is a string in data-aui-format."
+      ]
+    },
+    "menubar": {
+      "category": "navigation",
+      "file": "src/components/workbench.css",
+      "base": "aui-menubar",
+      "elements": [
+        "aui-menubar-item"
+      ],
+      "dataAttributes": [
+        "data-aui-menubar on the bar (hover/arrow switching between open menus)"
+      ],
+      "related": [
+        "aui-dropdown",
+        "aui-menu"
+      ],
+      "markup": [
+        "<div class=\"aui-menubar\" data-aui-menubar><div class=\"aui-dropdown\" data-aui-dropdown data-aui-sheet=\"false\"><button class=\"aui-menubar-item\" data-aui-dropdown-trigger><u>F</u>ile</button><div class=\"aui-menu\"><button class=\"aui-menu-item\">New<span class=\"aui-kbd-group\"><kbd class=\"aui-kbd aui-kbd--sm\">Ctrl</kbd><kbd class=\"aui-kbd aui-kbd--sm\">N</kbd></span></button></div></div></div>"
+      ],
+      "rules": [
+        "Each top-level entry is a normal aui-dropdown with data-aui-sheet=\"false\". Place the bar inside .aui-titlebar (it becomes transparent) or right under it.",
+        "Wrap the mnemonic letter in <u>; it is underlined only when the bar has .is-alt."
+      ]
+    },
+    "toolstrip": {
+      "category": "navigation",
+      "file": "src/components/workbench.css",
+      "base": "aui-toolstrip",
+      "modifiers": {
+        "variant": [
+          "aui-toolstrip--plain",
+          "aui-toolstrip--floating",
+          "aui-toolstrip--vertical"
+        ]
+      },
+      "elements": [
+        "aui-toolstrip-sep",
+        "aui-toolstrip-label"
+      ],
+      "markup": [
+        "<div class=\"aui-toolstrip\"><button class=\"aui-btn aui-btn--ghost aui-btn--icon aui-btn--toggle\" aria-pressed=\"true\" aria-label=\"Bold\"><svg class=\"aui-icon\"><use href=\"#aui-i-bold\"/></svg></button><span class=\"aui-toolstrip-sep\"></span><div class=\"aui-spacer\"></div><button class=\"aui-btn aui-btn--primary aui-btn--sm\">Run</button></div>"
+      ],
+      "rules": [
+        "Buttons inside are 28px automatically; use ghost icon buttons with aria-label and data-aui-tooltip. Prefer aui-toolstrip over aui-toolbar (filter bar) in desktop shells."
+      ]
+    },
+    "rail": {
+      "category": "layout",
+      "file": "src/components/workbench.css",
+      "base": "aui-rail",
+      "modifiers": {
+        "variant": [
+          "aui-rail--right"
+        ]
+      },
+      "elements": [
+        "aui-rail-item",
+        "aui-rail-sep"
+      ],
+      "markup": [
+        "<nav class=\"aui-rail\" aria-label=\"Views\"><button class=\"aui-rail-item is-active\" aria-label=\"Chats\"><svg class=\"aui-icon\"><use href=\"#aui-i-message\"/></svg><span class=\"aui-btn-badge\">7</span></button><div class=\"aui-spacer\"></div><button class=\"aui-rail-item\" aria-label=\"Settings\"><svg class=\"aui-icon\"><use href=\"#aui-i-settings\"/></svg></button></nav>"
+      ],
+      "rules": [
+        "48px activity bar at the far left of a desktop app (VS Code / Telegram style). Every item needs aria-label + data-aui-tooltip-pos=\"right\"."
+      ]
+    },
+    "tabstrip": {
+      "category": "navigation",
+      "file": "src/components/workbench.css",
+      "base": "aui-tabstrip",
+      "modifiers": {
+        "variant": [
+          "aui-tabstrip--chrome",
+          "aui-tabstrip--pills"
+        ],
+        "tab state": [
+          "is-active",
+          "is-modified",
+          "is-pinned"
+        ]
+      },
+      "elements": [
+        "aui-tabstrip-tab",
+        "aui-tabstrip-label",
+        "aui-tabstrip-close",
+        "aui-tabstrip-add",
+        "aui-tabstrip-end"
+      ],
+      "dataAttributes": [
+        "data-aui-tabs on the strip (or an ancestor that also holds the panels)",
+        "data-aui-tab=\"id\" on each tab",
+        "data-aui-tab-close on the close button",
+        "data-aui-tab-add on the + button"
+      ],
+      "events": [
+        "aui:tab {tab}",
+        "aui:tab-close {tab} (cancelable)",
+        "aui:tab-closed {tab}",
+        "aui:tab-add"
+      ],
+      "js": [
+        "ArmsysUI.closeTab(tab)"
+      ],
+      "markup": [
+        "<div data-aui-tabs><div class=\"aui-tabstrip\" role=\"tablist\"><div class=\"aui-tabstrip-tab is-active\" role=\"tab\" data-aui-tab=\"a\" tabindex=\"0\"><svg class=\"aui-icon\"><use href=\"#aui-i-code\"/></svg><span class=\"aui-tabstrip-label\">app.vue</span><button class=\"aui-tabstrip-close\" data-aui-tab-close aria-label=\"Close\"><svg class=\"aui-icon\"><use href=\"#aui-i-x\"/></svg></button></div><button class=\"aui-tabstrip-add\" data-aui-tab-add aria-label=\"New tab\"><svg class=\"aui-icon\"><use href=\"#aui-i-plus\"/></svg></button></div><div data-aui-panel=\"a\">…</div></div>"
+      ],
+      "rules": [
+        "Tabs are <div role=\"tab\" tabindex> (not <button>) so the close button can nest. Middle-click and Delete close too.",
+        "Closing removes the tab and its data-aui-panel and activates a neighbour unless aui:tab-close is prevented."
+      ]
+    },
+    "tree": {
+      "category": "navigation",
+      "file": "src/components/workbench.css",
+      "base": "aui-tree",
+      "modifiers": {
+        "variant": [
+          "aui-tree--guides",
+          "aui-tree--sm",
+          "aui-tree--lg"
+        ],
+        "item state": [
+          "[aria-expanded=true|false]",
+          "[aria-selected=true]",
+          "is-current",
+          "is-dimmed",
+          "is-drop"
+        ]
+      },
+      "elements": [
+        "aui-tree-row",
+        "aui-tree-toggle (auto-inserted)",
+        "aui-tree-label",
+        "aui-tree-meta",
+        "aui-tree-actions"
+      ],
+      "dataAttributes": [
+        "data-aui-tree (click toggles folders) | data-aui-tree=\"chevron\" (only the chevron toggles)",
+        "data-value on <li>"
+      ],
+      "events": [
+        "aui:tree-select {item, value}",
+        "aui:tree-toggle {item, expanded}",
+        "aui:tree-activate {item, value} (double-click / Enter)"
+      ],
+      "js": [
+        "ArmsysUI.treeSelect(li)",
+        "ArmsysUI.treeToggle(li, open?)"
+      ],
+      "markup": [
+        "<ul class=\"aui-tree aui-tree--guides\" data-aui-tree><li aria-expanded=\"true\" data-value=\"src\"><div class=\"aui-tree-row\"><svg class=\"aui-icon\"><use href=\"#aui-i-folder\"/></svg><span class=\"aui-tree-label\">src</span></div><ul><li aria-selected=\"true\" data-value=\"src/app.js\"><div class=\"aui-tree-row\"><svg class=\"aui-icon\"><use href=\"#aui-i-code\"/></svg><span class=\"aui-tree-label\">app.js</span><span class=\"aui-badge aui-badge--warning\">M</span></div></li></ul></li></ul>"
+      ],
+      "rules": [
+        "Nested <ul> inside <li>; folders carry aria-expanded. The list itself is focusable: arrows, Home/End, Enter, * (expand all) work.",
+        "Row extras go after the label: .aui-tree-meta, badges, dots, a checkbox (.aui-check--sm) or hover .aui-tree-actions."
+      ]
+    },
+    "resize": {
+      "category": "layout",
+      "file": "src/components/workbench.css",
+      "base": "aui-resize",
+      "modifiers": {
+        "variant": [
+          "aui-resize--vertical"
+        ],
+        "handle": [
+          "aui-resize-handle--grip"
+        ]
+      },
+      "elements": [
+        "aui-resize-handle"
+      ],
+      "dataAttributes": [
+        "data-aui-resize on the container",
+        "data-aui-resize-key=\"name\" (persist sizes in localStorage)",
+        "data-aui-min / data-aui-max on a handle (px)"
+      ],
+      "events": [
+        "aui:resize {pane, size}"
+      ],
+      "markup": [
+        "<div class=\"aui-resize\" data-aui-resize data-aui-resize-key=\"main\"><aside class=\"aui-pane\" style=\"width:260px\">…</aside><div class=\"aui-resize-handle\" data-aui-min=\"180\" data-aui-max=\"480\"></div><main class=\"aui-pane\">…</main></div>"
+      ],
+      "rules": [
+        "The element before a handle gets the size; the last child fills the rest. Give the sized pane an initial width (or height for --vertical).",
+        "Drag with the pointer, arrows on the focused handle (Shift = 40px), double-click or Enter resets. Nest a --vertical container inside a horizontal one for editor + bottom panel."
+      ]
+    },
+    "panelGroup": {
+      "category": "layout",
+      "file": "src/components/workbench.css",
+      "base": "aui-panel-group",
+      "modifiers": {
+        "variant": [
+          "aui-panel-group--fixed"
+        ]
+      },
+      "elements": [
+        "aui-panel-group-body"
+      ],
+      "related": [
+        "aui-panel-header",
+        "aui-panel-header-title"
+      ],
+      "markup": [
+        "<details class=\"aui-panel-group\" open><summary>Explorer <span class=\"aui-row aui-gap-0\"><button class=\"aui-btn aui-btn--ghost aui-btn--icon\" aria-label=\"New file\"><svg class=\"aui-icon\"><use href=\"#aui-i-plus\"/></svg></button></span></summary><div class=\"aui-panel-group-body\"><ul class=\"aui-tree\" data-aui-tree>…</ul></div></details>",
+        "<div class=\"aui-panel-header\"><div class=\"aui-tabs aui-tabs--sm\">…</div><div class=\"aui-row aui-gap-0\">…</div></div>"
+      ],
+      "rules": [
+        "Stack several <details class=\"aui-panel-group\"> in a side pane; open groups share the height. Use .aui-panel-header for tool windows (Output, Terminal) with small tabs."
+      ]
+    },
+    "props": {
+      "category": "forms",
+      "file": "src/components/workbench.css",
+      "base": "aui-props",
+      "elements": [
+        "aui-props-title",
+        "aui-props-swatch"
+      ],
+      "markup": [
+        "<div class=\"aui-props\"><div class=\"aui-props-title\">Layout</div><div>Width</div><div><input class=\"aui-input\" value=\"320\"></div><div>Visible</div><div><label class=\"aui-switch aui-switch--sm\"><input type=\"checkbox\" role=\"switch\" checked></label></div></div>"
+      ],
+      "rules": [
+        "Two-column property inspector: label | control pairs as direct children; inputs render borderless until hovered."
+      ]
+    },
+    "trafficLights": {
+      "category": "layout",
+      "file": "src/components/workbench.css",
+      "base": "aui-traffic-lights",
+      "related": [
+        "aui-window-controls",
+        "aui-desktop--framed",
+        "aui-statusbar-item",
+        "aui-statusbar--accent"
+      ],
+      "markup": [
+        "<div class=\"aui-traffic-lights\"><button type=\"button\" aria-label=\"Close\"></button><button type=\"button\" aria-label=\"Minimize\"></button><button type=\"button\" aria-label=\"Zoom\"></button></div>",
+        "<div class=\"aui-statusbar\"><button class=\"aui-statusbar-item\" type=\"button\"><span class=\"aui-dot aui-dot--success\"></span>Connected</button><span class=\"aui-spacer\"></span><button class=\"aui-statusbar-item\" type=\"button\">UTF-8</button></div>"
+      ],
+      "rules": [
+        "macOS: either rely on native traffic lights (data-aui-platform=\"mac\" pads the title bar) or draw them with .aui-traffic-lights for custom chrome. Windows/Linux keep .aui-window-controls.",
+        "aui-desktop--framed renders the desktop shell inside a bordered window for docs or marketing pages (set --h)."
+      ]
+    },
+    "chatShell": {
+      "category": "layout",
+      "file": "src/components/chat.css",
+      "base": "aui-chat",
+      "modifiers": {
+        "variant": [
+          "aui-chat--info (shows the third pane)",
+          "aui-chat--compact"
+        ],
+        "state": [
+          "is-conversation (≤900px: show conversation instead of the list)"
+        ]
+      },
+      "elements": [
+        "aui-chat-side",
+        "aui-chat-side-header",
+        "aui-chat-side-title",
+        "aui-chat-search",
+        "aui-chat-filters",
+        "aui-chat-main",
+        "aui-chat-header",
+        "aui-chat-peer",
+        "aui-chat-peer-name",
+        "aui-chat-peer-status (is-online | is-typing)",
+        "aui-chat-header-actions",
+        "aui-chat-back",
+        "aui-chat-pinned",
+        "aui-chat-body (aui-chat-body--pattern | --image)",
+        "aui-chat-jump",
+        "aui-chat-empty",
+        "aui-chat-info",
+        "aui-chat-info-header",
+        "aui-chat-profile",
+        "aui-chat-info-section",
+        "aui-chat-info-title",
+        "aui-media-grid",
+        "aui-members"
+      ],
+      "dataAttributes": [
+        "data-aui-chat-scroll on .aui-chat-body (starts at the bottom, follows new messages, shows .aui-chat-jump when scrolled up)",
+        "data-aui-chat-info-toggle on any button (toggles aui-chat--info)"
+      ],
+      "events": [
+        "aui:convo {value} (a .aui-convo was clicked)"
+      ],
+      "js": [
+        "ArmsysUI.scrollChat(body)"
+      ],
+      "markup": [
+        "<div class=\"aui-chat aui-chat--info\"><aside class=\"aui-chat-side\"><div class=\"aui-chat-side-header\"><div class=\"aui-chat-side-title\">Chats</div></div><div class=\"aui-chat-search\">…</div><div class=\"aui-convos\">…</div></aside><section class=\"aui-chat-main\"><header class=\"aui-chat-header\">…</header><div class=\"aui-chat-body aui-chat-body--pattern\" data-aui-chat-scroll><div class=\"aui-msgs aui-msgs--tails\">…</div></div><footer class=\"aui-composer\" data-aui-composer>…</footer></section><aside class=\"aui-chat-info\">…</aside></div>"
+      ],
+      "rules": [
+        "Desktop clients: put .aui-chat inside .aui-desktop-body, optionally next to an .aui-rail inside an .aui-resize so the list width is draggable.",
+        "Widths come from --aui-chat-list-w / --aui-chat-info-w; the chat canvas uses --aui-chat-bg and bubbles --aui-bubble-in/-out."
+      ]
+    },
+    "conversation": {
+      "category": "data",
+      "file": "src/components/chat.css",
+      "base": "aui-convo",
+      "modifiers": {
+        "state": [
+          "is-active",
+          "is-unread",
+          "is-muted"
+        ],
+        "list": [
+          "aui-convos--compact",
+          "aui-convos--cards"
+        ],
+        "preview": [
+          "is-typing",
+          "is-draft"
+        ]
+      },
+      "elements": [
+        "aui-convos",
+        "aui-convos-label",
+        "aui-convo-head",
+        "aui-convo-name",
+        "aui-convo-time",
+        "aui-convo-foot",
+        "aui-convo-preview",
+        "aui-convo-badges",
+        "aui-convo-actions"
+      ],
+      "related": [
+        "aui-count",
+        "aui-count--accent",
+        "aui-ticks",
+        "aui-avatar-status",
+        "aui-avatar--ring"
+      ],
+      "markup": [
+        "<button class=\"aui-convo is-unread\" data-value=\"ayse\"><span class=\"aui-avatar aui-avatar--pink\">AY<span class=\"aui-avatar-status is-online\"></span></span><div class=\"aui-convo-head\"><span class=\"aui-convo-name\">Ayşe Yılmaz</span><time class=\"aui-convo-time\">13:47</time></div><div class=\"aui-convo-foot\"><span class=\"aui-convo-preview\"><span class=\"aui-ticks is-read\"><svg class=\"aui-icon\"><use href=\"#aui-i-check-check\"/></svg></span><span>See you at 3</span></span><span class=\"aui-convo-badges\"><span class=\"aui-count aui-count--accent\">2</span></span></div></button>"
+      ],
+      "rules": [
+        "Clicking a row inside .aui-chat marks it is-active and adds is-conversation to the shell (mobile navigation) — your app loads the messages on aui:convo."
+      ]
+    },
+    "message": {
+      "category": "data",
+      "file": "src/components/chat.css",
+      "base": "aui-msg",
+      "modifiers": {
+        "direction": [
+          "aui-msg--in",
+          "aui-msg--out"
+        ],
+        "grouping": [
+          "is-first",
+          "is-middle",
+          "is-last"
+        ],
+        "kind": [
+          "aui-msg--typing",
+          "aui-msg-system",
+          "aui-msg-day (aui-msg-day--sticky)",
+          "aui-msg-unread"
+        ],
+        "bubble": [
+          "aui-bubble--media",
+          "aui-bubble--sticker",
+          "aui-bubble--deleted",
+          "is-highlight"
+        ],
+        "list": [
+          "aui-msgs--tails",
+          "aui-msgs--narrow",
+          "is-selecting"
+        ]
+      },
+      "elements": [
+        "aui-msgs",
+        "aui-bubble",
+        "aui-bubble-sender",
+        "aui-bubble-text (aui-bubble-text--big, .aui-mention)",
+        "aui-bubble-meta",
+        "aui-ticks (is-read | is-pending | is-failed)",
+        "aui-bubble-reply (-name, -text)",
+        "aui-bubble-forwarded",
+        "aui-bubble-media (1–4 children, aui-bubble-media-more[data-count])",
+        "aui-bubble-caption",
+        "aui-bubble-play",
+        "aui-bubble-duration",
+        "aui-bubble-file (-body, -name, -meta)",
+        "aui-bubble-voice + aui-voice-body + aui-wave + aui-voice-meta + aui-voice-speed",
+        "aui-bubble-link (-body, -site, -title, -desc)",
+        "aui-poll (-q, -opt, -opt-label, -opt-pct, -foot)",
+        "aui-bubble-reactions + aui-reaction (is-mine)",
+        "aui-reaction-bar",
+        "aui-bubble-call (-title, -meta, is-missed)",
+        "aui-msg-actions",
+        "aui-msg-select"
+      ],
+      "markup": [
+        "<div class=\"aui-msg aui-msg--in is-first is-last\"><span class=\"aui-avatar aui-avatar--sm aui-avatar--pink\">AY</span><div class=\"aui-bubble aui-tone--pink\"><span class=\"aui-bubble-sender\">Ayşe</span><div class=\"aui-bubble-text\">Hi!</div><span class=\"aui-bubble-meta\">09:12</span></div></div>",
+        "<div class=\"aui-msg aui-msg--out is-first is-last\"><div class=\"aui-bubble\"><div class=\"aui-bubble-text\">Hello</div><span class=\"aui-bubble-meta\">09:20<span class=\"aui-ticks is-read\"><svg class=\"aui-icon\"><use href=\"#aui-i-check-check\"/></svg></span></span></div></div>",
+        "<div class=\"aui-msg aui-msg--in aui-msg--typing is-first is-last\"><span class=\"aui-avatar aui-avatar--sm\">AY</span><div class=\"aui-bubble\"><span class=\"aui-dots\"><span></span><span></span><span></span></span></div></div>"
+      ],
+      "rules": [
+        "Group consecutive messages from one sender with is-first / is-middle / is-last — corners, tails and the avatar (shown on the last row) follow automatically. A single message is is-first is-last.",
+        "Sender colour in groups: add a tone class (aui-tone--pink) to the bubble; it colours the sender name and reply quote.",
+        "Ticks: one check = sent, aui-i-check-check = delivered, + is-read = read, is-pending with the clock icon while sending.",
+        "Day separators, unread divider and system rows are siblings of .aui-msg inside .aui-msgs."
+      ]
+    },
+    "composer": {
+      "category": "forms",
+      "file": "src/components/chat.css",
+      "base": "aui-composer",
+      "modifiers": {
+        "field": [
+          "aui-composer-field--flat",
+          "aui-composer-field--square"
+        ],
+        "state": [
+          "is-typing (set by JS when the input has text)"
+        ]
+      },
+      "elements": [
+        "aui-composer-bar",
+        "aui-composer-field",
+        "aui-composer-input",
+        "aui-composer-send (+ aui-composer-send-on / -off icons)",
+        "aui-composer-reply (-body, -name, -text)",
+        "aui-composer-edit",
+        "aui-composer-attachments + aui-composer-thumb (--file)",
+        "aui-composer-tools",
+        "aui-composer-hint",
+        "aui-composer-recording",
+        "aui-composer--blocked",
+        "aui-emoji-picker + aui-emoji-grid + aui-emoji-label + aui-emoji"
+      ],
+      "dataAttributes": [
+        "data-aui-composer (Enter sends, Shift+Enter newline)",
+        "data-aui-composer=\"ctrl\" (Ctrl/Cmd+Enter sends)"
+      ],
+      "events": [
+        "aui:send {text, input} (cancelable — preventDefault keeps the draft)",
+        "aui:send-empty"
+      ],
+      "js": [
+        "ArmsysUI.send(composer)"
+      ],
+      "markup": [
+        "<footer class=\"aui-composer\" data-aui-composer><div class=\"aui-composer-bar\"><button class=\"aui-btn aui-btn--ghost aui-btn--round\" aria-label=\"Attach\"><svg class=\"aui-icon\"><use href=\"#aui-i-paperclip\"/></svg></button><div class=\"aui-composer-field\"><textarea class=\"aui-composer-input\" rows=\"1\" placeholder=\"Type a message\"></textarea><button class=\"aui-btn aui-btn--ghost aui-btn--round\" aria-label=\"Emoji\"><svg class=\"aui-icon\"><use href=\"#aui-i-smile\"/></svg></button></div><button class=\"aui-btn aui-btn--accent aui-btn--round aui-composer-send\" aria-label=\"Send\"><svg class=\"aui-icon aui-composer-send-on\"><use href=\"#aui-i-send\"/></svg><svg class=\"aui-icon aui-composer-send-off\"><use href=\"#aui-i-mic\"/></svg></button></div></footer>"
+      ],
+      "rules": [
+        "The kit clears the textarea after an un-prevented aui:send; your app appends the bubble (the data-aui-chat-scroll body follows automatically).",
+        "Attachment menus open upward: aui-dropdown with data-aui-placement=\"top-start\" and aui-menu--up."
+      ]
+    },
+    "call": {
+      "category": "layout",
+      "file": "src/components/chat.css",
+      "base": "aui-call",
+      "modifiers": {
+        "placement": [
+          "aui-call--fixed",
+          "aui-call--window",
+          "inside <dialog class=\"aui-modal aui-modal--full aui-modal--no-sheet\">"
+        ],
+        "controls": [
+          "aui-call-controls--bar",
+          "aui-call-control--end",
+          "aui-call-control--accept"
+        ],
+        "tile": [
+          "is-speaking",
+          "is-pinned"
+        ]
+      },
+      "elements": [
+        "aui-call-header (-body, aui-call-title, aui-call-status)",
+        "aui-call-stage",
+        "aui-call-video (is-mirrored)",
+        "aui-call-peer (is-ringing, -name, -sub)",
+        "aui-call-pip",
+        "aui-call-grid + aui-call-tile + aui-call-tag + aui-call-tile-actions",
+        "aui-call-side",
+        "aui-call-controls + aui-call-control",
+        "aui-call-banner (--static, -body, -name, -sub)",
+        "aui-call-strip"
+      ],
+      "markup": [
+        "<div class=\"aui-call\"><div class=\"aui-call-header\"><div class=\"aui-call-header-body\"><div class=\"aui-call-title\">Ayşe Yılmaz</div><div class=\"aui-call-status\">12:41</div></div></div><div class=\"aui-call-stage\"><div class=\"aui-call-peer is-ringing\"><span class=\"aui-avatar aui-avatar--pink\">AY</span><div class=\"aui-call-peer-name\">Ayşe Yılmaz</div></div><div class=\"aui-call-pip\"><video autoplay muted></video></div></div><div class=\"aui-call-controls\"><div class=\"aui-call-control\"><button class=\"aui-btn aui-btn--glass aui-btn--round aui-btn--toggle\" aria-pressed=\"false\" aria-label=\"Mute\"><svg class=\"aui-icon aui-btn-off\"><use href=\"#aui-i-mic\"/></svg><svg class=\"aui-icon aui-btn-on\"><use href=\"#aui-i-mic-off\"/></svg></button><span>Mute</span></div><div class=\"aui-call-control aui-call-control--end\"><button class=\"aui-btn aui-btn--round\" aria-label=\"End\"><svg class=\"aui-icon\"><use href=\"#aui-i-phone-off\"/></svg></button><span>End</span></div></div></div>"
+      ],
+      "rules": [
+        "Controls are glass toggle buttons: aria-pressed=\"true\" (white) means muted / camera off, matching Meet and Zoom conventions.",
+        "The call stage forces light text on its own dark gradient in both themes; the grid picks 1–4 columns from the number of tiles."
       ]
     }
   }

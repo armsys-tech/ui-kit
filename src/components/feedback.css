@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Armsys UI 2 — Feedback: alerts, banners, notices, callouts, toasts, spinners
+   Armsys UI 3 — Feedback: alerts, banners, notices, callouts, toasts, spinners
    ========================================================================== */
 .aui-alert {
   --_t: var(--aui-tone, var(--aui-text-muted));

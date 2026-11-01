@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Armsys UI 2 — Forms
+   Armsys UI 3 — Forms
    Field anatomy · inputs · selects · textareas · affixes · input groups ·
    validation · password/clear/stepper · search · OTP · tags · file/dropzone ·
    range · color · checkbox/radio/switch · choice cards · enhanced select.
@@ -353,8 +353,8 @@
 .aui-option-row:first-child { border-top: 0; padding-top: 0; }
 .aui-option-row:last-child { padding-bottom: 0; }
 .aui-option-row-body { min-width: 0; }
-.aui-option-row-title { font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-medium); color: var(--aui-text); }
-.aui-option-row-desc { font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); margin-top: 2px; }
+.aui-option-row-title { display: block; font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-medium); color: var(--aui-text); }
+.aui-option-row-desc { display: block; font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); margin-top: 2px; }
 
 /* Date range trigger (visual) */
 .aui-daterange {

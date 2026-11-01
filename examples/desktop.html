@@ -3,20 +3,73 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Armsys Desk — Electron example</title>
+<title>Armsys Desk — Electron workbench example</title>
 <link rel="stylesheet" href="../dist/armsys-ui.css">
 <script src="../dist/armsys-ui.js" defer></script>
 </head>
-<!-- Electron: BrowserWindow({ frame: false, titleBarStyle: 'hidden' }). Set data-aui-platform from preload (process.platform). -->
+<!-- Electron: BrowserWindow({ frame: false, titleBarStyle: 'hidden' }). Set data-aui-platform from preload (process.platform).
+     Shell: titlebar (drag region + menubar) → tool strip → activity rail | resizable explorer | editor tabs + panel → status bar. -->
 <body class="aui aui-desktop" data-aui-platform="win">
 
 <header class="aui-titlebar">
-  <div class="aui-titlebar-title"><span class="aui-logo"><svg viewBox="0 0 24 24"><use href="#aui-i-logo"/></svg></span>Armsys Desk<span class="aui-text-subtle">— northwind / production</span></div>
+  <div class="aui-titlebar-title"><span class="aui-logo"><svg viewBox="0 0 24 24"><use href="#aui-i-logo"/></svg></span></div>
+  <div class="aui-menubar" data-aui-menubar aria-label="Application menu">
+    <div class="aui-dropdown" data-aui-dropdown data-aui-sheet="false">
+      <button class="aui-menubar-item" type="button" data-aui-dropdown-trigger><u>F</u>ile</button>
+      <div class="aui-menu">
+        <button class="aui-menu-item" data-aui-toast="New stream"><svg class="aui-icon"><use href="#aui-i-plus"/></svg>New stream<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">N</kbd></span></button>
+        <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-folder-open"/></svg>Open workspace…<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">O</kbd></span></button>
+        <div class="aui-menu-sub"><button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-clock"/></svg>Open recent</button><div class="aui-menu aui-menu--sm"><button class="aui-menu-item">northwind / production</button><button class="aui-menu-item">northwind / staging</button><button class="aui-menu-item">acme / eu-west</button></div></div>
+        <div class="aui-menu-sep"></div>
+        <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-save"/></svg>Save<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">S</kbd></span></button>
+        <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-download"/></svg>Export NDJSON…</button>
+        <div class="aui-menu-sep"></div>
+        <button class="aui-menu-item" data-aui-confirm="Quit Armsys Desk?" data-aui-confirm-message="Running tails will stop.">Quit<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Alt</kbd><kbd class="aui-kbd aui-kbd--sm">F4</kbd></span></button>
+      </div>
+    </div>
+    <div class="aui-dropdown" data-aui-dropdown data-aui-sheet="false">
+      <button class="aui-menubar-item" type="button" data-aui-dropdown-trigger><u>E</u>dit</button>
+      <div class="aui-menu">
+        <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-undo"/></svg>Undo<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">Z</kbd></span></button>
+        <button class="aui-menu-item" disabled><svg class="aui-icon"><use href="#aui-i-redo"/></svg>Redo<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">Y</kbd></span></button>
+        <div class="aui-menu-sep"></div>
+        <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-scissors"/></svg>Cut<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">X</kbd></span></button>
+        <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-copy"/></svg>Copy<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">C</kbd></span></button>
+        <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-clipboard"/></svg>Paste<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">V</kbd></span></button>
+        <div class="aui-menu-sep"></div>
+        <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-search"/></svg>Find in stream…<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">F</kbd></span></button>
+      </div>
+    </div>
+    <div class="aui-dropdown" data-aui-dropdown data-aui-sheet="false">
+      <button class="aui-menubar-item" type="button" data-aui-dropdown-trigger><u>V</u>iew</button>
+      <div class="aui-menu">
+        <button class="aui-menu-item" role="menuitemcheckbox" aria-checked="true">Explorer</button>
+        <button class="aui-menu-item" role="menuitemcheckbox" aria-checked="true">Live tail panel</button>
+        <button class="aui-menu-item" role="menuitemcheckbox" aria-checked="false">Minimap</button>
+        <div class="aui-menu-sep"></div>
+        <div class="aui-menu-label">Appearance</div>
+        <button class="aui-menu-item" role="menuitemradio" aria-checked="true">Dark</button>
+        <button class="aui-menu-item" role="menuitemradio" aria-checked="false" data-aui-theme-set="light">Light</button>
+        <div class="aui-menu-sep"></div>
+        <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-zoom-in"/></svg>Zoom in<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">+</kbd></span></button>
+        <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-zoom-out"/></svg>Zoom out<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">−</kbd></span></button>
+      </div>
+    </div>
+    <div class="aui-dropdown" data-aui-dropdown data-aui-sheet="false">
+      <button class="aui-menubar-item" type="button" data-aui-dropdown-trigger><u>H</u>elp</button>
+      <div class="aui-menu">
+        <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-book"/></svg>Documentation</button>
+        <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-command"/></svg>Keyboard shortcuts<span class="aui-kbd-group"><kbd class="aui-kbd aui-kbd--sm">Ctrl</kbd><kbd class="aui-kbd aui-kbd--sm">/</kbd></span></button>
+        <div class="aui-menu-sep"></div>
+        <button class="aui-menu-item">About Armsys Desk</button>
+      </div>
+    </div>
+  </div>
   <div class="aui-titlebar-center aui-hide-mobile">
-    <button class="aui-search-trigger" type="button" data-aui-command-open><svg class="aui-icon"><use href="#aui-i-search"/></svg><span>Search streams, keys, commands…</span><kbd class="aui-kbd aui-kbd--sm">Ctrl K</kbd></button>
+    <button class="aui-search-trigger" type="button" data-aui-command-open><svg class="aui-icon"><use href="#aui-i-search"/></svg><span>northwind / production</span><kbd class="aui-kbd aui-kbd--sm">Ctrl K</kbd></button>
   </div>
   <div class="aui-titlebar-actions">
-    <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Notifications" data-aui-tooltip="Notifications" data-aui-tooltip-pos="bottom"><svg class="aui-icon"><use href="#aui-i-bell"/></svg><span class="aui-btn-dot"></span></button>
+    <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Notifications" data-aui-tooltip="Notifications" data-aui-tooltip-pos="bottom" data-aui-popover="#notifs"><svg class="aui-icon"><use href="#aui-i-bell"/></svg><span class="aui-btn-dot"></span></button>
     <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" data-aui-theme-toggle aria-label="Theme" data-aui-tooltip="Theme" data-aui-tooltip-pos="bottom"><svg class="aui-icon"><use href="#aui-i-moon"/></svg></button>
   </div>
   <div class="aui-window-controls">
@@ -26,51 +79,95 @@
   </div>
 </header>
 
-<div class="aui-desktop-body">
-  <div class="aui-app aui-app--collapsed">
-    <aside class="aui-sidebar aui-sidebar--alt" id="sidebar">
-      <div class="aui-sidebar-body">
-        <nav class="aui-nav aui-nav--indicator" aria-label="Primary">
-          <a class="aui-nav-item" href="#" data-aui-tooltip="Overview" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-grid"/></svg><span class="aui-nav-label">Overview</span></a>
-          <a class="aui-nav-item is-active" href="#" data-aui-tooltip="Streams" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-radio"/></svg><span class="aui-nav-label">Streams</span></a>
-          <a class="aui-nav-item" href="#" data-aui-tooltip="Logs" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-terminal"/></svg><span class="aui-nav-label">Logs</span></a>
-          <a class="aui-nav-item" href="#" data-aui-tooltip="Webhooks" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-webhook"/></svg><span class="aui-nav-label">Webhooks</span></a>
-          <div class="aui-nav-sep"></div>
-          <a class="aui-nav-item" href="#" data-aui-tooltip="Settings" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-settings"/></svg><span class="aui-nav-label">Settings</span></a>
-        </nav>
-      </div>
-      <div class="aui-sidebar-footer"><button class="aui-sidebar-user" type="button"><span class="aui-avatar aui-avatar--sm aui-avatar--accent">AT</span><span class="aui-sidebar-user-text"><span>Ayla Tan</span><span>Owner</span></span></button></div>
-    </aside>
+<div class="aui-toolstrip">
+  <button class="aui-btn aui-btn--primary aui-btn--sm" type="button"><svg class="aui-icon"><use href="#aui-i-plus"/></svg>New stream</button>
+  <span class="aui-toolstrip-sep"></span>
+  <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Pause tail" data-aui-tooltip="Pause" data-aui-tooltip-pos="bottom"><svg class="aui-icon"><use href="#aui-i-pause"/></svg></button>
+  <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Replay" data-aui-tooltip="Replay from…" data-aui-tooltip-pos="bottom"><svg class="aui-icon"><use href="#aui-i-refresh"/></svg></button>
+  <button class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--toggle" type="button" aria-pressed="true" aria-label="Follow output" data-aui-tooltip="Follow output" data-aui-tooltip-pos="bottom"><svg class="aui-icon"><use href="#aui-i-arrow-down"/></svg></button>
+  <span class="aui-toolstrip-sep"></span>
+  <div class="aui-segmented aui-segmented--sm"><button class="is-active" type="button">All</button><button type="button">Healthy</button><button type="button">Issues</button></div>
+  <div class="aui-spacer"></div>
+  <div class="aui-input-wrap aui-input-wrap--sm"><svg class="aui-icon"><use href="#aui-i-filter"/></svg><input class="aui-input aui-input--sm" placeholder="Filter events (level:error src:edge.*)"></div>
+  <div class="aui-dropdown" data-aui-dropdown>
+    <button class="aui-btn aui-btn--ghost aui-btn--sm" type="button" data-aui-dropdown-trigger>Last 15 min <svg class="aui-icon"><use href="#aui-i-chevron-down"/></svg></button>
+    <div class="aui-menu aui-menu--end aui-menu--sm"><button class="aui-menu-item" role="menuitemradio" aria-checked="true">Last 15 min</button><button class="aui-menu-item" role="menuitemradio" aria-checked="false">Last hour</button><button class="aui-menu-item" role="menuitemradio" aria-checked="false">Today</button><div class="aui-menu-sep"></div><button class="aui-menu-item">Custom range…</button></div>
+  </div>
+</div>
 
-    <div class="aui-app-main">
-      <div class="aui-tool" style="height:100%">
-        <div class="aui-tool-bar">
-          <span class="aui-semibold">Streams</span><span class="aui-badge aui-badge--pill">24</span>
-          <div class="aui-spacer"></div>
-          <div class="aui-segmented aui-segmented--sm"><button class="is-active">All</button><button>Healthy</button><button>Issues</button></div>
-          <button class="aui-btn aui-btn--sm aui-btn--primary"><svg class="aui-icon"><use href="#aui-i-plus"/></svg>New stream</button>
+<div class="aui-desktop-body">
+  <div class="aui-resize" data-aui-resize data-aui-resize-key="desk" style="flex:1;min-height:0">
+    <nav class="aui-rail" aria-label="Views">
+      <button class="aui-rail-item is-active" type="button" data-aui-tooltip="Streams" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-radio"/></svg></button>
+      <button class="aui-rail-item" type="button" data-aui-tooltip="Search" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-search"/></svg></button>
+      <button class="aui-rail-item" type="button" data-aui-tooltip="Webhooks" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-webhook"/></svg><span class="aui-btn-badge">2</span></button>
+      <button class="aui-rail-item" type="button" data-aui-tooltip="Consumers" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-users"/></svg></button>
+      <div class="aui-spacer"></div>
+      <button class="aui-rail-item" type="button" data-aui-tooltip="Settings" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-settings"/></svg></button>
+      <button class="aui-rail-item" type="button" aria-label="Account"><span class="aui-avatar aui-avatar--accent">AT</span></button>
+    </nav>
+
+    <aside class="aui-pane" style="width:280px;background:var(--aui-bg-alt)" aria-label="Explorer">
+      <details class="aui-panel-group" open>
+        <summary>Streams <span class="aui-row aui-gap-0"><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="New folder"><svg class="aui-icon"><use href="#aui-i-folder"/></svg></button><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Collapse all"><svg class="aui-icon"><use href="#aui-i-minimize"/></svg></button></span></summary>
+        <div class="aui-panel-group-body">
+          <ul class="aui-tree aui-tree--guides" data-aui-tree aria-label="Streams">
+            <li aria-expanded="true" data-value="orders"><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-folder"/></svg><span class="aui-tree-label">orders</span><span class="aui-tree-meta">3</span></div>
+              <ul>
+                <li aria-selected="true" class="is-current" data-value="orders.created"><div class="aui-tree-row"><span class="aui-dot aui-dot--success is-live"></span><span class="aui-tree-label">orders.created</span><span class="aui-tree-meta">48.2k/m</span></div></li>
+                <li data-value="orders.updated"><div class="aui-tree-row"><span class="aui-dot aui-dot--success"></span><span class="aui-tree-label">orders.updated</span><span class="aui-tree-meta">12.9k/m</span></div></li>
+                <li data-value="orders.cancelled"><div class="aui-tree-row"><span class="aui-dot aui-dot--warning"></span><span class="aui-tree-label">orders.cancelled</span><span class="aui-badge aui-badge--warning">lag</span></div></li>
+              </ul>
+            </li>
+            <li aria-expanded="true" data-value="payments"><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-folder"/></svg><span class="aui-tree-label">payments</span><span class="aui-tree-meta">2</span></div>
+              <ul>
+                <li data-value="payments.settled"><div class="aui-tree-row"><span class="aui-dot aui-dot--success"></span><span class="aui-tree-label">payments.settled</span><span class="aui-tree-meta">9.1k/m</span></div></li>
+                <li data-value="payments.failed"><div class="aui-tree-row"><span class="aui-dot aui-dot--danger"></span><span class="aui-tree-label">payments.failed</span><span class="aui-tree-actions"><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Pause"><svg class="aui-icon"><use href="#aui-i-pause"/></svg></button><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="More"><svg class="aui-icon"><use href="#aui-i-more"/></svg></button></span><span class="aui-tree-meta">41/m</span></div></li>
+              </ul>
+            </li>
+            <li aria-expanded="false" data-value="inventory"><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-folder"/></svg><span class="aui-tree-label">inventory</span><span class="aui-tree-meta">4</span></div>
+              <ul>
+                <li><div class="aui-tree-row"><span class="aui-dot aui-dot--success"></span><span class="aui-tree-label">inventory.updated</span></div></li>
+                <li><div class="aui-tree-row"><span class="aui-dot"></span><span class="aui-tree-label">inventory.counted</span></div></li>
+              </ul>
+            </li>
+            <li class="is-dimmed" data-value="users"><div class="aui-tree-row"><span class="aui-dot"></span><span class="aui-tree-label">users.signed_up</span><span class="aui-tree-meta">paused</span></div></li>
+            <li data-value="audit"><div class="aui-tree-row"><span class="aui-dot aui-dot--danger"></span><span class="aui-tree-label">audit.logged</span><span class="aui-badge aui-badge--danger">lag 2.1m</span></div></li>
+          </ul>
         </div>
-        <div class="aui-tool-body">
-          <div class="aui-pane" style="width:320px;border-right:1px solid var(--aui-border-soft)">
-            <div class="aui-pane-header"><div class="aui-input-wrap aui-input-wrap--sm aui-grow"><svg class="aui-icon"><use href="#aui-i-search"/></svg><input class="aui-input aui-input--sm aui-input--filled" placeholder="Filter streams"></div></div>
-            <div class="aui-pane-body">
-              <div class="aui-list aui-list--compact aui-list--hover">
-                <a class="aui-list-item is-active" href="#"><span class="aui-dot aui-dot--success is-live"></span><div class="aui-list-body"><div class="aui-list-title">orders.created</div><div class="aui-list-meta">48.2k / min · eu-central</div></div></a>
-                <a class="aui-list-item" href="#"><span class="aui-dot aui-dot--warning"></span><div class="aui-list-body"><div class="aui-list-title">payments.settled</div><div class="aui-list-meta">9.1k / min · us-east</div></div></a>
-                <a class="aui-list-item" href="#"><span class="aui-dot aui-dot--success"></span><div class="aui-list-body"><div class="aui-list-title">inventory.updated</div><div class="aui-list-meta">3.8k / min · eu-central</div></div></a>
-                <a class="aui-list-item" href="#"><span class="aui-dot"></span><div class="aui-list-body"><div class="aui-list-title">users.signed_up</div><div class="aui-list-meta">paused</div></div></a>
-                <a class="aui-list-item" href="#"><span class="aui-dot aui-dot--danger"></span><div class="aui-list-body"><div class="aui-list-title">audit.logged</div><div class="aui-list-meta">consumer lag 2.1m</div></div></a>
-              </div>
-            </div>
-          </div>
-          <div class="aui-pane aui-grow">
+      </details>
+      <details class="aui-panel-group">
+        <summary>Consumers <span class="aui-badge">12</span></summary>
+        <div class="aui-panel-group-body"><ul class="aui-tree aui-tree--sm" data-aui-tree><li><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-cpu"/></svg><span class="aui-tree-label">checkout-svc</span></div></li><li><div class="aui-tree-row"><svg class="aui-icon"><use href="#aui-i-cpu"/></svg><span class="aui-tree-label">fraud-scorer</span></div></li></ul></div>
+      </details>
+      <details class="aui-panel-group">
+        <summary>Outline</summary>
+        <div class="aui-panel-group-body"><div class="aui-empty aui-empty--sm"><div class="aui-empty-text">Select a stream to see its schema.</div></div></div>
+      </details>
+    </aside>
+    <div class="aui-resize-handle" data-aui-min="200" data-aui-max="520" aria-label="Resize explorer"></div>
+
+    <div class="aui-pane aui-grow" data-aui-tabs>
+      <div class="aui-tabstrip" role="tablist">
+        <div class="aui-tabstrip-tab is-pinned" role="tab" data-aui-tab="overview" tabindex="-1" data-aui-tooltip="Overview" data-aui-tooltip-pos="bottom"><svg class="aui-icon"><use href="#aui-i-grid"/></svg></div>
+        <div class="aui-tabstrip-tab is-active" role="tab" data-aui-tab="orders" tabindex="0"><svg class="aui-icon"><use href="#aui-i-radio"/></svg><span class="aui-tabstrip-label">orders.created</span><button class="aui-tabstrip-close" type="button" data-aui-tab-close aria-label="Close tab"><svg class="aui-icon"><use href="#aui-i-x"/></svg></button></div>
+        <div class="aui-tabstrip-tab is-modified" role="tab" data-aui-tab="schema" tabindex="-1"><svg class="aui-icon"><use href="#aui-i-code"/></svg><span class="aui-tabstrip-label">orders.created.schema.json</span><button class="aui-tabstrip-close" type="button" data-aui-tab-close aria-label="Close tab"><svg class="aui-icon"><use href="#aui-i-x"/></svg></button></div>
+        <div class="aui-tabstrip-tab" role="tab" data-aui-tab="payments" tabindex="-1"><svg class="aui-icon"><use href="#aui-i-radio"/></svg><span class="aui-tabstrip-label">payments.failed</span><button class="aui-tabstrip-close" type="button" data-aui-tab-close aria-label="Close tab"><svg class="aui-icon"><use href="#aui-i-x"/></svg></button></div>
+        <button class="aui-tabstrip-add" type="button" data-aui-tab-add aria-label="New tab"><svg class="aui-icon"><use href="#aui-i-plus"/></svg></button>
+        <div class="aui-tabstrip-end"><button class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" type="button" aria-label="Split editor"><svg class="aui-icon"><use href="#aui-i-columns"/></svg></button><button class="aui-btn aui-btn--ghost aui-btn--icon aui-btn--sm" type="button" aria-label="More"><svg class="aui-icon"><use href="#aui-i-more"/></svg></button></div>
+      </div>
+
+      <div class="aui-resize aui-resize--vertical aui-grow" data-aui-resize data-aui-resize-key="desk-panel" style="min-height:0">
+        <div class="aui-pane aui-grow" style="min-height:120px">
+          <div data-aui-panel="orders" class="aui-pane" style="height:100%">
             <div class="aui-pane-header">
               <span class="aui-icon-box aui-icon-box--sm aui-icon-box--accent"><svg class="aui-icon"><use href="#aui-i-radio"/></svg></span>
-              <div><div class="aui-semibold">orders.created</div><div class="aui-caption">Partitioned by customer_id · 7 day retention</div></div>
+              <div><div class="aui-semibold">orders.created</div><div class="aui-caption">Partitioned by customer_id · 7 day retention · 12 partitions</div></div>
               <div class="aui-ml-auto aui-row">
-                <button class="aui-btn aui-btn--sm"><svg class="aui-icon"><use href="#aui-i-pause"/></svg>Pause</button>
+                <span class="aui-conn"><span class="aui-dot aui-dot--success is-live"></span>Streaming</span>
+                <button class="aui-btn aui-btn--sm" type="button"><svg class="aui-icon"><use href="#aui-i-pause"/></svg>Pause</button>
                 <div class="aui-dropdown" data-aui-dropdown>
-                  <button class="aui-btn aui-btn--sm aui-btn--icon" data-aui-dropdown-trigger aria-label="More"><svg class="aui-icon"><use href="#aui-i-more"/></svg></button>
+                  <button class="aui-btn aui-btn--sm aui-btn--icon" type="button" data-aui-dropdown-trigger aria-label="More"><svg class="aui-icon"><use href="#aui-i-more"/></svg></button>
                   <div class="aui-menu aui-menu--end">
                     <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-refresh"/></svg>Replay from…</button>
                     <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-download"/></svg>Export NDJSON</button>
@@ -80,28 +177,93 @@
                 </div>
               </div>
             </div>
-            <div class="aui-pane-body aui-p-5">
+            <div class="aui-pane-body aui-p-4">
               <div class="aui-stats">
-                <div class="aui-stat"><div class="aui-stat-label">Throughput</div><div class="aui-stat-value">48.2k<small>/min</small></div></div>
+                <div class="aui-stat"><div class="aui-stat-label">Throughput <span class="aui-delta is-up">8.2%</span></div><div class="aui-stat-value">48.2k<small>/min</small></div></div>
                 <div class="aui-stat"><div class="aui-stat-label">p95 latency</div><div class="aui-stat-value">38<small>ms</small></div></div>
                 <div class="aui-stat"><div class="aui-stat-label">Consumers</div><div class="aui-stat-value">12</div></div>
+                <div class="aui-stat"><div class="aui-stat-label">Lag</div><div class="aui-stat-value">0<small>msgs</small></div></div>
               </div>
-              <div class="aui-card aui-card--clip aui-mt-4">
-                <div class="aui-card-header"><div class="aui-card-title">Live tail</div><div class="aui-card-actions"><span class="aui-conn"><span class="aui-dot aui-dot--success is-live"></span>Streaming</span></div></div>
-                <div class="aui-log aui-log--scroll" style="--aui-log-h:320px">
-                  <div class="aui-log-row"><span class="aui-log-time">14:02:14.883</span><span class="aui-log-level is-ok">OK</span><span class="aui-log-src">gateway</span><span class="aui-log-msg">order <b>ord_9281</b> accepted · total=49.90 EUR</span><span class="aui-log-extra">18 ms</span></div>
-                  <div class="aui-log-row"><span class="aui-log-time">14:02:14.612</span><span class="aui-log-level is-info">INFO</span><span class="aui-log-src">stream.eu-1</span><span class="aui-log-msg">partition 12 leader elected b-2</span><span class="aui-log-extra">—</span></div>
-                  <div class="aui-log-row"><span class="aui-log-time">14:02:13.977</span><span class="aui-log-level is-warn">WARN</span><span class="aui-log-src">edge.fra</span><span class="aui-log-msg">upstream latency 142 ms above threshold 120 ms</span><span class="aui-log-extra">3/5</span></div>
-                  <div class="aui-log-row is-selected"><span class="aui-log-time">14:02:13.410</span><span class="aui-log-level is-error">ERROR</span><span class="aui-log-src">replay-store</span><span class="aui-log-msg">GET segment 884213 failed: <b>timeout after 5000 ms</b></span><span class="aui-log-extra">retry 2</span></div>
-                  <div class="aui-log-row"><span class="aui-log-time">14:02:12.903</span><span class="aui-log-level is-debug">DEBUG</span><span class="aui-log-src">identity</span><span class="aui-log-msg">token issued for svc_checkout scope=streams:write</span><span class="aui-log-extra">6 ms</span></div>
+              <div class="aui-grid aui-grid--sidebar aui-mt-4" style="--side:300px">
+                <div class="aui-card aui-card--clip">
+                  <div class="aui-card-header"><div class="aui-card-title">Throughput</div><div class="aui-card-actions"><div class="aui-segmented aui-segmented--sm"><button class="is-active" type="button">15m</button><button type="button">1h</button><button type="button">24h</button></div></div></div>
+                  <div class="aui-card-body"><div class="aui-bars aui-bars--tall"><span style="--h:40%"></span><span style="--h:45%"></span><span style="--h:42%"></span><span style="--h:50%"></span><span style="--h:58%"></span><span style="--h:66%"></span><span style="--h:61%"></span><span style="--h:70%"></span><span style="--h:78%"></span><span style="--h:74%"></span><span style="--h:82%"></span><span style="--h:88%"></span><span style="--h:96%"></span><span style="--h:91%"></span><span style="--h:84%"></span><span style="--h:80%"></span><span class="is-hl" style="--h:86%"></span><span style="--h:72%"></span></div></div>
+                </div>
+                <div class="aui-card aui-card--clip">
+                  <div class="aui-card-header"><div class="aui-card-title">Properties</div></div>
+                  <div class="aui-props">
+                    <div class="aui-props-title">Retention</div>
+                    <div>Duration</div><div><select class="aui-select"><option>7 days</option><option>30 days</option></select></div>
+                    <div>Compaction</div><div><label class="aui-switch aui-switch--sm"><input type="checkbox" role="switch" checked></label></div>
+                    <div class="aui-props-title">Delivery</div>
+                    <div>Partition key</div><div><input class="aui-input" value="customer_id"></div>
+                    <div>Max payload</div><div><input class="aui-input" value="256 KB"></div>
+                    <div>Colour</div><div><span class="aui-props-swatch" style="--c:var(--aui-accent)"></span>Accent</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div data-aui-panel="schema" class="aui-pane" style="height:100%" hidden>
+            <div class="aui-code aui-code--lines aui-code--flush" style="height:100%;border:0;border-radius:0"><pre><code class="language-json">{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "orders.created",
+  "type": "object",
+  "required": ["id", "customer_id", "total"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^ord_" },
+    "customer_id": { "type": "string" },
+    "total": { "type": "number", "minimum": 0 },
+    "currency": { "type": "string", "enum": ["EUR", "USD", "TRY"] }
+  }
+}</code></pre></div>
+          </div>
+          <div data-aui-panel="payments" class="aui-pane" style="height:100%" hidden><div class="aui-empty"><span class="aui-icon-box aui-icon-box--lg aui-icon-box--danger"><svg class="aui-icon"><use href="#aui-i-alert"/></svg></span><div class="aui-empty-title">payments.failed</div><div class="aui-empty-text">41 events per minute · 3 consumers behind</div></div></div>
+          <div data-aui-panel="overview" class="aui-pane" style="height:100%" hidden><div class="aui-empty"><div class="aui-empty-title">Overview</div><div class="aui-empty-text">Pinned tab — a workspace summary would live here.</div></div></div>
         </div>
-        <div class="aui-statusbar"><span><span class="aui-dot aui-dot--success"></span>Connected · eu-central</span><span>v2.0.1</span><span class="aui-spacer"></span><span>48,213 events/min</span><span>CPU 12%</span></div>
+        <div class="aui-resize-handle aui-resize-handle--grip" data-aui-min="120" data-aui-max="600"></div>
+
+        <div class="aui-pane" style="height:260px" data-aui-tabs>
+          <div class="aui-panel-header">
+            <div class="aui-tabs aui-tabs--sm"><button class="aui-tab" type="button" data-aui-tab="tail">Live tail</button><button class="aui-tab" type="button" data-aui-tab="problems">Problems <span class="aui-badge aui-badge--danger aui-badge--sm">1</span></button><button class="aui-tab" type="button" data-aui-tab="terminal">Terminal</button></div>
+            <div class="aui-row aui-gap-0"><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Clear"><svg class="aui-icon"><use href="#aui-i-trash"/></svg></button><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Maximize panel"><svg class="aui-icon"><use href="#aui-i-chevron-up"/></svg></button><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Close panel"><svg class="aui-icon"><use href="#aui-i-x"/></svg></button></div>
+          </div>
+          <div class="aui-pane-body">
+            <div class="aui-log" data-aui-panel="tail" style="height:100%">
+              <div class="aui-log-row"><span class="aui-log-time">14:02:14.883</span><span class="aui-log-level is-ok">OK</span><span class="aui-log-src">gateway</span><span class="aui-log-msg">order <b>ord_9281</b> accepted · total=49.90 EUR</span><span class="aui-log-extra">18 ms</span></div>
+              <div class="aui-log-row"><span class="aui-log-time">14:02:14.612</span><span class="aui-log-level is-info">INFO</span><span class="aui-log-src">stream.eu-1</span><span class="aui-log-msg">partition 12 leader elected b-2</span><span class="aui-log-extra">—</span></div>
+              <div class="aui-log-row"><span class="aui-log-time">14:02:13.977</span><span class="aui-log-level is-warn">WARN</span><span class="aui-log-src">edge.fra</span><span class="aui-log-msg">upstream latency 142 ms above threshold 120 ms</span><span class="aui-log-extra">3/5</span></div>
+              <div class="aui-log-row is-selected"><span class="aui-log-time">14:02:13.410</span><span class="aui-log-level is-error">ERROR</span><span class="aui-log-src">replay-store</span><span class="aui-log-msg">GET segment 884213 failed: <b>timeout after 5000 ms</b></span><span class="aui-log-extra">retry 2</span></div>
+              <div class="aui-log-row"><span class="aui-log-time">14:02:12.903</span><span class="aui-log-level is-debug">DEBUG</span><span class="aui-log-src">identity</span><span class="aui-log-msg">token issued for svc_checkout scope=streams:write</span><span class="aui-log-extra">6 ms</span></div>
+              <div class="aui-log-row"><span class="aui-log-time">14:02:12.551</span><span class="aui-log-level is-ok">OK</span><span class="aui-log-src">gateway</span><span class="aui-log-msg">order <b>ord_9280</b> accepted · total=12.00 EUR</span><span class="aui-log-extra">14 ms</span></div>
+            </div>
+            <div data-aui-panel="problems" hidden class="aui-p-3"><div class="aui-alert aui-alert--danger aui-alert--sm"><svg class="aui-icon"><use href="#aui-i-x-circle"/></svg><div class="aui-alert-body"><div class="aui-alert-title">replay-store: segment 884213 unreachable</div>Retrying with backoff · next attempt in 8 s</div></div></div>
+            <div data-aui-panel="terminal" hidden class="aui-log" style="height:100%"><div class="aui-log-row"><span class="aui-log-time">$</span><span class="aui-log-level"></span><span class="aui-log-src">northwind</span><span class="aui-log-msg">aui streams tail orders.created --since 15m</span></div></div>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+
+  <div class="aui-statusbar">
+    <button class="aui-statusbar-item" type="button"><span class="aui-dot aui-dot--success"></span>Connected · eu-central</button>
+    <button class="aui-statusbar-item" type="button"><svg class="aui-icon"><use href="#aui-i-branch"/></svg>production</button>
+    <button class="aui-statusbar-item" type="button"><svg class="aui-icon"><use href="#aui-i-alert"/></svg>1 problem</button>
+    <span class="aui-spacer"></span>
+    <button class="aui-statusbar-item" type="button">48,213 events/min</button>
+    <button class="aui-statusbar-item" type="button">CPU 12%</button>
+    <button class="aui-statusbar-item" type="button" data-aui-tooltip="Notifications" data-aui-tooltip-pos="top"><svg class="aui-icon"><use href="#aui-i-bell"/></svg></button>
+    <span>v3.0.0</span>
+  </div>
+</div>
+
+<div class="aui-popover aui-popover--flush aui-popover--lg" id="notifs" data-aui-popover-panel style="width:380px">
+  <div class="aui-popover-header"><div class="aui-popover-title">Notifications</div><button class="aui-btn aui-btn--ghost aui-btn--xs" type="button">Mark all read</button></div>
+  <div class="aui-notifs" style="max-height:360px;overflow:auto">
+    <div class="aui-notif is-unread" tabindex="0"><span class="aui-icon-box aui-icon-box--sm aui-icon-box--danger"><svg class="aui-icon"><use href="#aui-i-alert"/></svg></span><div class="aui-notif-body"><b>audit.logged</b> consumer lag crossed 2 minutes<div class="aui-notif-actions"><button class="aui-btn aui-btn--xs" type="button">Open stream</button><button class="aui-btn aui-btn--xs aui-btn--ghost" type="button">Snooze</button></div></div><time class="aui-notif-time">2m</time></div>
+    <div class="aui-notif is-unread" tabindex="0"><span class="aui-avatar aui-avatar--sm aui-avatar--pink">AY</span><div class="aui-notif-body"><b>Ayşe Yılmaz</b> mentioned you in <b>#deploys</b><div class="aui-notif-quote">Can we ship the schema change after the 15:00 review?</div></div><time class="aui-notif-time">18m</time></div>
+    <div class="aui-notif-day">Yesterday</div>
+    <div class="aui-notif" tabindex="0"><span class="aui-icon-box aui-icon-box--sm aui-icon-box--success"><svg class="aui-icon"><use href="#aui-i-check-circle"/></svg></span><div class="aui-notif-body"><b>Deploy 2026.11.01-3</b> finished in 4m 12s</div><time class="aui-notif-time">1d</time></div>
   </div>
 </div>
 

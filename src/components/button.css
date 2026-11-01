@@ -1,13 +1,14 @@
 /* ==========================================================================
-   Armsys UI 2 — Buttons, button groups, split buttons, FAB, close, links, chips
+   Armsys UI 3 — Buttons, button groups, split buttons, FAB, close, links, chips
    Every variant only sets private custom properties (--_bg, --_bg-h …);
    the base rule paints them. Sizes and shapes compose freely with variants.
 
-   Variants : (default secondary) primary accent outline ghost soft link
-              success danger warning info  (solid tones)
+   Variants : (default secondary) primary accent outline dashed ghost soft link inverse glass
+              success danger warning info purple pink orange yellow teal neutral (solid tones)
               soft/outline/ghost + any tone: aui-btn--soft aui-btn--danger
-   Sizes    : xs sm (md) lg xl          Shapes: icon pill block square
+   Sizes    : xs sm (md) lg xl 2xl      Shapes: icon round pill block square rounded wide stack start
    States   : :disabled .is-loading .is-active [aria-pressed=true] [aria-expanded=true]
+   Toggles  : aui-btn--toggle + aria-pressed, icon swap with .aui-btn-on / .aui-btn-off
    ========================================================================== */
 .aui-btn {
   --_h: var(--aui-control-h); --_px: 14px; --_fs: var(--aui-fs-sm); --_gap: 8px; --_r: var(--aui-control-radius); --_ic: 16px;
@@ -68,8 +69,14 @@
 .aui-btn--link:hover { text-decoration-color: currentColor; }
 .aui-btn--link:active { transform: none; }
 
+.aui-btn--dashed { --_bg: transparent; --_bd: var(--aui-border-strong); --_fg: var(--aui-text-muted); --_sh: none; --_bg-h: var(--aui-hover); --_bd-h: var(--aui-border-interactive); --_fg-h: var(--aui-text); --_bg-a: var(--aui-active); border-style: dashed; }
+/* Inverse & glass: fixed colours for use over photos, video and the call stage, independent of theme */
+.aui-btn--inverse { --_bg: rgb(255 255 255 / .92); --_bd: transparent; --_fg: #09090b; --_bg-h: #fff; --_bd-h: transparent; --_bg-a: #e4e4e7; --_sh: 0 1px 2px rgb(0 0 0 / .3); }
+.aui-btn--glass { --_bg: rgb(20 20 24 / .55); --_bd: rgb(255 255 255 / .14); --_fg: #fff; --_bg-h: rgb(20 20 24 / .7); --_bd-h: rgb(255 255 255 / .22); --_bg-a: rgb(20 20 24 / .85); --_sh: none; backdrop-filter: blur(10px) saturate(1.3); -webkit-backdrop-filter: blur(10px) saturate(1.3); }
+.aui-btn--glass.aui-btn--danger { --_bg: var(--aui-danger-solid); --_bd: transparent; --_bg-h: var(--aui-danger-solid-hover); }
+
 /* Solid tones (success / danger / warning / info / purple …) */
-.aui-btn:is(.aui-btn--success, .aui-btn--danger, .aui-btn--warning, .aui-btn--info, .aui-btn--purple, .aui-btn--pink, .aui-btn--orange, .aui-btn--teal):not(.aui-btn--soft, .aui-btn--outline, .aui-btn--ghost, .aui-btn--link) {
+.aui-btn:is(.aui-btn--success, .aui-btn--danger, .aui-btn--warning, .aui-btn--info, .aui-btn--purple, .aui-btn--pink, .aui-btn--orange, .aui-btn--yellow, .aui-btn--teal, .aui-btn--neutral):not(.aui-btn--soft, .aui-btn--outline, .aui-btn--ghost, .aui-btn--link, .aui-btn--glass) {
   --_t: var(--aui-tone);
   --_bg: var(--_t); --_bd: var(--_t); --_fg: var(--aui-on-tone);
   --_bg-h: color-mix(in srgb, var(--_t) 88%, white); --_bd-h: var(--_bg-h); --_bg-a: color-mix(in srgb, var(--_t) 85%, black);
@@ -86,18 +93,33 @@
 .aui-btn--sm { --_h: var(--aui-control-h-sm); --_px: 10px; --_fs: var(--aui-fs-xs); --_gap: 6px; --_ic: 14px; --_r: calc(var(--aui-control-radius) - 1px); }
 .aui-btn--lg { --_h: var(--aui-control-h-lg); --_px: 18px; --_fs: var(--aui-fs-md); --_gap: 8px; --_ic: 18px; --_r: var(--aui-radius-md); }
 .aui-btn--xl { --_h: var(--aui-control-h-xl); --_px: 22px; --_fs: var(--aui-fs-lg); --_gap: 10px; --_ic: 18px; --_r: var(--aui-radius-md); }
+.aui-btn--2xl { --_h: 56px; --_px: 26px; --_fs: var(--aui-fs-lg); --_gap: 10px; --_ic: 24px; --_r: var(--aui-radius-lg); }
 
 /* ---------- Shapes ---------- */
 .aui-btn--icon { width: var(--_h); --_px: 0; }
+.aui-btn--round { width: var(--_h); --_px: 0; --_r: var(--aui-radius-full); }
 .aui-btn--pill { --_r: var(--aui-radius-full); }
 .aui-btn--pill:not(.aui-btn--icon) { --_px: calc(var(--_h) * .45); }
+.aui-btn--square { --_r: var(--aui-radius-xs); }
+.aui-btn--rounded { --_r: var(--aui-radius-md); }
+.aui-btn--wide { min-width: 7.5em; }
 .aui-btn--block { display: flex; width: 100%; }
 .aui-btn--start { justify-content: flex-start; }
 .aui-btn--start > .aui-btn-end, .aui-btn > .aui-btn-end { margin-left: auto; }
+/* Stacked: icon above a short label (ribbons, call controls, bottom bars) */
+.aui-btn--stack { flex-direction: column; gap: 5px; height: auto; min-width: var(--_h); padding: 8px 10px; --_fs: var(--aui-fs-2xs); --_ic: 20px; font-weight: var(--aui-fw-medium); }
+.aui-btn--stack > .aui-icon { margin: 0 !important; }
+.aui-btn > .aui-avatar { --_s: calc(var(--_ic) + 4px); margin-left: -4px; }
 
 /* ---------- States ---------- */
 .aui-btn.is-active, .aui-btn[aria-pressed="true"], .aui-btn[aria-expanded="true"]:not(.aui-btn--primary, .aui-btn--accent) { --_bg: var(--aui-active); --_bd: var(--aui-border-strong); --_fg: var(--aui-text); }
 .aui-btn--ghost.is-active, .aui-btn--ghost[aria-pressed="true"], .aui-btn--ghost[aria-expanded="true"] { --_bd: transparent; }
+/* Toggle: pressed state takes the tone (mute, bold, pin …); .aui-btn-on / .aui-btn-off swap icons */
+.aui-btn--toggle[aria-pressed="true"] { --_t: var(--aui-tone, var(--aui-accent)); --_bg: color-mix(in srgb, var(--_t) 14%, transparent); --_bd: color-mix(in srgb, var(--_t) 32%, transparent); --_fg: var(--_t); --_bg-h: color-mix(in srgb, var(--_t) 20%, transparent); --_bd-h: color-mix(in srgb, var(--_t) 45%, transparent); --_fg-h: var(--_t); }
+.aui-btn--glass.aui-btn--toggle[aria-pressed="true"] { --_bg: rgb(255 255 255 / .92); --_fg: #09090b; --_bd: transparent; --_bg-h: #fff; --_fg-h: #09090b; }
+.aui-btn[aria-pressed="true"] > .aui-btn-off, .aui-btn:not([aria-pressed="true"]) > .aui-btn-on { display: none !important; }
+/* Quiet until hovered, then destructive (remove row, hang up, delete attachment) */
+.aui-btn--hover-danger:hover { --_bg-h: color-mix(in srgb, var(--aui-danger) 12%, transparent); --_bd-h: color-mix(in srgb, var(--aui-danger) 30%, transparent); --_fg-h: var(--aui-danger); }
 .aui-btn:disabled, .aui-btn.is-disabled, .aui-btn[aria-disabled="true"] { opacity: .45; cursor: not-allowed; pointer-events: none; box-shadow: none; }
 .aui-btn.is-loading { pointer-events: none; cursor: progress; }
 .aui-btn.is-loading::before {
@@ -115,6 +137,9 @@
   color: inherit; background: color-mix(in srgb, currentColor 14%, transparent); border-radius: var(--aui-radius-full);
 }
 .aui-btn-dot { position: absolute; top: 5px; right: 5px; width: 7px; height: 7px; border-radius: 50%; background: var(--aui-danger); box-shadow: 0 0 0 2px var(--aui-bg); }
+/* Corner count bubble on icon buttons: <button class="aui-btn aui-btn--ghost aui-btn--icon">…<span class="aui-btn-badge">12</span></button> */
+.aui-btn-badge { position: absolute; top: -4px; right: -4px; display: inline-grid; place-items: center; min-width: 17px; height: 17px; padding: 0 4px; font-size: 10px; font-weight: var(--aui-fw-semibold); font-variant-numeric: tabular-nums; line-height: 1; color: var(--aui-on-danger); background: var(--aui-danger); border-radius: var(--aui-radius-full); box-shadow: 0 0 0 2px var(--aui-bg); pointer-events: none; }
+.aui-btn-badge--accent { color: var(--aui-on-accent); background: var(--aui-accent); }
 
 /* ---------- Groups & split ---------- */
 .aui-btn-group { display: inline-flex; isolation: isolate; vertical-align: middle; }

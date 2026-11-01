@@ -1,4 +1,4 @@
-# Armsys UI 2
+# Armsys UI 3
 
 > Framework-independent, dark-first design system by Armsys Technology for websites, documentation, admin panels, monitoring tools, embedded widgets and Electron apps. Plain HTML classes (`aui-*`), CSS tokens (`--aui-*`) and data-attribute behaviours (`data-aui-*`), scoped to `.aui`.
 
@@ -35,6 +35,6 @@
 
 ## Distribution
 
-- CSS: https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.css
-- JS: https://cdn.jsdelivr.net/npm/@armsys-tech/ui@2.0.1/dist/armsys-ui.min.js
+- CSS: https://cdn.jsdelivr.net/npm/@armsys-tech/ui@3.0.0/dist/armsys-ui.min.css
+- JS: https://cdn.jsdelivr.net/npm/@armsys-tech/ui@3.0.0/dist/armsys-ui.min.js
 - npm: `@armsys-tech/ui` (ESM, CJS, TypeScript)

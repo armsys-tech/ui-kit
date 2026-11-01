@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Armsys UI 3 — Calendar & date picker
+   <input class="aui-input" data-aui-datepicker [min] [max] [data-aui-format="dd.mm.yyyy"]>
+   opens a floating .aui-calendar; a static calendar is plain markup:
+   <div class="aui-calendar" data-aui-calendar data-value="2026-11-01"></div>
+   JS renders the grid (src/js/70-workbench.js). Time inputs stay native.
+   ========================================================================== */
+.aui-calendar { --_cell: 34px; width: calc(var(--_cell) * 7 + 24px); padding: 12px; font-size: var(--aui-fs-sm); color: var(--aui-text); user-select: none; -webkit-user-select: none; }
+.aui-calendar--sm { --_cell: 28px; font-size: var(--aui-fs-xs); padding: 10px; }
+.aui-calendar--lg { --_cell: 40px; font-size: var(--aui-fs-md); }
+.aui-calendar--block { width: 100%; }
+.aui-calendar--block .aui-calendar-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.aui-calendar--block .aui-calendar-day { width: auto; }
+.aui-calendar-head { display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
+.aui-calendar-title { flex: 1; min-width: 0; display: flex; align-items: center; justify-content: center; gap: 4px; }
+.aui-calendar-title > button { padding: 2px 6px; margin: 0; font: inherit; font-weight: var(--aui-fw-semibold); color: var(--aui-text); background: none; border: 0; border-radius: var(--aui-radius-xs); cursor: pointer; }
+.aui-calendar-title > button:hover { background: var(--aui-hover); }
+.aui-calendar-head .aui-btn { --_h: 28px; --_ic: 15px; }
+.aui-calendar-grid { display: grid; grid-template-columns: repeat(7, var(--_cell)); gap: 2px 0; }
+.aui-calendar-wd { display: grid; place-items: center; height: 26px; font-size: var(--aui-fs-2xs); font-weight: var(--aui-fw-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--aui-text-subtle); }
+.aui-calendar-day {
+  position: relative; display: grid; place-items: center; width: var(--_cell); height: var(--_cell); padding: 0; margin: 0;
+  font: inherit; font-variant-numeric: tabular-nums; color: var(--aui-text-secondary); background: none; border: 0; border-radius: var(--aui-radius-sm); cursor: pointer;
+  transition: background-color var(--aui-dur-fast), color var(--aui-dur-fast);
+}
+.aui-calendar-day:hover { background: var(--aui-hover); color: var(--aui-text); }
+.aui-calendar-day:focus-visible { outline: 2px solid var(--aui-focus); outline-offset: -2px; }
+.aui-calendar-day.is-outside { color: var(--aui-text-disabled); }
+.aui-calendar-day.is-today { font-weight: var(--aui-fw-semibold); color: var(--aui-accent); }
+.aui-calendar-day.is-today::after { content: ""; position: absolute; bottom: 4px; left: 50%; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: currentColor; }
+.aui-calendar-day.is-selected, .aui-calendar-day[aria-selected="true"] { color: var(--aui-on-accent); background: var(--aui-accent); font-weight: var(--aui-fw-semibold); }
+.aui-calendar-day.is-selected::after { background: var(--aui-on-accent); }
+.aui-calendar-day.is-in-range { border-radius: 0; background: color-mix(in srgb, var(--aui-accent) 14%, transparent); color: var(--aui-text); }
+.aui-calendar-day.is-range-start { border-radius: var(--aui-radius-sm) 0 0 var(--aui-radius-sm); }
+.aui-calendar-day.is-range-end { border-radius: 0 var(--aui-radius-sm) var(--aui-radius-sm) 0; }
+.aui-calendar-day.is-marked::before { content: ""; position: absolute; top: 4px; right: 5px; width: 5px; height: 5px; border-radius: 50%; background: var(--aui-tone, var(--aui-warning)); }
+.aui-calendar-day:disabled, .aui-calendar-day.is-disabled { color: var(--aui-text-disabled); text-decoration: line-through; cursor: not-allowed; background: none; }
+.aui-calendar-day.is-weekend:not(.is-selected) { color: var(--aui-text-muted); }
+.aui-calendar-wk { display: grid; place-items: center; font-size: var(--aui-fs-2xs); color: var(--aui-text-disabled); }
+.aui-calendar--weeks .aui-calendar-grid { grid-template-columns: 24px repeat(7, var(--_cell)); }
+/* Month / year pickers */
+.aui-calendar-months, .aui-calendar-years { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+.aui-calendar-months > button, .aui-calendar-years > button { height: 36px; padding: 0; margin: 0; font: inherit; color: var(--aui-text-secondary); background: none; border: 0; border-radius: var(--aui-radius-sm); cursor: pointer; }
+.aui-calendar-months > button:hover, .aui-calendar-years > button:hover { background: var(--aui-hover); color: var(--aui-text); }
+.aui-calendar-months > button.is-selected, .aui-calendar-years > button.is-selected { color: var(--aui-on-accent); background: var(--aui-accent); }
+.aui-calendar-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--aui-border-soft); }
+.aui-calendar-foot .aui-btn { --_h: 26px; }
+/* Floating picker panel (rendered by JS, reuses the popover surface) */
+.aui-datepicker { padding: 0 !important; min-width: 0 !important; }
+.aui-datepicker.is-static { position: relative; display: inline-block; }
+/* Two months side by side for ranges */
+.aui-calendar-range { display: flex; }
+.aui-calendar-range > .aui-calendar + .aui-calendar { border-left: 1px solid var(--aui-border-soft); }
+/* Time picker (native input styled as part of the panel) */
+.aui-calendar-time { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--aui-border-soft); font-size: var(--aui-fs-xs); color: var(--aui-text-muted); }
+.aui-calendar-time > .aui-input { --_h: 30px; width: auto; }
+@media (max-width: 640px) {
+  .aui-calendar-range { flex-direction: column; }
+  .aui-calendar-range > .aui-calendar + .aui-calendar { border-left: 0; border-top: 1px solid var(--aui-border-soft); }
+}

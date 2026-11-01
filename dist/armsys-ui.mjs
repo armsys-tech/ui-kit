@@ -1,5 +1,5 @@
 /*!
- * Armsys UI 2.0.1 — Framework-independent design system by Armsys Technology
+ * Armsys UI 3.0.0 — Framework-independent design system by Armsys Technology
  * ES module build: import ArmsysUI from "@armsys-tech/ui"; (auto-initialises in the browser, SSR-safe)
  * MIT License · https://github.com/armsys-tech/ui-kit
  */
@@ -7,7 +7,7 @@ const ArmsysUI = (function () {
   'use strict';
   if (typeof window !== 'undefined' && window.ArmsysUI && window.ArmsysUI.version) return window.ArmsysUI;
   /* ---------- Core: config, helpers, events, storage ---------- */
-  var VERSION = '2.0.1';
+  var VERSION = '3.0.0';
   var w = typeof window !== 'undefined' ? window : null;
   var d = typeof document !== 'undefined' ? document : null;
   var cfg = {
@@ -220,6 +220,48 @@ const ArmsysUI = (function () {
     'gauge': '<path d="M4.9 18a9 9 0 1 1 14.2 0"/><path d="m12 13 4-5"/><circle cx="12" cy="13" r="1.5"/>',
     'dollar': '<path d="M12 2.5v19M17 6.5H9.8a3 3 0 0 0 0 6h4.4a3 3 0 0 1 0 6H6.5"/>',
     'globe-lock': '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
+    /* v3: messaging, calls, editing */
+    'mic': '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/>',
+    'mic-off': '<path d="M15 9.5V6a3 3 0 0 0-5.6-1.5M9 9v2a3 3 0 0 0 5.1 2.1M5 11a7 7 0 0 0 11.4 5.4M19 11a7 7 0 0 1-.6 2.8M12 18v3M9 21h6M3 3l18 18"/>',
+    'video': '<rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/>',
+    'video-off': '<path d="M16 10l5-3v10l-5-3M16 14v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h1M10 6h4a2 2 0 0 1 2 2v2M3 3l18 18"/>',
+    'phone-off': '<path d="M10.7 13.3a15 15 0 0 1-2.8-3.6l1.9-1.9a1 1 0 0 0 .2-1L9 3.6a1 1 0 0 0-1-.6H5a2 2 0 0 0-2 2 17 17 0 0 0 4.5 10.5M14.6 16.4a17 17 0 0 0 4.4 2.6 2 2 0 0 0 2-2v-3a1 1 0 0 0-.6-1l-3.2-1a1 1 0 0 0-1 .2l-1.6 1.6M3 3l18 18"/>',
+    'phone-incoming': '<path d="M15 9 21 3M15 3v6h6"/><path d="M5 3h3a1 1 0 0 1 1 .6l1 3.2a1 1 0 0 1-.2 1L7.9 9.7a15 15 0 0 0 6.4 6.4l1.9-1.9a1 1 0 0 1 1-.2l3.2 1a1 1 0 0 1 .6 1v3a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z"/>',
+    'phone-outgoing': '<path d="m15 9 6-6M15 3h6v6"/><path d="M5 3h3a1 1 0 0 1 1 .6l1 3.2a1 1 0 0 1-.2 1L7.9 9.7a15 15 0 0 0 6.4 6.4l1.9-1.9a1 1 0 0 1 1-.2l3.2 1a1 1 0 0 1 .6 1v3a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z"/>',
+    'phone-missed': '<path d="m15 3 6 6M21 3l-6 6"/><path d="M5 3h3a1 1 0 0 1 1 .6l1 3.2a1 1 0 0 1-.2 1L7.9 9.7a15 15 0 0 0 6.4 6.4l1.9-1.9a1 1 0 0 1 1-.2l3.2 1a1 1 0 0 1 .6 1v3a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z"/>',
+    'smile': '<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5a4.5 4.5 0 0 0 7 0M9 9.5h.01M15 9.5h.01"/>',
+    'check-check': '<path d="m2 12.5 4.5 4.5L15 8.5M10 16l1.5 1.5L22 7"/>',
+    'reply': '<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 6 6v4"/>',
+    'forward': '<path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0-6 6v4"/>',
+    'pin': '<path d="M12 17v5M8 4h8l-1 7 3 3H6l3-3z"/>',
+    'archive': '<rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M10 13h4"/>',
+    'volume': '<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9.5a4 4 0 0 1 0 5M18.5 7a7.5 7.5 0 0 1 0 10"/>',
+    'volume-x': '<path d="M4 9v6h4l5 4V5L8 9z"/><path d="m17 9 4 6M21 9l-4 6"/>',
+    'camera': '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+    'maximize': '<path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3M21 16v3a2 2 0 0 1-2 2h-3"/>',
+    'screen-share': '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M12 13V7M9 10l3-3 3 3"/>',
+    'file-text': '<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+    'music': '<path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>',
+    'at-sign': '<circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1"/>',
+    'undo': '<path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/>',
+    'redo': '<path d="m15 14 5-5-5-5"/><path d="M20 9H9a5 5 0 0 0 0 10h3"/>',
+    'scissors': '<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/>',
+    'clipboard': '<rect x="5" y="5" width="14" height="16" rx="2"/><path d="M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1H9z"/>',
+    'zoom-in': '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/>',
+    'zoom-out': '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8 11h6"/>',
+    'folder-open': '<path d="M3 7a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v2H6.5a1 1 0 0 0-1 .7L3 19z"/><path d="M3 19h15.5a1 1 0 0 0 1-.7L22 11"/>',
+    'flag': '<path d="M5 21V4h11l-1.5 4L16 12H5"/>',
+    'printer': '<path d="M7 9V3h10v6M7 18H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-3"/><rect x="7" y="14" width="10" height="7"/>',
+    'bold': '<path d="M7 4h6a4 4 0 0 1 0 8H7zM7 12h7a4 4 0 0 1 0 8H7z"/>',
+    'italic': '<path d="M19 4h-9M14 20H5M15 4 9 20"/>',
+    'strikethrough': '<path d="M4 12h16M16 6.5A4 4 0 0 0 12 4H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H11a4 4 0 0 1-4-2.5"/>',
+    'list-ordered': '<path d="M10 6h11M10 12h11M10 18h11M4 6h1v4M4 10h2M6 18H4c0-1 2-2 2-3a1 1 0 0 0-2 0"/>',
+    'headphones': '<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="5" height="7" rx="1.5"/><rect x="16" y="14" width="5" height="7" rx="1.5"/>',
+    'ban': '<circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/>',
+    'user-check': '<circle cx="10" cy="8" r="4"/><path d="M2 21c1-4 4.2-6 8-6 1.4 0 2.6.3 3.7.8M16 19l2 2 4-4"/>',
+    'dots-grid': '<circle cx="5" cy="5" r="1.5"/><circle cx="12" cy="5" r="1.5"/><circle cx="19" cy="5" r="1.5"/><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/><circle cx="5" cy="19" r="1.5"/><circle cx="12" cy="19" r="1.5"/><circle cx="19" cy="19" r="1.5"/>',
+    'sticker': '<path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8l-6 6H6a2 2 0 0 1-2-2z"/><path d="M14 20v-4a2 2 0 0 1 2-2h4M8.5 9.5h.01M15.5 9.5h.01"/>',
+    'hand': '<path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11M11 10.5V4.5a1.5 1.5 0 0 1 3 0V11M14 11V6.5a1.5 1.5 0 0 1 3 0V13"/><path d="M17 13v2a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3 14a1.6 1.6 0 0 1 2.6-1.8L8 14"/>',
     'github': '<path fill="currentColor" stroke="none" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/>',
     'google': '<path fill="#4285F4" stroke="none" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" stroke="none" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" stroke="none" d="M5.84 14.09A6.6 6.6 0 0 1 5.49 12c0-.73.13-1.43.35-2.09V7.07H2.18A11 11 0 0 0 1 12c0 1.78.43 3.45 1.18 4.93z"/><path fill="#EA4335" stroke="none" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15A10.6 10.6 0 0 0 12 1 11 11 0 0 0 2.18 7.07l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/>',
     'microsoft': '<path fill="#F25022" stroke="none" d="M2 2h9.5v9.5H2z"/><path fill="#7FBA00" stroke="none" d="M12.5 2H22v9.5h-9.5z"/><path fill="#00A4EF" stroke="none" d="M2 12.5h9.5V22H2z"/><path fill="#FFB900" stroke="none" d="M12.5 12.5H22V22h-9.5z"/>',
@@ -956,6 +998,7 @@ const ArmsysUI = (function () {
     if (t.closest('.aui-input-wrap')) syncClear(t);
     if (t.matches('.aui-menu-search input, .aui-command-search input')) filterMenu(t);
     if (t.closest('.aui-stepper')) syncStepper(t.closest('.aui-stepper'));
+    if (t.closest('[data-aui-composer]')) syncComposer(t.closest('[data-aui-composer]'));
     if (t.classList.contains('is-invalid') && t.value) { t.classList.remove('is-invalid'); t.removeAttribute('aria-invalid'); }
   }
   function onFormChange(e) {
@@ -1298,6 +1341,321 @@ const ArmsysUI = (function () {
     return (e.key || '').toLowerCase() === key;
   }
 
+  /* ---------- Workbench: menubar · tab strip · tree · resizable panels · calendar / date picker · composer · chat scroll ---------- */
+
+  /* Menubar: while one menu is open, hovering or arrowing to a sibling switches menus (native menubar feel) */
+  function menubarSwitch(trigger) {
+    var bar = trigger.closest('[data-aui-menubar]'), dd = trigger.closest('[data-aui-dropdown]');
+    if (!bar || !dd || dd.classList.contains('is-open')) return;
+    var open = $$('[data-aui-dropdown].is-open', bar);
+    if (!open.length) return;
+    open.forEach(function (o) { closeDropdown(o, true); });
+    openDropdown(dd);
+  }
+  function menubarArrow(e, t) {
+    var bar = t.closest('[data-aui-menubar]'); if (!bar || (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight')) return false;
+    if (t.closest('.aui-menu-sub > .aui-menu') || (e.key === 'ArrowRight' && t.matches('.aui-menu-sub > .aui-menu-item'))) return false;
+    var dds = $$(':scope > [data-aui-dropdown]', bar), cur = t.closest('[data-aui-dropdown]'), i = dds.indexOf(cur);
+    if (i < 0 || !cur.classList.contains('is-open')) return false;
+    e.preventDefault();
+    var next = dds[(i + (e.key === 'ArrowRight' ? 1 : dds.length - 1)) % dds.length];
+    closeDropdown(cur, true); openDropdown(next);
+    var first = menuItems(panelOf(next))[0]; if (first) first.focus();
+    return true;
+  }
+
+  /* Tab strip: closable tabs on top of data-aui-tabs */
+  function closeTab(tab) {
+    var group = tab.closest('[data-aui-tabs]'), id = tab.getAttribute('data-aui-tab');
+    if (!emit(tab, 'tab-close', { tab: id }, true)) return;
+    var tabs = group ? $$('[data-aui-tab]', group).filter(function (t) { return owned(t, group); }) : [];
+    var i = tabs.indexOf(tab), wasActive = tab.classList.contains('is-active') || tab.getAttribute('aria-selected') === 'true';
+    if (group && id) $$('[data-aui-panel="' + id + '"]', group).forEach(function (p) { p.parentNode.removeChild(p); });
+    tab.parentNode.removeChild(tab);
+    if (wasActive) { var n = tabs[i + 1] || tabs[i - 1]; if (n) selectTab(n, true); }
+    emit(group || d, 'tab-closed', { tab: id });
+  }
+
+  /* Tree view: selection, expand/collapse, keyboard */
+  function treeRows(tree) { return $$('li[role="treeitem"]', tree).filter(function (li) { return li.getClientRects().length > 0; }); }
+  function treeSelect(tree, li, focus) {
+    $$('li[aria-selected="true"]', tree).forEach(function (x) { if (x !== li) x.removeAttribute('aria-selected'); });
+    li.setAttribute('aria-selected', 'true');
+    if (!li.id) li.id = uid('tree');
+    tree.setAttribute('aria-activedescendant', li.id);
+    var row = $(':scope > .aui-tree-row', li); if (row) row.scrollIntoView({ block: 'nearest' });
+    if (focus) tree.focus({ preventScroll: true });
+    emit(li, 'tree-select', { item: li, value: li.getAttribute('data-value') });
+  }
+  function treeToggle(li, open) {
+    if (!li.hasAttribute('aria-expanded')) return;
+    var o = open == null ? li.getAttribute('aria-expanded') !== 'true' : open;
+    li.setAttribute('aria-expanded', o ? 'true' : 'false');
+    emit(li, 'tree-toggle', { item: li, expanded: o });
+  }
+  function initTree(tree) {
+    if (tree._auiTree) return; tree._auiTree = true;
+    if (!tree.hasAttribute('tabindex')) tree.tabIndex = 0;
+    tree.setAttribute('role', 'tree');
+    $$('li', tree).forEach(function (li) {
+      li.setAttribute('role', 'treeitem');
+      var kids = $(':scope > ul', li);
+      if (kids) { kids.setAttribute('role', 'group'); if (!li.hasAttribute('aria-expanded')) li.setAttribute('aria-expanded', 'false'); }
+      var row = $(':scope > .aui-tree-row', li);
+      if (row && !$(':scope > .aui-tree-toggle', row)) { var tg = d.createElement('span'); tg.className = 'aui-tree-toggle'; row.insertBefore(tg, row.firstChild); }
+    });
+    var sel = $('li[aria-selected="true"]', tree); if (sel) { if (!sel.id) sel.id = uid('tree'); tree.setAttribute('aria-activedescendant', sel.id); }
+  }
+  function treeKeydown(e, tree) {
+    var rows = treeRows(tree), cur = $('li[aria-selected="true"]', tree), i = rows.indexOf(cur), k = e.key;
+    if (!rows.length) return false;
+    if (k === 'ArrowDown' || k === 'ArrowUp' || k === 'Home' || k === 'End') {
+      e.preventDefault();
+      var n = k === 'Home' ? 0 : k === 'End' ? rows.length - 1 : k === 'ArrowDown' ? Math.min(rows.length - 1, i + 1) : Math.max(0, i - 1);
+      treeSelect(tree, rows[n]); return true;
+    }
+    if (!cur) return false;
+    if (k === 'ArrowRight') { e.preventDefault(); if (cur.getAttribute('aria-expanded') === 'false') treeToggle(cur, true); else { var c = $(':scope > ul > li', cur); if (c) treeSelect(tree, c); } return true; }
+    if (k === 'ArrowLeft') { e.preventDefault(); if (cur.getAttribute('aria-expanded') === 'true') treeToggle(cur, false); else { var p = cur.parentElement.closest('li[role="treeitem"]'); if (p) treeSelect(tree, p); } return true; }
+    if (k === 'Enter' || k === ' ') { e.preventDefault(); treeToggle(cur); emit(cur, 'tree-activate', { item: cur, value: cur.getAttribute('data-value') }); return true; }
+    if (k === '*') { e.preventDefault(); $$('li[aria-expanded]', cur.parentElement).forEach(function (li) { li.setAttribute('aria-expanded', 'true'); }); return true; }
+    return false;
+  }
+
+  /* Resizable panels: <div class="aui-resize" data-aui-resize [data-aui-resize-key="editor"]> pane · .aui-resize-handle · pane </div> */
+  var rz = null;
+  function resizeTarget(handle) {
+    var box = handle.closest('[data-aui-resize]'); if (!box) return null;
+    var prev = handle.previousElementSibling; while (prev && prev.classList.contains('aui-resize-handle')) prev = prev.previousElementSibling;
+    if (!prev) return null;
+    return { box: box, prev: prev, vertical: box.classList.contains('aui-resize--vertical'), handle: handle };
+  }
+  function resizeKey(t) { var k = t.box.getAttribute('data-aui-resize-key'); return k ? 'resize-' + k + '-' + toArr(t.box.children).indexOf(t.prev) : null; }
+  function applySize(t, px) {
+    var min = parseFloat(t.handle.getAttribute('data-aui-min')) || 0, max = parseFloat(t.handle.getAttribute('data-aui-max')) || Infinity;
+    var total = t.vertical ? t.box.clientHeight : t.box.clientWidth;
+    px = Math.max(min, Math.min(px, max, total - 48));
+    t.prev.style[t.vertical ? 'height' : 'width'] = px + 'px';
+    t.prev.style.flex = '0 0 auto';
+    return px;
+  }
+  function onResizeStart(e) {
+    var h = e.target.closest && e.target.closest('.aui-resize-handle'); if (!h || e.button) return;
+    var t = resizeTarget(h); if (!t) return;
+    e.preventDefault();
+    var r = t.prev.getBoundingClientRect();
+    rz = { t: t, x: e.clientX, y: e.clientY, start: t.vertical ? r.height : r.width, id: e.pointerId };
+    h.classList.add('is-dragging'); t.box.classList.add('is-resizing'); t.box.style.cursor = t.vertical ? 'row-resize' : 'col-resize';
+    try { h.setPointerCapture(e.pointerId); } catch (x) {}
+  }
+  function onResizeMove(e) {
+    if (!rz || e.pointerId !== rz.id) return;
+    var dlt = rz.t.vertical ? e.clientY - rz.y : e.clientX - rz.x;
+    applySize(rz.t, rz.start + dlt);
+    repositionAll();
+  }
+  function onResizeEnd(e) {
+    if (!rz || (e.pointerId != null && e.pointerId !== rz.id)) return;
+    var t = rz.t; rz = null;
+    t.handle.classList.remove('is-dragging'); t.box.classList.remove('is-resizing'); t.box.style.cursor = '';
+    var key = resizeKey(t), size = parseFloat(t.prev.style[t.vertical ? 'height' : 'width']);
+    if (key) store(key, String(size));
+    emit(t.box, 'resize', { pane: t.prev, size: size });
+  }
+  function resetResize(h) {
+    var t = resizeTarget(h); if (!t) return;
+    t.prev.style.width = ''; t.prev.style.height = ''; t.prev.style.flex = '';
+    var key = resizeKey(t); if (key) store(key, null);
+    emit(t.box, 'resize', { pane: t.prev, size: null });
+  }
+  function initResize(box) {
+    if (box._auiResize) return; box._auiResize = true;
+    $$(':scope > .aui-resize-handle', box).forEach(function (h) {
+      if (!h.hasAttribute('role')) { h.setAttribute('role', 'separator'); h.setAttribute('aria-orientation', box.classList.contains('aui-resize--vertical') ? 'horizontal' : 'vertical'); h.tabIndex = 0; }
+      var t = resizeTarget(h), key = t && resizeKey(t), saved = key && store(key);
+      if (saved) applySize(t, parseFloat(saved));
+    });
+  }
+  function resizeKeydown(e, h) {
+    var t = resizeTarget(h); if (!t) return false;
+    var step = e.shiftKey ? 40 : 10, k = e.key, cur = t.vertical ? t.prev.offsetHeight : t.prev.offsetWidth;
+    if (k === 'ArrowLeft' || k === 'ArrowUp') { e.preventDefault(); applySize(t, cur - step); return true; }
+    if (k === 'ArrowRight' || k === 'ArrowDown') { e.preventDefault(); applySize(t, cur + step); return true; }
+    if (k === 'Enter') { e.preventDefault(); resetResize(h); return true; }
+    return false;
+  }
+
+  /* ---------- Calendar & date picker ---------- */
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function isoDate(dt) { return dt.getFullYear() + '-' + pad2(dt.getMonth() + 1) + '-' + pad2(dt.getDate()); }
+  function parseDate(s, fmt) {
+    if (!s) return null;
+    var m = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(s); if (m) return new Date(+m[1], +m[2] - 1, +m[3]);
+    m = /^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$/.exec(s);
+    if (m) return fmt && /^mm/i.test(fmt) ? new Date(+m[3], +m[1] - 1, +m[2]) : new Date(+m[3], +m[2] - 1, +m[1]);
+    var t = Date.parse(s); return isNaN(t) ? null : new Date(t);
+  }
+  function formatDate(dt, fmt) {
+    if (!dt) return '';
+    if (!fmt) return isoDate(dt);
+    return fmt.replace(/yyyy/i, dt.getFullYear()).replace(/mm/i, pad2(dt.getMonth() + 1)).replace(/dd/i, pad2(dt.getDate()));
+  }
+  function calLocale(el) { return el.getAttribute('data-aui-locale') || (el.closest('[lang]') && el.closest('[lang]').getAttribute('lang')) || undefined; }
+  function calState(el) {
+    if (el._auiCal) return el._auiCal;
+    var v = parseDate(el.getAttribute('data-value')), today = new Date();
+    var view = v || today;
+    el._auiCal = { value: v, y: view.getFullYear(), m: view.getMonth(), mode: 'days', min: parseDate(el.getAttribute('data-min') || el.getAttribute('min')), max: parseDate(el.getAttribute('data-max') || el.getAttribute('max')), weekStart: parseInt(el.getAttribute('data-aui-week-start') || '1', 10) };
+    return el._auiCal;
+  }
+  function renderCalendar(el) {
+    var s = calState(el), loc = calLocale(el), today = isoDate(new Date());
+    var monthName = new Intl.DateTimeFormat(loc, { month: 'long', year: 'numeric' }).format(new Date(s.y, s.m, 1));
+    var html = '<div class="aui-calendar-head">' +
+      '<button type="button" class="aui-btn aui-btn--ghost aui-btn--icon" data-cal="prev" aria-label="Previous">' + icon('chevron-left') + '</button>' +
+      '<div class="aui-calendar-title"><button type="button" data-cal="mode">' + esc(monthName) + '</button></div>' +
+      '<button type="button" class="aui-btn aui-btn--ghost aui-btn--icon" data-cal="next" aria-label="Next">' + icon('chevron-right') + '</button></div>';
+    if (s.mode === 'months') {
+      html += '<div class="aui-calendar-months">';
+      for (var mi = 0; mi < 12; mi++) html += '<button type="button" data-cal="month" data-m="' + mi + '" class="' + (mi === s.m ? 'is-selected' : '') + '">' + esc(new Intl.DateTimeFormat(loc, { month: 'short' }).format(new Date(2000, mi, 1))) + '</button>';
+      html += '</div>';
+    } else if (s.mode === 'years') {
+      var y0 = s.y - (s.y % 12);
+      html += '<div class="aui-calendar-years">';
+      for (var yi = y0; yi < y0 + 12; yi++) html += '<button type="button" data-cal="year" data-y="' + yi + '" class="' + (yi === s.y ? 'is-selected' : '') + '">' + yi + '</button>';
+      html += '</div>';
+    } else {
+      html += '<div class="aui-calendar-grid" role="grid">';
+      var wd = new Intl.DateTimeFormat(loc, { weekday: 'short' });
+      for (var i = 0; i < 7; i++) { var dow = (s.weekStart + i) % 7; html += '<div class="aui-calendar-wd" aria-hidden="true">' + esc(wd.format(new Date(2024, 0, 7 + dow)).slice(0, 2)) + '</div>'; }
+      var first = new Date(s.y, s.m, 1), lead = (first.getDay() - s.weekStart + 7) % 7;
+      var start = new Date(s.y, s.m, 1 - lead), sel = s.value ? isoDate(s.value) : '';
+      var marks = (el.getAttribute('data-marked') || '').split(/[\s,]+/);
+      for (var c = 0; c < 42; c++) {
+        var dt = new Date(start.getFullYear(), start.getMonth(), start.getDate() + c), id = isoDate(dt), cls = 'aui-calendar-day';
+        if (dt.getMonth() !== s.m) cls += ' is-outside';
+        if (id === today) cls += ' is-today';
+        if (id === sel) cls += ' is-selected';
+        if (dt.getDay() === 0 || dt.getDay() === 6) cls += ' is-weekend';
+        if (marks.indexOf(id) > -1) cls += ' is-marked';
+        var dis = (s.min && dt < s.min) || (s.max && dt > s.max);
+        html += '<button type="button" role="gridcell" class="' + cls + '" data-cal="day" data-date="' + id + '"' + (dis ? ' disabled' : '') + (id === sel ? ' aria-selected="true"' : '') + ' tabindex="' + (id === (sel || today) ? 0 : -1) + '">' + dt.getDate() + '</button>';
+      }
+      html += '</div>';
+    }
+    if (!el.hasAttribute('data-aui-no-foot')) html += '<div class="aui-calendar-foot"><button type="button" class="aui-btn aui-btn--ghost aui-btn--sm" data-cal="today">' + esc(el.getAttribute('data-aui-today-label') || 'Today') + '</button><button type="button" class="aui-btn aui-btn--ghost aui-btn--sm" data-cal="clear">' + esc(el.getAttribute('data-aui-clear-label') || 'Clear') + '</button></div>';
+    el.innerHTML = html;
+  }
+  function initCalendar(el) { if (el._auiCalReady) return; el._auiCalReady = true; el.classList.add('aui-calendar'); renderCalendar(el); }
+  function setCalendarValue(el, dt, silent) {
+    var s = calState(el); s.value = dt;
+    if (dt) { s.y = dt.getFullYear(); s.m = dt.getMonth(); el.setAttribute('data-value', isoDate(dt)); } else el.removeAttribute('data-value');
+    s.mode = 'days'; renderCalendar(el);
+    if (!silent) emit(el, 'date', { value: dt ? isoDate(dt) : '', date: dt });
+  }
+  function calendarClick(btn) {
+    var el = btn.closest('.aui-calendar'), s = calState(el), a = btn.getAttribute('data-cal');
+    if (a === 'prev' || a === 'next') {
+      var dir = a === 'prev' ? -1 : 1;
+      if (s.mode === 'days') { s.m += dir; if (s.m < 0) { s.m = 11; s.y--; } if (s.m > 11) { s.m = 0; s.y++; } }
+      else if (s.mode === 'months') s.y += dir; else s.y += dir * 12;
+      renderCalendar(el);
+    } else if (a === 'mode') { s.mode = s.mode === 'days' ? 'months' : s.mode === 'months' ? 'years' : 'days'; renderCalendar(el); }
+    else if (a === 'month') { s.m = +btn.getAttribute('data-m'); s.mode = 'days'; renderCalendar(el); }
+    else if (a === 'year') { s.y = +btn.getAttribute('data-y'); s.mode = 'months'; renderCalendar(el); }
+    else if (a === 'day') setCalendarValue(el, parseDate(btn.getAttribute('data-date')));
+    else if (a === 'today') setCalendarValue(el, new Date());
+    else if (a === 'clear') setCalendarValue(el, null);
+  }
+  function calendarKeydown(e, btn) {
+    var el = btn.closest('.aui-calendar'), s = calState(el);
+    if (btn.getAttribute('data-cal') !== 'day') return false;
+    var delta = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }[e.key]; if (!delta) return false;
+    e.preventDefault();
+    var dt = parseDate(btn.getAttribute('data-date')); dt.setDate(dt.getDate() + delta);
+    if (dt.getMonth() !== s.m) { s.m = dt.getMonth(); s.y = dt.getFullYear(); renderCalendar(el); }
+    var next = $('[data-date="' + isoDate(dt) + '"]', el); if (next) next.focus();
+    return true;
+  }
+  /* Date picker on text inputs */
+  var openPicker = null;
+  function openDatepicker(input) {
+    if (openPicker && openPicker.input === input) return;
+    closeDatepicker();
+    var panel = d.createElement('div');
+    panel.className = 'aui-popover aui-datepicker is-floating';
+    panel.setAttribute('data-aui-popover-panel', '');
+    var cal = d.createElement('div');
+    ['min', 'max', 'data-min', 'data-max', 'data-aui-locale', 'data-aui-week-start', 'data-marked', 'data-aui-today-label', 'data-aui-clear-label'].forEach(function (a) { if (input.hasAttribute(a)) cal.setAttribute(a.replace(/^(min|max)$/, 'data-$1'), input.getAttribute(a)); });
+    var v = parseDate(input.value, input.getAttribute('data-aui-format')); if (v) cal.setAttribute('data-value', isoDate(v));
+    panel.appendChild(cal);
+    scopeRoot(input).appendChild(panel);
+    initCalendar(cal);
+    panel._auiInput = input; panel._auiCal = cal;
+    place(input, panel, 'bottom-start', 6); trackFloating(input, panel, 'bottom-start', 6);
+    requestAnimationFrame(function () { panel.classList.add('is-open'); });
+    openPicker = { input: input, panel: panel, cal: cal };
+    input.setAttribute('aria-expanded', 'true');
+    on(cal, 'aui:date', function (ev) {
+      input.value = formatDate(ev.detail.date, input.getAttribute('data-aui-format'));
+      fire(input, 'input'); fire(input, 'change');
+      if (ev.detail.date || !ev.detail.value) closeDatepicker(true);
+    });
+  }
+  function closeDatepicker(refocus) {
+    if (!openPicker) return;
+    var p = openPicker; openPicker = null;
+    p.input.setAttribute('aria-expanded', 'false');
+    untrackFloating(p.panel); p.panel.classList.remove('is-open');
+    setTimeout(function () { if (p.panel.parentNode) p.panel.parentNode.removeChild(p.panel); }, 160);
+    if (refocus) { p.input._auiHold = true; p.input.focus(); setTimeout(function () { p.input._auiHold = false; }, 0); }
+  }
+
+  /* ---------- Composer: Enter sends, Shift+Enter newline, mic ↔ send swap ---------- */
+  function composerInput(c) { return $('.aui-composer-input, textarea, input[type="text"]', c); }
+  function syncComposer(c) {
+    var i = composerInput(c); if (!i) return;
+    if (i.tagName === 'TEXTAREA') autosize(i);
+    c.classList.toggle('is-typing', !!i.value.trim());
+  }
+  function composerSend(c) {
+    var i = composerInput(c); if (!i) return;
+    var text = i.value;
+    if (!text.trim() && !c.classList.contains('is-typing')) { emit(c, 'send-empty'); return; }
+    if (!emit(c, 'send', { text: text, input: i }, true)) return;
+    i.value = ''; syncComposer(c); i.focus();
+  }
+  function composerKeydown(e, t) {
+    var c = t.closest('[data-aui-composer]'); if (!c || e.key !== 'Enter' || e.isComposing) return false;
+    var mode = c.getAttribute('data-aui-composer');
+    var send = mode === 'ctrl' ? (e.ctrlKey || e.metaKey) : !e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey;
+    if (!send) return false;
+    e.preventDefault(); composerSend(c); return true;
+  }
+  /* Jump-to-latest for chat bodies */
+  function syncChatScroll(body) {
+    var gap = body.scrollHeight - body.scrollTop - body.clientHeight, jump = $('.aui-chat-jump', body.parentNode) || $('.aui-chat-jump', body);
+    if (jump) jump.classList.toggle('is-visible', gap > 160);
+    body._auiAtBottom = gap < 8;
+  }
+  function initChatScroll(body) {
+    if (body._auiChat) return; body._auiChat = true;
+    if (body.getAttribute('data-aui-chat-scroll') !== 'keep') body.scrollTop = body.scrollHeight;
+    on(body, 'scroll', function () { syncChatScroll(body); }, { passive: true });
+    if (w.MutationObserver) new MutationObserver(function () { if (body._auiAtBottom !== false) body.scrollTop = body.scrollHeight; syncChatScroll(body); }).observe(body, { childList: true, subtree: true });
+    syncChatScroll(body);
+  }
+
+  function initWorkbench(root) {
+    $$self('[data-aui-tree]', root).forEach(initTree);
+    $$self('[data-aui-resize]', root).forEach(initResize);
+    $$self('[data-aui-calendar]', root).forEach(initCalendar);
+    $$self('[data-aui-datepicker]', root).forEach(function (i) { if (!i.hasAttribute('autocomplete')) i.setAttribute('autocomplete', 'off'); i.setAttribute('aria-haspopup', 'dialog'); i.setAttribute('aria-expanded', 'false'); });
+    $$self('[data-aui-composer]', root).forEach(syncComposer);
+    $$self('[data-aui-chat-scroll]', root).forEach(initChatScroll);
+    $$self('.aui-tabstrip .aui-tabstrip-tab[data-aui-tab]:not(button):not(a)', root).forEach(function (t) { if (!t.hasAttribute('tabindex')) t.tabIndex = -1; });
+  }
+
   /* ---------- Delegated events ---------- */
   function onClick(e) {
     var t = e.target, el;
@@ -1319,6 +1677,27 @@ const ArmsysUI = (function () {
       return;
     }
     if (backdropClick(e)) return;
+
+    /* Workbench: tab strip, tree, calendar, resize reset, composer, chat jump */
+    if ((el = t.closest('[data-aui-tab-close]'))) { e.preventDefault(); e.stopPropagation(); var tabEl = el.closest('[data-aui-tab]'); if (tabEl) closeTab(tabEl); return; }
+    if ((el = t.closest('[data-aui-tab-add]'))) { emit(el, 'tab-add'); return; }
+    if ((el = t.closest('[data-aui-tree] li[role="treeitem"] > .aui-tree-row'))) {
+      var li = el.parentElement, tree = li.closest('[data-aui-tree]');
+      if (t.closest('.aui-tree-actions, .aui-check, button, a')) return;
+      var onToggle = !!t.closest('.aui-tree-toggle');
+      if (onToggle || (tree.getAttribute('data-aui-tree') !== 'chevron' && e.detail < 2)) treeToggle(li);
+      if (!onToggle) { treeSelect(tree, li, true); if (e.detail === 2) emit(li, 'tree-activate', { item: li, value: li.getAttribute('data-value') }); }
+      return;
+    }
+    if ((el = t.closest('.aui-calendar [data-cal]'))) { calendarClick(el); return; }
+    if ((el = t.closest('[data-aui-datepicker]'))) { openDatepicker(el); return; }
+    if (openPicker && !t.closest('.aui-datepicker')) closeDatepicker();
+    if ((el = t.closest('.aui-composer-send'))) { e.preventDefault(); var comp = el.closest('[data-aui-composer]'); if (comp) composerSend(comp); return; }
+    if ((el = t.closest('.aui-chat-jump'))) { var body = el.closest('[data-aui-chat-scroll]') || $('[data-aui-chat-scroll]', el.parentNode); if (body) body.scrollTo({ top: body.scrollHeight, behavior: 'smooth' }); return; }
+    if ((el = t.closest('.aui-chat-back'))) { var chat = el.closest('.aui-chat'); if (chat) { if (chat.classList.contains('aui-chat--info')) chat.classList.remove('aui-chat--info'); else chat.classList.remove('is-conversation'); } return; }
+    if ((el = t.closest('.aui-convo')) && el.closest('.aui-chat')) { el.closest('.aui-chat').classList.add('is-conversation'); if (w.innerWidth <= 900) el.closest('.aui-chat').classList.remove('aui-chat--info'); $$('[data-aui-chat-scroll]', el.closest('.aui-chat')).forEach(function (b) { if (b._auiAtBottom !== false) b.scrollTop = b.scrollHeight; }); $$('.aui-convo.is-active', el.closest('.aui-convos') || el.parentNode).forEach(function (c) { c.classList.remove('is-active'); }); el.classList.add('is-active'); emit(el, 'convo', { value: el.getAttribute('data-value') }); }
+    if ((el = t.closest('[data-aui-chat-info-toggle]'))) { var ch = el.closest('.aui-chat'); if (ch) ch.classList.toggle('aui-chat--info'); return; }
+    if ((el = t.closest('.aui-btn--toggle[aria-pressed]:not([data-aui-choice])'))) { el.setAttribute('aria-pressed', el.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); emit(el, 'toggle', { pressed: el.getAttribute('aria-pressed') === 'true' }); }
 
     /* Dropdowns & menus */
     if ((el = t.closest('[data-aui-dropdown-trigger], .aui-combobox-trigger'))) {
@@ -1407,6 +1786,7 @@ const ArmsysUI = (function () {
     var t = e.target;
     if (matchHotkey(e, cfg.commandHotkey) && $('dialog[data-aui-command]')) { e.preventDefault(); var cmd = $('dialog[data-aui-command]'); if (cmd.open) closeModal(cmd); else openCommand(); return; }
     if (e.key === 'Escape') {
+      if (openPicker) { closeDatepicker(true); e.preventDefault(); return; }
       var openDD = $$('[data-aui-dropdown].is-open').pop();
       if (openDD) { closeDropdown(openDD); var tr = triggerOf(openDD); if (tr) tr.focus(); e.preventDefault(); return; }
       var pops = $$('[data-aui-popover-panel].is-open'); if (pops.length) { pops.forEach(closePopover); return; }
@@ -1415,8 +1795,15 @@ const ArmsysUI = (function () {
       return;
     }
     if (!t || !t.closest) return;
+    if (t.closest('[data-aui-menubar]') && menubarArrow(e, t)) return;
     if (t.closest('[data-aui-dropdown], .aui-menu, .aui-command')) { if (menuKeydown(e, t)) return; }
-    if ((e.key === 'Enter' || e.key === ' ') && t.matches('.aui-menu-item[role]:not(button):not(a)')) { e.preventDefault(); t.click(); return; }
+    if ((e.key === 'Enter' || e.key === ' ') && t.matches('.aui-menu-item[role]:not(button):not(a), [data-aui-tab]:not(button):not(a):not(input)')) { e.preventDefault(); t.click(); return; }
+    if (t.matches('[data-aui-tree]') && treeKeydown(e, t)) return;
+    if (t.matches('.aui-resize-handle') && resizeKeydown(e, t)) return;
+    if (t.matches('.aui-calendar [data-cal]') && calendarKeydown(e, t)) return;
+    if (t.matches('[data-aui-datepicker]') && (e.key === 'ArrowDown' || e.key === 'Enter') && !openPicker) { e.preventDefault(); openDatepicker(t); return; }
+    if (t.closest('[data-aui-composer]') && composerKeydown(e, t)) return;
+    if (e.key === 'Delete' && t.matches('[data-aui-tab]') && t.closest('.aui-tabstrip') && $('[data-aui-tab-close]', t)) { e.preventDefault(); closeTab(t); return; }
     if (t.hasAttribute('data-aui-tab') && /^(ArrowRight|ArrowLeft|Home|End)$/.test(e.key)) {
       var group = t.closest('[data-aui-tabs]');
       var tabs = $$('[data-aui-tab]', group).filter(function (x) { return owned(x, group); });
@@ -1438,6 +1825,20 @@ const ArmsysUI = (function () {
   function onMouseOver(e) {
     var sub = e.target.closest && e.target.closest('.aui-menu-sub');
     if (sub && !sub._auiChecked) { sub._auiChecked = true; prepareSub(sub); setTimeout(function () { sub._auiChecked = false; }, 300); }
+    var mb = e.target.closest && e.target.closest('[data-aui-menubar] [data-aui-dropdown-trigger]');
+    if (mb) menubarSwitch(mb);
+  }
+  function onAuxClick(e) {
+    var tab = e.button === 1 && e.target.closest && e.target.closest('.aui-tabstrip [data-aui-tab]');
+    if (tab && $('[data-aui-tab-close]', tab)) { e.preventDefault(); closeTab(tab); }
+  }
+  function onDblClick(e) {
+    var h = e.target.closest && e.target.closest('.aui-resize-handle');
+    if (h) resetResize(h);
+  }
+  function onFocusIn(e) {
+    var t = e.target;
+    if (t && t.matches && t.matches('[data-aui-datepicker]') && !t._auiHold && t.getAttribute('data-aui-datepicker') !== 'click') openDatepicker(t);
   }
 
   /* ---------- Init ---------- */
@@ -1461,6 +1862,13 @@ const ArmsysUI = (function () {
       on(d, 'pointermove', onDragMove, { passive: true });
       on(d, 'pointerup', onDragEnd);
       on(d, 'pointercancel', onDragEnd);
+      on(d, 'pointerdown', onResizeStart);
+      on(d, 'pointermove', onResizeMove, { passive: true });
+      on(d, 'pointerup', onResizeEnd);
+      on(d, 'pointercancel', onResizeEnd);
+      on(d, 'auxclick', onAuxClick);
+      on(d, 'dblclick', onDblClick);
+      on(d, 'focusin', onFocusIn);
       ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function (ev) { on(d, ev, onDrag); });
       on(w, 'scroll', function () { repositionAll(); syncHeaders(); $$('.aui-menu--context.is-open').forEach(function (m) { m.classList.remove('is-open'); untrackFloating(m); }); }, { passive: true, capture: true });
       on(w, 'resize', function () { repositionAll(); $$('[data-aui-dropdown].is-open').forEach(function (dd) { var p = panelOf(dd); if (p && p.classList.contains('is-sheet') !== useSheet(dd, p)) closeDropdown(dd, true); }); }, { passive: true });
@@ -1486,6 +1894,7 @@ const ArmsysUI = (function () {
     initTabs(root);
     initToc(root);
     initForms(root);
+    initWorkbench(root);
     $$self('[data-aui-dropdown-trigger]', root).forEach(function (b) { if (!b.hasAttribute('aria-haspopup')) b.setAttribute('aria-haspopup', 'menu'); if (!b.hasAttribute('aria-expanded')) b.setAttribute('aria-expanded', 'false'); });
     $$self(OVERLAY_SEL, root).forEach(prepareOverlay);
     highlightAll(root.nodeType === 9 ? d.body : root);
@@ -1509,7 +1918,17 @@ const ArmsysUI = (function () {
     selectTab: selectTab, copy: copyText, setTheme: setTheme, getTheme: getTheme,
     refreshSelect: function (r) { var s = find(r); if (s) { if (s._auiCombo) refreshSelect(s); else enhanceSelect(s); } },
     highlight: function (r) { return highlightAll(find(r) || d.body); },
-    addTag: function (r, v) { var b = find(r); if (b && b._auiAdd) b._auiAdd(v); }
+    addTag: function (r, v) { var b = find(r); if (b && b._auiAdd) b._auiAdd(v); },
+    /* workbench */
+    closeTab: function (r) { var t = find(r); if (t) closeTab(t); },
+    treeSelect: function (r) { var li = find(r); if (li) treeSelect(li.closest('[data-aui-tree]'), li, true); },
+    treeToggle: function (r, open) { var li = find(r); if (li) treeToggle(li, open); },
+    openDatepicker: function (r) { var i = find(r); if (i) openDatepicker(i); },
+    closeDatepicker: closeDatepicker,
+    setDate: function (r, v) { var c = find(r); if (c) setCalendarValue(c, typeof v === 'string' ? parseDate(v) : v); },
+    formatDate: formatDate, parseDate: parseDate,
+    send: function (r) { var c = find(r); if (c) composerSend(c); },
+    scrollChat: function (r, smooth) { var b = find(r); if (b) b.scrollTo({ top: b.scrollHeight, behavior: smooth === false ? 'auto' : 'smooth' }); }
   };
   if (w && !w.ArmsysUI) w.ArmsysUI = ArmsysUI;
   if (d && cfg.autoInit) { if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', function () { init(); }); else init(); }
@@ -1518,4 +1937,4 @@ const ArmsysUI = (function () {
 })();
 export default ArmsysUI;
 export { ArmsysUI };
-export const { init, openModal, closeModal, confirm, prompt, alert, toast, setTheme, getTheme, openCommand, openDropdown, closeDropdown, closeAll, selectTab, copy, refreshSelect, highlight, addIcons, icon, position } = ArmsysUI;
+export const { init, openModal, closeModal, confirm, prompt, alert, toast, setTheme, getTheme, openCommand, openDropdown, closeDropdown, closeAll, selectTab, copy, refreshSelect, highlight, addIcons, icon, position, closeTab, treeSelect, treeToggle, openDatepicker, closeDatepicker, setDate, formatDate, parseDate, send, scrollChat } = ArmsysUI;

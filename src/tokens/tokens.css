@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Armsys UI 2 — Design tokens
+   Armsys UI 3 — Design tokens
    Every token lives on the .aui scope so the kit never leaks into a host page.
    <body class="aui"> for full pages, <div class="aui"> for scoped islands.
    ========================================================================== */
@@ -163,6 +163,18 @@
   --aui-docs-nav-w: 264px;
   --aui-docs-toc-w: 232px;
   --aui-titlebar-h: 36px;       /* Electron / desktop title bar */
+  --aui-menubar-h: 30px;        /* File · Edit · View */
+  --aui-toolstrip-h: 40px;      /* icon tool strip under the menubar */
+  --aui-rail-w: 48px;           /* activity bar (VS Code style) */
+  --aui-chat-list-w: 360px;     /* messenger: conversation list */
+  --aui-chat-info-w: 320px;     /* messenger: contact / group info */
+
+  /* ---------- Messaging (bubbles, chat canvas) ---------- */
+  --aui-chat-bg: #0b0b0e;
+  --aui-bubble-in: #1c1c22;
+  --aui-bubble-out: color-mix(in srgb, var(--aui-accent) 28%, #141418);
+  --aui-bubble-system: rgb(255 255 255 / .06);
+  --aui-bubble-radius: 14px;
 
   /* ---------- Effects ---------- */
   --aui-shadow-xs: 0 1px 1px rgb(0 0 0 / .25);
@@ -275,6 +287,10 @@
   --aui-highlight: inset 0 1px 0 rgb(255 255 255 / .6);
   --aui-focus: #3b6af0;
   --aui-grid-line: rgb(9 9 11 / .05);
+  --aui-chat-bg: #eef0f3;
+  --aui-bubble-in: #ffffff;
+  --aui-bubble-out: color-mix(in srgb, var(--aui-accent) 16%, #ffffff);
+  --aui-bubble-system: rgb(9 9 11 / .06);
 }
 /* Code surfaces stay Atom One Dark in the light theme — re-dark their local text tokens */
 .aui[data-aui-theme="light"] :is(.aui-code, .aui-cli, .aui-log, .aui-terminal) {
