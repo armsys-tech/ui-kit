@@ -1,7 +1,7 @@
-# Recipe — Messenger (WhatsApp / Telegram style desktop client)
+# Recipe — Messenger (WhatsApp / Telegram style desktop client, single or multi-account)
 
-Use for: chat clients, support inboxes, team messaging, anything with a conversation list, a message thread and calls.
-Reference implementation: `examples/messenger.html` (Electron shell + three panes + call modal).
+Use for: chat clients, support inboxes, team messaging, and aggregators that combine many accounts on WhatsApp, Telegram, Zalo, WeChat, TikTok … in one window.
+Reference implementation: `examples/messenger.html` (Electron shell + accounts rail + three panes + translation + call modal; the list is rendered from data the way a React/Vue app would).
 
 ```html
 <body class="aui aui-desktop" data-aui-platform="win">
@@ -65,3 +65,38 @@ Reference implementation: `examples/messenger.html` (Electron shell + three pane
 chat.addEventListener('aui:convo', e => loadThread(e.detail.value));
 composer.addEventListener('aui:send', e => { api.send(threadId, e.detail.text); appendOutgoing(e.detail.text); });
 ```
+
+## Multi-account / multi-platform inbox
+
+```html
+<nav class="aui-rail aui-rail--accounts" data-aui-rail>
+  <button class="aui-rail-item is-active" data-value="all"><svg class="aui-icon"><use href="#aui-i-inbox"/></svg><span class="aui-btn-badge">18</span></button>
+  <span class="aui-rail-sep"></span>
+  <button class="aui-rail-item" data-value="wa-work" data-platform="whatsapp"><span class="aui-avatar">AR<span class="aui-platform"><!-- WhatsApp SVG --></span></span><span class="aui-btn-badge">3</span></button>
+  <button class="aui-rail-item is-offline" data-value="tiktok" data-platform="tiktok"><span class="aui-avatar">AC<span class="aui-platform">TT</span></span><span class="aui-rail-status aui-tone--danger"></span></button>
+</nav>
+<div class="aui-chat aui-chat--via aui-chat--stripes">
+  <aside class="aui-chat-side">
+    …header…
+    <div class="aui-chat-banner"><svg class="aui-icon"><use href="#aui-i-alert"/></svg><span><b>TikTok · @ayla.creates</b> disconnected</span><button class="aui-btn aui-btn--sm">Reconnect</button></div>
+    <div class="aui-chat-filters"><div class="aui-segmented aui-segmented--sm"><button class="is-active" data-value="unified">Unified</button><button data-value="grouped">By account</button></div>…chips…</div>
+    <div class="aui-convos">            <!-- add aui-convos--grouped in By account mode -->
+      <div class="aui-convos-account" data-platform="zalo"><span class="aui-platform">ZL</span>Zalo · Personal <span>+84 …</span><span class="aui-count aui-count--accent">1</span></div>
+      <button class="aui-convo is-unread" data-value="linh" data-platform="zalo">
+        <span class="aui-avatar">LN<span class="aui-platform">ZL</span></span>
+        <div class="aui-convo-head">…</div><div class="aui-convo-foot">…</div>
+        <span class="aui-convo-via aui-via"><span class="aui-platform">ZL</span><span>Zalo · <b>Personal</b></span></span>
+      </button>
+    </div>
+  </aside>
+  …
+</div>
+```
+
+- `data-platform` (whatsapp, telegram, tiktok, wechat, zalo, messenger, instagram, signal, line, viber, discord, slack, sms, email) sets an inheriting `--aui-platform`; badges, `.aui-via` labels and the colour edge all read it. Brand logos are not bundled — put the official SVG inside `.aui-platform`.
+- Modes: rail item `all` + segmented Unified (one time-sorted list) / By account (`aui-convos--grouped`, sorted by account, sticky `.aui-convos-account` headers); clicking an account in the rail (`aui:rail`) shows only that account and hides the mode switch.
+- Which account received a chat: corner badge always; `.aui-convo-via` line when the shell has `aui-chat--via`. Let users toggle it from a menu: `<button class="aui-menu-item" role="menuitemcheckbox" aria-checked="true" data-aui-chat-toggle="via">Show receiving account</button>` (same for `stripes`).
+- Header: put a `.aui-via` chip after the peer name. Composer: `.aui-composer-from` (reply-from account, limited to accounts on the chat's platform) and `.aui-composer-translate` (`aui-btn--toggle`).
+- Sessions: show a dropped account as `.aui-rail-item.is-offline` + `.aui-rail-status`, an `.aui-chat-banner` with Reconnect, and failed sends as `.aui-msg--failed` + `.aui-msg-failed` row with Retry.
+- Translation: incoming → `.aui-bubble-text` (translated) + `.aui-bubble-original` + `.aui-bubble-tr` with `data-aui-show-original`; outgoing auto-translation uses the same parts ("Sent in Vietnamese · Show sent text"); AI meaning in `.aui-bubble-explain`.
+- Types the client cannot render yet: `.aui-bubble--unsupported` with "Open in <platform>".

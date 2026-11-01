@@ -120,6 +120,7 @@
         <ul>
           <li><a class="aui-docs-link" href="#workbench">Desktop workbench <span class="aui-badge aui-badge--accent">New</span></a></li>
           <li><a class="aui-docs-link" href="#messaging">Messaging <span class="aui-badge aui-badge--accent">New</span></a></li>
+          <li><a class="aui-docs-link" href="#accounts">Multi-account inbox <span class="aui-badge aui-badge--accent">New</span></a></li>
         </ul>
       </div>
       <div class="aui-docs-group">
@@ -1380,7 +1381,7 @@ tree.addEventListener('aui:tree-activate', e => open(e.detail.value));
 
       <section class="aui-docs-section" id="messaging">
         <h2 class="aui-h2">Messaging</h2>
-        <p class="aui-text-muted aui-mt-2">WhatsApp / Telegram style clients: <code class="aui-code-inline">.aui-chat</code> is the three-pane shell (list · conversation · info; <code class="aui-code-inline">aui-chat--info</code> shows the third pane, single pane under 900px with <code class="aui-code-inline">is-conversation</code>), conversation rows, message bubbles, a composer and call screens. The complete client is in <a class="aui-link" href="examples/messenger.html">examples/messenger.html</a>.</p>
+        <p class="aui-text-muted aui-mt-2">WhatsApp / Telegram style clients — and clients that combine many accounts on many platforms (see <a class="aui-link" href="#accounts">Multi-account inbox</a>): <code class="aui-code-inline">.aui-chat</code> is the three-pane shell (list · conversation · info; <code class="aui-code-inline">aui-chat--info</code> shows the third pane, single pane under 900px with <code class="aui-code-inline">is-conversation</code>), conversation rows, message bubbles, a composer and call screens. The complete client is in <a class="aui-link" href="examples/messenger.html">examples/messenger.html</a>.</p>
 
         <h3 class="aui-demo-title" id="convos">Conversation list</h3>
         <p class="aui-demo-desc"><code>.aui-convo</code> rows (button or link): avatar · name row · preview row. States <code>is-active</code>, <code>is-unread</code>, <code>is-muted</code>; preview modifiers <code>is-typing</code>, <code>is-draft</code>; ticks via <code>.aui-ticks[.is-read]</code>. <code>aui-convos--compact</code> and <code>aui-convos--cards</code> change density.</p>
@@ -1438,15 +1439,15 @@ tree.addEventListener('aui:tree-activate', e => open(e.detail.value));
         </div>
 
         <h3 class="aui-demo-title" id="composer">Composer</h3>
-        <p class="aui-demo-desc"><code>.aui-composer[data-aui-composer]</code>: the textarea autosizes, <kbd>Enter</kbd> sends (cancelable <code>aui:send</code> with the text; <kbd>Shift</kbd>+<kbd>Enter</kbd> newline; <code>data-aui-composer="ctrl"</code> for Ctrl+Enter), the <code>.aui-composer-send</code> button swaps its <code>-send-on</code>/<code>-send-off</code> icons (send ↔ mic) as you type. Optional <code>.aui-composer-reply</code>, <code>.aui-composer-attachments</code> and <code>.aui-composer-tools</code> rows sit above the bar.</p>
+        <p class="aui-demo-desc"><code>.aui-composer[data-aui-composer]</code>: the textarea autosizes, <kbd>Enter</kbd> sends (cancelable <code>aui:send</code> with the text; <kbd>Shift</kbd>+<kbd>Enter</kbd> newline; <code>data-aui-composer="ctrl"</code> for Ctrl+Enter), every control in the bar shares <code>--aui-composer-h</code> (44px) so attach, field and send line up; <code>.aui-composer-action</code> is the soft round side button, <code>.aui-composer-from</code> picks the account to reply from and <code>.aui-composer-translate</code> toggles auto-translation; the <code>.aui-composer-send</code> button swaps its <code>-send-on</code>/<code>-send-off</code> icons (send ↔ mic) as you type. Optional <code>.aui-composer-reply</code>, <code>.aui-composer-attachments</code> and <code>.aui-composer-tools</code> rows sit above the bar.</p>
         <div class="aui-demo">
           <div class="aui-demo-preview aui-demo-preview--flush">
             <div class="aui-composer" data-aui-composer>
               <div class="aui-composer-reply"><svg class="aui-icon"><use href="#aui-i-reply"/></svg><div class="aui-composer-reply-body"><div class="aui-composer-reply-name">Burak Kaya</div><div class="aui-composer-reply-text">Reviewed. Two comments in Figma, otherwise 👍</div></div><button class="aui-close aui-close--sm" type="button" aria-label="Cancel reply"></button></div>
               <div class="aui-composer-attachments"><div class="aui-composer-thumb" style="background:linear-gradient(135deg,#313140,#4d7cfe)"><button class="aui-close" type="button" aria-label="Remove"></button></div><div class="aui-composer-thumb aui-composer-thumb--file"><svg class="aui-icon aui-icon--lg"><use href="#aui-i-file-text"/></svg>notes.pdf</div></div>
               <div class="aui-composer-bar">
-                <button class="aui-btn aui-btn--ghost aui-btn--round" type="button" aria-label="Attach"><svg class="aui-icon"><use href="#aui-i-paperclip"/></svg></button>
-                <div class="aui-composer-field"><textarea class="aui-composer-input" rows="1" placeholder="Type a message" aria-label="Message"></textarea><button class="aui-btn aui-btn--ghost aui-btn--round" type="button" aria-label="Emoji"><svg class="aui-icon"><use href="#aui-i-smile"/></svg></button></div>
+                <button class="aui-btn aui-composer-action" type="button" aria-label="Attach"><svg class="aui-icon"><use href="#aui-i-plus"/></svg></button>
+                <div class="aui-composer-field"><button class="aui-btn aui-btn--ghost aui-composer-from" type="button" aria-label="Reply from account"><span class="aui-avatar aui-avatar--accent" data-platform="whatsapp">AT<span class="aui-platform">WA</span></span><svg class="aui-icon"><use href="#aui-i-chevron-up"/></svg></button><textarea class="aui-composer-input" rows="1" placeholder="Type a message" aria-label="Message"></textarea><button class="aui-btn aui-btn--ghost aui-btn--toggle aui-composer-translate" type="button" aria-pressed="false" aria-label="Auto-translate"><svg class="aui-icon"><use href="#aui-i-globe"/></svg>EN</button><button class="aui-btn aui-btn--ghost aui-btn--round" type="button" aria-label="Emoji"><svg class="aui-icon"><use href="#aui-i-smile"/></svg></button></div>
                 <button class="aui-btn aui-btn--accent aui-btn--round aui-composer-send" type="button" aria-label="Send"><svg class="aui-icon aui-composer-send-on"><use href="#aui-i-send"/></svg><svg class="aui-icon aui-composer-send-off"><use href="#aui-i-mic"/></svg></button>
               </div>
               <div class="aui-composer-hint">Enter to send · Shift+Enter for a new line</div>
@@ -1455,8 +1456,13 @@ tree.addEventListener('aui:tree-activate', e => open(e.detail.value));
           <template class="sc-code">
 <footer class="aui-composer" data-aui-composer>
   <div class="aui-composer-bar">
-    <button class="aui-btn aui-btn--ghost aui-btn--round" aria-label="Attach">…</button>
-    <div class="aui-composer-field"><textarea class="aui-composer-input" rows="1" placeholder="Type a message"></textarea></div>
+    <button class="aui-btn aui-composer-action" aria-label="Attach"><svg class="aui-icon"><use href="#aui-i-plus"/></svg></button>
+    <div class="aui-composer-field">
+      <!-- optional: reply-from account picker and auto-translate toggle -->
+      <button class="aui-btn aui-btn--ghost aui-composer-from" aria-label="Reply from"><span class="aui-avatar" data-platform="whatsapp">AT<span class="aui-platform">WA</span></span>…</button>
+      <textarea class="aui-composer-input" rows="1" placeholder="Type a message"></textarea>
+      <button class="aui-btn aui-btn--ghost aui-btn--toggle aui-composer-translate" aria-pressed="true">…globe…VI</button>
+    </div>
     <button class="aui-btn aui-btn--accent aui-btn--round aui-composer-send" aria-label="Send">
       <svg class="aui-icon aui-composer-send-on"><use href="#aui-i-send"/></svg><svg class="aui-icon aui-composer-send-off"><use href="#aui-i-mic"/></svg>
     </button>
@@ -1464,6 +1470,95 @@ tree.addEventListener('aui:tree-activate', e => open(e.detail.value));
 </footer>
 composer.addEventListener('aui:send', e => { api.send(e.detail.text); /* e.preventDefault() keeps the draft */ });
 </template>
+        </div>
+
+        <h3 class="aui-demo-title" id="accounts">Multi-account inbox</h3>
+        <p class="aui-demo-desc">For clients that gather many accounts on many platforms. <code>data-platform="whatsapp|telegram|zalo|wechat|tiktok|messenger|instagram|signal|line|viber|discord|slack|sms|email"</code> on any element sets <code>--aui-platform</code> (it inherits), so a row, its badge and its colour edge agree. <code>.aui-platform</code> is the badge — put the platform's own SVG/IMG inside, or a 2-letter code. On an avatar it becomes a corner badge. <code>.aui-via</code> is the "platform · account" label. The rail (<code>.aui-rail--accounts[data-aui-rail]</code>, fires <code>aui:rail</code>) holds All inboxes + one item per account with unread counts and a connection dot; <code>.aui-accounts</code> is the Thunderbird-style list version.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--start">
+            <div class="aui-stack aui-gap-3">
+              <div class="aui-row aui-wrap aui-gap-2">
+                <span class="aui-platform" data-platform="whatsapp">WA</span><span class="aui-platform" data-platform="telegram">TG</span><span class="aui-platform" data-platform="zalo">ZL</span><span class="aui-platform" data-platform="wechat">WC</span><span class="aui-platform" data-platform="tiktok">TT</span><span class="aui-platform" data-platform="messenger">FM</span><span class="aui-platform" data-platform="instagram">IG</span><span class="aui-platform" data-platform="signal">SG</span><span class="aui-platform" data-platform="line">LN</span><span class="aui-platform" data-platform="viber">VB</span><span class="aui-platform" data-platform="discord">DC</span><span class="aui-platform" data-platform="slack">SL</span><span class="aui-platform" data-platform="sms">SM</span><span class="aui-platform" data-platform="email">@</span>
+              </div>
+              <div class="aui-row aui-wrap aui-gap-3">
+                <span class="aui-platform aui-platform--xs" data-platform="zalo">ZL</span><span class="aui-platform aui-platform--sm" data-platform="zalo">ZL</span><span class="aui-platform" data-platform="zalo">ZL</span><span class="aui-platform aui-platform--lg" data-platform="zalo">ZL</span><span class="aui-platform aui-platform--xl aui-platform--round" data-platform="zalo">ZL</span><span class="aui-platform aui-platform--lg aui-platform--soft" data-platform="telegram">TG</span>
+                <span class="aui-avatar aui-avatar--info" data-platform="zalo">LN<span class="aui-platform">ZL</span></span>
+                <span class="aui-avatar aui-avatar--lg aui-avatar--pink" data-platform="whatsapp">AY<span class="aui-avatar-status is-online"></span><span class="aui-platform">WA</span></span>
+                <span class="aui-via" data-platform="whatsapp"><span class="aui-platform">WA</span><span>WhatsApp · <b>Work</b></span></span>
+                <span class="aui-via" data-platform="telegram"><span class="aui-platform">TG</span><span>Telegram · <b>@ayla</b></span></span>
+              </div>
+            </div>
+            <div class="aui-card" style="width:260px">
+              <div class="aui-accounts">
+                <div class="aui-accounts-title">Accounts</div>
+                <button class="aui-account is-active" type="button"><span class="aui-avatar"><svg class="aui-icon"><use href="#aui-i-inbox"/></svg></span><span class="aui-account-body"><span class="aui-account-name">All inboxes</span><span class="aui-account-sub">6 accounts</span></span><span class="aui-count aui-count--accent">18</span></button>
+                <button class="aui-account" type="button" data-platform="whatsapp"><span class="aui-avatar aui-avatar--accent">AT<span class="aui-platform">WA</span></span><span class="aui-account-body"><span class="aui-account-name">WhatsApp · Personal</span><span class="aui-account-sub"><span class="aui-dot aui-dot--success"></span>+90 532 *** 41 07</span></span><span class="aui-count aui-count--accent">2</span></button>
+                <button class="aui-account" type="button" data-platform="wechat"><span class="aui-avatar aui-avatar--success">AT<span class="aui-platform">WC</span></span><span class="aui-account-body"><span class="aui-account-name">WeChat · ayla_tan</span><span class="aui-account-sub"><span class="aui-dot aui-dot--warning is-live"></span>Syncing…</span></span></button>
+                <button class="aui-account is-offline" type="button" data-platform="tiktok"><span class="aui-avatar aui-avatar--pink">AC<span class="aui-platform">TT</span></span><span class="aui-account-body"><span class="aui-account-name">TikTok · @ayla.creates</span><span class="aui-account-sub"><span class="aui-dot aui-dot--danger"></span>Disconnected</span></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="aui-demo-desc">In a unified list each row carries <code>data-platform</code> and a corner badge. Add <code>aui-chat--via</code> to the shell (or <code>aui-convos--via</code> to the list) to show which of your accounts received the chat, <code>aui-chat--stripes</code> for a platform colour edge, and <code>aui-convos--grouped</code> to show the sticky <code>.aui-convos-account</code> headers (By account mode). <code>data-aui-chat-toggle="via|stripes|…"</code> on a button or menu item flips <code>aui-chat--{name}</code>. <code>.aui-chat-banner</code> reports a dropped session; <code>.aui-chat-request</code> handles unknown senders.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--flush" style="max-width:400px">
+            <div class="aui-chat-banner"><svg class="aui-icon"><use href="#aui-i-alert"/></svg><span><b>TikTok · @ayla.creates</b> disconnected</span><button class="aui-btn aui-btn--sm" type="button">Reconnect</button></div>
+            <div class="aui-convos aui-convos--via aui-convos--stripes aui-convos--grouped">
+              <div class="aui-convos-account" data-platform="zalo"><span class="aui-platform">ZL</span>Zalo · Personal <span>+84 9** *** 112</span><span class="aui-count aui-count--accent">1</span></div>
+              <button class="aui-convo is-unread" type="button" data-platform="zalo"><span class="aui-avatar aui-avatar--info">LN<span class="aui-avatar-status is-online"></span><span class="aui-platform">ZL</span></span><div class="aui-convo-head"><span class="aui-convo-name">Linh Nguyễn</span><time class="aui-convo-time">14:08</time></div><div class="aui-convo-foot"><span class="aui-convo-preview"><svg class="aui-icon"><use href="#aui-i-globe"/></svg><span>Can we move the call to 4 pm?</span></span><span class="aui-convo-badges"><span class="aui-count aui-count--accent">1</span></span></div><span class="aui-convo-via aui-via"><span class="aui-platform">ZL</span><span>Zalo · <b>Personal</b></span></span></button>
+              <div class="aui-convos-account" data-platform="telegram"><span class="aui-platform">TG</span>Telegram · @ayla<span class="aui-count aui-count--accent">9</span></div>
+              <button class="aui-convo is-unread" type="button" data-platform="telegram"><span class="aui-avatar aui-avatar--info"><svg class="aui-icon aui-icon--lg"><use href="#aui-i-code"/></svg><span class="aui-platform">TG</span></span><div class="aui-convo-head"><span class="aui-convo-name">Dev chat</span><time class="aui-convo-time">13:30</time></div><div class="aui-convo-foot"><span class="aui-convo-preview"><b>Mert:</b><span>@ayla can you review #482?</span></span><span class="aui-convo-badges"><span class="aui-convo-mention">@</span><span class="aui-count aui-count--accent">9</span></span></div><span class="aui-convo-via aui-via"><span class="aui-platform">TG</span><span>Telegram · <b>@ayla</b></span></span></button>
+              <button class="aui-convo is-failed" type="button" data-platform="telegram"><span class="aui-avatar aui-avatar--orange"><svg class="aui-icon aui-icon--lg"><use href="#aui-i-building"/></svg><span class="aui-platform">TG</span></span><div class="aui-convo-head"><span class="aui-convo-name">Saigon Textiles</span><time class="aui-convo-time">Mon</time></div><div class="aui-convo-foot"><span class="aui-convo-preview"><svg class="aui-icon"><use href="#aui-i-alert"/></svg><span>Not sent: invoice-1123.pdf</span></span></div><span class="aui-convo-via aui-via"><span class="aui-platform">TG</span><span>Telegram · <b>@ayla</b></span></span></button>
+            </div>
+            <div class="aui-chat-request"><span><b>+84 77 *** 903</b> is not in your Zalo contacts.</span><div class="aui-chat-request-actions"><button class="aui-btn aui-btn--sm aui-btn--ghost aui-btn--danger" type="button">Block</button><button class="aui-btn aui-btn--sm" type="button">Report</button><button class="aui-btn aui-btn--sm aui-btn--primary" type="button">Accept</button></div></div>
+          </div>
+          <template class="sc-code">
+<!-- unified list: platform from data-platform, receiving account in .aui-convo-via -->
+<div class="aui-chat aui-chat--via aui-chat--stripes">…
+  <div class="aui-convos aui-convos--grouped">
+    <div class="aui-convos-account" data-platform="zalo"><span class="aui-platform">ZL</span>Zalo · Personal <span>+84 9** *** 112</span><span class="aui-count aui-count--accent">1</span></div>
+    <button class="aui-convo is-unread" data-value="linh" data-platform="zalo">
+      <span class="aui-avatar aui-avatar--info">LN<span class="aui-platform"><!-- your Zalo SVG --></span></span>
+      <div class="aui-convo-head">…</div>
+      <div class="aui-convo-foot">…</div>
+      <span class="aui-convo-via aui-via"><span class="aui-platform">ZL</span><span>Zalo · <b>Personal</b></span></span>
+    </button>
+  </div>
+</div>
+<!-- toggle from a menu -->
+<button class="aui-menu-item" role="menuitemcheckbox" aria-checked="true" data-aui-chat-toggle="via">Show receiving account</button>
+<!-- accounts rail -->
+<nav class="aui-rail aui-rail--accounts" data-aui-rail>
+  <button class="aui-rail-item is-active" data-value="all"><svg class="aui-icon"><use href="#aui-i-inbox"/></svg><span class="aui-btn-badge">18</span></button>
+  <button class="aui-rail-item" data-value="wa-work" data-platform="whatsapp"><span class="aui-avatar">AR<span class="aui-platform">WA</span></span><span class="aui-btn-badge">3</span></button>
+  <button class="aui-rail-item is-offline" data-value="tiktok" data-platform="tiktok"><span class="aui-avatar">AC<span class="aui-platform">TT</span></span><span class="aui-rail-status aui-tone--danger"></span></button>
+</nav>
+rail.addEventListener('aui:rail', e => showAccount(e.detail.value));
+</template>
+        </div>
+
+        <h3 class="aui-demo-title" id="message-types">More message types, receipts &amp; translation</h3>
+        <p class="aui-demo-desc">Translation: <code>.aui-bubble-tr</code> (label + <code>data-aui-show-original</code> button) and <code>.aui-bubble-original</code> (hidden until the bubble gets <code>is-original</code>); <code>.aui-bubble-explain</code> holds an AI "meaning" note. Delivery: <code>.aui-ticks</code> sent (<code>check</code>) · delivered (<code>check-check</code>) · <code>is-read</code> · <code>is-played</code> · <code>is-pending</code> · <code>is-failed</code>, the <code>.aui-msg-failed</code> row with Retry, <code>.aui-bubble--scheduled</code>, and <code>.aui-msg-seen</code> for group read receipts. New types: <code>.aui-bubble-location</code>, <code>.aui-bubble-contact</code> + <code>.aui-bubble-actions</code>, round video <code>.aui-bubble--round</code>, view-once <code>.aui-bubble-once</code>, story reply <code>.aui-bubble-story</code>, <code>.aui-bubble-gif</code>, code in text, and <code>.aui-bubble--unsupported</code> for types your client cannot render yet.</p>
+        <div class="aui-demo">
+          <div class="aui-demo-preview aui-demo-preview--flush" style="background:var(--aui-chat-bg)">
+            <div class="aui-msgs aui-msgs--tails aui-msgs--narrow">
+              <div class="aui-msg-system" data-platform="zalo"><span class="aui-platform">ZL</span>Zalo · Personal reconnected</div>
+              <div class="aui-msg aui-msg--in is-first is-last"><span class="aui-avatar aui-avatar--info aui-avatar--sm">LN</span><div class="aui-bubble"><div class="aui-bubble-text">Can we move the call to 4 pm? My boss wants to join.</div><div class="aui-bubble-original">Mình dời cuộc gọi sang 4 giờ chiều được không? Sếp mình muốn tham gia.</div><div class="aui-bubble-tr"><svg class="aui-icon"><use href="#aui-i-globe"/></svg>Translated from Vietnamese · <button type="button" data-aui-show-original><span class="aui-tr-show">Show original</span><span class="aui-tr-hide">Hide original</span></button></div><div class="aui-bubble-explain"><svg class="aui-icon"><use href="#aui-i-sparkles"/></svg><div><b>Meaning</b>She wants to push today's call by an hour so her manager can attend.</div></div><span class="aui-bubble-meta">14:08</span></div></div>
+              <div class="aui-msg aui-msg--out aui-msg--failed is-first"><div class="aui-bubble"><div class="aui-bubble-text">Sure, 4 pm works.</div><span class="aui-bubble-meta">14:09<span class="aui-ticks is-failed"><svg class="aui-icon"><use href="#aui-i-alert"/></svg></span></span></div></div>
+              <div class="aui-msg-failed"><svg class="aui-icon"><use href="#aui-i-alert"/></svg>Not delivered — session expired<button type="button">Retry</button></div>
+              <div class="aui-msg aui-msg--out is-middle"><div class="aui-bubble aui-bubble--scheduled"><div class="aui-bubble-text">Reminder: call in 10 minutes</div><span class="aui-bubble-meta"><svg class="aui-icon"><use href="#aui-i-clock"/></svg>Scheduled 15:50</span></div></div>
+              <div class="aui-msg aui-msg--out is-last"><div class="aui-bubble"><div class="aui-bubble-text">Pushed the fix:<pre>git cherry-pick 4f2a91c</pre></div><span class="aui-bubble-meta">14:12<span class="aui-ticks is-read"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span></span></div></div>
+              <div class="aui-msg-seen"><span class="aui-avatar-stack"><span class="aui-avatar aui-avatar--pink">AY</span><span class="aui-avatar aui-avatar--teal">BK</span><span class="aui-avatar aui-avatar--purple">MK</span></span>Seen by 3</div>
+              <div class="aui-msg aui-msg--in is-first"><span class="aui-avatar aui-avatar--teal aui-avatar--sm">TM</span><div class="aui-bubble"><div class="aui-bubble-contact"><span class="aui-avatar aui-avatar--teal">TM</span><div><div class="aui-bubble-contact-name">Trần Minh</div><div class="aui-bubble-contact-sub">Logistics · +84 90 *** 214</div></div></div><span class="aui-bubble-meta">16:42</span><div class="aui-bubble-actions"><button type="button">Message</button><button type="button">Add contact</button></div></div></div>
+              <div class="aui-msg aui-msg--in is-middle"><span class="aui-avatar aui-avatar--teal aui-avatar--sm">TM</span><div class="aui-bubble"><a class="aui-bubble-location" href="#"><div class="aui-bubble-location-map is-live"></div><div class="aui-bubble-location-title">Live location</div><div class="aui-bubble-location-sub">Sharing for 1 hour</div></a><span class="aui-bubble-meta">16:43</span></div></div>
+              <div class="aui-msg aui-msg--in is-middle"><span class="aui-avatar aui-avatar--teal aui-avatar--sm">TM</span><div class="aui-bubble aui-bubble--round"><div class="aui-bubble-round"><span class="aui-bubble-duration">0:12</span><button class="aui-bubble-play" type="button" aria-label="Play"><svg class="aui-icon"><use href="#aui-i-play"/></svg></button></div><span class="aui-bubble-meta">16:44</span></div></div>
+              <div class="aui-msg aui-msg--in is-middle"><span class="aui-avatar aui-avatar--teal aui-avatar--sm">TM</span><div class="aui-bubble"><div class="aui-bubble-once"><span class="aui-icon-box aui-icon-box--accent"><svg class="aui-icon"><use href="#aui-i-eye"/></svg></span>Photo · view once</div><span class="aui-bubble-meta">16:45</span></div></div>
+              <div class="aui-msg aui-msg--in is-middle"><span class="aui-avatar aui-avatar--teal aui-avatar--sm">TM</span><div class="aui-bubble"><div class="aui-bubble-story"><span></span><span><b>Replied to your story</b>Showroom, Thursday</span></div><div class="aui-bubble-text">So beautiful 😍</div><span class="aui-bubble-meta">16:46</span></div></div>
+              <div class="aui-msg aui-msg--in is-middle"><span class="aui-avatar aui-avatar--teal aui-avatar--sm">TM</span><div class="aui-bubble aui-bubble--media"><div class="aui-bubble-media"><span style="display:block;aspect-ratio:4/3;background:linear-gradient(135deg,#2a1f2a,#f472b6)"><span class="aui-bubble-gif">GIF</span></span></div><span class="aui-bubble-meta">16:47</span></div></div>
+              <div class="aui-msg aui-msg--in is-last"><span class="aui-avatar aui-avatar--teal aui-avatar--sm">TM</span><div class="aui-bubble aui-bubble--unsupported"><div class="aui-bubble-text"><svg class="aui-icon"><use href="#aui-i-sticker"/></svg>Sticker — not supported yet · <a href="#">Open in Zalo</a></div><span class="aui-bubble-meta">16:48</span></div></div>
+            </div>
+          </div>
         </div>
 
         <h3 class="aui-demo-title" id="calls">Calls</h3>

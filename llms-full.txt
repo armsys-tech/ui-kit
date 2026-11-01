@@ -252,6 +252,24 @@ Scope `.aui`. Themes via `data-aui-theme="dark|light|system"`; accents via `data
 - `--aui-bubble-out`: color-mix(in srgb, var(--aui-accent) 28%, #141418) (light: color-mix(in srgb, var(--aui-accent) 16%, #ffffff))
 - `--aui-bubble-system`: rgb(255 255 255 / .06) (light: rgb(9 9 11 / .06))
 - `--aui-bubble-radius`: 14px
+- `--aui-composer-h`: 44px
+
+### messagingPlatforms
+
+- `--aui-platform-whatsapp`: #25d366
+- `--aui-platform-telegram`: #2aabee
+- `--aui-platform-tiktok`: #fe2c55
+- `--aui-platform-wechat`: #07c160
+- `--aui-platform-zalo`: #0068ff
+- `--aui-platform-messenger`: #0a7cff
+- `--aui-platform-instagram`: #e1306c
+- `--aui-platform-signal`: #3a76f0
+- `--aui-platform-line`: #06c755
+- `--aui-platform-viber`: #7360f2
+- `--aui-platform-discord`: #5865f2
+- `--aui-platform-slack`: #e01e5a
+- `--aui-platform-sms`: #34c759
+- `--aui-platform-email`: #8e8e9a
 
 ### effects
 
@@ -580,15 +598,16 @@ Source: src/components/workbench.css
 
 - field: aui-composer-field--flat, aui-composer-field--square
 - state: is-typing (set by JS when the input has text)
-- elements: aui-composer-bar, aui-composer-field, aui-composer-input, aui-composer-send (+ aui-composer-send-on / -off icons), aui-composer-reply (-body, -name, -text), aui-composer-edit, aui-composer-attachments + aui-composer-thumb (--file), aui-composer-tools, aui-composer-hint, aui-composer-recording, aui-composer--blocked, aui-emoji-picker + aui-emoji-grid + aui-emoji-label + aui-emoji
+- elements: aui-composer-bar, aui-composer-field, aui-composer-input, aui-composer-send (+ aui-composer-send-on / -off icons), aui-composer-reply (-body, -name, -text), aui-composer-edit, aui-composer-attachments + aui-composer-thumb (--file), aui-composer-tools, aui-composer-hint, aui-composer-recording, aui-composer--blocked, aui-emoji-picker + aui-emoji-grid + aui-emoji-label + aui-emoji, aui-composer-action (soft round side button), aui-composer-from (reply-from account picker inside the field), aui-composer-translate (aui-btn--toggle, auto-translate)
 - data attributes: data-aui-composer (Enter sends, Shift+Enter newline); data-aui-composer="ctrl" (Ctrl/Cmd+Enter sends)
 - events: aui:send {text, input} (cancelable — preventDefault keeps the draft), aui:send-empty
 - JS: ArmsysUI.send(composer)
 - rule: The kit clears the textarea after an un-prevented aui:send; your app appends the bubble (the data-aui-chat-scroll body follows automatically).
+- rule: Bar controls share --aui-composer-h (44px): side buttons use .aui-btn.aui-composer-action, send uses .aui-btn--accent.aui-btn--round.aui-composer-send; the field matches automatically.
 - rule: Attachment menus open upward: aui-dropdown with data-aui-placement="top-start" and aui-menu--up.
 
 ```html
-<footer class="aui-composer" data-aui-composer><div class="aui-composer-bar"><button class="aui-btn aui-btn--ghost aui-btn--round" aria-label="Attach"><svg class="aui-icon"><use href="#aui-i-paperclip"/></svg></button><div class="aui-composer-field"><textarea class="aui-composer-input" rows="1" placeholder="Type a message"></textarea><button class="aui-btn aui-btn--ghost aui-btn--round" aria-label="Emoji"><svg class="aui-icon"><use href="#aui-i-smile"/></svg></button></div><button class="aui-btn aui-btn--accent aui-btn--round aui-composer-send" aria-label="Send"><svg class="aui-icon aui-composer-send-on"><use href="#aui-i-send"/></svg><svg class="aui-icon aui-composer-send-off"><use href="#aui-i-mic"/></svg></button></div></footer>
+<footer class="aui-composer" data-aui-composer><div class="aui-composer-bar"><button class="aui-btn aui-composer-action" aria-label="Attach"><svg class="aui-icon"><use href="#aui-i-plus"/></svg></button><div class="aui-composer-field"><textarea class="aui-composer-input" rows="1" placeholder="Type a message"></textarea><button class="aui-btn aui-btn--ghost aui-btn--round" aria-label="Emoji"><svg class="aui-icon"><use href="#aui-i-smile"/></svg></button></div><button class="aui-btn aui-btn--accent aui-btn--round aui-composer-send" aria-label="Send"><svg class="aui-icon aui-composer-send-on"><use href="#aui-i-send"/></svg><svg class="aui-icon aui-composer-send-off"><use href="#aui-i-mic"/></svg></button></div></footer>
 ```
 Source: src/components/chat.css
 
@@ -907,6 +926,21 @@ Source: src/components/workbench.css
 ```
 Source: src/components/workbench.css
 
+#### accounts — `aui-rail--accounts`
+
+- state: is-active, is-offline
+- elements: aui-rail-item (+ .aui-avatar with .aui-platform, .aui-btn-badge, .aui-rail-status), aui-accounts, aui-accounts-title, aui-account, aui-account-body, aui-account-name, aui-account-sub
+- data attributes: data-aui-rail on the rail: single selection + aui:rail {value}; data-value on each item; data-platform on each account item
+- events: aui:rail {value}
+- rule: First item is 'All inboxes'; then one item per connected account. Show connection problems with .aui-rail-status (tone) / .aui-account-sub dot and an .aui-chat-banner in the list.
+- rule: Unified vs per-account: on aui:rail render only that account's chats; in 'All' offer a segmented Unified | By account switch (By account = aui-convos--grouped + .aui-convos-account headers).
+
+```html
+<nav class="aui-rail aui-rail--accounts" data-aui-rail><button class="aui-rail-item is-active" data-value="all"><svg class="aui-icon"><use href="#aui-i-inbox"/></svg><span class="aui-btn-badge">18</span></button><button class="aui-rail-item" data-value="wa-work" data-platform="whatsapp"><span class="aui-avatar">AR<span class="aui-platform">WA</span></span><span class="aui-btn-badge">3</span></button><button class="aui-rail-item is-offline" data-value="tiktok" data-platform="tiktok"><span class="aui-avatar">AC<span class="aui-platform">TT</span></span><span class="aui-rail-status aui-tone--danger"></span></button></nav>
+<div class="aui-accounts"><button class="aui-account is-active" data-platform="whatsapp"><span class="aui-avatar">AT<span class="aui-platform">WA</span></span><span class="aui-account-body"><span class="aui-account-name">WhatsApp · Personal</span><span class="aui-account-sub"><span class="aui-dot aui-dot--success"></span>+90 532 …</span></span><span class="aui-count aui-count--accent">2</span></button></div>
+```
+Source: src/components/chat.css
+
 ### Category: data
 
 #### card — `aui-card`
@@ -1083,12 +1117,13 @@ Source: src/components/data.css
 
 #### conversation — `aui-convo`
 
-- state: is-active, is-unread, is-muted
-- list: aui-convos--compact, aui-convos--cards
-- preview: is-typing, is-draft
-- elements: aui-convos, aui-convos-label, aui-convo-head, aui-convo-name, aui-convo-time, aui-convo-foot, aui-convo-preview, aui-convo-badges, aui-convo-actions
-- related: aui-count, aui-count--accent, aui-ticks, aui-avatar-status, aui-avatar--ring
+- state: is-active, is-unread, is-muted, is-failed, data-platform="…"
+- list: aui-convos--compact, aui-convos--cards, aui-convos--via / aui-chat--via (show receiving account), aui-convos--stripes / aui-chat--stripes (platform colour edge), aui-convos--grouped / aui-chat--grouped (account headers)
+- preview: is-typing, is-draft, is-recording
+- elements: aui-convos, aui-convos-label, aui-convo-head, aui-convo-name, aui-convo-time, aui-convo-foot, aui-convo-preview, aui-convo-badges, aui-convo-actions, aui-convo-via (+ aui-via), aui-convo-mention, aui-convos-account, aui-convo--archived, aui-count--dot
+- related: aui-count, aui-count--accent, aui-ticks, aui-avatar-status, aui-avatar--ring, aui-chat-banner, aui-chat-request, aui-platform
 - rule: Clicking a row inside .aui-chat marks it is-active and adds is-conversation to the shell (mobile navigation) — your app loads the messages on aui:convo.
+- rule: data-aui-chat-toggle="via|stripes|grouped" on a button or menuitemcheckbox flips aui-chat--{name} on the closest .aui-chat (fires aui:chat-option).
 
 ```html
 <button class="aui-convo is-unread" data-value="ayse"><span class="aui-avatar aui-avatar--pink">AY<span class="aui-avatar-status is-online"></span></span><div class="aui-convo-head"><span class="aui-convo-name">Ayşe Yılmaz</span><time class="aui-convo-time">13:47</time></div><div class="aui-convo-foot"><span class="aui-convo-preview"><span class="aui-ticks is-read"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span><span>See you at 3</span></span><span class="aui-convo-badges"><span class="aui-count aui-count--accent">2</span></span></div></button>
@@ -1099,19 +1134,38 @@ Source: src/components/chat.css
 
 - direction: aui-msg--in, aui-msg--out
 - grouping: is-first, is-middle, is-last
-- kind: aui-msg--typing, aui-msg-system, aui-msg-day (aui-msg-day--sticky), aui-msg-unread
-- bubble: aui-bubble--media, aui-bubble--sticker, aui-bubble--deleted, is-highlight
+- kind: aui-msg--typing, aui-msg-system, aui-msg-day (aui-msg-day--sticky), aui-msg-unread, aui-msg--failed
+- bubble: aui-bubble--media, aui-bubble--sticker, aui-bubble--deleted, is-highlight, aui-bubble--round, aui-bubble--scheduled, aui-bubble--unsupported, is-original
 - list: aui-msgs--tails, aui-msgs--narrow, is-selecting
-- elements: aui-msgs, aui-bubble, aui-bubble-sender, aui-bubble-text (aui-bubble-text--big, .aui-mention), aui-bubble-meta, aui-ticks (is-read | is-pending | is-failed), aui-bubble-reply (-name, -text), aui-bubble-forwarded, aui-bubble-media (1–4 children, aui-bubble-media-more[data-count]), aui-bubble-caption, aui-bubble-play, aui-bubble-duration, aui-bubble-file (-body, -name, -meta), aui-bubble-voice + aui-voice-body + aui-wave + aui-voice-meta + aui-voice-speed, aui-bubble-link (-body, -site, -title, -desc), aui-poll (-q, -opt, -opt-label, -opt-pct, -foot), aui-bubble-reactions + aui-reaction (is-mine), aui-reaction-bar, aui-bubble-call (-title, -meta, is-missed), aui-msg-actions, aui-msg-select
+- elements: aui-msgs, aui-bubble, aui-bubble-sender, aui-bubble-text (aui-bubble-text--big, .aui-mention), aui-bubble-meta, aui-ticks (is-read | is-pending | is-failed), aui-bubble-reply (-name, -text), aui-bubble-forwarded, aui-bubble-media (1–4 children, aui-bubble-media-more[data-count]), aui-bubble-caption, aui-bubble-play, aui-bubble-duration, aui-bubble-file (-body, -name, -meta), aui-bubble-voice + aui-voice-body + aui-wave + aui-voice-meta + aui-voice-speed, aui-bubble-link (-body, -site, -title, -desc), aui-poll (-q, -opt, -opt-label, -opt-pct, -foot), aui-bubble-reactions + aui-reaction (is-mine), aui-reaction-bar, aui-bubble-call (-title, -meta, is-missed), aui-msg-actions, aui-msg-select, aui-bubble-tr (+ data-aui-show-original button with .aui-tr-show/.aui-tr-hide), aui-bubble-original, aui-bubble-explain, aui-msg-failed, aui-msg-seen, aui-bubble-location (-map[.is-live], -title, -sub), aui-bubble-contact (-name, -sub) + aui-bubble-actions, aui-bubble-round, aui-bubble-once (is-opened), aui-bubble-story, aui-bubble-gif
 - rule: Group consecutive messages from one sender with is-first / is-middle / is-last — corners, tails and the avatar (shown on the last row) follow automatically. A single message is is-first is-last.
 - rule: Sender colour in groups: add a tone class (aui-tone--pink) to the bubble; it colours the sender name and reply quote.
 - rule: Ticks: one check = sent, aui-i-check-check = delivered, + is-read = read, is-pending with the clock icon while sending.
 - rule: Day separators, unread divider and system rows are siblings of .aui-msg inside .aui-msgs.
+- rule: Translated messages: show the translation in .aui-bubble-text, the source in .aui-bubble-original and a .aui-bubble-tr label with a data-aui-show-original button (toggles is-original, fires aui:original). Outgoing auto-translated messages use the same parts ('Sent in Vietnamese · Show sent text').
+- rule: Aggregators: render types you do not support yet as aui-bubble--unsupported with a link to open the message in the native app.
 
 ```html
 <div class="aui-msg aui-msg--in is-first is-last"><span class="aui-avatar aui-avatar--sm aui-avatar--pink">AY</span><div class="aui-bubble aui-tone--pink"><span class="aui-bubble-sender">Ayşe</span><div class="aui-bubble-text">Hi!</div><span class="aui-bubble-meta">09:12</span></div></div>
 <div class="aui-msg aui-msg--out is-first is-last"><div class="aui-bubble"><div class="aui-bubble-text">Hello</div><span class="aui-bubble-meta">09:20<span class="aui-ticks is-read"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span></span></div></div>
 <div class="aui-msg aui-msg--in aui-msg--typing is-first is-last"><span class="aui-avatar aui-avatar--sm">AY</span><div class="aui-bubble"><span class="aui-dots"><span></span><span></span><span></span></span></div></div>
+```
+Source: src/components/chat.css
+
+#### platform — `aui-platform`
+
+- size: aui-platform--xs, aui-platform--sm, (md), aui-platform--lg, aui-platform--xl
+- shape: aui-platform--round
+- style: aui-platform--soft
+- related: aui-via, aui-avatar > .aui-platform (corner badge)
+- data attributes: data-platform="whatsapp|telegram|tiktok|wechat|zalo|messenger|instagram|signal|line|viber|discord|slack|sms|email" on the badge or any ancestor (sets the inheriting --aui-platform colour)
+- rule: Brand logos are not bundled: put the platform's official SVG/IMG inside .aui-platform in your app, or a 1–2 letter code.
+- rule: Set data-platform once on the row/avatar; children (badge, .aui-via, colour edge) pick the colour up.
+
+```html
+<span class="aui-platform" data-platform="whatsapp">WA</span>
+<span class="aui-avatar aui-avatar--info" data-platform="zalo">LN<span class="aui-platform">ZL</span></span>
+<span class="aui-via" data-platform="whatsapp"><span class="aui-platform">WA</span><span>WhatsApp · <b>Work</b></span></span>
 ```
 Source: src/components/chat.css
 
@@ -1465,6 +1519,9 @@ Auto-initialises on DOMContentLoaded. A MutationObserver initialises markup inse
 - `data-aui-composer [="ctrl"]` — Chat composer: autosize, Enter sends (aui:send), send/mic icon swap.
 - `data-aui-chat-scroll` — Chat body: start at the bottom, follow new messages, toggle .aui-chat-jump.
 - `data-aui-chat-info-toggle` — Toggle the info pane (aui-chat--info) of the closest .aui-chat.
+- `data-aui-show-original` — Inside a bubble: toggles is-original (shows .aui-bubble-original), fires aui:original.
+- `data-aui-chat-toggle="via|stripes|grouped…"` — Flip aui-chat--{name} on the closest .aui-chat (also from portaled menus); fires aui:chat-option.
+- `data-aui-rail` — On .aui-rail: single selection of .aui-rail-item children, fires aui:rail {value}.
 
 ### API (`window.ArmsysUI` / `import ArmsysUI from "@armsys-tech/ui"`)
 
@@ -1495,7 +1552,7 @@ Auto-initialises on DOMContentLoaded. A MutationObserver initialises markup inse
 
 ### Events (bubble from the element)
 
-`aui:open (cancelable)`, `aui:opened`, `aui:close (cancelable)`, `aui:closed {value}`, `aui:dropdown-open (cancelable)`, `aui:dropdown-opened`, `aui:dropdown-closed`, `aui:select {value,text}`, `aui:menu-check {checked,value}`, `aui:popover-opened`, `aui:popover-closed`, `aui:context`, `aui:complete {value}`, `aui:change {value}`, `aui:files {files}`, `aui:tab {tab}`, `aui:choice {group,value}`, `aui:copied {text}`, `aui:selection {count,rows}`, `aui:sort {column,direction}`, `aui:theme {theme,preference}`, `aui:sidebar {collapsed}`, `aui:nav-open`, `aui:nav-close`, `aui:tab-close {tab} (cancelable)`, `aui:tab-closed {tab}`, `aui:tab-add`, `aui:tree-select {item, value}`, `aui:tree-toggle {item, expanded}`, `aui:tree-activate {item, value}`, `aui:resize {pane, size}`, `aui:date {value, date}`, `aui:send {text, input} (cancelable)`, `aui:send-empty`, `aui:convo {value}`, `aui:toggle {pressed}`
+`aui:open (cancelable)`, `aui:opened`, `aui:close (cancelable)`, `aui:closed {value}`, `aui:dropdown-open (cancelable)`, `aui:dropdown-opened`, `aui:dropdown-closed`, `aui:select {value,text}`, `aui:menu-check {checked,value}`, `aui:popover-opened`, `aui:popover-closed`, `aui:context`, `aui:complete {value}`, `aui:change {value}`, `aui:files {files}`, `aui:tab {tab}`, `aui:choice {group,value}`, `aui:copied {text}`, `aui:selection {count,rows}`, `aui:sort {column,direction}`, `aui:theme {theme,preference}`, `aui:sidebar {collapsed}`, `aui:nav-open`, `aui:nav-close`, `aui:tab-close {tab} (cancelable)`, `aui:tab-closed {tab}`, `aui:tab-add`, `aui:tree-select {item, value}`, `aui:tree-toggle {item, expanded}`, `aui:tree-activate {item, value}`, `aui:resize {pane, size}`, `aui:date {value, date}`, `aui:send {text, input} (cancelable)`, `aui:send-empty`, `aui:convo {value}`, `aui:toggle {pressed}`, `aui:rail {value}`, `aui:original {shown}`, `aui:chat-option {option, on}`
 
 ## Page patterns
 
@@ -1973,10 +2030,10 @@ Reference implementation: `examples/website.html`, `examples/pricing.html`.
 - Full-bleed site: `<body class="aui aui-site aui-site--fluid">` changes the frame for every page at once.
 
 
-## Recipe — Messenger (WhatsApp / Telegram style desktop client)
+## Recipe — Messenger (WhatsApp / Telegram style desktop client, single or multi-account)
 
-Use for: chat clients, support inboxes, team messaging, anything with a conversation list, a message thread and calls.
-Reference implementation: `examples/messenger.html` (Electron shell + three panes + call modal).
+Use for: chat clients, support inboxes, team messaging, and aggregators that combine many accounts on WhatsApp, Telegram, Zalo, WeChat, TikTok … in one window.
+Reference implementation: `examples/messenger.html` (Electron shell + accounts rail + three panes + translation + call modal; the list is rendered from data the way a React/Vue app would).
 
 ```html
 <body class="aui aui-desktop" data-aui-platform="win">
@@ -2040,6 +2097,41 @@ Reference implementation: `examples/messenger.html` (Electron shell + three pane
 chat.addEventListener('aui:convo', e => loadThread(e.detail.value));
 composer.addEventListener('aui:send', e => { api.send(threadId, e.detail.text); appendOutgoing(e.detail.text); });
 ```
+
+## Multi-account / multi-platform inbox
+
+```html
+<nav class="aui-rail aui-rail--accounts" data-aui-rail>
+  <button class="aui-rail-item is-active" data-value="all"><svg class="aui-icon"><use href="#aui-i-inbox"/></svg><span class="aui-btn-badge">18</span></button>
+  <span class="aui-rail-sep"></span>
+  <button class="aui-rail-item" data-value="wa-work" data-platform="whatsapp"><span class="aui-avatar">AR<span class="aui-platform"><!-- WhatsApp SVG --></span></span><span class="aui-btn-badge">3</span></button>
+  <button class="aui-rail-item is-offline" data-value="tiktok" data-platform="tiktok"><span class="aui-avatar">AC<span class="aui-platform">TT</span></span><span class="aui-rail-status aui-tone--danger"></span></button>
+</nav>
+<div class="aui-chat aui-chat--via aui-chat--stripes">
+  <aside class="aui-chat-side">
+    …header…
+    <div class="aui-chat-banner"><svg class="aui-icon"><use href="#aui-i-alert"/></svg><span><b>TikTok · @ayla.creates</b> disconnected</span><button class="aui-btn aui-btn--sm">Reconnect</button></div>
+    <div class="aui-chat-filters"><div class="aui-segmented aui-segmented--sm"><button class="is-active" data-value="unified">Unified</button><button data-value="grouped">By account</button></div>…chips…</div>
+    <div class="aui-convos">            <!-- add aui-convos--grouped in By account mode -->
+      <div class="aui-convos-account" data-platform="zalo"><span class="aui-platform">ZL</span>Zalo · Personal <span>+84 …</span><span class="aui-count aui-count--accent">1</span></div>
+      <button class="aui-convo is-unread" data-value="linh" data-platform="zalo">
+        <span class="aui-avatar">LN<span class="aui-platform">ZL</span></span>
+        <div class="aui-convo-head">…</div><div class="aui-convo-foot">…</div>
+        <span class="aui-convo-via aui-via"><span class="aui-platform">ZL</span><span>Zalo · <b>Personal</b></span></span>
+      </button>
+    </div>
+  </aside>
+  …
+</div>
+```
+
+- `data-platform` (whatsapp, telegram, tiktok, wechat, zalo, messenger, instagram, signal, line, viber, discord, slack, sms, email) sets an inheriting `--aui-platform`; badges, `.aui-via` labels and the colour edge all read it. Brand logos are not bundled — put the official SVG inside `.aui-platform`.
+- Modes: rail item `all` + segmented Unified (one time-sorted list) / By account (`aui-convos--grouped`, sorted by account, sticky `.aui-convos-account` headers); clicking an account in the rail (`aui:rail`) shows only that account and hides the mode switch.
+- Which account received a chat: corner badge always; `.aui-convo-via` line when the shell has `aui-chat--via`. Let users toggle it from a menu: `<button class="aui-menu-item" role="menuitemcheckbox" aria-checked="true" data-aui-chat-toggle="via">Show receiving account</button>` (same for `stripes`).
+- Header: put a `.aui-via` chip after the peer name. Composer: `.aui-composer-from` (reply-from account, limited to accounts on the chat's platform) and `.aui-composer-translate` (`aui-btn--toggle`).
+- Sessions: show a dropped account as `.aui-rail-item.is-offline` + `.aui-rail-status`, an `.aui-chat-banner` with Reconnect, and failed sends as `.aui-msg--failed` + `.aui-msg-failed` row with Retry.
+- Translation: incoming → `.aui-bubble-text` (translated) + `.aui-bubble-original` + `.aui-bubble-tr` with `data-aui-show-original`; outgoing auto-translation uses the same parts ("Sent in Vietnamese · Show sent text"); AI meaning in `.aui-bubble-explain`.
+- Types the client cannot render yet: `.aui-bubble--unsupported` with "Open in <platform>".
 
 
 ## Icons

@@ -175,6 +175,23 @@
   --aui-bubble-out: color-mix(in srgb, var(--aui-accent) 28%, #141418);
   --aui-bubble-system: rgb(255 255 255 / .06);
   --aui-bubble-radius: 14px;
+  --aui-composer-h: 44px;
+
+  /* ---------- Messaging platforms (data-platform="…") ---------- */
+  --aui-platform-whatsapp: #25d366;
+  --aui-platform-telegram: #2aabee;
+  --aui-platform-tiktok: #fe2c55;
+  --aui-platform-wechat: #07c160;
+  --aui-platform-zalo: #0068ff;
+  --aui-platform-messenger: #0a7cff;
+  --aui-platform-instagram: #e1306c;
+  --aui-platform-signal: #3a76f0;
+  --aui-platform-line: #06c755;
+  --aui-platform-viber: #7360f2;
+  --aui-platform-discord: #5865f2;
+  --aui-platform-slack: #e01e5a;
+  --aui-platform-sms: #34c759;
+  --aui-platform-email: #8e8e9a;        /* attach, message field and send share this height */
 
   /* ---------- Effects ---------- */
   --aui-shadow-xs: 0 1px 1px rgb(0 0 0 / .25);

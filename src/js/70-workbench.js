@@ -272,7 +272,8 @@ function closeDatepicker(refocus) {
 function composerInput(c) { return $('.aui-composer-input, textarea, input[type="text"]', c); }
 function syncComposer(c) {
   var i = composerInput(c); if (!i) return;
-  if (i.tagName === 'TEXTAREA') autosize(i);
+  /* no +2 fudge here: the textarea has no border, so scrollHeight is the exact one-line height */
+  if (i.tagName === 'TEXTAREA') { i.style.height = 'auto'; i.style.height = i.scrollHeight + 'px'; }
   c.classList.toggle('is-typing', !!i.value.trim());
 }
 function composerSend(c) {
@@ -281,6 +282,9 @@ function composerSend(c) {
   if (!text.trim() && !c.classList.contains('is-typing')) { emit(c, 'send-empty'); return; }
   if (!emit(c, 'send', { text: text, input: i }, true)) return;
   i.value = ''; syncComposer(c); i.focus();
+  /* your own message always brings the thread to the bottom (listeners appended it synchronously) */
+  var main = c.closest('.aui-chat-main') || c.parentNode, body = main && $('[data-aui-chat-scroll]', main);
+  if (body) { body._auiAtBottom = true; body.scrollTop = body.scrollHeight; }
 }
 function composerKeydown(e, t) {
   var c = t.closest('[data-aui-composer]'); if (!c || e.key !== 'Enter' || e.isComposing) return false;

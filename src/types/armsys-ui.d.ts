@@ -155,6 +155,9 @@ export interface ArmsysUIEventMap {
   'aui:send-empty': CustomEvent;
   'aui:convo': CustomEvent<{ value: string | null }>;
   'aui:toggle': CustomEvent<{ pressed: boolean }>;
+  'aui:rail': CustomEvent<{ value: string | null }>;
+  'aui:original': CustomEvent<{ shown: boolean }>;
+  'aui:chat-option': CustomEvent<{ option: string; on: boolean }>;
 }
 
 declare const ArmsysUI: ArmsysUIApi;

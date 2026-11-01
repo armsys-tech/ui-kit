@@ -1615,7 +1615,8 @@ const ArmsysUI = (function () {
   function composerInput(c) { return $('.aui-composer-input, textarea, input[type="text"]', c); }
   function syncComposer(c) {
     var i = composerInput(c); if (!i) return;
-    if (i.tagName === 'TEXTAREA') autosize(i);
+    /* no +2 fudge here: the textarea has no border, so scrollHeight is the exact one-line height */
+    if (i.tagName === 'TEXTAREA') { i.style.height = 'auto'; i.style.height = i.scrollHeight + 'px'; }
     c.classList.toggle('is-typing', !!i.value.trim());
   }
   function composerSend(c) {
@@ -1624,6 +1625,9 @@ const ArmsysUI = (function () {
     if (!text.trim() && !c.classList.contains('is-typing')) { emit(c, 'send-empty'); return; }
     if (!emit(c, 'send', { text: text, input: i }, true)) return;
     i.value = ''; syncComposer(c); i.focus();
+    /* your own message always brings the thread to the bottom (listeners appended it synchronously) */
+    var main = c.closest('.aui-chat-main') || c.parentNode, body = main && $('[data-aui-chat-scroll]', main);
+    if (body) { body._auiAtBottom = true; body.scrollTop = body.scrollHeight; }
   }
   function composerKeydown(e, t) {
     var c = t.closest('[data-aui-composer]'); if (!c || e.key !== 'Enter' || e.isComposing) return false;
@@ -1696,6 +1700,24 @@ const ArmsysUI = (function () {
     if ((el = t.closest('.aui-chat-jump'))) { var body = el.closest('[data-aui-chat-scroll]') || $('[data-aui-chat-scroll]', el.parentNode); if (body) body.scrollTo({ top: body.scrollHeight, behavior: 'smooth' }); return; }
     if ((el = t.closest('.aui-chat-back'))) { var chat = el.closest('.aui-chat'); if (chat) { if (chat.classList.contains('aui-chat--info')) chat.classList.remove('aui-chat--info'); else chat.classList.remove('is-conversation'); } return; }
     if ((el = t.closest('.aui-convo')) && el.closest('.aui-chat')) { el.closest('.aui-chat').classList.add('is-conversation'); if (w.innerWidth <= 900) el.closest('.aui-chat').classList.remove('aui-chat--info'); $$('[data-aui-chat-scroll]', el.closest('.aui-chat')).forEach(function (b) { if (b._auiAtBottom !== false) b.scrollTop = b.scrollHeight; }); $$('.aui-convo.is-active', el.closest('.aui-convos') || el.parentNode).forEach(function (c) { c.classList.remove('is-active'); }); el.classList.add('is-active'); emit(el, 'convo', { value: el.getAttribute('data-value') }); }
+    if ((el = t.closest('[data-aui-show-original]'))) { e.preventDefault(); var bub = el.closest('.aui-bubble'); if (bub) { bub.classList.toggle('is-original'); emit(bub, 'original', { shown: bub.classList.contains('is-original') }); } return; }
+    /* data-aui-chat-toggle="via|stripes|grouped…" flips aui-chat--{name} on the chat (works from portaled menus too) */
+    if ((el = t.closest('[data-aui-chat-toggle]'))) {
+      var mod = el.getAttribute('data-aui-chat-toggle'), host = ownerOf(el) || el, chatEl = host.closest('.aui-chat') || $('.aui-chat');
+      if (chatEl) {
+        var onNow = chatEl.classList.toggle('aui-chat--' + mod);
+        /* menu checkboxes are flipped by the menu code below; plain buttons get aria-pressed here */
+        if (/^menuitem(checkbox|radio)$/.test(el.getAttribute('role') || '')) { /* handled by toggleCheckable */ }
+        else if (el.hasAttribute('aria-pressed')) el.setAttribute('aria-pressed', onNow ? 'true' : 'false');
+        emit(chatEl, 'chat-option', { option: mod, on: onNow });
+      }
+      if (!el.classList.contains('aui-menu-item')) return;
+    }
+    /* Single selection in a rail: <nav class="aui-rail" data-aui-rail> */
+    if ((el = t.closest('[data-aui-rail] > .aui-rail-item')) && !t.closest('[data-aui-dropdown-trigger]')) {
+      toArr(el.parentNode.children).forEach(function (b) { b.classList.toggle('is-active', b === el); if (b.classList.contains('aui-rail-item')) { if (b === el) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); } });
+      emit(el, 'rail', { value: el.getAttribute('data-value') });
+    }
     if ((el = t.closest('[data-aui-chat-info-toggle]'))) { var ch = el.closest('.aui-chat'); if (ch) ch.classList.toggle('aui-chat--info'); return; }
     if ((el = t.closest('.aui-btn--toggle[aria-pressed]:not([data-aui-choice])'))) { el.setAttribute('aria-pressed', el.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); emit(el, 'toggle', { pressed: el.getAttribute('aria-pressed') === 'true' }); }
 

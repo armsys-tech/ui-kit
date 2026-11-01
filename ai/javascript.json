@@ -66,7 +66,10 @@
     "data-aui-datepicker [+ data-aui-format]": "Floating calendar on a text input; opens on focus (=\"click\" opens on click only).",
     "data-aui-composer [=\"ctrl\"]": "Chat composer: autosize, Enter sends (aui:send), send/mic icon swap.",
     "data-aui-chat-scroll": "Chat body: start at the bottom, follow new messages, toggle .aui-chat-jump.",
-    "data-aui-chat-info-toggle": "Toggle the info pane (aui-chat--info) of the closest .aui-chat."
+    "data-aui-chat-info-toggle": "Toggle the info pane (aui-chat--info) of the closest .aui-chat.",
+    "data-aui-show-original": "Inside a bubble: toggles is-original (shows .aui-bubble-original), fires aui:original.",
+    "data-aui-chat-toggle=\"via|stripes|grouped…\"": "Flip aui-chat--{name} on the closest .aui-chat (also from portaled menus); fires aui:chat-option.",
+    "data-aui-rail": "On .aui-rail: single selection of .aui-rail-item children, fires aui:rail {value}."
   },
   "api": {
     "init(root?)": "Initialise behaviours inside root (idempotent).",
@@ -130,7 +133,10 @@
     "aui:send {text, input} (cancelable)",
     "aui:send-empty",
     "aui:convo {value}",
-    "aui:toggle {pressed}"
+    "aui:toggle {pressed}",
+    "aui:rail {value}",
+    "aui:original {shown}",
+    "aui:chat-option {option, on}"
   ],
   "icons": "Use <svg class=\"aui-icon\"><use href=\"#aui-i-NAME\"/></svg>. Names: see ArmsysUI.icons or ai/icons.json."
 }

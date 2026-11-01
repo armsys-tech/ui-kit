@@ -52,7 +52,6 @@
 .aui-rail-item.is-active, .aui-rail-item[aria-current="page"], .aui-rail-item[aria-pressed="true"] { color: var(--aui-text); background: var(--aui-active); }
 .aui-rail-item.is-active::before, .aui-rail-item[aria-current="page"]::before { content: ""; position: absolute; left: -6px; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: var(--aui-accent); }
 .aui-rail-item > .aui-btn-badge { top: 2px; right: 2px; }
-.aui-rail-item > .aui-avatar { --_s: 26px; }
 .aui-rail-sep { width: 20px; height: 1px; margin: 6px 0; background: var(--aui-border); }
 .aui-rail--right { border-right: 0; border-left: 1px solid var(--aui-border-soft); }
 .aui-rail--right .aui-rail-item.is-active::before { left: auto; right: -6px; }

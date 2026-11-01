@@ -2497,15 +2497,21 @@
         "state": [
           "is-active",
           "is-unread",
-          "is-muted"
+          "is-muted",
+          "is-failed",
+          "data-platform=\"…\""
         ],
         "list": [
           "aui-convos--compact",
-          "aui-convos--cards"
+          "aui-convos--cards",
+          "aui-convos--via / aui-chat--via (show receiving account)",
+          "aui-convos--stripes / aui-chat--stripes (platform colour edge)",
+          "aui-convos--grouped / aui-chat--grouped (account headers)"
         ],
         "preview": [
           "is-typing",
-          "is-draft"
+          "is-draft",
+          "is-recording"
         ]
       },
       "elements": [
@@ -2517,20 +2523,29 @@
         "aui-convo-foot",
         "aui-convo-preview",
         "aui-convo-badges",
-        "aui-convo-actions"
+        "aui-convo-actions",
+        "aui-convo-via (+ aui-via)",
+        "aui-convo-mention",
+        "aui-convos-account",
+        "aui-convo--archived",
+        "aui-count--dot"
       ],
       "related": [
         "aui-count",
         "aui-count--accent",
         "aui-ticks",
         "aui-avatar-status",
-        "aui-avatar--ring"
+        "aui-avatar--ring",
+        "aui-chat-banner",
+        "aui-chat-request",
+        "aui-platform"
       ],
       "markup": [
         "<button class=\"aui-convo is-unread\" data-value=\"ayse\"><span class=\"aui-avatar aui-avatar--pink\">AY<span class=\"aui-avatar-status is-online\"></span></span><div class=\"aui-convo-head\"><span class=\"aui-convo-name\">Ayşe Yılmaz</span><time class=\"aui-convo-time\">13:47</time></div><div class=\"aui-convo-foot\"><span class=\"aui-convo-preview\"><span class=\"aui-ticks is-read\"><svg class=\"aui-icon\"><use href=\"#aui-i-check-check\"/></svg></span><span>See you at 3</span></span><span class=\"aui-convo-badges\"><span class=\"aui-count aui-count--accent\">2</span></span></div></button>"
       ],
       "rules": [
-        "Clicking a row inside .aui-chat marks it is-active and adds is-conversation to the shell (mobile navigation) — your app loads the messages on aui:convo."
+        "Clicking a row inside .aui-chat marks it is-active and adds is-conversation to the shell (mobile navigation) — your app loads the messages on aui:convo.",
+        "data-aui-chat-toggle=\"via|stripes|grouped\" on a button or menuitemcheckbox flips aui-chat--{name} on the closest .aui-chat (fires aui:chat-option)."
       ]
     },
     "message": {
@@ -2551,13 +2566,18 @@
           "aui-msg--typing",
           "aui-msg-system",
           "aui-msg-day (aui-msg-day--sticky)",
-          "aui-msg-unread"
+          "aui-msg-unread",
+          "aui-msg--failed"
         ],
         "bubble": [
           "aui-bubble--media",
           "aui-bubble--sticker",
           "aui-bubble--deleted",
-          "is-highlight"
+          "is-highlight",
+          "aui-bubble--round",
+          "aui-bubble--scheduled",
+          "aui-bubble--unsupported",
+          "is-original"
         ],
         "list": [
           "aui-msgs--tails",
@@ -2586,7 +2606,18 @@
         "aui-reaction-bar",
         "aui-bubble-call (-title, -meta, is-missed)",
         "aui-msg-actions",
-        "aui-msg-select"
+        "aui-msg-select",
+        "aui-bubble-tr (+ data-aui-show-original button with .aui-tr-show/.aui-tr-hide)",
+        "aui-bubble-original",
+        "aui-bubble-explain",
+        "aui-msg-failed",
+        "aui-msg-seen",
+        "aui-bubble-location (-map[.is-live], -title, -sub)",
+        "aui-bubble-contact (-name, -sub) + aui-bubble-actions",
+        "aui-bubble-round",
+        "aui-bubble-once (is-opened)",
+        "aui-bubble-story",
+        "aui-bubble-gif"
       ],
       "markup": [
         "<div class=\"aui-msg aui-msg--in is-first is-last\"><span class=\"aui-avatar aui-avatar--sm aui-avatar--pink\">AY</span><div class=\"aui-bubble aui-tone--pink\"><span class=\"aui-bubble-sender\">Ayşe</span><div class=\"aui-bubble-text\">Hi!</div><span class=\"aui-bubble-meta\">09:12</span></div></div>",
@@ -2597,7 +2628,9 @@
         "Group consecutive messages from one sender with is-first / is-middle / is-last — corners, tails and the avatar (shown on the last row) follow automatically. A single message is is-first is-last.",
         "Sender colour in groups: add a tone class (aui-tone--pink) to the bubble; it colours the sender name and reply quote.",
         "Ticks: one check = sent, aui-i-check-check = delivered, + is-read = read, is-pending with the clock icon while sending.",
-        "Day separators, unread divider and system rows are siblings of .aui-msg inside .aui-msgs."
+        "Day separators, unread divider and system rows are siblings of .aui-msg inside .aui-msgs.",
+        "Translated messages: show the translation in .aui-bubble-text, the source in .aui-bubble-original and a .aui-bubble-tr label with a data-aui-show-original button (toggles is-original, fires aui:original). Outgoing auto-translated messages use the same parts ('Sent in Vietnamese · Show sent text').",
+        "Aggregators: render types you do not support yet as aui-bubble--unsupported with a link to open the message in the native app."
       ]
     },
     "composer": {
@@ -2625,7 +2658,10 @@
         "aui-composer-hint",
         "aui-composer-recording",
         "aui-composer--blocked",
-        "aui-emoji-picker + aui-emoji-grid + aui-emoji-label + aui-emoji"
+        "aui-emoji-picker + aui-emoji-grid + aui-emoji-label + aui-emoji",
+        "aui-composer-action (soft round side button)",
+        "aui-composer-from (reply-from account picker inside the field)",
+        "aui-composer-translate (aui-btn--toggle, auto-translate)"
       ],
       "dataAttributes": [
         "data-aui-composer (Enter sends, Shift+Enter newline)",
@@ -2639,10 +2675,11 @@
         "ArmsysUI.send(composer)"
       ],
       "markup": [
-        "<footer class=\"aui-composer\" data-aui-composer><div class=\"aui-composer-bar\"><button class=\"aui-btn aui-btn--ghost aui-btn--round\" aria-label=\"Attach\"><svg class=\"aui-icon\"><use href=\"#aui-i-paperclip\"/></svg></button><div class=\"aui-composer-field\"><textarea class=\"aui-composer-input\" rows=\"1\" placeholder=\"Type a message\"></textarea><button class=\"aui-btn aui-btn--ghost aui-btn--round\" aria-label=\"Emoji\"><svg class=\"aui-icon\"><use href=\"#aui-i-smile\"/></svg></button></div><button class=\"aui-btn aui-btn--accent aui-btn--round aui-composer-send\" aria-label=\"Send\"><svg class=\"aui-icon aui-composer-send-on\"><use href=\"#aui-i-send\"/></svg><svg class=\"aui-icon aui-composer-send-off\"><use href=\"#aui-i-mic\"/></svg></button></div></footer>"
+        "<footer class=\"aui-composer\" data-aui-composer><div class=\"aui-composer-bar\"><button class=\"aui-btn aui-composer-action\" aria-label=\"Attach\"><svg class=\"aui-icon\"><use href=\"#aui-i-plus\"/></svg></button><div class=\"aui-composer-field\"><textarea class=\"aui-composer-input\" rows=\"1\" placeholder=\"Type a message\"></textarea><button class=\"aui-btn aui-btn--ghost aui-btn--round\" aria-label=\"Emoji\"><svg class=\"aui-icon\"><use href=\"#aui-i-smile\"/></svg></button></div><button class=\"aui-btn aui-btn--accent aui-btn--round aui-composer-send\" aria-label=\"Send\"><svg class=\"aui-icon aui-composer-send-on\"><use href=\"#aui-i-send\"/></svg><svg class=\"aui-icon aui-composer-send-off\"><use href=\"#aui-i-mic\"/></svg></button></div></footer>"
       ],
       "rules": [
         "The kit clears the textarea after an un-prevented aui:send; your app appends the bubble (the data-aui-chat-scroll body follows automatically).",
+        "Bar controls share --aui-composer-h (44px): side buttons use .aui-btn.aui-composer-action, send uses .aui-btn--accent.aui-btn--round.aui-composer-send; the field matches automatically.",
         "Attachment menus open upward: aui-dropdown with data-aui-placement=\"top-start\" and aui-menu--up."
       ]
     },
@@ -2684,6 +2721,78 @@
       "rules": [
         "Controls are glass toggle buttons: aria-pressed=\"true\" (white) means muted / camera off, matching Meet and Zoom conventions.",
         "The call stage forces light text on its own dark gradient in both themes; the grid picks 1–4 columns from the number of tiles."
+      ]
+    },
+    "platform": {
+      "category": "data",
+      "file": "src/components/chat.css",
+      "base": "aui-platform",
+      "modifiers": {
+        "size": [
+          "aui-platform--xs",
+          "aui-platform--sm",
+          "(md)",
+          "aui-platform--lg",
+          "aui-platform--xl"
+        ],
+        "shape": [
+          "aui-platform--round"
+        ],
+        "style": [
+          "aui-platform--soft"
+        ]
+      },
+      "dataAttributes": [
+        "data-platform=\"whatsapp|telegram|tiktok|wechat|zalo|messenger|instagram|signal|line|viber|discord|slack|sms|email\" on the badge or any ancestor (sets the inheriting --aui-platform colour)"
+      ],
+      "related": [
+        "aui-via",
+        "aui-avatar > .aui-platform (corner badge)"
+      ],
+      "markup": [
+        "<span class=\"aui-platform\" data-platform=\"whatsapp\">WA</span>",
+        "<span class=\"aui-avatar aui-avatar--info\" data-platform=\"zalo\">LN<span class=\"aui-platform\">ZL</span></span>",
+        "<span class=\"aui-via\" data-platform=\"whatsapp\"><span class=\"aui-platform\">WA</span><span>WhatsApp · <b>Work</b></span></span>"
+      ],
+      "rules": [
+        "Brand logos are not bundled: put the platform's official SVG/IMG inside .aui-platform in your app, or a 1–2 letter code.",
+        "Set data-platform once on the row/avatar; children (badge, .aui-via, colour edge) pick the colour up."
+      ]
+    },
+    "accounts": {
+      "category": "navigation",
+      "file": "src/components/chat.css",
+      "base": "aui-rail--accounts",
+      "elements": [
+        "aui-rail-item (+ .aui-avatar with .aui-platform, .aui-btn-badge, .aui-rail-status)",
+        "aui-accounts",
+        "aui-accounts-title",
+        "aui-account",
+        "aui-account-body",
+        "aui-account-name",
+        "aui-account-sub"
+      ],
+      "modifiers": {
+        "state": [
+          "is-active",
+          "is-offline"
+        ]
+      },
+      "dataAttributes": [
+        "data-aui-rail on the rail: single selection + aui:rail {value}",
+        "data-value on each item",
+        "data-platform on each account item"
+      ],
+      "events": [
+        "aui:rail {value}"
+      ],
+      "markup": [
+        "<nav class=\"aui-rail aui-rail--accounts\" data-aui-rail><button class=\"aui-rail-item is-active\" data-value=\"all\"><svg class=\"aui-icon\"><use href=\"#aui-i-inbox\"/></svg><span class=\"aui-btn-badge\">18</span></button><button class=\"aui-rail-item\" data-value=\"wa-work\" data-platform=\"whatsapp\"><span class=\"aui-avatar\">AR<span class=\"aui-platform\">WA</span></span><span class=\"aui-btn-badge\">3</span></button><button class=\"aui-rail-item is-offline\" data-value=\"tiktok\" data-platform=\"tiktok\"><span class=\"aui-avatar\">AC<span class=\"aui-platform\">TT</span></span><span class=\"aui-rail-status aui-tone--danger\"></span></button></nav>",
+        "<div class=\"aui-accounts\"><button class=\"aui-account is-active\" data-platform=\"whatsapp\"><span class=\"aui-avatar\">AT<span class=\"aui-platform\">WA</span></span><span class=\"aui-account-body\"><span class=\"aui-account-name\">WhatsApp · Personal</span><span class=\"aui-account-sub\"><span class=\"aui-dot aui-dot--success\"></span>+90 532 …</span></span><span class=\"aui-count aui-count--accent\">2</span></button></div>"
+      ],
+      "rules": [
+        "First item is 'All inboxes'; then one item per connected account. Show connection problems with .aui-rail-status (tone) / .aui-account-sub dot and an .aui-chat-banner in the list.",
+        "Unified vs per-account: on aui:rail render only that account's chats; in 'All' offer a segmented Unified | By account switch (By account = aui-convos--grouped + .aui-convos-account headers)."
       ]
     }
   }

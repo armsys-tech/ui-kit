@@ -3,16 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Armsys Chat — messenger example</title>
+<title>Armsys Chat — multi-account messenger example</title>
 <link rel="stylesheet" href="../dist/armsys-ui.css">
 <script src="../dist/armsys-ui.js" defer></script>
 </head>
-<!-- WhatsApp / Telegram style desktop client: .aui-desktop shell + .aui-chat three-pane layout.
-     Everything is markup + data-aui-* attributes; the small script below only appends the message you send. -->
+<!-- One client for many accounts on many platforms (WhatsApp, Telegram, Zalo, WeChat, TikTok …).
+     Rail: All inboxes + one item per account. "All" can be Unified (one time-sorted list) or Grouped (by account).
+     The conversation list is rendered from data by the small script at the bottom — the same thing a React/Vue app does.
+     Brand logos are not bundled: .aui-platform shows a 2-letter code; drop the platform's own SVG inside it in your app. -->
 <body class="aui aui-desktop" data-aui-platform="win">
 
 <header class="aui-titlebar">
   <div class="aui-titlebar-title"><span class="aui-logo aui-logo--accent"><svg viewBox="0 0 24 24"><use href="#aui-i-message"/></svg></span>Armsys Chat</div>
+  <div class="aui-titlebar-center aui-hide-mobile">
+    <button class="aui-search-trigger" type="button" data-aui-command-open><svg class="aui-icon"><use href="#aui-i-search"/></svg><span>Search all accounts</span><kbd class="aui-kbd aui-kbd--sm">Ctrl K</kbd></button>
+  </div>
   <div class="aui-titlebar-actions">
     <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" data-aui-theme-toggle aria-label="Theme" data-aui-tooltip="Theme" data-aui-tooltip-pos="bottom"><svg class="aui-icon"><use href="#aui-i-moon"/></svg></button>
   </div>
@@ -25,196 +30,145 @@
 
 <div class="aui-desktop-body">
   <div class="aui-resize" data-aui-resize data-aui-resize-key="chat" style="height:100%">
-    <nav class="aui-rail" aria-label="Sections">
-      <button class="aui-rail-item is-active" type="button" data-aui-tooltip="Chats" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-message"/></svg><span class="aui-btn-badge">7</span></button>
-      <button class="aui-rail-item" type="button" data-aui-tooltip="Calls" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-phone"/></svg></button>
-      <button class="aui-rail-item" type="button" data-aui-tooltip="Status" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-circle"/></svg></button>
-      <button class="aui-rail-item" type="button" data-aui-tooltip="Channels" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-radio"/></svg></button>
-      <div class="aui-spacer"></div>
-      <button class="aui-rail-item" type="button" data-aui-tooltip="Archived" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-archive"/></svg></button>
-      <button class="aui-rail-item" type="button" data-aui-tooltip="Settings" data-aui-tooltip-pos="right"><svg class="aui-icon"><use href="#aui-i-settings"/></svg></button>
-      <button class="aui-rail-item" type="button" aria-label="Profile"><span class="aui-avatar aui-avatar--accent">AT</span></button>
-    </nav>
+    <!-- ───────── Accounts rail (rendered) ───────── -->
+    <nav class="aui-rail aui-rail--accounts" data-aui-rail aria-label="Accounts" id="rail"></nav>
 
-    <div class="aui-chat aui-chat--info" id="chat" style="width:100%">
+    <div class="aui-chat aui-chat--info aui-chat--via aui-chat--stripes" id="chat" style="width:100%">
       <!-- ───────── Conversation list ───────── -->
       <aside class="aui-chat-side">
         <div class="aui-chat-side-header">
-          <div class="aui-chat-side-title">Chats</div>
+          <div class="aui-grow aui-min-0">
+            <div class="aui-chat-side-title" id="side-title">All inboxes</div>
+          </div>
           <div class="aui-row aui-gap-1">
             <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="New chat" data-aui-tooltip="New chat" data-aui-tooltip-pos="bottom"><svg class="aui-icon"><use href="#aui-i-edit"/></svg></button>
             <div class="aui-dropdown" data-aui-dropdown>
-              <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" data-aui-dropdown-trigger aria-label="Menu"><svg class="aui-icon"><use href="#aui-i-more-v"/></svg></button>
-              <div class="aui-menu aui-menu--end">
-                <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-users"/></svg>New group</button>
-                <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-star"/></svg>Starred messages</button>
-                <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg>Mark all as read</button>
+              <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" data-aui-dropdown-trigger aria-label="View options"><svg class="aui-icon"><use href="#aui-i-sliders"/></svg></button>
+              <div class="aui-menu aui-menu--end aui-menu--lg">
+                <div class="aui-menu-label">List</div>
+                <button class="aui-menu-item" role="menuitemcheckbox" aria-checked="true" data-aui-chat-toggle="via">Show receiving account</button>
+                <button class="aui-menu-item" role="menuitemcheckbox" aria-checked="true" data-aui-chat-toggle="stripes">Platform colour edge</button>
+                <button class="aui-menu-item" role="menuitemcheckbox" aria-checked="false" id="opt-compact">Compact rows</button>
                 <div class="aui-menu-sep"></div>
-                <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-settings"/></svg>Settings</button>
+                <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg>Mark all as read</button>
+                <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-plus"/></svg>Add account…</button>
               </div>
             </div>
           </div>
         </div>
+        <div class="aui-chat-banner" id="banner" hidden><svg class="aui-icon"><use href="#aui-i-alert"/></svg><span><b>TikTok · @ayla.creates</b> disconnected</span><button class="aui-btn aui-btn--sm" type="button" data-aui-toast="Reconnecting TikTok…" data-aui-toast-variant="info">Reconnect</button></div>
         <div class="aui-chat-search">
-          <div class="aui-input-wrap aui-input-wrap--sm"><svg class="aui-icon"><use href="#aui-i-search"/></svg><input class="aui-input aui-input--sm aui-input--filled aui-input--pill" type="search" placeholder="Search or start a new chat"><div class="aui-input-end"><button class="aui-input-action" type="button" data-aui-clear aria-label="Clear"><svg class="aui-icon"><use href="#aui-i-x"/></svg></button></div></div>
+          <div class="aui-input-wrap aui-input-wrap--sm"><svg class="aui-icon"><use href="#aui-i-search"/></svg><input class="aui-input aui-input--sm aui-input--filled aui-input--pill" type="search" placeholder="Search chats"><div class="aui-input-end"><button class="aui-input-action" type="button" data-aui-clear aria-label="Clear"><svg class="aui-icon"><use href="#aui-i-x"/></svg></button></div></div>
         </div>
-        <div class="aui-chat-filters">
-          <button class="aui-chip aui-chip--sm is-active" type="button">All</button>
-          <button class="aui-chip aui-chip--sm" type="button">Unread <span class="aui-chip-count">4</span></button>
-          <button class="aui-chip aui-chip--sm" type="button">Groups</button>
-          <button class="aui-chip aui-chip--sm" type="button">Work</button>
+        <div class="aui-chat-filters" id="filters">
+          <div class="aui-segmented aui-segmented--sm" id="mode" aria-label="Inbox mode"><button type="button" class="is-active" data-value="unified">Unified</button><button type="button" data-value="grouped">By account</button></div>
+          <button class="aui-chip aui-chip--sm is-active" type="button" data-filter="all">All</button>
+          <button class="aui-chip aui-chip--sm" type="button" data-filter="unread">Unread</button>
+          <button class="aui-chip aui-chip--sm" type="button" data-filter="groups">Groups</button>
         </div>
-        <div class="aui-convos">
-          <div class="aui-convos-label">Pinned</div>
-          <button class="aui-convo is-active" type="button" data-value="design">
-            <span class="aui-avatar aui-avatar--purple"><svg class="aui-icon aui-icon--lg"><use href="#aui-i-users"/></svg></span>
-            <div class="aui-convo-head"><span class="aui-convo-name">Design team<svg class="aui-icon"><use href="#aui-i-pin"/></svg></span><time class="aui-convo-time">14:02</time></div>
-            <div class="aui-convo-foot"><span class="aui-convo-preview is-typing"><span>Mert is typing…</span></span><span class="aui-convo-badges"><span class="aui-count aui-count--accent">3</span></span></div>
-          </button>
-          <button class="aui-convo is-unread" type="button" data-value="ayse">
-            <span class="aui-avatar aui-avatar--pink">AY<span class="aui-avatar-status is-online"></span></span>
-            <div class="aui-convo-head"><span class="aui-convo-name">Ayşe Yılmaz</span><time class="aui-convo-time">13:47</time></div>
-            <div class="aui-convo-foot"><span class="aui-convo-preview"><svg class="aui-icon"><use href="#aui-i-image"/></svg><span>Photo · the new mockups</span></span><span class="aui-convo-badges"><span class="aui-count aui-count--accent">2</span></span></div>
-          </button>
-          <div class="aui-convos-label">All chats</div>
-          <button class="aui-convo" type="button" data-value="burak">
-            <span class="aui-avatar aui-avatar--teal">BK</span>
-            <div class="aui-convo-head"><span class="aui-convo-name">Burak Kaya</span><time class="aui-convo-time">12:10</time></div>
-            <div class="aui-convo-foot"><span class="aui-convo-preview"><span class="aui-ticks is-read"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span><span>Sounds good, see you at 3</span></span></div>
-          </button>
-          <button class="aui-convo is-muted" type="button" data-value="ops">
-            <span class="aui-avatar aui-avatar--orange"><svg class="aui-icon aui-icon--lg"><use href="#aui-i-radio"/></svg></span>
-            <div class="aui-convo-head"><span class="aui-convo-name">Ops alerts<svg class="aui-icon"><use href="#aui-i-volume-x"/></svg></span><time class="aui-convo-time">11:58</time></div>
-            <div class="aui-convo-foot"><span class="aui-convo-preview"><b>edge.fra:</b><span>p95 latency back to 61 ms</span></span><span class="aui-convo-badges"><span class="aui-count">18</span></span></div>
-          </button>
-          <button class="aui-convo" type="button" data-value="ceren">
-            <span class="aui-avatar aui-avatar--success">CE<span class="aui-avatar-status is-away"></span></span>
-            <div class="aui-convo-head"><span class="aui-convo-name">Ceren Demir</span><time class="aui-convo-time">Yesterday</time></div>
-            <div class="aui-convo-foot"><span class="aui-convo-preview"><svg class="aui-icon"><use href="#aui-i-mic"/></svg><span>Voice message · 0:42</span></span></div>
-          </button>
-          <button class="aui-convo" type="button" data-value="family">
-            <span class="aui-avatar aui-avatar--warning"><svg class="aui-icon aui-icon--lg"><use href="#aui-i-heart"/></svg></span>
-            <div class="aui-convo-head"><span class="aui-convo-name">Family</span><time class="aui-convo-time">Yesterday</time></div>
-            <div class="aui-convo-foot"><span class="aui-convo-preview is-draft"><b>Draft:</b><span>Dinner at 8 works for me, I'll bring</span></span></div>
-          </button>
-          <button class="aui-convo" type="button" data-value="emre">
-            <span class="aui-avatar">EM</span>
-            <div class="aui-convo-head"><span class="aui-convo-name">Emre Şahin</span><time class="aui-convo-time">Mon</time></div>
-            <div class="aui-convo-foot"><span class="aui-convo-preview"><svg class="aui-icon aui-text-danger"><use href="#aui-i-phone-missed"/></svg><span>Missed voice call</span></span></div>
-          </button>
-          <button class="aui-convo" type="button" data-value="deniz">
-            <span class="aui-avatar aui-avatar--info">DA</span>
-            <div class="aui-convo-head"><span class="aui-convo-name">Deniz Arslan</span><time class="aui-convo-time">Sun</time></div>
-            <div class="aui-convo-foot"><span class="aui-convo-preview"><span class="aui-ticks"><svg class="aui-icon"><use href="#aui-i-check"/></svg></span><span>Thanks, received the invoice</span></span></div>
-          </button>
-        </div>
+        <div class="aui-convos" id="convos"></div>
       </aside>
 
       <!-- ───────── Conversation ───────── -->
       <section class="aui-chat-main">
         <header class="aui-chat-header">
           <button class="aui-btn aui-btn--ghost aui-btn--icon aui-chat-back" type="button" aria-label="Back"><svg class="aui-icon"><use href="#aui-i-arrow-left"/></svg></button>
-          <span class="aui-avatar aui-avatar--purple"><svg class="aui-icon"><use href="#aui-i-users"/></svg></span>
+          <span class="aui-avatar aui-avatar--info" id="peer-avatar" data-platform="zalo">LN<span class="aui-platform">ZL</span></span>
           <div class="aui-chat-peer" data-aui-chat-info-toggle>
-            <div class="aui-chat-peer-name">Design team</div>
-            <div class="aui-chat-peer-status is-typing">Mert is typing…</div>
+            <div class="aui-chat-peer-name"><span id="peer-name">Linh Nguyễn</span><span class="aui-via" id="peer-via" data-platform="zalo"><span class="aui-platform">ZL</span><span>Zalo · <b>Personal</b></span></span></div>
+            <div class="aui-chat-peer-status is-online" id="peer-status">online · Vietnamese ⇄ Turkish</div>
           </div>
           <div class="aui-chat-header-actions">
             <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Voice call" data-aui-tooltip="Voice call" data-aui-tooltip-pos="bottom" data-aui-modal-open="#call"><svg class="aui-icon"><use href="#aui-i-phone"/></svg></button>
             <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Video call" data-aui-tooltip="Video call" data-aui-tooltip-pos="bottom" data-aui-modal-open="#call"><svg class="aui-icon"><use href="#aui-i-video"/></svg></button>
             <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Search in chat" data-aui-tooltip="Search" data-aui-tooltip-pos="bottom"><svg class="aui-icon"><use href="#aui-i-search"/></svg></button>
             <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Details" data-aui-tooltip="Details" data-aui-tooltip-pos="bottom" data-aui-chat-info-toggle><svg class="aui-icon"><use href="#aui-i-panel-left"/></svg></button>
-            <div class="aui-dropdown" data-aui-dropdown>
-              <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" data-aui-dropdown-trigger aria-label="More"><svg class="aui-icon"><use href="#aui-i-more-v"/></svg></button>
-              <div class="aui-menu aui-menu--end">
-                <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-volume-x"/></svg>Mute notifications</button>
-                <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-check"/></svg>Select messages</button>
-                <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-download"/></svg>Export chat</button>
-                <div class="aui-menu-sep"></div>
-                <button class="aui-menu-item aui-menu-item--danger" data-aui-confirm="Clear this chat?" data-aui-confirm-message="Messages are removed from this device only.">Clear chat</button>
-              </div>
-            </div>
           </div>
         </header>
-        <div class="aui-chat-pinned"><div class="aui-chat-pinned-body"><div class="aui-chat-pinned-title">Pinned message</div><div class="aui-chat-pinned-text">Design review every Thursday 15:00 · meeting link in the group description</div></div><button class="aui-close aui-close--sm" type="button" aria-label="Unpin"></button></div>
 
         <div class="aui-chat-body aui-chat-body--pattern" data-aui-chat-scroll id="chat-body">
           <div class="aui-msgs aui-msgs--tails" id="msgs">
             <div class="aui-msg-day aui-msg-day--sticky">Yesterday</div>
-            <div class="aui-msg-system"><svg class="aui-icon"><use href="#aui-i-lock"/></svg>Messages are end-to-end encrypted. No one outside this chat can read them.</div>
-            <div class="aui-msg-system"><b>Ayşe</b> added <b>Burak</b></div>
+            <div class="aui-msg-system" data-platform="zalo"><span class="aui-platform">ZL</span>Zalo · Personal connected — history synced from 12 Oct</div>
 
-            <div class="aui-msg aui-msg--in is-first"><span class="aui-avatar aui-avatar--pink aui-avatar--sm">AY</span>
-              <div class="aui-bubble aui-tone--pink"><span class="aui-bubble-sender">Ayşe Yılmaz</span><div class="aui-bubble-text">Morning! I pushed the new onboarding mockups. Could everyone take a look before the review?</div><span class="aui-bubble-meta">09:12</span></div>
-              <div class="aui-msg-actions"><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="React"><svg class="aui-icon"><use href="#aui-i-smile"/></svg></button><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Reply"><svg class="aui-icon"><use href="#aui-i-reply"/></svg></button><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="More"><svg class="aui-icon"><use href="#aui-i-more-v"/></svg></button></div>
+            <div class="aui-msg aui-msg--in is-first"><span class="aui-avatar aui-avatar--info aui-avatar--sm">LN</span>
+              <div class="aui-bubble"><div class="aui-bubble-text">Hi Ayla! Did the samples we sent arrive?</div><div class="aui-bubble-original">Chào Ayla! Bạn đã nhận được mẫu chúng tôi gửi chưa?</div><div class="aui-bubble-tr"><svg class="aui-icon"><use href="#aui-i-globe"/></svg>Translated from Vietnamese · <button type="button" data-aui-show-original><span class="aui-tr-show">Show original</span><span class="aui-tr-hide">Hide original</span></button></div><span class="aui-bubble-meta">16:20</span></div>
+              <div class="aui-msg-actions"><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="React"><svg class="aui-icon"><use href="#aui-i-smile"/></svg></button><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Reply"><svg class="aui-icon"><use href="#aui-i-reply"/></svg></button><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Explain"><svg class="aui-icon"><use href="#aui-i-sparkles"/></svg></button></div>
             </div>
-            <div class="aui-msg aui-msg--in is-last"><span class="aui-avatar aui-avatar--pink aui-avatar--sm">AY</span>
-              <div class="aui-bubble aui-bubble--media">
-                <div class="aui-bubble-media"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23252530'/%3E%3Crect x='40' y='40' width='320' height='220' rx='14' fill='%23313140'/%3E%3Crect x='70' y='80' width='120' height='14' rx='7' fill='%238b8bff'/%3E%3Crect x='70' y='110' width='220' height='10' rx='5' fill='%23555566'/%3E%3Crect x='70' y='130' width='180' height='10' rx='5' fill='%23555566'/%3E%3Crect x='70' y='190' width='110' height='36' rx='8' fill='%234d7cfe'/%3E%3C/svg%3E" alt="Onboarding mockup"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231f2a24'/%3E%3Ccircle cx='200' cy='130' r='60' fill='%233ecf8e' opacity='.6'/%3E%3Crect x='110' y='210' width='180' height='12' rx='6' fill='%23557766'/%3E%3C/svg%3E" alt="Success screen"></div>
-                <div class="aui-bubble-caption">Onboarding v3 — steps 1 and 4</div><span class="aui-bubble-meta">09:13</span>
+            <div class="aui-msg aui-msg--in is-last"><span class="aui-avatar aui-avatar--info aui-avatar--sm">LN</span>
+              <div class="aui-bubble"><div class="aui-bubble-story"><span></span><span><b>Replied to your story</b>Showroom, Thursday</span></div><div class="aui-bubble-text">So beautiful 😍</div><span class="aui-bubble-meta">16:21</span></div>
+            </div>
+
+            <div class="aui-msg aui-msg--out is-first is-last">
+              <div class="aui-bubble"><div class="aui-bubble-text">Yes, they arrived this morning. The blue one is perfect.</div><div class="aui-bubble-original">Có, sáng nay đã nhận được. Mẫu màu xanh rất hoàn hảo.</div><div class="aui-bubble-tr"><svg class="aui-icon"><use href="#aui-i-globe"/></svg>Sent in Vietnamese · <button type="button" data-aui-show-original><span class="aui-tr-show">Show sent text</span><span class="aui-tr-hide">Hide sent text</span></button></div><span class="aui-bubble-meta">16:40<span class="aui-ticks is-read"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span></span>
+                <div class="aui-bubble-reactions"><button class="aui-reaction" type="button">❤️ <span>1</span></button></div>
               </div>
             </div>
 
-            <div class="aui-msg aui-msg--out is-first">
-              <div class="aui-bubble"><div class="aui-bubble-text">Looks great. The progress indicator on step 2 feels heavy though — can we try the thin variant from the kit?</div><span class="aui-bubble-meta">09:20<span class="aui-ticks is-read"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span></span>
-                <div class="aui-bubble-reactions"><button class="aui-reaction is-mine" type="button">👍 <span>3</span></button><button class="aui-reaction" type="button">🔥 <span>1</span></button></div>
-              </div>
-              <div class="aui-msg-actions"><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="React"><svg class="aui-icon"><use href="#aui-i-smile"/></svg></button><button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Reply"><svg class="aui-icon"><use href="#aui-i-reply"/></svg></button></div>
+            <div class="aui-msg aui-msg--in is-first"><span class="aui-avatar aui-avatar--info aui-avatar--sm">LN</span>
+              <div class="aui-bubble"><div class="aui-bubble-contact"><span class="aui-avatar aui-avatar--teal">TM</span><div><div class="aui-bubble-contact-name">Trần Minh</div><div class="aui-bubble-contact-sub">Logistics · +84 90 *** 214</div></div></div><span class="aui-bubble-meta">16:42</span><div class="aui-bubble-actions"><button type="button">Message</button><button type="button">Add contact</button></div></div>
             </div>
-            <div class="aui-msg aui-msg--out is-last">
-              <div class="aui-bubble"><a class="aui-bubble-file" href="#"><span class="aui-icon-box aui-icon-box--danger"><svg class="aui-icon"><use href="#aui-i-file-text"/></svg></span><span class="aui-bubble-file-body"><span class="aui-bubble-file-name">Design-review-notes.pdf</span><span class="aui-bubble-file-meta">PDF · 1.2 MB</span></span><span class="aui-btn aui-btn--ghost aui-btn--icon" aria-label="Download"><svg class="aui-icon"><use href="#aui-i-download"/></svg></span></a><span class="aui-bubble-meta">09:21<span class="aui-ticks is-read"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span></span></div>
-            </div>
-
-            <div class="aui-msg aui-msg--in is-first"><span class="aui-avatar aui-avatar--teal aui-avatar--sm">BK</span>
-              <div class="aui-bubble aui-tone--teal"><span class="aui-bubble-sender">Burak Kaya</span>
-                <div class="aui-bubble-reply aui-tone--pink"><span class="aui-bubble-reply-name">Ayşe Yılmaz</span><span class="aui-bubble-reply-text">Morning! I pushed the new onboarding mockups. Could everyone take a look…</span></div>
-                <div class="aui-bubble-text">Reviewed. Two comments in Figma, otherwise 👍</div><span class="aui-bubble-meta">09:34</span>
-              </div>
-            </div>
-            <div class="aui-msg aui-msg--in is-last"><span class="aui-avatar aui-avatar--teal aui-avatar--sm">BK</span>
-              <div class="aui-bubble aui-tone--teal"><div class="aui-bubble-voice"><button class="aui-btn aui-btn--accent aui-btn--round" type="button" aria-label="Play"><svg class="aui-icon"><use href="#aui-i-play"/></svg></button><div class="aui-voice-body"><div class="aui-wave"><span style="--h:30%"></span><span style="--h:60%"></span><span style="--h:90%"></span><span style="--h:50%"></span><span style="--h:70%"></span><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:65%"></span><span style="--h:35%"></span><span style="--h:55%"></span><span style="--h:95%"></span><span style="--h:45%"></span><span style="--h:60%"></span><span style="--h:30%"></span><span style="--h:75%"></span><span style="--h:50%"></span><span style="--h:40%"></span><span style="--h:80%"></span><span style="--h:60%"></span><span style="--h:35%"></span><span style="--h:55%"></span><span style="--h:70%"></span><span style="--h:45%"></span><span style="--h:30%"></span></div><div class="aui-voice-meta"><span>0:42</span><button class="aui-btn aui-btn--soft aui-voice-speed" type="button">1×</button></div></div></div><span class="aui-bubble-meta">09:35</span></div>
+            <div class="aui-msg aui-msg--in is-last"><span class="aui-avatar aui-avatar--info aui-avatar--sm">LN</span>
+              <div class="aui-bubble"><a class="aui-bubble-location" href="#"><div class="aui-bubble-location-map"></div><div class="aui-bubble-location-title">Warehouse</div><div class="aui-bubble-location-sub">District 7, Ho Chi Minh City</div></a><span class="aui-bubble-meta">16:42</span></div>
             </div>
 
             <div class="aui-msg-day">Today</div>
-            <div class="aui-msg aui-msg--in is-first"><span class="aui-avatar aui-avatar--purple aui-avatar--sm">MK</span>
-              <div class="aui-bubble aui-tone--purple"><span class="aui-bubble-sender">Mert Koç</span><div class="aui-bubble-text">Quick poll before the review:</div>
-                <div class="aui-poll"><div class="aui-poll-q">Which empty-state illustration?</div>
-                  <label class="aui-poll-opt" style="--value:62%"><span class="aui-check"><input type="radio" name="poll" checked></span><span class="aui-poll-opt-label">A — minimal line art</span><span class="aui-poll-opt-pct">62%</span></label>
-                  <label class="aui-poll-opt" style="--value:38%"><span class="aui-check"><input type="radio" name="poll"></span><span class="aui-poll-opt-label">B — tinted 3D</span><span class="aui-poll-opt-pct">38%</span></label>
-                  <div class="aui-poll-foot">8 votes · ends in 2 h</div>
-                </div><span class="aui-bubble-meta">13:58</span>
-              </div>
-            </div>
-            <div class="aui-msg aui-msg--in is-last"><span class="aui-avatar aui-avatar--purple aui-avatar--sm">MK</span>
-              <div class="aui-bubble aui-tone--purple"><a class="aui-bubble-link" href="#"><div class="aui-bubble-link-body"><div class="aui-bubble-link-site">figma.com</div><div class="aui-bubble-link-title">Onboarding v3 · Design team</div><div class="aui-bubble-link-desc">Frames 12–18, comments enabled. Review mode is on so nothing moves by accident.</div></div></a><div class="aui-bubble-text">Link for the lazy ones 🙂</div><span class="aui-bubble-meta">14:01</span></div>
-            </div>
-            <div class="aui-msg-unread">2 unread messages</div>
             <div class="aui-msg aui-msg--out is-first is-last">
-              <div class="aui-bubble"><div class="aui-bubble-call"><span class="aui-icon-box aui-icon-box--success"><svg class="aui-icon"><use href="#aui-i-phone-outgoing"/></svg></span><div><div class="aui-bubble-call-title">Voice call</div><div class="aui-bubble-call-meta">Outgoing · 12 min</div></div></div><span class="aui-bubble-meta">14:02<span class="aui-ticks is-read"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span></span></div>
+              <div class="aui-bubble"><div class="aui-bubble-once is-opened"><span class="aui-icon-box aui-icon-box--neutral"><svg class="aui-icon"><use href="#aui-i-eye-off"/></svg></span>Photo · opened</div><span class="aui-bubble-meta">09:05<span class="aui-ticks is-read"><svg class="aui-icon"><use href="#aui-i-check-check"/></svg></span></span></div>
             </div>
-            <div class="aui-msg aui-msg--in aui-msg--typing is-first is-last"><span class="aui-avatar aui-avatar--purple aui-avatar--sm">MK</span><div class="aui-bubble aui-tone--purple"><span class="aui-dots"><span></span><span></span><span></span></span></div></div>
+            <div class="aui-msg aui-msg--in is-first"><span class="aui-avatar aui-avatar--info aui-avatar--sm">LN</span>
+              <div class="aui-bubble aui-bubble--round"><div class="aui-bubble-round"><span class="aui-bubble-duration">0:12</span><button class="aui-bubble-play" type="button" aria-label="Play"><svg class="aui-icon"><use href="#aui-i-play"/></svg></button></div><span class="aui-bubble-meta">13:58</span></div>
+            </div>
+            <div class="aui-msg aui-msg--in is-middle"><span class="aui-avatar aui-avatar--info aui-avatar--sm">LN</span>
+              <div class="aui-bubble aui-bubble--unsupported"><div class="aui-bubble-text"><svg class="aui-icon"><use href="#aui-i-sticker"/></svg>Sticker — not supported yet · <a href="#">Open in Zalo</a></div><span class="aui-bubble-meta">13:59</span></div>
+            </div>
+            <div class="aui-msg aui-msg--in is-last"><span class="aui-avatar aui-avatar--info aui-avatar--sm">LN</span>
+              <div class="aui-bubble"><div class="aui-bubble-text">Can we move the call to 4 pm? My boss wants to join.</div><div class="aui-bubble-original">Mình dời cuộc gọi sang 4 giờ chiều được không? Sếp mình muốn tham gia.</div><div class="aui-bubble-tr"><svg class="aui-icon"><use href="#aui-i-globe"/></svg>Translated from Vietnamese · <button type="button" data-aui-show-original><span class="aui-tr-show">Show original</span><span class="aui-tr-hide">Hide original</span></button></div>
+                <div class="aui-bubble-explain"><svg class="aui-icon"><use href="#aui-i-sparkles"/></svg><div><b>Meaning</b>She wants to push today's 15:00 call to 16:00 because her manager will join — probably to confirm the blue sample order you approved yesterday.</div></div>
+                <span class="aui-bubble-meta">14:08</span></div>
+            </div>
+            <div class="aui-msg-unread">1 unread message</div>
+            <div class="aui-msg aui-msg--out aui-msg--failed is-first">
+              <div class="aui-bubble"><div class="aui-bubble-text">Sure, 4 pm works for us.</div><span class="aui-bubble-meta">14:09<span class="aui-ticks is-failed"><svg class="aui-icon"><use href="#aui-i-alert"/></svg></span></span></div>
+            </div>
+            <div class="aui-msg-failed"><svg class="aui-icon"><use href="#aui-i-alert"/></svg>Not delivered — Zalo session expired<button type="button" data-aui-toast="Message sent" data-aui-toast-variant="success">Retry</button></div>
+            <div class="aui-msg aui-msg--out is-last">
+              <div class="aui-bubble aui-bubble--scheduled"><div class="aui-bubble-text">Reminder: our call starts in 10 minutes 🙂</div><span class="aui-bubble-meta"><svg class="aui-icon"><use href="#aui-i-clock"/></svg>Scheduled 15:50</span></div>
+            </div>
+            <div class="aui-msg aui-msg--in aui-msg--typing is-first is-last"><span class="aui-avatar aui-avatar--info aui-avatar--sm">LN</span><div class="aui-bubble"><span class="aui-dots"><span></span><span></span><span></span></span></div></div>
           </div>
-          <button class="aui-btn aui-btn--round aui-chat-jump" type="button" aria-label="Jump to latest"><svg class="aui-icon"><use href="#aui-i-chevron-down"/></svg><span class="aui-count aui-count--accent">2</span></button>
+          <button class="aui-btn aui-btn--round aui-chat-jump" type="button" aria-label="Jump to latest"><svg class="aui-icon"><use href="#aui-i-chevron-down"/></svg></button>
         </div>
 
         <footer class="aui-composer" data-aui-composer id="composer">
-          <div class="aui-composer-reply" id="reply-bar" hidden><svg class="aui-icon"><use href="#aui-i-reply"/></svg><div class="aui-composer-reply-body"><div class="aui-composer-reply-name">Mert Koç</div><div class="aui-composer-reply-text">Quick poll before the review:</div></div><button class="aui-close aui-close--sm" type="button" aria-label="Cancel reply" onclick="this.parentNode.hidden=true"></button></div>
+          <div class="aui-composer-reply" id="reply-bar" hidden><svg class="aui-icon"><use href="#aui-i-reply"/></svg><div class="aui-composer-reply-body"><div class="aui-composer-reply-name">Linh Nguyễn</div><div class="aui-composer-reply-text">Can we move the call to 4 pm? My boss wants to join.</div></div><button class="aui-close aui-close--sm" type="button" aria-label="Cancel reply" onclick="this.parentNode.hidden=true"></button></div>
           <div class="aui-composer-bar">
             <div class="aui-dropdown" data-aui-dropdown data-aui-placement="top-start">
-              <button class="aui-btn aui-btn--ghost aui-btn--round" type="button" data-aui-dropdown-trigger aria-label="Attach"><svg class="aui-icon"><use href="#aui-i-plus"/></svg></button>
+              <button class="aui-btn aui-composer-action" type="button" data-aui-dropdown-trigger aria-label="Attach"><svg class="aui-icon"><use href="#aui-i-plus"/></svg></button>
               <div class="aui-menu aui-menu--up aui-menu--sm">
                 <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-image"/></svg>Photos &amp; videos</button>
                 <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-file"/></svg>Document</button>
                 <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-camera"/></svg>Camera</button>
+                <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-map-pin"/></svg>Location</button>
                 <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-user"/></svg>Contact</button>
-                <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-list"/></svg>Poll</button>
+                <button class="aui-menu-item"><svg class="aui-icon"><use href="#aui-i-clock"/></svg>Schedule message</button>
               </div>
             </div>
             <div class="aui-composer-field">
-              <textarea class="aui-composer-input" rows="1" placeholder="Type a message" aria-label="Message"></textarea>
+              <div class="aui-dropdown" data-aui-dropdown data-aui-placement="top-start" data-aui-sheet="false">
+                <button class="aui-btn aui-btn--ghost aui-composer-from" type="button" data-aui-dropdown-trigger aria-label="Reply from account" data-aui-tooltip="Replying from Zalo · Personal"><span class="aui-avatar aui-avatar--accent" data-platform="zalo">AT<span class="aui-platform">ZL</span></span><svg class="aui-icon"><use href="#aui-i-chevron-up"/></svg></button>
+                <div class="aui-menu aui-menu--up aui-menu--lg">
+                  <div class="aui-menu-label">Reply from</div>
+                  <button class="aui-menu-item" role="menuitemradio" aria-checked="true"><span class="aui-via" data-platform="zalo"><span class="aui-platform">ZL</span><span>Zalo · <b>Personal</b></span></span><span class="aui-menu-item-end">+84 9** *** 112</span></button>
+                  <div class="aui-menu-sep"></div>
+                  <div class="aui-menu-label" style="text-transform:none;letter-spacing:0;font-weight:400">Only Zalo accounts can reply to this chat.</div>
+                </div>
+              </div>
+              <textarea class="aui-composer-input" rows="1" placeholder="Write in Turkish — Linh reads Vietnamese" aria-label="Message"></textarea>
+              <button class="aui-btn aui-btn--ghost aui-btn--toggle aui-composer-translate" type="button" aria-pressed="true" data-aui-tooltip="Auto-translate outgoing messages"><svg class="aui-icon"><use href="#aui-i-globe"/></svg>VI</button>
               <div class="aui-dropdown" data-aui-dropdown data-aui-sheet="false">
                 <button class="aui-btn aui-btn--ghost aui-btn--round" type="button" data-aui-dropdown-trigger aria-label="Emoji"><svg class="aui-icon"><use href="#aui-i-smile"/></svg></button>
-                <div class="aui-menu aui-menu--up aui-menu--end aui-popover--flush" style="padding:0">
+                <div class="aui-menu aui-menu--up aui-menu--end" style="padding:0">
                   <div class="aui-emoji-picker">
                     <div class="aui-menu-search"><svg class="aui-icon"><use href="#aui-i-search"/></svg><input type="text" placeholder="Search emoji" aria-label="Search emoji"></div>
                     <div class="aui-emoji-grid">
@@ -234,92 +188,205 @@
 
       <!-- ───────── Info pane ───────── -->
       <aside class="aui-chat-info">
-        <div class="aui-chat-info-header"><button class="aui-btn aui-btn--ghost aui-btn--icon aui-chat-back" type="button" aria-label="Back"><svg class="aui-icon"><use href="#aui-i-arrow-left"/></svg></button><button class="aui-close aui-hide-mobile" type="button" aria-label="Close" data-aui-chat-info-toggle></button>Group info</div>
+        <div class="aui-chat-info-header"><button class="aui-btn aui-btn--ghost aui-btn--icon aui-chat-back" type="button" aria-label="Back"><svg class="aui-icon"><use href="#aui-i-arrow-left"/></svg></button><button class="aui-close aui-hide-mobile" type="button" aria-label="Close" data-aui-chat-info-toggle></button>Contact info</div>
         <div class="aui-chat-profile">
-          <span class="aui-avatar aui-avatar--purple"><svg class="aui-icon aui-icon--2xl"><use href="#aui-i-users"/></svg></span>
-          <div class="aui-chat-profile-name">Design team</div>
-          <div class="aui-chat-profile-sub">Group · 6 members</div>
+          <span class="aui-avatar aui-avatar--info" data-platform="zalo">LN<span class="aui-platform">ZL</span></span>
+          <div class="aui-chat-profile-name">Linh Nguyễn</div>
+          <div class="aui-chat-profile-sub">Sales · Saigon Textiles</div>
           <div class="aui-chat-profile-actions">
             <button class="aui-btn aui-btn--stack" type="button" data-aui-modal-open="#call"><svg class="aui-icon"><use href="#aui-i-phone"/></svg>Audio</button>
             <button class="aui-btn aui-btn--stack" type="button" data-aui-modal-open="#call"><svg class="aui-icon"><use href="#aui-i-video"/></svg>Video</button>
             <button class="aui-btn aui-btn--stack" type="button"><svg class="aui-icon"><use href="#aui-i-search"/></svg>Search</button>
           </div>
         </div>
-        <div class="aui-chat-info-section"><div class="aui-chat-info-title">Description</div><div class="aui-chat-info-text">Weekly design review Thursdays 15:00. Figma links only, no screenshots please.</div></div>
         <div class="aui-chat-info-section">
-          <div class="aui-chat-info-title">Media, links and docs <a href="#">128 ›</a></div>
-          <div class="aui-media-grid">
-            <span style="background:linear-gradient(135deg,#313140,#4d7cfe)"></span><span style="background:linear-gradient(135deg,#1f2a24,#3ecf8e)"></span><span style="background:linear-gradient(135deg,#2a1f2a,#f472b6)"></span>
-            <span style="background:linear-gradient(135deg,#2a2a1f,#f5b83d)"></span><span style="background:linear-gradient(135deg,#1f262a,#2dd4bf)"></span><span style="background:linear-gradient(135deg,#261f2a,#a78bfa)"></span>
+          <div class="aui-chat-info-title">Reachable through</div>
+          <div class="aui-stack aui-gap-2">
+            <span class="aui-via" data-platform="zalo"><span class="aui-platform">ZL</span><span>Zalo · <b>Personal</b> — +84 9** *** 112</span></span>
+            <span class="aui-via" data-platform="wechat"><span class="aui-platform">WC</span><span>WeChat · <b>ayla_tan</b> — linh_saigon</span></span>
           </div>
         </div>
         <div class="aui-chat-info-section">
-          <label class="aui-option-row"><span class="aui-option-row-body"><span class="aui-option-row-title">Mute notifications</span></span><span class="aui-switch aui-switch--sm"><input type="checkbox" role="switch"></span></label>
-          <label class="aui-option-row"><span class="aui-option-row-body"><span class="aui-option-row-title">Disappearing messages</span><span class="aui-option-row-desc">Off</span></span><svg class="aui-icon aui-text-subtle"><use href="#aui-i-chevron-right"/></svg></label>
-          <label class="aui-option-row"><span class="aui-option-row-body"><span class="aui-option-row-title">Encryption</span><span class="aui-option-row-desc">Messages are end-to-end encrypted</span></span><svg class="aui-icon aui-text-subtle"><use href="#aui-i-lock"/></svg></label>
+          <div class="aui-chat-info-title">Translation</div>
+          <label class="aui-option-row"><span class="aui-option-row-body"><span class="aui-option-row-title">Translate incoming</span><span class="aui-option-row-desc">Vietnamese → Turkish</span></span><span class="aui-switch aui-switch--sm"><input type="checkbox" role="switch" checked></span></label>
+          <label class="aui-option-row"><span class="aui-option-row-body"><span class="aui-option-row-title">Translate outgoing</span><span class="aui-option-row-desc">Sent directly, no preview</span></span><span class="aui-switch aui-switch--sm"><input type="checkbox" role="switch" checked></span></label>
+          <div class="aui-option-row"><span class="aui-option-row-body"><span class="aui-option-row-title">Engine</span></span><div class="aui-segmented aui-segmented--sm"><button type="button">Google</button><button type="button" class="is-active">Claude</button></div></div>
         </div>
         <div class="aui-chat-info-section">
-          <div class="aui-chat-info-title">6 members <a href="#">Add ›</a></div>
-          <div class="aui-list aui-members aui-list--hover" style="margin:0 -20px">
-            <a class="aui-list-item" href="#"><span class="aui-avatar aui-avatar--sm aui-avatar--accent">AT</span><div class="aui-list-body"><div class="aui-list-title">You</div></div><span class="aui-badge aui-badge--sm">Admin</span></a>
-            <a class="aui-list-item" href="#"><span class="aui-avatar aui-avatar--sm aui-avatar--pink">AY</span><div class="aui-list-body"><div class="aui-list-title">Ayşe Yılmaz</div><div class="aui-list-meta">Product designer</div></div></a>
-            <a class="aui-list-item" href="#"><span class="aui-avatar aui-avatar--sm aui-avatar--teal">BK</span><div class="aui-list-body"><div class="aui-list-title">Burak Kaya</div><div class="aui-list-meta">Frontend</div></div></a>
-            <a class="aui-list-item" href="#"><span class="aui-avatar aui-avatar--sm aui-avatar--purple">MK</span><div class="aui-list-body"><div class="aui-list-title">Mert Koç</div><div class="aui-list-meta">Illustration</div></div></a>
+          <div class="aui-chat-info-title">Media, links and docs <a href="#">24 ›</a></div>
+          <div class="aui-media-grid">
+            <span style="background:linear-gradient(135deg,#1e3a5f,#4d7cfe)"></span><span style="background:linear-gradient(135deg,#1f2a24,#3ecf8e)"></span><span style="background:linear-gradient(135deg,#2a1f2a,#f472b6)"></span>
           </div>
         </div>
         <div class="aui-chat-info-section aui-stack aui-gap-1">
-          <button class="aui-btn aui-btn--ghost aui-btn--start aui-btn--block aui-btn--danger" type="button"><svg class="aui-icon"><use href="#aui-i-logout"/></svg>Exit group</button>
-          <button class="aui-btn aui-btn--ghost aui-btn--start aui-btn--block aui-btn--danger" type="button"><svg class="aui-icon"><use href="#aui-i-flag"/></svg>Report group</button>
+          <button class="aui-btn aui-btn--ghost aui-btn--start aui-btn--block" type="button"><svg class="aui-icon"><use href="#aui-i-archive"/></svg>Archive chat</button>
+          <button class="aui-btn aui-btn--ghost aui-btn--start aui-btn--block aui-btn--danger" type="button"><svg class="aui-icon"><use href="#aui-i-ban"/></svg>Block on Zalo</button>
         </div>
       </aside>
     </div>
   </div>
 </div>
 
-<!-- ───────── Call screen (full-window modal) ───────── -->
+<!-- ───────── Call screen ───────── -->
 <dialog class="aui-modal aui-modal--full aui-modal--no-sheet" id="call" aria-label="Call">
   <div class="aui-call">
     <div class="aui-call-header">
-      <div class="aui-call-header-body"><div class="aui-call-title">Design team</div><div class="aui-call-status"><svg class="aui-icon"><use href="#aui-i-lock"/></svg>End-to-end encrypted · <time>12:41</time></div></div>
-      <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Add participant"><svg class="aui-icon"><use href="#aui-i-user-plus"/></svg></button>
+      <div class="aui-call-header-body"><div class="aui-call-title">Linh Nguyễn</div><div class="aui-call-status"><span class="aui-via" data-platform="zalo" style="color:inherit"><span class="aui-platform">ZL</span><span>Zalo · Personal</span></span> · <time>04:12</time></div></div>
       <button class="aui-btn aui-btn--ghost aui-btn--icon" type="button" aria-label="Minimize" data-aui-modal-close><svg class="aui-icon"><use href="#aui-i-minimize"/></svg></button>
     </div>
     <div class="aui-call-stage">
-      <div class="aui-call-grid">
-        <div class="aui-call-tile is-speaking"><span class="aui-avatar aui-avatar--pink">AY</span><span class="aui-call-tag">Ayşe Yılmaz</span></div>
-        <div class="aui-call-tile"><span class="aui-avatar aui-avatar--teal">BK</span><span class="aui-call-tag"><svg class="aui-icon is-muted"><use href="#aui-i-mic-off"/></svg>Burak Kaya</span></div>
-        <div class="aui-call-tile"><span class="aui-avatar aui-avatar--purple">MK</span><span class="aui-call-tag">Mert Koç</span></div>
-        <div class="aui-call-tile"><span class="aui-avatar aui-avatar--accent">AT</span><span class="aui-call-tag">You</span><div class="aui-call-tile-actions"><button class="aui-btn aui-btn--glass aui-btn--icon" type="button" aria-label="Pin"><svg class="aui-icon"><use href="#aui-i-pin"/></svg></button></div></div>
-      </div>
+      <div class="aui-call-peer"><span class="aui-avatar aui-avatar--info">LN</span><div><div class="aui-call-peer-name">Linh Nguyễn</div><div class="aui-call-peer-sub">Live captions: Vietnamese → Turkish</div></div></div>
+      <div class="aui-call-pip"><span class="aui-call-tag">You</span></div>
     </div>
     <div class="aui-call-controls">
       <div class="aui-call-control"><button class="aui-btn aui-btn--glass aui-btn--round aui-btn--toggle" type="button" aria-pressed="false" aria-label="Mute"><svg class="aui-icon aui-btn-off"><use href="#aui-i-mic"/></svg><svg class="aui-icon aui-btn-on"><use href="#aui-i-mic-off"/></svg></button><span>Mute</span></div>
       <div class="aui-call-control"><button class="aui-btn aui-btn--glass aui-btn--round aui-btn--toggle" type="button" aria-pressed="false" aria-label="Camera off"><svg class="aui-icon aui-btn-off"><use href="#aui-i-video"/></svg><svg class="aui-icon aui-btn-on"><use href="#aui-i-video-off"/></svg></button><span>Camera</span></div>
-      <div class="aui-call-control"><button class="aui-btn aui-btn--glass aui-btn--round aui-btn--toggle" type="button" aria-pressed="false" aria-label="Share screen"><svg class="aui-icon"><use href="#aui-i-screen-share"/></svg></button><span>Share</span></div>
-      <div class="aui-call-control"><button class="aui-btn aui-btn--glass aui-btn--round aui-btn--toggle" type="button" aria-pressed="false" aria-label="Raise hand"><svg class="aui-icon"><use href="#aui-i-hand"/></svg></button><span>Hand</span></div>
-      <div class="aui-call-control"><button class="aui-btn aui-btn--glass aui-btn--round" type="button" aria-label="More"><svg class="aui-icon"><use href="#aui-i-more"/></svg></button><span>More</span></div>
-      <div class="aui-call-control aui-call-control--end"><button class="aui-btn aui-btn--round" type="button" aria-label="Leave" data-aui-modal-close data-aui-toast="Call ended · 12:41" data-aui-toast-variant="neutral"><svg class="aui-icon"><use href="#aui-i-phone-off"/></svg></button><span>Leave</span></div>
+      <div class="aui-call-control"><button class="aui-btn aui-btn--glass aui-btn--round aui-btn--toggle" type="button" aria-pressed="true" aria-label="Live translation"><svg class="aui-icon"><use href="#aui-i-globe"/></svg></button><span>Translate</span></div>
+      <div class="aui-call-control aui-call-control--end"><button class="aui-btn aui-btn--round" type="button" aria-label="End call" data-aui-modal-close data-aui-toast="Call ended · 04:12"><svg class="aui-icon"><use href="#aui-i-phone-off"/></svg></button><span>End</span></div>
     </div>
   </div>
 </dialog>
 
+<dialog class="aui-command" data-aui-command aria-label="Search">
+  <div class="aui-command-search"><svg class="aui-icon"><use href="#aui-i-search"/></svg><input type="text" placeholder="Search chats and messages in every account…" aria-label="Search"><kbd class="aui-kbd">Esc</kbd></div>
+  <div class="aui-command-list">
+    <div class="aui-command-group"><div class="aui-menu-label">Chats</div>
+      <button class="aui-menu-item"><span class="aui-via" data-platform="zalo"><span class="aui-platform">ZL</span></span>Linh Nguyễn<span class="aui-menu-item-end">Zalo · Personal</span></button>
+      <button class="aui-menu-item"><span class="aui-via" data-platform="whatsapp"><span class="aui-platform">WA</span></span>Design team<span class="aui-menu-item-end">WhatsApp · Work</span></button>
+      <button class="aui-menu-item"><span class="aui-via" data-platform="telegram"><span class="aui-platform">TG</span></span>Dev chat<span class="aui-menu-item-end">Telegram · @ayla</span></button>
+    </div>
+  </div>
+  <div class="aui-command-empty" hidden>No results</div>
+</dialog>
+
 <script>
-  /* App logic stays tiny: the kit emits aui:send with the text; the app renders the bubble. */
-  document.addEventListener('aui:send', function (e) {
-    var msgs = document.getElementById('msgs'), text = e.detail.text.trim();
-    if (!text) return;
-    var time = new Date().toTimeString().slice(0, 5);
-    var last = msgs.lastElementChild, cont = last && last.classList.contains('aui-msg--out');
-    if (cont) { last.classList.remove('is-last'); if (!last.classList.contains('is-first')) last.classList.add('is-middle'); }
-    var row = document.createElement('div');
-    row.className = 'aui-msg aui-msg--out ' + (cont ? 'is-last' : 'is-first is-last');
-    row.innerHTML = '<div class="aui-bubble"><div class="aui-bubble-text"></div><span class="aui-bubble-meta">' + time + '<span class="aui-ticks is-pending"><svg class="aui-icon"><use href="#aui-i-clock"/></svg></span></span></div>';
-    row.querySelector('.aui-bubble-text').textContent = text;
-    msgs.appendChild(row);
-    setTimeout(function () { var t = row.querySelector('.aui-ticks'); t.className = 'aui-ticks'; t.innerHTML = '<svg class="aui-icon"><use href="#aui-i-check"/></svg>'; }, 600);
-    setTimeout(function () { var t = row.querySelector('.aui-ticks'); t.className = 'aui-ticks is-read'; t.innerHTML = '<svg class="aui-icon"><use href="#aui-i-check-check"/></svg>'; }, 1800);
+/* ───────── Demo data: what your backend / store would return ───────── */
+var ACCOUNTS = [
+  { id: 'wa-p', platform: 'whatsapp', code: 'WA', name: 'Personal', handle: '+90 532 *** 41 07', tone: 'accent', initials: 'AT', status: 'online' },
+  { id: 'wa-w', platform: 'whatsapp', code: 'WA', name: 'Work', handle: '+90 216 *** 88 00', tone: 'teal', initials: 'AR', status: 'online' },
+  { id: 'tg', platform: 'telegram', code: 'TG', name: '@ayla', handle: 'Telegram', tone: 'info', initials: 'AT', status: 'online' },
+  { id: 'zl', platform: 'zalo', code: 'ZL', name: 'Personal', handle: '+84 9** *** 112', tone: 'accent', initials: 'AT', status: 'online' },
+  { id: 'wc', platform: 'wechat', code: 'WC', name: 'ayla_tan', handle: 'WeChat', tone: 'success', initials: 'AT', status: 'syncing' },
+  { id: 'tt', platform: 'tiktok', code: 'TT', name: '@ayla.creates', handle: 'TikTok', tone: 'pink', initials: 'AC', status: 'offline' }
+];
+var PLATFORM = { whatsapp: 'WhatsApp', telegram: 'Telegram', zalo: 'Zalo', wechat: 'WeChat', tiktok: 'TikTok' };
+var I = function (n, cls) { return '<svg class="aui-icon' + (cls ? ' ' + cls : '') + '"><use href="#aui-i-' + n + '"/></svg>'; };
+var CONVOS = [
+  { id: 'linh', acc: 'zl', name: 'Linh Nguyễn', av: 'LN', tone: 'info', time: '14:08', unread: 1, online: true, active: true, preview: I('globe') + '<span>Can we move the call to 4 pm?</span>' },
+  { id: 'design', acc: 'wa-w', name: 'Design team', icon: 'users', tone: 'purple', time: '14:02', unread: 3, group: true, pinned: true, previewClass: 'is-typing', preview: '<span>Mert is typing…</span>' },
+  { id: 'ayse', acc: 'wa-p', name: 'Ayşe Yılmaz', av: 'AY', tone: 'pink', time: '13:47', unread: 2, online: true, preview: I('image') + '<span>Photo · the new mockups</span>' },
+  { id: 'dev', acc: 'tg', name: 'Dev chat', icon: 'code', tone: 'info', time: '13:30', unread: 9, group: true, mention: true, preview: '<b>Mert:</b><span>@ayla can you review #482?</span>' },
+  { id: 'wei', acc: 'wc', name: 'Wei Zhang 张伟', av: 'WZ', tone: 'success', time: '12:55', preview: '<span class="aui-ticks is-played">' + I('check-check') + '</span>' + I('mic') + '<span>Voice message · 0:38</span>' },
+  { id: 'burak', acc: 'wa-p', name: 'Burak Kaya', av: 'BK', tone: 'teal', time: '12:10', preview: '<span class="aui-ticks is-read">' + I('check-check') + '</span><span>Sounds good, see you at 3</span>' },
+  { id: 'fans', acc: 'tt', name: 'Studio fans', icon: 'heart', tone: 'pink', time: '11:40', unread: 3, group: true, previewClass: 'is-recording', preview: I('mic') + '<span>Mina is recording audio…</span>' },
+  { id: 'mona', acc: 'tt', name: 'mona.makes', av: 'MM', tone: 'orange', time: '11:12', preview: '<span class="aui-reaction-emoji">❤️</span><span>Reacted to: "new video idea"</span>' },
+  { id: 'mom', acc: 'wa-p', name: 'Mom', av: 'M', tone: 'warning', time: 'Yesterday', previewClass: 'is-draft', preview: '<b>Draft:</b><span>Dinner at 8 works, I will bring</span>' },
+  { id: 'emre', acc: 'tg', name: 'Emre Şahin', av: 'EŞ', tone: 'neutral', time: 'Yesterday', preview: I('phone-missed', 'aui-text-danger') + '<span>Missed voice call</span>' },
+  { id: 'supplier', acc: 'zl', name: 'Saigon Textiles', icon: 'building', tone: 'orange', time: 'Mon', failed: true, group: true, preview: I('alert') + '<span>Not sent: invoice-1123.pdf</span>' },
+  { id: 'deniz', acc: 'wa-w', name: 'Deniz Arslan', av: 'DA', tone: 'info', time: 'Sun', marked: true, preview: '<span class="aui-ticks">' + I('check') + '</span>' + I('map-pin') + '<span>Location · Kadıköy office</span>' },
+  { id: 'li', acc: 'wc', name: 'Li Na', av: 'LN', tone: 'purple', time: 'Sat', muted: true, unread: 14, preview: I('file-text') + '<span>catalogue-2027.pdf</span>' }
+];
+var state = { account: 'all', mode: 'unified', filter: 'all' };
+var acc = function (id) { return ACCOUNTS.filter(function (a) { return a.id === id; })[0]; };
+var statusTone = { online: 'success', syncing: 'warning', offline: 'danger' };
+var statusText = { online: 'Connected', syncing: 'Syncing…', offline: 'Disconnected' };
+
+function unreadOf(id) { return CONVOS.filter(function (c) { return c.acc === id && !c.muted; }).reduce(function (n, c) { return n + (c.unread || 0); }, 0); }
+function renderRail() {
+  var total = ACCOUNTS.reduce(function (n, a) { return n + unreadOf(a.id); }, 0);
+  var h = '<button class="aui-rail-item' + (state.account === 'all' ? ' is-active' : '') + '" type="button" data-value="all" data-aui-tooltip="All inboxes" data-aui-tooltip-pos="right">' + I('inbox') + '<span class="aui-btn-badge">' + total + '</span></button><span class="aui-rail-sep"></span>';
+  ACCOUNTS.forEach(function (a) {
+    var n = unreadOf(a.id);
+    h += '<button class="aui-rail-item' + (state.account === a.id ? ' is-active' : '') + (a.status === 'offline' ? ' is-offline' : '') + '" type="button" data-value="' + a.id + '" data-platform="' + a.platform + '" data-aui-tooltip="' + PLATFORM[a.platform] + ' · ' + a.name + ' — ' + statusText[a.status] + '" data-aui-tooltip-pos="right">' +
+      '<span class="aui-avatar aui-avatar--' + a.tone + '">' + a.initials + '<span class="aui-platform">' + a.code + '</span></span>' +
+      (a.status !== 'online' ? '<span class="aui-rail-status aui-tone--' + statusTone[a.status] + '"></span>' : '') +
+      (n ? '<span class="aui-btn-badge">' + n + '</span>' : '') + '</button>';
   });
-  document.addEventListener('click', function (e) { if (e.target.closest('[aria-label="Reply"]')) document.getElementById('reply-bar').hidden = false; });
+  h += '<div class="aui-spacer"></div><button class="aui-rail-item" type="button" data-aui-tooltip="Add account" data-aui-tooltip-pos="right">' + I('plus') + '</button><button class="aui-rail-item" type="button" data-aui-tooltip="Settings" data-aui-tooltip-pos="right">' + I('settings') + '</button>';
+  document.getElementById('rail').innerHTML = h;
+}
+function convoHtml(c) {
+  var a = acc(c.acc), cls = 'aui-convo' + (c.active ? ' is-active' : '') + (c.unread && !c.muted ? ' is-unread' : '') + (c.muted ? ' is-muted' : '') + (c.failed ? ' is-failed' : '');
+  var avatar = '<span class="aui-avatar aui-avatar--' + c.tone + '">' + (c.icon ? I(c.icon, 'aui-icon--lg') : c.av) + (c.online ? '<span class="aui-avatar-status is-online"></span>' : '') + '<span class="aui-platform">' + a.code + '</span></span>';
+  var badges = (c.mention ? '<span class="aui-convo-mention">@</span>' : '') + (c.muted ? I('volume-x') : '') + (c.pinned ? I('pin') : '') +
+    (c.unread ? '<span class="aui-count' + (c.muted ? '' : ' aui-count--accent') + '">' + c.unread + '</span>' : c.marked ? '<span class="aui-count aui-count--accent aui-count--dot"></span>' : '');
+  return '<button class="' + cls + '" type="button" data-value="' + c.id + '" data-platform="' + a.platform + '">' + avatar +
+    '<div class="aui-convo-head"><span class="aui-convo-name">' + c.name + '</span><time class="aui-convo-time">' + c.time + '</time></div>' +
+    '<div class="aui-convo-foot"><span class="aui-convo-preview' + (c.previewClass ? ' ' + c.previewClass : '') + '">' + c.preview + '</span><span class="aui-convo-badges">' + badges + '</span></div>' +
+    '<span class="aui-convo-via aui-via"><span class="aui-platform">' + a.code + '</span><span>' + PLATFORM[a.platform] + ' · <b>' + a.name + '</b></span></span></button>';
+}
+function renderList() {
+  var list = CONVOS.filter(function (c) {
+    if (state.account !== 'all' && c.acc !== state.account) return false;
+    if (state.filter === 'unread') return c.unread || c.marked;
+    if (state.filter === 'groups') return c.group;
+    return true;
+  });
+  var h = '';
+  if (state.filter === 'all') h += '<button class="aui-convo aui-convo--archived" type="button"><span class="aui-icon-box">' + I('archive') + '</span><span class="aui-convo-name">Archived</span><span class="aui-count aui-count--neutral">12</span></button>';
+  var grouped = state.account === 'all' && state.mode === 'grouped';
+  if (grouped) {
+    ACCOUNTS.forEach(function (a) {
+      var rows = list.filter(function (c) { return c.acc === a.id; }); if (!rows.length) return;
+      var n = unreadOf(a.id);
+      h += '<div class="aui-convos-account" data-platform="' + a.platform + '"><span class="aui-platform">' + a.code + '</span>' + PLATFORM[a.platform] + ' · ' + a.name + ' <span>' + a.handle + '</span>' + (a.status !== 'online' ? '<span class="aui-dot aui-dot--' + statusTone[a.status] + '"></span>' : n ? '<span class="aui-count aui-count--accent">' + n + '</span>' : '') + '</div>';
+      h += rows.map(convoHtml).join('');
+    });
+  } else h += list.map(convoHtml).join('');
+  if (!list.length) h += '<div class="aui-empty aui-empty--sm"><div class="aui-empty-title">Nothing here</div><div class="aui-empty-text">No chats match this filter.</div></div>';
+  var box = document.getElementById('convos');
+  box.innerHTML = h;
+  box.classList.toggle('aui-convos--grouped', grouped);
+}
+function renderSide() {
+  var a = state.account === 'all' ? null : acc(state.account);
+  document.getElementById('side-title').innerHTML = a ? '<span class="aui-via" data-platform="' + a.platform + '" style="font-size:inherit;font-weight:inherit;color:inherit;gap:8px"><span class="aui-platform aui-platform--lg">' + a.code + '</span><span>' + PLATFORM[a.platform] + ' · ' + a.name + '</span></span>' : 'All inboxes';
+  document.getElementById('mode').hidden = !!a;
+  var off = ACCOUNTS.filter(function (x) { return x.status === 'offline' && (!a || x.id === a.id); })[0];
+  document.getElementById('banner').hidden = !off;
+  renderList();
+}
+renderRail(); renderSide();
+
+document.addEventListener('aui:rail', function (e) { state.account = e.detail.value || 'all'; renderSide(); });
+document.addEventListener('aui:change', function (e) { if (e.target.closest('#mode')) { state.mode = e.target.getAttribute('data-value'); renderList(); } });
+document.getElementById('filters').addEventListener('click', function (e) {
+  var chip = e.target.closest('[data-filter]'); if (!chip) return;
+  this.querySelectorAll('[data-filter]').forEach(function (c) { c.classList.toggle('is-active', c === chip); });
+  state.filter = chip.getAttribute('data-filter'); renderList();
+});
+document.getElementById('opt-compact').addEventListener('aui:menu-check', function (e) { document.getElementById('convos').classList.toggle('aui-convos--compact', e.detail.checked); });
+document.addEventListener('aui:convo', function (e) {
+  var c = CONVOS.filter(function (x) { return x.id === e.detail.value; })[0]; if (!c) return;
+  var a = acc(c.acc);
+  CONVOS.forEach(function (x) { x.active = x === c; });
+  var av = document.getElementById('peer-avatar');
+  av.className = 'aui-avatar aui-avatar--' + c.tone; av.setAttribute('data-platform', a.platform);
+  av.innerHTML = (c.icon ? I(c.icon) : c.av) + '<span class="aui-platform">' + a.code + '</span>';
+  document.getElementById('peer-name').textContent = c.name;
+  var via = document.getElementById('peer-via'); via.setAttribute('data-platform', a.platform);
+  via.innerHTML = '<span class="aui-platform">' + a.code + '</span><span>' + PLATFORM[a.platform] + ' · <b>' + a.name + '</b></span>';
+  document.getElementById('peer-status').textContent = c.online ? 'online' : c.group ? 'group' : 'last seen recently';
+  document.getElementById('peer-status').className = 'aui-chat-peer-status' + (c.online ? ' is-online' : '');
+});
+
+/* Outgoing message: the kit fires aui:send; the app renders the bubble and updates ticks as the platform reports them */
+document.addEventListener('aui:send', function (e) {
+  var msgs = document.getElementById('msgs'), text = e.detail.text.trim(); if (!text) return;
+  var typing = msgs.querySelector('.aui-msg--typing'); if (typing) typing.remove();
+  var time = new Date().toTimeString().slice(0, 5), last = msgs.lastElementChild, cont = last && last.classList.contains('aui-msg--out');
+  if (cont) { last.classList.remove('is-last'); if (!last.classList.contains('is-first')) last.classList.add('is-middle'); }
+  var row = document.createElement('div');
+  row.className = 'aui-msg aui-msg--out ' + (cont ? 'is-last' : 'is-first is-last');
+  row.innerHTML = '<div class="aui-bubble"><div class="aui-bubble-text"></div><div class="aui-bubble-tr">' + I('globe') + 'Sending in Vietnamese…</div><span class="aui-bubble-meta">' + time + '<span class="aui-ticks is-pending">' + I('clock') + '</span></span></div>';
+  row.querySelector('.aui-bubble-text').textContent = text;
+  msgs.appendChild(row);
+  var ticks = function (cls, icon) { var t = row.querySelector('.aui-ticks'); t.className = 'aui-ticks' + (cls ? ' ' + cls : ''); t.innerHTML = I(icon); };
+  setTimeout(function () { row.querySelector('.aui-bubble-tr').innerHTML = I('globe') + 'Sent in Vietnamese'; ticks('', 'check'); }, 700);
+  setTimeout(function () { ticks('', 'check-check'); }, 1400);
+  setTimeout(function () { ticks('is-read', 'check-check'); }, 2400);
+});
+document.addEventListener('click', function (e) { if (e.target.closest('[aria-label="Reply"]')) document.getElementById('reply-bar').hidden = false; });
 </script>
 </body>
 </html>

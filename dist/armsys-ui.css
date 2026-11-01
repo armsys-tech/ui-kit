@@ -182,6 +182,23 @@
   --aui-bubble-out: color-mix(in srgb, var(--aui-accent) 28%, #141418);
   --aui-bubble-system: rgb(255 255 255 / .06);
   --aui-bubble-radius: 14px;
+  --aui-composer-h: 44px;
+
+  /* ---------- Messaging platforms (data-platform="…") ---------- */
+  --aui-platform-whatsapp: #25d366;
+  --aui-platform-telegram: #2aabee;
+  --aui-platform-tiktok: #fe2c55;
+  --aui-platform-wechat: #07c160;
+  --aui-platform-zalo: #0068ff;
+  --aui-platform-messenger: #0a7cff;
+  --aui-platform-instagram: #e1306c;
+  --aui-platform-signal: #3a76f0;
+  --aui-platform-line: #06c755;
+  --aui-platform-viber: #7360f2;
+  --aui-platform-discord: #5865f2;
+  --aui-platform-slack: #e01e5a;
+  --aui-platform-sms: #34c759;
+  --aui-platform-email: #8e8e9a;        /* attach, message field and send share this height */
 
   /* ---------- Effects ---------- */
   --aui-shadow-xs: 0 1px 1px rgb(0 0 0 / .25);
@@ -2454,7 +2471,6 @@ details.aui-param-toggle[open] > summary::before { content: "−"; }
 .aui-rail-item.is-active, .aui-rail-item[aria-current="page"], .aui-rail-item[aria-pressed="true"] { color: var(--aui-text); background: var(--aui-active); }
 .aui-rail-item.is-active::before, .aui-rail-item[aria-current="page"]::before { content: ""; position: absolute; left: -6px; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: var(--aui-accent); }
 .aui-rail-item > .aui-btn-badge { top: 2px; right: 2px; }
-.aui-rail-item > .aui-avatar { --_s: 26px; }
 .aui-rail-sep { width: 20px; height: 1px; margin: 6px 0; background: var(--aui-border); }
 .aui-rail--right { border-right: 0; border-left: 1px solid var(--aui-border-soft); }
 .aui-rail--right .aui-rail-item.is-active::before { left: auto; right: -6px; }
@@ -2681,7 +2697,7 @@ details.aui-param-toggle[open] > summary::before { content: "−"; }
 .aui-convo:hover { background: var(--aui-hover); }
 .aui-convo.is-active, .aui-convo[aria-current="true"] { background: var(--aui-active); }
 .aui-convo:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--aui-focus); }
-.aui-convo > .aui-avatar { --_s: 46px; grid-row: 1 / 3; }
+.aui-convo > .aui-avatar { --_s: 46px; grid-row: 1 / span 3; }
 .aui-convo-head { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
 .aui-convo-name { flex: 1; min-width: 0; font-size: var(--aui-fs-md); font-weight: var(--aui-fw-medium); color: var(--aui-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
 .aui-convo-name > .aui-icon { width: 14px; height: 14px; flex: none; color: var(--aui-text-subtle); }
@@ -2900,26 +2916,42 @@ details.aui-param-toggle[open] > summary::before { content: "−"; }
 .aui-composer-thumb > .aui-close { position: absolute; top: 2px; right: 2px; --_s: 20px; color: #fff; background: rgb(0 0 0 / .55); border-radius: 50%; }
 .aui-composer-thumb > .aui-close > .aui-icon { width: 12px; height: 12px; }
 .aui-composer-thumb--file { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: auto; min-width: 64px; padding: 0 10px; font-size: var(--aui-fs-2xs); color: var(--aui-text-muted); }
-.aui-composer-bar { display: flex; align-items: flex-end; gap: 6px; }
-.aui-composer-bar > .aui-btn { --_h: 38px; flex: none; --_fg: var(--aui-text-muted); }
+/* One height for every control in the bar: side buttons, the field and send are the same size
+   and stay bottom-aligned while the textarea grows. Tune with --aui-composer-h. */
+.aui-composer-bar { --_ch: var(--aui-composer-h); display: flex; align-items: flex-end; gap: 8px; }
+.aui-composer-bar > .aui-btn, .aui-composer-bar > .aui-dropdown > .aui-btn { --_h: var(--_ch); --_ic: 20px; flex: none; }
+.aui-composer-bar > .aui-dropdown { flex: none; }
+/* Quiet side actions (attach, camera …): muted icon on a soft round surface so they balance the field */
+.aui-composer-action { --_bg: var(--aui-surface-2); --_bd: transparent; --_fg: var(--aui-text-muted); --_bg-h: var(--aui-surface-3); --_bd-h: transparent; --_fg-h: var(--aui-text); --_bg-a: var(--aui-surface-4); --_sh: none; --_r: var(--aui-radius-full); width: var(--_h); --_px: 0; }
+.aui-composer-action[aria-expanded="true"] { --_bg: var(--aui-surface-3); --_fg: var(--aui-text); }
+.aui-composer-action[aria-expanded="true"] > .aui-icon { transform: rotate(45deg); }
+.aui-composer-action > .aui-icon { transition: transform var(--aui-dur) var(--aui-ease); }
 .aui-composer-field {
-  flex: 1; min-width: 0; display: flex; align-items: flex-end; gap: 4px; min-height: 40px; padding: 4px 6px 4px 14px;
-  background: var(--aui-input-bg); border: 1px solid var(--aui-border); border-radius: 20px; box-shadow: var(--aui-shadow-xs); transition: border-color var(--aui-dur-fast), box-shadow var(--aui-dur-fast);
+  flex: 1; min-width: 0; display: flex; align-items: flex-end; gap: 2px; min-height: var(--_ch); padding: 0 4px 0 16px;
+  background: var(--aui-input-bg); border: 1px solid var(--aui-border); border-radius: calc(var(--_ch) / 2); box-shadow: var(--aui-shadow-xs); transition: border-color var(--aui-dur-fast), box-shadow var(--aui-dur-fast);
 }
 .aui-composer-field:focus-within { border-color: color-mix(in srgb, var(--aui-accent) 65%, var(--aui-border-interactive)); box-shadow: var(--aui-ring); }
 .aui-composer-field--flat { background: var(--aui-surface-2); border-color: transparent; box-shadow: none; }
 .aui-composer-field--flat:focus-within { box-shadow: none; border-color: transparent; background: var(--aui-surface-3); }
 .aui-composer-field--square { border-radius: var(--aui-radius-lg); }
-.aui-composer-input { flex: 1; min-width: 0; max-height: 160px; min-height: 30px; margin: 0; padding: 6px 0; font: inherit; font-size: var(--aui-fs-md); line-height: 1.4; color: var(--aui-text); background: transparent; border: 0; outline: none; resize: none; overflow-y: auto; scrollbar-width: thin; }
+/* line-height 20px + symmetric padding = exactly the field height for one line */
+.aui-composer-input { flex: 1; min-width: 0; max-height: 160px; height: calc(var(--_ch) - 2px); min-height: calc(var(--_ch) - 2px); margin: 0; padding: calc((var(--_ch) - 22px) / 2) 0; font: inherit; font-size: var(--aui-fs-md); line-height: 20px; color: var(--aui-text); background: transparent; border: 0; outline: none; resize: none; overflow-y: auto; scrollbar-width: thin; }
 .aui-composer-input::placeholder { color: var(--aui-text-disabled); }
-.aui-composer-field > .aui-btn { --_h: 30px; --_ic: 18px; --_fg: var(--aui-text-subtle); margin-bottom: 0; }
-.aui-composer-send { --_h: 40px; --_ic: 18px; flex: none; }
-.aui-composer-send > .aui-icon { margin: 0 !important; }
+/* a long placeholder must not wrap and grow the empty field */
+.aui-composer-input:placeholder-shown { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.aui-composer-field > .aui-btn, .aui-composer-field > .aui-dropdown > .aui-btn { --_h: calc(var(--_ch) - 10px); --_ic: 20px; --_fg: var(--aui-text-subtle); --_fg-h: var(--aui-text); }
+.aui-composer-field > .aui-btn, .aui-composer-field > .aui-dropdown { margin-bottom: 4px; flex: none; }
+.aui-composer-field > .aui-composer-from, .aui-composer-field > .aui-dropdown > .aui-composer-from { margin-left: -12px; }
+/* Send: solid accent with the on-accent icon; swaps to mic while the field is empty */
+.aui-composer-send { --_ic: 20px; flex: none; }
+.aui-composer-send.aui-btn--accent { --_fg: var(--aui-on-accent); --_fg-h: var(--aui-on-accent); }
+.aui-composer-send > .aui-icon { margin: 0 !important; transition: transform var(--aui-dur-fast) var(--aui-ease-out); }
+.aui-composer.is-typing .aui-composer-send > .aui-composer-send-on { animation: aui-pop var(--aui-dur-fast) var(--aui-ease-out); }
 .aui-composer:not(.is-typing) .aui-composer-send > .aui-composer-send-on, .aui-composer.is-typing .aui-composer-send > .aui-composer-send-off { display: none; }
-.aui-composer-hint { margin-top: 6px; padding-left: 50px; font-size: var(--aui-fs-2xs); color: var(--aui-text-disabled); }
+.aui-composer-hint { margin-top: 6px; padding-left: calc(var(--aui-composer-h) + 24px); font-size: var(--aui-fs-2xs); color: var(--aui-text-disabled); }
 .aui-composer-tools { display: flex; align-items: center; gap: 2px; padding: 0 0 6px 2px; }
 .aui-composer-tools .aui-btn { --_h: 26px; --_ic: 14px; }
-.aui-composer-recording { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 6px 0 14px; flex: 1; font-size: var(--aui-fs-sm); color: var(--aui-text); background: var(--aui-input-bg); border: 1px solid var(--aui-border); border-radius: 20px; }
+.aui-composer-recording { display: flex; align-items: center; gap: 12px; height: var(--aui-composer-h); padding: 0 6px 0 14px; flex: 1; font-size: var(--aui-fs-sm); color: var(--aui-text); background: var(--aui-input-bg); border: 1px solid var(--aui-border); border-radius: calc(var(--aui-composer-h) / 2); }
 .aui-composer-recording > .aui-dot { --_s: 10px; }
 .aui-composer-recording .aui-wave { flex: 1; }
 .aui-composer-recording time { font-variant-numeric: tabular-nums; color: var(--aui-text-muted); }
@@ -3016,6 +3048,202 @@ details.aui-param-toggle[open] > summary::before { content: "−"; }
 /* Compact in-call strip at the top of a chat */
 .aui-call-strip { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 6px 12px; flex: none; font-size: var(--aui-fs-xs); font-weight: var(--aui-fw-medium); color: #fff; background: #16a34a; cursor: pointer; }
 .aui-call-strip > .aui-icon { width: 14px; height: 14px; }
+
+/* ==========================================================================
+   Multi-account / multi-platform inbox (Beeper, Franz, Thunderbird style)
+   One app, many WhatsApp / Telegram / Zalo / WeChat / TikTok … accounts.
+   Platform colour comes from data-platform="whatsapp|telegram|…" on any
+   ancestor (it inherits), so a row, its badge and its stripe agree.
+   Brand logos are not bundled: put the platform's own SVG/IMG inside
+   .aui-platform, or a 1–2 letter code (WA, TG …) as a fallback.
+   ========================================================================== */
+.aui [data-platform="whatsapp"]  { --aui-platform: var(--aui-platform-whatsapp); }
+.aui [data-platform="telegram"]  { --aui-platform: var(--aui-platform-telegram); }
+.aui [data-platform="tiktok"]    { --aui-platform: var(--aui-platform-tiktok); }
+.aui [data-platform="wechat"]    { --aui-platform: var(--aui-platform-wechat); }
+.aui [data-platform="zalo"]      { --aui-platform: var(--aui-platform-zalo); }
+.aui [data-platform="messenger"] { --aui-platform: var(--aui-platform-messenger); }
+.aui [data-platform="instagram"] { --aui-platform: var(--aui-platform-instagram); }
+.aui [data-platform="signal"]    { --aui-platform: var(--aui-platform-signal); }
+.aui [data-platform="line"]      { --aui-platform: var(--aui-platform-line); }
+.aui [data-platform="viber"]     { --aui-platform: var(--aui-platform-viber); }
+.aui [data-platform="discord"]   { --aui-platform: var(--aui-platform-discord); }
+.aui [data-platform="slack"]     { --aui-platform: var(--aui-platform-slack); }
+.aui [data-platform="sms"]       { --aui-platform: var(--aui-platform-sms); }
+.aui [data-platform="email"]     { --aui-platform: var(--aui-platform-email); }
+
+/* Platform badge: <span class="aui-platform" data-platform="whatsapp">WA</span> (or an <svg>/<img> inside) */
+.aui-platform {
+  --_p: var(--aui-platform, var(--aui-neutral)); --_ps: 18px;
+  display: inline-grid; place-items: center; flex: none; width: var(--_ps); height: var(--_ps); overflow: hidden;
+  font-size: calc(var(--_ps) * .44); font-weight: var(--aui-fw-bold); letter-spacing: -.03em; line-height: 1; text-transform: uppercase; font-style: normal;
+  color: #fff; background: var(--_p); border-radius: calc(var(--_ps) * .3); vertical-align: middle; user-select: none; -webkit-user-select: none;
+}
+.aui-platform > svg { width: 64%; height: 64%; fill: currentColor; }
+.aui-platform > img { width: 100%; height: 100%; object-fit: cover; }
+.aui-platform--round { border-radius: 50%; }
+.aui-platform--soft { color: var(--_p); background: color-mix(in srgb, var(--_p) 16%, transparent); }
+.aui-platform--xs { --_ps: 14px; }
+.aui-platform--sm { --_ps: 16px; }
+.aui-platform--lg { --_ps: 24px; }
+.aui-platform--xl { --_ps: 32px; }
+/* Corner badge on an avatar: which platform this chat / account lives on */
+.aui-avatar > .aui-platform { position: absolute; right: -3px; bottom: -3px; --_ps: clamp(14px, calc(var(--_s) * .4), 20px); border-radius: 50%; box-shadow: 0 0 0 2px var(--_ring, var(--aui-bg)); }
+.aui-avatar > .aui-platform ~ .aui-avatar-status { right: auto; left: -1px; }
+/* Inline label: platform + account name ("via WhatsApp · Work") */
+.aui-via { display: inline-flex; align-items: center; gap: 5px; min-width: 0; max-width: 100%; font-size: var(--aui-fs-2xs); font-weight: var(--aui-fw-medium); color: var(--aui-text-subtle); white-space: nowrap; }
+.aui-via > .aui-platform { --_ps: 14px; border-radius: 4px; }
+.aui-via > span { overflow: hidden; text-overflow: ellipsis; }
+.aui-via b { color: var(--aui-text-muted); font-weight: var(--aui-fw-medium); }
+
+/* ---------- Accounts in the rail: All inboxes + one item per account ---------- */
+.aui-rail--accounts { --aui-rail-w: 60px; gap: 6px; padding-top: 10px; }
+.aui-rail--accounts .aui-rail-item { width: 44px; height: 44px; border-radius: var(--aui-radius-lg); }
+.aui-rail-item > .aui-avatar { --_s: 28px; --_ring: var(--aui-bg-alt); }
+.aui-rail--accounts .aui-rail-item > .aui-avatar { --_s: 34px; }
+/* Counts sit on the item's corner, outside the avatar, so initials and the platform badge stay readable */
+.aui-rail--accounts .aui-rail-item > .aui-btn-badge { top: -3px; right: -5px; min-width: 16px; height: 16px; padding: 0 4px; font-size: 9.5px; box-shadow: 0 0 0 2px var(--aui-bg-alt); }
+.aui-rail--accounts .aui-rail-item > .aui-avatar { font-size: 12px; }
+.aui-rail-item:hover > .aui-avatar, .aui-rail-item.is-active > .aui-avatar { --_ring: var(--aui-active); }
+.aui-rail-item.is-offline > .aui-avatar { filter: grayscale(1); opacity: .55; }
+.aui-rail-item > .aui-rail-status { position: absolute; left: 1px; top: 1px; width: 9px; height: 9px; border-radius: 50%; background: var(--aui-tone, var(--aui-success)); box-shadow: 0 0 0 2px var(--aui-bg-alt); }
+
+/* ---------- Accounts pane (Thunderbird-style folder list) ---------- */
+.aui-accounts { display: flex; flex-direction: column; gap: 1px; padding: 6px; }
+.aui-accounts-title { padding: 10px 10px 4px; font-size: var(--aui-fs-2xs); font-weight: var(--aui-fw-semibold); letter-spacing: .08em; text-transform: uppercase; color: var(--aui-text-subtle); }
+.aui-account {
+  position: relative; display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 6px 10px; margin: 0;
+  font: inherit; font-size: var(--aui-fs-sm); color: var(--aui-text-secondary); text-align: left; text-decoration: none;
+  background: none; border: 0; border-radius: var(--aui-radius-md); cursor: pointer; transition: background-color var(--aui-dur-fast), color var(--aui-dur-fast);
+}
+.aui-account:hover { color: var(--aui-text); background: var(--aui-hover); }
+.aui-account.is-active, .aui-account[aria-current="true"] { color: var(--aui-text); background: var(--aui-active); }
+.aui-account > .aui-avatar { --_s: 32px; }
+.aui-account-body { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
+.aui-account-name { font-weight: var(--aui-fw-medium); color: var(--aui-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.aui-account-sub { display: flex; align-items: center; gap: 5px; font-size: var(--aui-fs-2xs); color: var(--aui-text-subtle); overflow: hidden; white-space: nowrap; }
+.aui-account-sub > .aui-dot { --_s: 6px; }
+.aui-account > .aui-count { margin-left: auto; }
+.aui-account.is-offline .aui-account-name { color: var(--aui-text-muted); }
+
+/* ---------- Conversation rows in a unified inbox ---------- */
+.aui-convo > .aui-avatar { --_ring: var(--aui-bg); }
+.aui-convo:hover > .aui-avatar { --_ring: color-mix(in srgb, var(--aui-text) 4.5%, var(--aui-bg)); }
+.aui-convo.is-active > .aui-avatar { --_ring: color-mix(in srgb, var(--aui-text) 8%, var(--aui-bg)); }
+.aui-convo-via { display: none; grid-column: 2; margin-top: 3px; }
+:is(.aui-chat--via, .aui-convos--via) .aui-convo-via { display: flex; }
+/* Coloured edge per platform (opt-in): aui-chat--stripes */
+:is(.aui-chat--stripes, .aui-convos--stripes) .aui-convo[data-platform]::before { content: ""; position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px; border-radius: 0 3px 3px 0; background: var(--aui-platform); }
+/* Account section headers in grouped mode: shown only with aui-convos--grouped */
+.aui-convos-account { display: none; position: sticky; top: 0; z-index: 1; align-items: center; gap: 8px; padding: 8px 14px; font-size: var(--aui-fs-xs); font-weight: var(--aui-fw-semibold); color: var(--aui-text-secondary); background: color-mix(in srgb, var(--aui-bg) 92%, transparent); border-bottom: 1px solid var(--aui-border-soft); backdrop-filter: var(--aui-blur); -webkit-backdrop-filter: var(--aui-blur); }
+:is(.aui-chat--grouped, .aui-convos--grouped) .aui-convos-account { display: flex; }
+.aui-convos-account > .aui-platform { --_ps: 18px; }
+.aui-convos-account > span:not([class]) { color: var(--aui-text-subtle); font-weight: var(--aui-fw-regular); }
+.aui-convos-account > .aui-count, .aui-convos-account > .aui-dot { margin-left: auto; }
+/* More list states */
+.aui-count--dot { min-width: 10px; width: 10px; height: 10px; padding: 0; }
+.aui-convo-mention { display: inline-grid; place-items: center; width: 18px; height: 18px; flex: none; font-size: 11px; font-weight: var(--aui-fw-bold); color: var(--aui-on-accent); background: var(--aui-accent); border-radius: 50%; }
+.aui-convo.is-failed .aui-convo-preview { color: var(--aui-danger); }
+.aui-convo-preview.is-recording { color: var(--aui-success); font-style: italic; }
+.aui-convo-preview .aui-reaction-emoji { font-style: normal; }
+.aui-convo--archived { grid-template-columns: auto minmax(0, 1fr) auto; }
+.aui-convo--archived > .aui-icon-box { --_s: 46px; border-radius: 50%; }
+.aui-convos--compact .aui-convo--archived > .aui-icon-box { --_s: 38px; }
+.aui-convo--archived > .aui-convo-name { grid-column: 2; }
+.aui-convo--archived > .aui-count { grid-column: 3; }
+
+/* ---------- Conversation header: where this chat lives, reply-from account ---------- */
+.aui-chat-peer-name > .aui-via { margin-left: 4px; padding: 2px 7px 2px 3px; font-size: var(--aui-fs-2xs); background: var(--aui-surface-2); border: 1px solid var(--aui-border-soft); border-radius: var(--aui-radius-full); }
+.aui-chat-header > .aui-avatar { --_ring: var(--aui-bg); }
+/* Message request / unknown sender bar */
+.aui-chat-request { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 12px; padding: 12px 16px; flex: none; font-size: var(--aui-fs-sm); color: var(--aui-text-muted); text-align: center; background: var(--aui-bg); border-top: 1px solid var(--aui-border-soft); }
+.aui-chat-request > b { color: var(--aui-text); font-weight: var(--aui-fw-medium); }
+.aui-chat-request-actions { display: flex; gap: 8px; }
+/* Connection problem banner at the top of a pane */
+.aui-chat-banner { display: flex; align-items: center; gap: 10px; padding: 8px 10px 8px 14px; flex: none; font-size: var(--aui-fs-xs); color: var(--aui-text-secondary); background: color-mix(in srgb, var(--aui-tone, var(--aui-warning)) 10%, var(--aui-bg)); border-bottom: 1px solid color-mix(in srgb, var(--aui-tone, var(--aui-warning)) 30%, var(--aui-border-soft)); }
+.aui-chat-banner > .aui-icon { color: var(--aui-tone, var(--aui-warning)); }
+.aui-chat-banner > span { flex: 1; min-width: 0; }
+.aui-chat-banner .aui-btn { --_h: 26px; }
+
+/* ---------- Composer: reply-from account & auto-translate toggle ---------- */
+.aui-composer-field > .aui-composer-from, .aui-composer-field > .aui-dropdown > .aui-composer-from { --_px: 3px; --_gap: 2px; --_r: var(--aui-radius-full); --_ic: 14px; }
+.aui-composer-from > .aui-avatar { --_s: calc(var(--aui-composer-h) - 16px); --_ring: var(--aui-input-bg); }
+.aui-composer-field > .aui-composer-translate { --_px: 8px; --_gap: 4px; --_fs: var(--aui-fs-2xs); --_ic: 16px; --_r: var(--aui-radius-full); font-weight: var(--aui-fw-semibold); letter-spacing: .02em; }
+.aui-composer-field > .aui-btn--toggle[aria-pressed="true"] { --_fg: var(--aui-accent); --_fg-h: var(--aui-accent); }
+.aui-composer-status { display: flex; align-items: center; gap: 8px; margin-top: 6px; padding-left: calc(var(--aui-composer-h) + 24px); font-size: var(--aui-fs-2xs); color: var(--aui-text-subtle); }
+.aui-composer-status > .aui-icon { width: 12px; height: 12px; }
+
+/* ---------- Translation & AI explanation inside bubbles ---------- */
+.aui-bubble-tr { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-top: 4px; font-size: var(--aui-fs-2xs); color: var(--aui-text-subtle); }
+.aui-bubble-tr > .aui-icon { width: 12px; height: 12px; }
+.aui-bubble-tr > button { padding: 0; margin: 0; font: inherit; font-weight: var(--aui-fw-medium); color: var(--aui-link); background: none; border: 0; cursor: pointer; }
+.aui-bubble-tr > button:hover { text-decoration: underline; }
+.aui-bubble-original { display: none; margin-top: 6px; padding-top: 6px; font-size: var(--aui-fs-sm); color: var(--aui-text-muted); border-top: 1px dashed color-mix(in srgb, var(--aui-text) 18%, transparent); white-space: pre-wrap; }
+.aui-bubble.is-original .aui-bubble-original { display: block; }
+.aui-bubble .aui-tr-hide, .aui-bubble.is-original .aui-tr-show { display: none; }
+.aui-bubble.is-original .aui-tr-hide { display: inline; }
+.aui-bubble-explain { display: flex; gap: 8px; margin: 8px 0 2px; padding: 8px 10px; font-size: var(--aui-fs-xs); line-height: 1.5; color: var(--aui-text-secondary); background: color-mix(in srgb, var(--aui-purple) 12%, transparent); border: 1px solid color-mix(in srgb, var(--aui-purple) 26%, transparent); border-radius: 8px; }
+.aui-bubble-explain > .aui-icon { width: 14px; height: 14px; margin-top: 2px; flex: none; color: var(--aui-purple); }
+.aui-bubble-explain b { display: block; color: var(--aui-text); font-weight: var(--aui-fw-semibold); }
+
+/* ---------- Delivery: failed, scheduled, group read receipts ---------- */
+.aui-ticks.is-played { color: var(--aui-accent); }
+.aui-msg--failed .aui-bubble { opacity: .78; }
+.aui-msg-failed { display: flex; align-items: center; justify-content: flex-end; gap: 6px; margin: 3px 0 2px; font-size: var(--aui-fs-2xs); color: var(--aui-danger); }
+.aui-msg-failed > .aui-icon { width: 13px; height: 13px; }
+.aui-msg-failed > button { padding: 2px 6px; margin: 0; font: inherit; font-weight: var(--aui-fw-semibold); color: var(--aui-danger); background: color-mix(in srgb, var(--aui-danger) 12%, transparent); border: 0; border-radius: var(--aui-radius-xs); cursor: pointer; }
+.aui-msg-failed > button:hover { background: color-mix(in srgb, var(--aui-danger) 20%, transparent); }
+.aui-bubble--scheduled { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--aui-text) 25%, transparent); background: color-mix(in srgb, var(--_bg) 55%, transparent); }
+.aui-msg-seen { display: flex; align-items: center; justify-content: flex-end; gap: 5px; margin: 3px 0 2px; font-size: var(--aui-fs-2xs); color: var(--aui-text-subtle); }
+.aui-msg-seen > .aui-avatar-stack > .aui-avatar { --_s: 16px; font-size: 7px; box-shadow: 0 0 0 1.5px var(--aui-chat-bg); }
+.aui-msg-seen > .aui-avatar-stack > .aui-avatar + .aui-avatar { margin-left: -4px; }
+
+/* ---------- More bubble types ---------- */
+/* Location */
+.aui-bubble-location { display: block; width: 260px; max-width: 100%; color: inherit; text-decoration: none; }
+.aui-bubble-location-map { position: relative; height: 130px; border-radius: 8px; overflow: hidden; background-color: color-mix(in srgb, var(--aui-success) 14%, var(--aui-surface-2)); background-image: linear-gradient(color-mix(in srgb, var(--aui-text) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--aui-text) 7%, transparent) 1px, transparent 1px), linear-gradient(115deg, transparent 46%, color-mix(in srgb, var(--aui-warning) 45%, transparent) 46%, color-mix(in srgb, var(--aui-warning) 45%, transparent) 50%, transparent 50%); background-size: 22px 22px, 22px 22px, 100% 100%; }
+.aui-bubble-location-map > img { width: 100%; height: 100%; object-fit: cover; }
+.aui-bubble-location-map::after { content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; margin: -22px 0 0 -11px; background: var(--aui-danger); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); box-shadow: 0 2px 6px rgb(0 0 0 / .35); }
+.aui-bubble-location-map.is-live::before { content: ""; position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; background: color-mix(in srgb, var(--aui-info) 30%, transparent); animation: aui-call-ring 1.8s ease-out infinite; }
+.aui-bubble-location-title { margin-top: 6px; font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-semibold); }
+.aui-bubble-location-sub { font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
+/* Contact card */
+.aui-bubble-contact { display: flex; align-items: center; gap: 10px; min-width: 230px; padding: 4px 2px 10px; }
+.aui-bubble-contact > .aui-avatar { --_s: 42px; }
+.aui-bubble-contact-name { font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-semibold); }
+.aui-bubble-contact-sub { font-size: var(--aui-fs-xs); color: var(--aui-text-subtle); }
+.aui-bubble-actions { display: flex; margin: 0 -10px -7px; border-top: 1px solid color-mix(in srgb, var(--aui-text) 10%, transparent); }
+.aui-bubble-actions > button, .aui-bubble-actions > a { flex: 1; padding: 9px 8px; margin: 0; font: inherit; font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-medium); color: var(--aui-link); text-align: center; text-decoration: none; background: none; border: 0; cursor: pointer; }
+.aui-bubble-actions > * + * { border-left: 1px solid color-mix(in srgb, var(--aui-text) 10%, transparent); }
+.aui-bubble-actions > :hover { background: color-mix(in srgb, var(--aui-text) 5%, transparent); }
+.aui-bubble:has(> .aui-bubble-actions) { padding-bottom: 7px; overflow: hidden; }
+.aui-bubble:has(> .aui-bubble-actions) > .aui-bubble-meta { float: none; display: flex; justify-content: flex-end; margin: -4px -2px 6px; }
+/* Round video note */
+.aui-bubble--round { --_bg: transparent; padding: 0; box-shadow: none; }
+.aui-bubble-round { position: relative; width: 200px; height: 200px; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, #2a2a36, #14141a); box-shadow: var(--aui-shadow-sm); }
+.aui-bubble-round > :is(img, video) { width: 100%; height: 100%; object-fit: cover; }
+.aui-bubble--round > .aui-bubble-meta { float: none; position: absolute; right: 8px; bottom: 8px; margin: 0; padding: 2px 6px; color: #fff; background: rgb(0 0 0 / .45); border-radius: var(--aui-radius-full); }
+.aui-bubble--round > .aui-bubble-meta .aui-ticks { color: inherit; }
+.aui-bubble--round .aui-bubble-duration { left: 50%; top: auto; bottom: 10px; transform: translateX(-50%); }
+/* View once */
+.aui-bubble-once { display: inline-flex; align-items: center; gap: 8px; padding: 2px 0; font-size: var(--aui-fs-sm); font-weight: var(--aui-fw-medium); color: var(--aui-text); }
+.aui-bubble-once > .aui-icon-box { --_s: 30px; border-radius: 50%; }
+.aui-bubble-once.is-opened { color: var(--aui-text-subtle); font-weight: var(--aui-fw-regular); }
+/* Story / status reply */
+.aui-bubble-story { display: flex; gap: 10px; margin: 0 0 6px; padding: 6px; background: color-mix(in srgb, var(--aui-text) 8%, transparent); border-radius: 8px; font-size: var(--aui-fs-xs); color: var(--aui-text-muted); }
+.aui-bubble-story > :is(img, span:first-child) { display: block; width: 40px; height: 64px; flex: none; object-fit: cover; border-radius: 6px; background: linear-gradient(160deg, var(--aui-pink), var(--aui-orange)); }
+.aui-bubble-story b { display: block; color: var(--aui-text); font-weight: var(--aui-fw-semibold); }
+/* GIF label on media */
+.aui-bubble-gif { position: absolute; left: 8px; top: 8px; padding: 1px 5px; font-size: 10px; font-weight: var(--aui-fw-bold); letter-spacing: .04em; color: #fff; background: rgb(0 0 0 / .5); border-radius: 4px; }
+.aui-bubble-media > * { position: relative; }
+/* Code inside text */
+.aui-bubble-text pre { margin: 6px 0 2px; padding: 8px 10px; font-size: var(--aui-fs-xs); line-height: 1.5; white-space: pre-wrap; background: color-mix(in srgb, var(--aui-text) 9%, transparent); border-radius: 6px; }
+/* Message types the client cannot render yet (aggregators: open in the native app) */
+.aui-bubble--unsupported .aui-bubble-text { display: inline-flex; align-items: center; gap: 6px; font-style: italic; color: var(--aui-text-subtle); }
+.aui-bubble--unsupported .aui-bubble-text > .aui-icon { width: 15px; height: 15px; }
+.aui-bubble--unsupported a { font-style: normal; color: var(--aui-link); }
+/* System rows can carry a platform badge (session reconnected, number changed …) */
+.aui-msg-system > .aui-platform { --_ps: 14px; margin-right: 4px; vertical-align: -3px; border-radius: 4px; }
 
 /* ---------- Responsive: single pane on phones & narrow windows ---------- */
 @media (max-width: 900px) {

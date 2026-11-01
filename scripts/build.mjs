@@ -86,7 +86,7 @@ function verifyClasses(css) {
   for (const dir of ['examples', 'ai/recipes', 'integrations']) { try { for (const f of readdirSync(join(root, dir))) if (/\.(html|md)$/.test(f)) sources.push(dir + '/' + f); } catch {} }
   const missing = new Map();
   for (const src of sources) {
-    const text = read(src);
+    const text = read(src).replace(/<script\b[\s\S]*?<\/script>/g, ''); // class names built in JS strings are not markup
     const re = src.endsWith('.json') ? /(?<![\w-]|data-|--)aui-[a-z0-9-]*[a-z0-9]/g : /class="([^"]*)"/g;
     const names = src.endsWith('.json') ? [...text.matchAll(re)].map((m) => m[0]) : [...text.matchAll(re)].flatMap((m) => m[1].split(/\s+/)).filter((c) => c.startsWith('aui-'));
     for (const c of names) {
